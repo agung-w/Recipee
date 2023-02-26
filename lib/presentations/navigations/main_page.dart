@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ta_recipe_app/presentations/routers/tab_navigator.dart';
-import 'package:ta_recipe_app/presentations/routers/tabs.dart';
+import 'package:ta_recipe_app/presentations/navigations/tab_navigator.dart';
+import 'package:ta_recipe_app/presentations/navigations/tabs.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -31,18 +31,17 @@ class _MainPageState extends State<MainPage> {
           !await navigatorKeys[_selectedIndex]!.currentState!.maybePop(),
       child: Scaffold(
         body: Center(
-            child: Stack(children: <Widget>[
+            child: Stack(children: [
           _buildOffstageNavigator(TabItem.home),
           _buildOffstageNavigator(TabItem.explore),
           _buildOffstageNavigator(TabItem.create),
           _buildOffstageNavigator(TabItem.shoppingList),
           _buildOffstageNavigator(TabItem.profile),
         ])),
-        bottomNavigationBar: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: _BottomNavigation(
-              onSelectTab: _onItemTapped,
-            )),
+        bottomNavigationBar: _BottomNavigation(
+          onSelectTab: _onItemTapped,
+          selectedIndex: _selectedIndex.index,
+        ),
       ),
     );
   }
@@ -59,22 +58,29 @@ class _MainPageState extends State<MainPage> {
 }
 
 class _BottomNavigation extends StatelessWidget {
-  const _BottomNavigation({required this.onSelectTab});
+  const _BottomNavigation(
+      {required this.onSelectTab, required this.selectedIndex});
   final ValueChanged<TabItem> onSelectTab;
+  final int selectedIndex;
 
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-        items: [
-          _buildItem(TabItem.home),
-          _buildItem(TabItem.explore),
-          _buildItem(TabItem.create),
-          _buildItem(TabItem.shoppingList),
-          _buildItem(TabItem.profile),
-        ],
-        onTap: (index) {
-          onSelectTab(TabItem.values[index]);
-        });
+      showSelectedLabels: false,
+      showUnselectedLabels: false,
+      type: BottomNavigationBarType.fixed,
+      currentIndex: selectedIndex,
+      onTap: (index) {
+        onSelectTab(TabItem.values[index]);
+      },
+      items: [
+        _buildItem(TabItem.home),
+        _buildItem(TabItem.explore),
+        _buildItem(TabItem.create),
+        _buildItem(TabItem.shoppingList),
+        _buildItem(TabItem.profile),
+      ],
+    );
   }
 
   BottomNavigationBarItem _buildItem(TabItem tabItem) {
