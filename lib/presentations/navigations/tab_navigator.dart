@@ -1,0 +1,63 @@
+import 'package:flutter/material.dart';
+import 'package:ta_recipe_app/presentations/pages/create_page.dart';
+import 'package:ta_recipe_app/presentations/pages/explore_page.dart';
+import 'package:ta_recipe_app/presentations/pages/home_page.dart';
+import 'package:ta_recipe_app/presentations/pages/profile_page.dart';
+import 'package:ta_recipe_app/presentations/pages/shopping_list_page.dart';
+import 'package:ta_recipe_app/presentations/routers/tab_navigator_routes.dart';
+import 'package:ta_recipe_app/presentations/routers/tabs.dart';
+
+class TabNavigator extends StatelessWidget {
+  const TabNavigator(
+      {super.key, required this.navigatorKey, required this.tabItem});
+  final GlobalKey<NavigatorState>? navigatorKey;
+  final TabItem tabItem;
+
+  Map<String, WidgetBuilder> _routeBuilders(
+    BuildContext context,
+  ) {
+    return {
+      TabNavigatorRoutes.root: (context) {
+        if (tabItem.index == 0) {
+          return const HomePage();
+        } else if (tabItem.index == 1) {
+          return const ExplorePage();
+        } else if (tabItem.index == 2) {
+          return const CreatePage();
+        } else if (tabItem.index == 3) {
+          return const ShoppingListPage();
+        } else if (tabItem.index == 4) {
+          return const ProfilePage();
+        } else {
+          return const HomePage();
+        }
+      },
+    };
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final routeBuilders = _routeBuilders(context);
+    return Navigator(
+      key: navigatorKey,
+      initialRoute: TabNavigatorRoutes.root,
+      onGenerateRoute: (routeSettings) {
+        return MaterialPageRoute(
+          builder: (context) => routeBuilders[routeSettings.name]!(context),
+        );
+      },
+    );
+  }
+
+  // void _push(BuildContext context) {
+  //   var routeBuilders = _routeBuilders(context);
+
+  //   Navigator.push(
+  //     context,
+  //     MaterialPageRoute(
+  //       builder: (context) =>
+  //           routeBuilders[TabNavigatorRoutes.detail]!(context),
+  //     ),
+  //   );
+  // }
+}
