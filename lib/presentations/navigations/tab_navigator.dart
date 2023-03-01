@@ -5,7 +5,7 @@ import 'package:ta_recipe_app/presentations/pages/home_page.dart';
 import 'package:ta_recipe_app/presentations/pages/profile_page.dart';
 import 'package:ta_recipe_app/presentations/pages/shopping_list_page.dart';
 import 'package:ta_recipe_app/presentations/navigations/tab_navigator_routes.dart';
-import 'package:ta_recipe_app/presentations/navigations/tabs.dart';
+import 'package:ta_recipe_app/presentations/navigations/tab_item.dart';
 
 class TabNavigator extends StatelessWidget {
   const TabNavigator(

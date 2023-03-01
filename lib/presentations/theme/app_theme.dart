@@ -15,8 +15,8 @@ ThemeData lightTheme = ThemeData(
       primarySwatch: Colors.green,
     ),
     textTheme: const TextTheme(
-        bodyMedium: TextStyle(color: Colors.purple),
-        bodySmall: TextStyle(color: Colors.black)),
+        bodyMedium: TextStyle(fontSize: 14),
+        displayMedium: TextStyle(fontSize: 22, fontWeight: FontWeight.w700)),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         selectedItemColor: Colors.amber, unselectedItemColor: Colors.black));
 

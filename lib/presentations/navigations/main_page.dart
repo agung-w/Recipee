@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ta_recipe_app/presentations/navigations/tab_navigator.dart';
-import 'package:ta_recipe_app/presentations/navigations/tabs.dart';
+import 'package:ta_recipe_app/presentations/navigations/tab_item.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -85,8 +85,8 @@ class _BottomNavigation extends StatelessWidget {
 
   BottomNavigationBarItem _buildItem(TabItem tabItem) {
     return BottomNavigationBarItem(
-      icon: Icon(tabIcon[tabItem]),
-      label: tabName[tabItem]!,
+      icon: Icon(tabItem.tabIcon),
+      label: tabItem.tabName,
     );
   }
 }
