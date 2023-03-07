@@ -15,8 +15,6 @@ class _MainPageState extends State<MainPage> {
     TabItem.home: GlobalKey<NavigatorState>(),
     TabItem.explore: GlobalKey<NavigatorState>(),
     TabItem.create: GlobalKey<NavigatorState>(),
-    TabItem.shoppingList: GlobalKey<NavigatorState>(),
-    TabItem.profile: GlobalKey<NavigatorState>(),
   };
   void _onItemTapped(TabItem tabItem) {
     setState(() {
@@ -35,7 +33,7 @@ class _MainPageState extends State<MainPage> {
           _buildOffstageNavigator(TabItem.home),
           _buildOffstageNavigator(TabItem.explore),
           _buildOffstageNavigator(TabItem.create),
-          _buildOffstageNavigator(TabItem.shoppingList),
+          _buildOffstageNavigator(TabItem.order),
           _buildOffstageNavigator(TabItem.profile),
         ])),
         bottomNavigationBar: _BottomNavigation(
@@ -77,7 +75,7 @@ class _BottomNavigation extends StatelessWidget {
         _buildItem(TabItem.home),
         _buildItem(TabItem.explore),
         _buildItem(TabItem.create),
-        _buildItem(TabItem.shoppingList),
+        _buildItem(TabItem.order),
         _buildItem(TabItem.profile),
       ],
     );

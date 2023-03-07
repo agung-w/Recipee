@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -6,8 +7,15 @@ import 'package:ta_recipe_app/presentations/navigations/main_page.dart';
 import 'package:ta_recipe_app/presentations/theme/app_theme.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
   await dotenv.load(fileName: ".env");
-  runApp(const RecipeApp());
+  runApp(EasyLocalization(
+    path: 'assets/translations',
+    startLocale: const Locale('id'),
+    supportedLocales: const [Locale('id'), Locale('en', 'US')],
+    child: const RecipeApp(),
+  ));
 }
 
 class RecipeApp extends StatelessWidget {
@@ -26,8 +34,12 @@ class RecipeApp extends StatelessWidget {
         //         WalletBloc()..add(const WalletEvent.getBalance())),
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         theme: lightTheme,
         darkTheme: darkTheme,
+        localizationsDelegates: context.localizationDelegates,
+        supportedLocales: context.supportedLocales,
+        locale: context.locale,
         home: const SafeArea(child: MainPage()),
       ),
     );
