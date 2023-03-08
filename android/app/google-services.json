@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "613117457356",
+    "project_id": "ta-recipe-app",
+    "storage_bucket": "ta-recipe-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:613117457356:android:4d79f98c0813e819fe2369",
+        "android_client_info": {
+          "package_name": "com.example.ta_recipe_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "613117457356-qs1evinjpdpldmpdl5atnnsk7g0hl6d5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwPGPRf5CPFzmAZ6bWDyaVxyQ4zNW1DhI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "613117457356-qs1evinjpdpldmpdl5atnnsk7g0hl6d5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "613117457356-3dlem350ig5h0reqj292eshh74elhrge.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.taRecipeApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

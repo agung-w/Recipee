@@ -1,9 +1,22 @@
-import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/material.dart';
+import 'dart:io';
 
-class CreateRecipePage extends StatelessWidget {
+import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:ta_recipe_app/presentations/widgets/large_text_input.dart';
+import 'package:ta_recipe_app/services/picture_services.dart';
+
+class CreateRecipePage extends StatefulWidget {
   const CreateRecipePage({super.key});
 
+  @override
+  State<CreateRecipePage> createState() => _CreateRecipePageState();
+}
+
+class _CreateRecipePageState extends State<CreateRecipePage> {
+  String? str;
+  UploadTask? uploadTask;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,6 +44,27 @@ class CreateRecipePage extends StatelessWidget {
           )
         ],
       ),
+      body: Column(children: [
+        InkWell(
+          child: Container(
+            height: 150,
+            width: MediaQuery.of(context).size.width,
+            color: Colors.amber,
+            child: str != null ? Image.network(str!) : null,
+          ),
+          onTap: () async {
+            str = await PictureServices().uploadPosterPicture(await getImage());
+            setState(() {});
+          },
+        ),
+        LargeTextInput(
+          hint: "title_place_holder".tr(),
+        )
+      ]),
     );
   }
+}
+
+Future<XFile?> getImage() async {
+  return ImagePicker().pickImage(source: ImageSource.gallery);
 }
