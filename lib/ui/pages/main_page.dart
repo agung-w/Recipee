@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ta_recipe_app/presentations/navigations/tab_navigator.dart';
-import 'package:ta_recipe_app/presentations/navigations/tab_item.dart';
+import 'package:ta_recipe_app/routes/tab_item.dart';
+import 'package:ta_recipe_app/routes/tab_navigator.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});

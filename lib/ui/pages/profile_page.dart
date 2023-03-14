@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ta_recipe_app/bloc/user_authentication_bloc.dart';
-import 'package:ta_recipe_app/presentations/pages/login_page.dart';
-import 'package:ta_recipe_app/presentations/widgets/skeleton.dart';
+import 'package:ta_recipe_app/ui/pages/login_page.dart';
+import 'package:ta_recipe_app/ui/widgets/skeleton.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});

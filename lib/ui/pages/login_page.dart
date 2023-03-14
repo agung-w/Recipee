@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ta_recipe_app/bloc/user_authentication_bloc.dart';
-import 'package:ta_recipe_app/presentations/widgets/email_input.dart';
-import 'package:ta_recipe_app/presentations/widgets/loading_indicator.dart';
-import 'package:ta_recipe_app/presentations/widgets/password_input.dart';
+import 'package:ta_recipe_app/ui/widgets/email_input.dart';
+import 'package:ta_recipe_app/ui/widgets/loading_indicator.dart';
+import 'package:ta_recipe_app/ui/widgets/password_input.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});

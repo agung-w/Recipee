@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:ta_recipe_app/presentations/pages/create_recipe_page.dart';
+import 'package:ta_recipe_app/ui/pages/create_recipe_page.dart';
 
 class CreatePage extends StatelessWidget {
   const CreatePage({super.key});

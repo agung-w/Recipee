@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ta_recipe_app/presentations/pages/profile_detail_page.dart';
-import 'package:ta_recipe_app/presentations/pages/profile_page.dart';
+import 'package:ta_recipe_app/ui/pages/profile_detail_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
