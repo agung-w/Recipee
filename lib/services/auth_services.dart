@@ -6,8 +6,9 @@ import 'package:ta_recipe_app/helpers/api_result.dart';
 
 class AuthServices {
   late final Dio _dio;
+  late final Options? options;
 
-  AuthServices({Dio? dio}) {
+  AuthServices({Dio? dio, this.options}) {
     _dio = dio ?? Dio(BaseOptions(connectTimeout: const Duration(seconds: 5)));
   }
 
@@ -17,13 +18,16 @@ class AuthServices {
       "user": {"email": email, "password": password}
     };
     try {
-      Response result = await _dio.post("${dotenv.env['API_URL']}/my-profile",
-          options: Options(headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer token",
-          }),
+      Response result = await _dio.post("${dotenv.env['API_URL']}/login/email",
+          options: options ??
+              Options(headers: {
+                "Content-Type": "application/json",
+              }),
           data: jsonEncode(data));
-
+      if (result.statusCode != 200) {
+        throw (DioError(
+            response: result, requestOptions: result.requestOptions));
+      }
       return ApiResult.success(result.data['data']['token']);
     } on DioError catch (e) {
       return ApiResult.failed(e.response != null
@@ -42,16 +46,24 @@ class AuthServices {
     try {
       Response result = await _dio.post(
         "${dotenv.env['API_URL']}/register/email",
-        options: Options(headers: {
-          "Content-Type": "application/json",
-        }),
+        options: options ??
+            Options(headers: {
+              "Content-Type": "application/json",
+            }),
         data: jsonEncode(data),
       );
+      if (result.statusCode != 200) {
+        throw (DioError(
+            response: result, requestOptions: result.requestOptions));
+      }
       return ApiResult.success(result.data['data']['token']);
     } on DioError catch (e) {
-      return ApiResult.failed(e.response != null
-          ? e.response!.data['message'].toString()
-          : "Connection timeout");
+      String errorMessage = "Connection timeout";
+      if (e.response != null) {
+        var error = e.response!.data['message'] as Map;
+        errorMessage = "${error.keys.first} ${error.values.first[0]}";
+      }
+      return ApiResult.failed(errorMessage);
     }
   }
 }
