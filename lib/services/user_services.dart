@@ -6,7 +6,10 @@ import 'package:ta_recipe_app/entities/user.dart';
 import 'package:ta_recipe_app/helpers/api_result.dart';
 
 class UserServices {
-  final Dio _dio = Dio(BaseOptions(connectTimeout: const Duration(seconds: 5)));
+  late final Dio _dio;
+  UserServices({Dio? dio}) {
+    _dio = dio ?? Dio(BaseOptions(connectTimeout: const Duration(seconds: 5)));
+  }
 
   Future<ApiResult<User>> getSignedInInfo({required String token}) async {
     try {

@@ -5,7 +5,11 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:ta_recipe_app/helpers/api_result.dart';
 
 class AuthServices {
-  final Dio _dio = Dio(BaseOptions(connectTimeout: const Duration(seconds: 5)));
+  late final Dio _dio;
+
+  AuthServices({Dio? dio}) {
+    _dio = dio ?? Dio(BaseOptions(connectTimeout: const Duration(seconds: 5)));
+  }
 
   Future<ApiResult<String>> loginByEmail(
       {required String email, required String password}) async {
@@ -13,9 +17,10 @@ class AuthServices {
       "user": {"email": email, "password": password}
     };
     try {
-      Response result = await _dio.post("${dotenv.env['API_URL']}/login/email",
+      Response result = await _dio.post("${dotenv.env['API_URL']}/my-profile",
           options: Options(headers: {
             "Content-Type": "application/json",
+            "Authorization": "Bearer token",
           }),
           data: jsonEncode(data));
 
