@@ -11,7 +11,7 @@ class CookingStep {
   const CookingStep({
     required this.step,
     required this.description,
-    required this.picUrl,
+    this.picUrl,
   });
 
   factory CookingStep.fromJson(Map<String, dynamic> json) =>

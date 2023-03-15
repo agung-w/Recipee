@@ -6,14 +6,14 @@ part 'recipe.g.dart';
 
 @JsonSerializable()
 class Recipe {
-  final String id;
+  final int? id;
   final String title;
   @JsonKey(name: "poster_pic_url")
-  final String posterPicUrl;
+  final String? posterPicUrl;
   final String description;
   @JsonKey(name: "prep_time")
-  final String prepTime;
-  final String serving;
+  final int? prepTime;
+  final int? serving;
   final User user;
   @JsonKey(includeFromJson: true, includeToJson: false)
   final List<Tag>? tags;
@@ -23,12 +23,12 @@ class Recipe {
       includeToJson: true)
   final List<Tag>? recipeTagsAttributes;
   const Recipe({
-    required this.id,
+    this.id,
     required this.title,
-    required this.posterPicUrl,
+    this.posterPicUrl,
     required this.description,
-    required this.prepTime,
-    required this.serving,
+    this.prepTime,
+    this.serving,
     required this.user,
     this.tags,
     this.recipeTagsAttributes,

@@ -11,7 +11,7 @@ class User {
   const User({
     required this.name,
     required this.username,
-    required this.photoUrl,
+    this.photoUrl,
   });
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);

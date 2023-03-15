@@ -7,8 +7,8 @@ part of 'tag.dart';
 // **************************************************************************
 
 Tag _$TagFromJson(Map<String, dynamic> json) => Tag(
-      id: json['id'] as String,
-      name: json['name'] as String,
+      id: json['id'] as int,
+      name: json['name'] as String?,
     );
 
 Map<String, dynamic> _$TagToJson(Tag instance) => <String, dynamic>{

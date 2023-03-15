@@ -10,9 +10,9 @@ class RecipeIngredient {
   final Ingredient ingredient;
   final Metric? metric;
   const RecipeIngredient({
-    required this.quantity,
+    this.quantity,
     required this.ingredient,
-    required this.metric,
+    this.metric,
   });
 
   factory RecipeIngredient.fromJson(Map<String, dynamic> json) =>

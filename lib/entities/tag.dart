@@ -4,11 +4,11 @@ part 'tag.g.dart';
 
 @JsonSerializable()
 class Tag {
-  final String id;
-  final String name;
+  final int id;
+  final String? name;
   const Tag({
     required this.id,
-    required this.name,
+    this.name,
   });
 
   factory Tag.fromJson(Map<String, dynamic> json) => _$TagFromJson(json);

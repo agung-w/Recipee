@@ -4,14 +4,14 @@ part 'ingredient.g.dart';
 
 @JsonSerializable()
 class Ingredient {
-  final String id;
+  final int? id;
   final String name;
   @JsonKey(name: 'pic_url')
   final String? picUrl;
   const Ingredient({
-    required this.id,
+    this.id,
     required this.name,
-    required this.picUrl,
+    this.picUrl,
   });
 
   factory Ingredient.fromJson(Map<String, dynamic> json) =>

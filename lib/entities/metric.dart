@@ -4,7 +4,7 @@ part 'metric.g.dart';
 
 @JsonSerializable()
 class Metric {
-  final String id;
+  final int id;
   final String name;
   final String abbrev;
   const Metric({

@@ -7,12 +7,12 @@ part of 'recipe.dart';
 // **************************************************************************
 
 Recipe _$RecipeFromJson(Map<String, dynamic> json) => Recipe(
-      id: json['id'] as String,
+      id: json['id'] as int?,
       title: json['title'] as String,
-      posterPicUrl: json['poster_pic_url'] as String,
+      posterPicUrl: json['poster_pic_url'] as String?,
       description: json['description'] as String,
-      prepTime: json['prep_time'] as String,
-      serving: json['serving'] as String,
+      prepTime: json['prep_time'] as int?,
+      serving: json['serving'] as int?,
       user: User.fromJson(json['user'] as Map<String, dynamic>),
       tags: (json['tags'] as List<dynamic>?)
           ?.map((e) => Tag.fromJson(e as Map<String, dynamic>))
