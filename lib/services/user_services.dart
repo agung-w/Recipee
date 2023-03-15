@@ -32,4 +32,28 @@ class UserServices {
           : "Connection timeout");
     }
   }
+
+  Future<ApiResult<User>> getUserDetail(
+      {required String token, required String username}) async {
+    try {
+      Response result = await _dio.get(
+        "${dotenv.env['API_URL']}/profile/$username",
+        options: options ??
+            Options(headers: {
+              "Content-Type": "application/json",
+              "Authorization": "Bearer $token",
+            }),
+      );
+      if (result.statusCode != 200) {
+        throw (DioError(
+            response: result, requestOptions: result.requestOptions));
+      }
+      User user = User.fromJson(result.data['data']['user']);
+      return ApiResult.success(user);
+    } on DioError catch (e) {
+      return ApiResult.failed(e.response != null
+          ? e.response!.data['message'].toString()
+          : "Connection timeout");
+    }
+  }
 }
