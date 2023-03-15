@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:ta_recipe_app/entities/user.dart';
+import 'package:ta_recipe_app/entities/user_detail.dart';
 import 'package:ta_recipe_app/helpers/api_result.dart';
 import 'package:ta_recipe_app/services/auth_services.dart';
 import 'package:ta_recipe_app/services/user_services.dart';
@@ -30,7 +30,7 @@ class UserAuthenticationBloc
             emit(const _SignedOut());
           },
         );
-        ApiResult<User> user = await UserServices().getSignedInInfo(
+        ApiResult<UserDetail> user = await UserServices().getSignedInInfo(
             token: token.map(
                 success: (result) => result.value, failed: (_) => ''));
         user.map(success: (value) {
@@ -58,7 +58,7 @@ class UserAuthenticationBloc
       SharedPreferences pref = await SharedPreferences.getInstance();
       String? token = pref.getString('token');
       if (token != null) {
-        ApiResult<User> user =
+        ApiResult<UserDetail> user =
             await UserServices().getSignedInInfo(token: token);
         user.map(
             success: (result) => emit(_SignedIn(result.value)),
