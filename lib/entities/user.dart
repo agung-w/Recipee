@@ -5,34 +5,12 @@ part 'user.g.dart';
 
 @freezed
 class User with _$User {
-  const factory User({
-    required String name,
-    required String username,
-    required String? photoUrl,
-  }) = _User;
+  const factory User(
+      {required String name,
+      required String username,
+      @JsonKey(name: "profile_pic_url") required String? photoUrl,
+      @JsonKey(name: "followers_count") required int followerCount,
+      @JsonKey(name: "following_count") required int followingCount}) = _User;
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
-}
-
-@freezed
-class AuthenticatedUser with _$AuthenticatedUser {
-  const factory AuthenticatedUser({
-    required User user,
-    required String token,
-  }) = _AuthenticatedUser;
-
-  factory AuthenticatedUser.fromJson(Map<String, dynamic> json) =>
-      _$AuthenticatedUserFromJson(json);
-}
-
-@freezed
-class UserDetail with _$UserDetail {
-  const factory UserDetail({
-    required User user,
-    required List<User> followerList,
-    required List<User> followingList,
-  }) = _UserDetail;
-
-  factory UserDetail.fromJson(Map<String, dynamic> json) =>
-      _$UserDetailFromJson(json);
 }

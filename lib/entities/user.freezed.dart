@@ -22,7 +22,12 @@ User _$UserFromJson(Map<String, dynamic> json) {
 mixin _$User {
   String get name => throw _privateConstructorUsedError;
   String get username => throw _privateConstructorUsedError;
+  @JsonKey(name: "profile_pic_url")
   String? get photoUrl => throw _privateConstructorUsedError;
+  @JsonKey(name: "followers_count")
+  int get followerCount => throw _privateConstructorUsedError;
+  @JsonKey(name: "following_count")
+  int get followingCount => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,7 +39,12 @@ abstract class $UserCopyWith<$Res> {
   factory $UserCopyWith(User value, $Res Function(User) then) =
       _$UserCopyWithImpl<$Res, User>;
   @useResult
-  $Res call({String name, String username, String? photoUrl});
+  $Res call(
+      {String name,
+      String username,
+      @JsonKey(name: "profile_pic_url") String? photoUrl,
+      @JsonKey(name: "followers_count") int followerCount,
+      @JsonKey(name: "following_count") int followingCount});
 }
 
 /// @nodoc
@@ -53,6 +63,8 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? name = null,
     Object? username = null,
     Object? photoUrl = freezed,
+    Object? followerCount = null,
+    Object? followingCount = null,
   }) {
     return _then(_value.copyWith(
       name: null == name
@@ -67,6 +79,14 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.photoUrl
           : photoUrl // ignore: cast_nullable_to_non_nullable
               as String?,
+      followerCount: null == followerCount
+          ? _value.followerCount
+          : followerCount // ignore: cast_nullable_to_non_nullable
+              as int,
+      followingCount: null == followingCount
+          ? _value.followingCount
+          : followingCount // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -77,7 +97,12 @@ abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       __$$_UserCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, String username, String? photoUrl});
+  $Res call(
+      {String name,
+      String username,
+      @JsonKey(name: "profile_pic_url") String? photoUrl,
+      @JsonKey(name: "followers_count") int followerCount,
+      @JsonKey(name: "following_count") int followingCount});
 }
 
 /// @nodoc
@@ -92,6 +117,8 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
     Object? name = null,
     Object? username = null,
     Object? photoUrl = freezed,
+    Object? followerCount = null,
+    Object? followingCount = null,
   }) {
     return _then(_$_User(
       name: null == name
@@ -106,6 +133,14 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
           ? _value.photoUrl
           : photoUrl // ignore: cast_nullable_to_non_nullable
               as String?,
+      followerCount: null == followerCount
+          ? _value.followerCount
+          : followerCount // ignore: cast_nullable_to_non_nullable
+              as int,
+      followingCount: null == followingCount
+          ? _value.followingCount
+          : followingCount // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -114,7 +149,11 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
 @JsonSerializable()
 class _$_User implements _User {
   const _$_User(
-      {required this.name, required this.username, required this.photoUrl});
+      {required this.name,
+      required this.username,
+      @JsonKey(name: "profile_pic_url") required this.photoUrl,
+      @JsonKey(name: "followers_count") required this.followerCount,
+      @JsonKey(name: "following_count") required this.followingCount});
 
   factory _$_User.fromJson(Map<String, dynamic> json) => _$$_UserFromJson(json);
 
@@ -123,11 +162,18 @@ class _$_User implements _User {
   @override
   final String username;
   @override
+  @JsonKey(name: "profile_pic_url")
   final String? photoUrl;
+  @override
+  @JsonKey(name: "followers_count")
+  final int followerCount;
+  @override
+  @JsonKey(name: "following_count")
+  final int followingCount;
 
   @override
   String toString() {
-    return 'User(name: $name, username: $username, photoUrl: $photoUrl)';
+    return 'User(name: $name, username: $username, photoUrl: $photoUrl, followerCount: $followerCount, followingCount: $followingCount)';
   }
 
   @override
@@ -139,12 +185,17 @@ class _$_User implements _User {
             (identical(other.username, username) ||
                 other.username == username) &&
             (identical(other.photoUrl, photoUrl) ||
-                other.photoUrl == photoUrl));
+                other.photoUrl == photoUrl) &&
+            (identical(other.followerCount, followerCount) ||
+                other.followerCount == followerCount) &&
+            (identical(other.followingCount, followingCount) ||
+                other.followingCount == followingCount));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, name, username, photoUrl);
+  int get hashCode => Object.hash(
+      runtimeType, name, username, photoUrl, followerCount, followingCount);
 
   @JsonKey(ignore: true)
   @override
@@ -164,7 +215,12 @@ abstract class _User implements User {
   const factory _User(
       {required final String name,
       required final String username,
-      required final String? photoUrl}) = _$_User;
+      @JsonKey(name: "profile_pic_url")
+          required final String? photoUrl,
+      @JsonKey(name: "followers_count")
+          required final int followerCount,
+      @JsonKey(name: "following_count")
+          required final int followingCount}) = _$_User;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
 
@@ -173,382 +229,15 @@ abstract class _User implements User {
   @override
   String get username;
   @override
+  @JsonKey(name: "profile_pic_url")
   String? get photoUrl;
+  @override
+  @JsonKey(name: "followers_count")
+  int get followerCount;
+  @override
+  @JsonKey(name: "following_count")
+  int get followingCount;
   @override
   @JsonKey(ignore: true)
   _$$_UserCopyWith<_$_User> get copyWith => throw _privateConstructorUsedError;
-}
-
-AuthenticatedUser _$AuthenticatedUserFromJson(Map<String, dynamic> json) {
-  return _AuthenticatedUser.fromJson(json);
-}
-
-/// @nodoc
-mixin _$AuthenticatedUser {
-  User get user => throw _privateConstructorUsedError;
-  String get token => throw _privateConstructorUsedError;
-
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $AuthenticatedUserCopyWith<AuthenticatedUser> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $AuthenticatedUserCopyWith<$Res> {
-  factory $AuthenticatedUserCopyWith(
-          AuthenticatedUser value, $Res Function(AuthenticatedUser) then) =
-      _$AuthenticatedUserCopyWithImpl<$Res, AuthenticatedUser>;
-  @useResult
-  $Res call({User user, String token});
-
-  $UserCopyWith<$Res> get user;
-}
-
-/// @nodoc
-class _$AuthenticatedUserCopyWithImpl<$Res, $Val extends AuthenticatedUser>
-    implements $AuthenticatedUserCopyWith<$Res> {
-  _$AuthenticatedUserCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? user = null,
-    Object? token = null,
-  }) {
-    return _then(_value.copyWith(
-      user: null == user
-          ? _value.user
-          : user // ignore: cast_nullable_to_non_nullable
-              as User,
-      token: null == token
-          ? _value.token
-          : token // ignore: cast_nullable_to_non_nullable
-              as String,
-    ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $UserCopyWith<$Res> get user {
-    return $UserCopyWith<$Res>(_value.user, (value) {
-      return _then(_value.copyWith(user: value) as $Val);
-    });
-  }
-}
-
-/// @nodoc
-abstract class _$$_AuthenticatedUserCopyWith<$Res>
-    implements $AuthenticatedUserCopyWith<$Res> {
-  factory _$$_AuthenticatedUserCopyWith(_$_AuthenticatedUser value,
-          $Res Function(_$_AuthenticatedUser) then) =
-      __$$_AuthenticatedUserCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({User user, String token});
-
-  @override
-  $UserCopyWith<$Res> get user;
-}
-
-/// @nodoc
-class __$$_AuthenticatedUserCopyWithImpl<$Res>
-    extends _$AuthenticatedUserCopyWithImpl<$Res, _$_AuthenticatedUser>
-    implements _$$_AuthenticatedUserCopyWith<$Res> {
-  __$$_AuthenticatedUserCopyWithImpl(
-      _$_AuthenticatedUser _value, $Res Function(_$_AuthenticatedUser) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? user = null,
-    Object? token = null,
-  }) {
-    return _then(_$_AuthenticatedUser(
-      user: null == user
-          ? _value.user
-          : user // ignore: cast_nullable_to_non_nullable
-              as User,
-      token: null == token
-          ? _value.token
-          : token // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$_AuthenticatedUser implements _AuthenticatedUser {
-  const _$_AuthenticatedUser({required this.user, required this.token});
-
-  factory _$_AuthenticatedUser.fromJson(Map<String, dynamic> json) =>
-      _$$_AuthenticatedUserFromJson(json);
-
-  @override
-  final User user;
-  @override
-  final String token;
-
-  @override
-  String toString() {
-    return 'AuthenticatedUser(user: $user, token: $token)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_AuthenticatedUser &&
-            (identical(other.user, user) || other.user == user) &&
-            (identical(other.token, token) || other.token == token));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, user, token);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_AuthenticatedUserCopyWith<_$_AuthenticatedUser> get copyWith =>
-      __$$_AuthenticatedUserCopyWithImpl<_$_AuthenticatedUser>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$_AuthenticatedUserToJson(
-      this,
-    );
-  }
-}
-
-abstract class _AuthenticatedUser implements AuthenticatedUser {
-  const factory _AuthenticatedUser(
-      {required final User user,
-      required final String token}) = _$_AuthenticatedUser;
-
-  factory _AuthenticatedUser.fromJson(Map<String, dynamic> json) =
-      _$_AuthenticatedUser.fromJson;
-
-  @override
-  User get user;
-  @override
-  String get token;
-  @override
-  @JsonKey(ignore: true)
-  _$$_AuthenticatedUserCopyWith<_$_AuthenticatedUser> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-UserDetail _$UserDetailFromJson(Map<String, dynamic> json) {
-  return _UserDetail.fromJson(json);
-}
-
-/// @nodoc
-mixin _$UserDetail {
-  User get user => throw _privateConstructorUsedError;
-  List<User> get followerList => throw _privateConstructorUsedError;
-  List<User> get followingList => throw _privateConstructorUsedError;
-
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $UserDetailCopyWith<UserDetail> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $UserDetailCopyWith<$Res> {
-  factory $UserDetailCopyWith(
-          UserDetail value, $Res Function(UserDetail) then) =
-      _$UserDetailCopyWithImpl<$Res, UserDetail>;
-  @useResult
-  $Res call({User user, List<User> followerList, List<User> followingList});
-
-  $UserCopyWith<$Res> get user;
-}
-
-/// @nodoc
-class _$UserDetailCopyWithImpl<$Res, $Val extends UserDetail>
-    implements $UserDetailCopyWith<$Res> {
-  _$UserDetailCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? user = null,
-    Object? followerList = null,
-    Object? followingList = null,
-  }) {
-    return _then(_value.copyWith(
-      user: null == user
-          ? _value.user
-          : user // ignore: cast_nullable_to_non_nullable
-              as User,
-      followerList: null == followerList
-          ? _value.followerList
-          : followerList // ignore: cast_nullable_to_non_nullable
-              as List<User>,
-      followingList: null == followingList
-          ? _value.followingList
-          : followingList // ignore: cast_nullable_to_non_nullable
-              as List<User>,
-    ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $UserCopyWith<$Res> get user {
-    return $UserCopyWith<$Res>(_value.user, (value) {
-      return _then(_value.copyWith(user: value) as $Val);
-    });
-  }
-}
-
-/// @nodoc
-abstract class _$$_UserDetailCopyWith<$Res>
-    implements $UserDetailCopyWith<$Res> {
-  factory _$$_UserDetailCopyWith(
-          _$_UserDetail value, $Res Function(_$_UserDetail) then) =
-      __$$_UserDetailCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({User user, List<User> followerList, List<User> followingList});
-
-  @override
-  $UserCopyWith<$Res> get user;
-}
-
-/// @nodoc
-class __$$_UserDetailCopyWithImpl<$Res>
-    extends _$UserDetailCopyWithImpl<$Res, _$_UserDetail>
-    implements _$$_UserDetailCopyWith<$Res> {
-  __$$_UserDetailCopyWithImpl(
-      _$_UserDetail _value, $Res Function(_$_UserDetail) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? user = null,
-    Object? followerList = null,
-    Object? followingList = null,
-  }) {
-    return _then(_$_UserDetail(
-      user: null == user
-          ? _value.user
-          : user // ignore: cast_nullable_to_non_nullable
-              as User,
-      followerList: null == followerList
-          ? _value._followerList
-          : followerList // ignore: cast_nullable_to_non_nullable
-              as List<User>,
-      followingList: null == followingList
-          ? _value._followingList
-          : followingList // ignore: cast_nullable_to_non_nullable
-              as List<User>,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$_UserDetail implements _UserDetail {
-  const _$_UserDetail(
-      {required this.user,
-      required final List<User> followerList,
-      required final List<User> followingList})
-      : _followerList = followerList,
-        _followingList = followingList;
-
-  factory _$_UserDetail.fromJson(Map<String, dynamic> json) =>
-      _$$_UserDetailFromJson(json);
-
-  @override
-  final User user;
-  final List<User> _followerList;
-  @override
-  List<User> get followerList {
-    if (_followerList is EqualUnmodifiableListView) return _followerList;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_followerList);
-  }
-
-  final List<User> _followingList;
-  @override
-  List<User> get followingList {
-    if (_followingList is EqualUnmodifiableListView) return _followingList;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_followingList);
-  }
-
-  @override
-  String toString() {
-    return 'UserDetail(user: $user, followerList: $followerList, followingList: $followingList)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_UserDetail &&
-            (identical(other.user, user) || other.user == user) &&
-            const DeepCollectionEquality()
-                .equals(other._followerList, _followerList) &&
-            const DeepCollectionEquality()
-                .equals(other._followingList, _followingList));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      user,
-      const DeepCollectionEquality().hash(_followerList),
-      const DeepCollectionEquality().hash(_followingList));
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_UserDetailCopyWith<_$_UserDetail> get copyWith =>
-      __$$_UserDetailCopyWithImpl<_$_UserDetail>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$_UserDetailToJson(
-      this,
-    );
-  }
-}
-
-abstract class _UserDetail implements UserDetail {
-  const factory _UserDetail(
-      {required final User user,
-      required final List<User> followerList,
-      required final List<User> followingList}) = _$_UserDetail;
-
-  factory _UserDetail.fromJson(Map<String, dynamic> json) =
-      _$_UserDetail.fromJson;
-
-  @override
-  User get user;
-  @override
-  List<User> get followerList;
-  @override
-  List<User> get followingList;
-  @override
-  @JsonKey(ignore: true)
-  _$$_UserDetailCopyWith<_$_UserDetail> get copyWith =>
-      throw _privateConstructorUsedError;
 }

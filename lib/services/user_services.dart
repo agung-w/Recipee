@@ -33,15 +33,13 @@ class UserServices {
     }
   }
 
-  Future<ApiResult<User>> getUserDetail(
-      {required String token, required String username}) async {
+  Future<ApiResult<User>> getUserByUsername({required String username}) async {
     try {
       Response result = await _dio.get(
         "${dotenv.env['API_URL']}/profile/$username",
         options: options ??
             Options(headers: {
               "Content-Type": "application/json",
-              "Authorization": "Bearer $token",
             }),
       );
       if (result.statusCode != 200) {

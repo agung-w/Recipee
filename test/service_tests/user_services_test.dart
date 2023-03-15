@@ -11,8 +11,8 @@ import 'user_services_test.mocks.dart';
 
 @GenerateMocks([Dio])
 void main() {
-  group("Get current user", () {
-    test("Get current user auth token provided (Success)", () async {
+  group("Get user signed in info", () {
+    test("auth token provided (Success)", () async {
       Dio dio = MockDio();
       var options = Options(headers: {
         "Content-Type": "application/json",
@@ -26,7 +26,14 @@ void main() {
               "status": 200,
               "message": "Sucess",
               "data": {
-                "user": {"name": "tes"}
+                "user": {
+                  "name": "Agung",
+                  "username": "user_00000001",
+                  "email": "agung@gmail.com",
+                  "profile_pic_url": null,
+                  "followers_count": 0,
+                  "following_count": 1
+                }
               }
             },
             statusCode: 200,
@@ -36,10 +43,14 @@ void main() {
       });
       ApiResult<User> result = await UserServices(dio: dio, options: options)
           .getSignedInInfo(token: "token");
-      expect(result, equals(ApiResult.success));
+      expect(
+          result.mapOrNull(
+            success: (value) => value.value.name,
+          ),
+          equals("Agung"));
     });
 
-    test("Get current user auth token not provided (Failed)", () async {
+    test("auth token not provided (Failed)", () async {
       Dio dio = MockDio();
       var options = Options(headers: {
         "Content-Type": "application/json",
@@ -48,7 +59,7 @@ void main() {
       when(dio.get("${dotenv.env['API_URL']}/my-profile", options: options))
           .thenAnswer((_) {
         return Future.value(Response(
-            data: {"status": 401, "message": "unauthorized"},
+            data: {"status": 401, "message": "Nil JSON web token"},
             statusCode: 401,
             requestOptions: RequestOptions(
               path: "${dotenv.env['API_URL']}/my-profile",
@@ -56,7 +67,70 @@ void main() {
       });
       ApiResult<User> result = await UserServices(dio: dio, options: options)
           .getSignedInInfo(token: "");
-      expect(result, equals(const ApiResult<User>.failed("unauthorized")));
+      expect(
+          result, equals(const ApiResult<User>.failed("Nil JSON web token")));
+    });
+  });
+
+  group("Get User by username", () {
+    test("user found", () async {
+      Dio dio = MockDio();
+      var options = Options(headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer token",
+      });
+      await dotenv.load(fileName: ".env");
+      when(dio.get("${dotenv.env['API_URL']}/profile/user_00000001",
+              options: options))
+          .thenAnswer((_) {
+        return Future.value(Response(
+            data: {
+              "status": 200,
+              "message": "Sucess",
+              "data": {
+                "user": {
+                  "name": "Agung",
+                  "username": "user_00000001",
+                  "email": "agung@gmail.com",
+                  "profile_pic_url": null,
+                  "followers_count": 0,
+                  "following_count": 1
+                }
+              }
+            },
+            statusCode: 200,
+            requestOptions: RequestOptions(
+              path: "${dotenv.env['API_URL']}/profile/user_00000001",
+            )));
+      });
+      ApiResult<User> result = await UserServices(dio: dio, options: options)
+          .getUserByUsername(username: "user_00000001");
+      expect(
+          result.mapOrNull(
+            success: (value) => value.value.name,
+          ),
+          equals("Agung"));
+    });
+
+    test("user not found", () async {
+      Dio dio = MockDio();
+      var options = Options(headers: {
+        "Content-Type": "application/json",
+      });
+      await dotenv.load(fileName: ".env");
+      when(dio.get("${dotenv.env['API_URL']}/profile/user_notfound",
+              options: options))
+          .thenAnswer((_) {
+        return Future.value(Response(
+            data: {"status": 404, "message": "User not found"},
+            statusCode: 401,
+            requestOptions: RequestOptions(
+              path: "${dotenv.env['API_URL']}/profile/user_notfound",
+            )));
+      });
+      ApiResult<User> result = await UserServices(dio: dio, options: options)
+          .getUserByUsername(username: "user_notfound");
+      expect(result, equals(const ApiResult<User>.failed("User not found")));
     });
   });
 }
