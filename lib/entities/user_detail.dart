@@ -18,5 +18,6 @@ class UserDetail extends User {
   factory UserDetail.fromJson(Map<String, dynamic> json) =>
       _$UserDetailFromJson(json);
 
+  @override
   Map<String, dynamic> toJson() => _$UserDetailToJson(this);
 }
