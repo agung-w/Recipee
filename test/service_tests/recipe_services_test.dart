@@ -220,4 +220,38 @@ void main() async {
               const ApiResult<RecipeDetail>.failed("ingredient must exist")));
     });
   });
+
+  group("Get recipe by id", () {
+    test("recipe existed SUCCESS", () => null);
+    test("recipe existed but no token provided FAILED", () => null);
+    test("recipe not existed FAILED", () => null);
+  });
+  group("Search recipe by title", () {
+    test("query found SUCCESS", () => null);
+    test("query not found FAILED", () => null);
+  });
+  group("Search recipe by ingredient", () {
+    test("query found SUCCESS", () => null);
+    test("query not found FAILED", () => null);
+  });
+  group("Get recipe comment", () {
+    test("recipe existed SUCCESS", () => null);
+    test("recipe existed but no comment SUCCESS", () => null);
+    test("recipe not existed FAILED", () => null);
+  });
+  group("Post recipe comment", () {
+    test("valid comment attributes SUCCESS", () => null);
+    test("invalid comment attributes FAILED", () => null);
+    test("no auth token provided FAILED", () => null);
+  });
+  group("Save recipe", () {
+    test("SUCCESS", () => null);
+    test("user already saved this recipe FAILED", () => null);
+    test("no auth token provided FAILED", () => null);
+  });
+  group("Delete saved recipe", () {
+    test("SUCCESS", () => null);
+    test("user haven't save this recipe yet FAILED", () => null);
+    test("no auth token provided FAILED", () => null);
+  });
 }
