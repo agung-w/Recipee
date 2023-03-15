@@ -7,7 +7,7 @@ class CookingStep {
   final int step;
   final String description;
   @JsonKey(name: "pic_url")
-  final String picUrl;
+  final String? picUrl;
   const CookingStep({
     required this.step,
     required this.description,

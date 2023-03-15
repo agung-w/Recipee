@@ -9,7 +9,7 @@ part of 'cooking_step.dart';
 CookingStep _$CookingStepFromJson(Map<String, dynamic> json) => CookingStep(
       step: json['step'] as int,
       description: json['description'] as String,
-      picUrl: json['pic_url'] as String,
+      picUrl: json['pic_url'] as String?,
     );
 
 Map<String, dynamic> _$CookingStepToJson(CookingStep instance) =>
