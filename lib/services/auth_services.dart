@@ -30,9 +30,16 @@ class AuthServices {
       }
       return ApiResult.success(result.data['data']['token']);
     } on DioError catch (e) {
-      return ApiResult.failed(e.response != null
-          ? e.response!.data['message'].toString()
-          : "Connection timeout");
+      String errorMessage = "Connection timeout";
+      if (e.response != null) {
+        if (e.response!.data['message'] is Map) {
+          var error = e.response!.data['message'];
+          errorMessage = "${error.keys.first} ${error.values.first[0]}";
+        } else {
+          errorMessage = e.response!.data['message'];
+        }
+      }
+      return ApiResult.failed(errorMessage);
     }
   }
 
@@ -60,8 +67,12 @@ class AuthServices {
     } on DioError catch (e) {
       String errorMessage = "Connection timeout";
       if (e.response != null) {
-        var error = e.response!.data['message'] as Map;
-        errorMessage = "${error.keys.first} ${error.values.first[0]}";
+        if (e.response!.data['message'] is Map) {
+          var error = e.response!.data['message'];
+          errorMessage = "${error.keys.first} ${error.values.first[0]}";
+        } else {
+          errorMessage = e.response!.data['message'];
+        }
       }
       return ApiResult.failed(errorMessage);
     }
