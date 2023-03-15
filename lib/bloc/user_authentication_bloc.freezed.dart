@@ -580,8 +580,6 @@ abstract class _$$_SignedInCopyWith<$Res> {
       __$$_SignedInCopyWithImpl<$Res>;
   @useResult
   $Res call({User user});
-
-  $UserCopyWith<$Res> get user;
 }
 
 /// @nodoc
@@ -603,14 +601,6 @@ class __$$_SignedInCopyWithImpl<$Res>
           : user // ignore: cast_nullable_to_non_nullable
               as User,
     ));
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $UserCopyWith<$Res> get user {
-    return $UserCopyWith<$Res>(_value.user, (value) {
-      return _then(_value.copyWith(user: value));
-    });
   }
 }
 

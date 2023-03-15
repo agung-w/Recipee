@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:ta_recipe_app/entities/user.dart';
+import 'package:ta_recipe_app/entities/user_detail.dart';
 import 'package:ta_recipe_app/helpers/api_result.dart';
 
 class UserServices {
@@ -10,7 +10,7 @@ class UserServices {
     _dio = dio ?? Dio(BaseOptions(connectTimeout: const Duration(seconds: 5)));
   }
 
-  Future<ApiResult<User>> getSignedInInfo({required String token}) async {
+  Future<ApiResult<UserDetail>> getSignedInInfo({required String token}) async {
     try {
       Response result = await _dio.get(
         "${dotenv.env['API_URL']}/my-profile",
@@ -24,7 +24,7 @@ class UserServices {
         throw (DioError(
             response: result, requestOptions: result.requestOptions));
       }
-      User user = User.fromJson(result.data['data']['user']);
+      UserDetail user = UserDetail.fromJson(result.data['data']['user']);
       return ApiResult.success(user);
     } on DioError catch (e) {
       return ApiResult.failed(e.response != null
@@ -33,7 +33,8 @@ class UserServices {
     }
   }
 
-  Future<ApiResult<User>> getUserByUsername({required String username}) async {
+  Future<ApiResult<UserDetail>> getUserDetailByUsername(
+      {required String username}) async {
     try {
       Response result = await _dio.get(
         "${dotenv.env['API_URL']}/profile/$username",
@@ -46,7 +47,7 @@ class UserServices {
         throw (DioError(
             response: result, requestOptions: result.requestOptions));
       }
-      User user = User.fromJson(result.data['data']['user']);
+      UserDetail user = UserDetail.fromJson(result.data['data']['user']);
       return ApiResult.success(user);
     } on DioError catch (e) {
       return ApiResult.failed(e.response != null

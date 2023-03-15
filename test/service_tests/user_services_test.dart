@@ -3,7 +3,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ta_recipe_app/entities/user.dart';
+import 'package:ta_recipe_app/entities/user_detail.dart';
 import 'package:ta_recipe_app/helpers/api_result.dart';
 import 'package:ta_recipe_app/services/user_services.dart';
 
@@ -41,8 +41,9 @@ void main() {
               path: "${dotenv.env['API_URL']}/my-profile",
             )));
       });
-      ApiResult<User> result = await UserServices(dio: dio, options: options)
-          .getSignedInInfo(token: "token");
+      ApiResult<UserDetail> result =
+          await UserServices(dio: dio, options: options)
+              .getSignedInInfo(token: "token");
       expect(
           result.mapOrNull(
             success: (value) => value.value.name,
@@ -65,10 +66,11 @@ void main() {
               path: "${dotenv.env['API_URL']}/my-profile",
             )));
       });
-      ApiResult<User> result = await UserServices(dio: dio, options: options)
-          .getSignedInInfo(token: "");
-      expect(
-          result, equals(const ApiResult<User>.failed("Nil JSON web token")));
+      ApiResult<UserDetail> result =
+          await UserServices(dio: dio, options: options)
+              .getSignedInInfo(token: "");
+      expect(result,
+          equals(const ApiResult<UserDetail>.failed("Nil JSON web token")));
     });
   });
 
@@ -103,8 +105,9 @@ void main() {
               path: "${dotenv.env['API_URL']}/profile/user_00000001",
             )));
       });
-      ApiResult<User> result = await UserServices(dio: dio, options: options)
-          .getUserByUsername(username: "user_00000001");
+      ApiResult<UserDetail> result =
+          await UserServices(dio: dio, options: options)
+              .getUserDetailByUsername(username: "user_00000001");
       expect(
           result.mapOrNull(
             success: (value) => value.value.name,
@@ -128,9 +131,11 @@ void main() {
               path: "${dotenv.env['API_URL']}/profile/user_notfound",
             )));
       });
-      ApiResult<User> result = await UserServices(dio: dio, options: options)
-          .getUserByUsername(username: "user_notfound");
-      expect(result, equals(const ApiResult<User>.failed("User not found")));
+      ApiResult<UserDetail> result =
+          await UserServices(dio: dio, options: options)
+              .getUserDetailByUsername(username: "user_notfound");
+      expect(
+          result, equals(const ApiResult<UserDetail>.failed("User not found")));
     });
   });
 }
