@@ -7,10 +7,10 @@ part of 'recipe_detail.dart';
 // **************************************************************************
 
 RecipeDetail _$RecipeDetailFromJson(Map<String, dynamic> json) => RecipeDetail(
-      cookingSteps: (json['cookingSteps'] as List<dynamic>?)
+      cookingSteps: (json['cooking_steps'] as List<dynamic>?)
           ?.map((e) => CookingStep.fromJson(e as Map<String, dynamic>))
           .toList(),
-      recipeIngredients: (json['recipeIngredients'] as List<dynamic>?)
+      recipeIngredients: (json['recipe_ingredients'] as List<dynamic>?)
           ?.map((e) => RecipeIngredient.fromJson(e as Map<String, dynamic>))
           .toList(),
       id: json['id'],
@@ -20,7 +20,7 @@ RecipeDetail _$RecipeDetailFromJson(Map<String, dynamic> json) => RecipeDetail(
       prepTime: json['prep_time'],
       serving: json['serving'],
       user: json['user'],
-      tag: json['tag'],
+      tags: json['tags'],
     );
 
 Map<String, dynamic> _$RecipeDetailToJson(RecipeDetail instance) =>
@@ -32,7 +32,7 @@ Map<String, dynamic> _$RecipeDetailToJson(RecipeDetail instance) =>
       'prep_time': instance.prepTime,
       'serving': instance.serving,
       'user': instance.user,
-      'tag': instance.tag,
-      'cookingSteps': instance.cookingSteps,
-      'recipeIngredients': instance.recipeIngredients,
+      'recipe_tags_attributes': instance.recipeTagsAttributes,
+      'cooking_steps_attributes': instance.cookingStepsAttributes,
+      'recipe_ingredients_attributes': instance.recipeIngredientsAttributes,
     };

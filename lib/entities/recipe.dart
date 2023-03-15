@@ -15,7 +15,13 @@ class Recipe {
   final String prepTime;
   final String serving;
   final User user;
-  final List<Tag>? tag;
+  @JsonKey(includeFromJson: true, includeToJson: false)
+  final List<Tag>? tags;
+  @JsonKey(
+      name: "recipe_tags_attributes",
+      includeFromJson: false,
+      includeToJson: true)
+  final List<Tag>? recipeTagsAttributes;
   const Recipe({
     required this.id,
     required this.title,
@@ -24,8 +30,11 @@ class Recipe {
     required this.prepTime,
     required this.serving,
     required this.user,
-    required this.tag,
+    this.tags,
+    this.recipeTagsAttributes,
   });
+
+  List<Tag>? get tagList => tags ?? recipeTagsAttributes;
 
   factory Recipe.fromJson(Map<String, dynamic> json) => _$RecipeFromJson(json);
 

@@ -7,11 +7,26 @@ part 'recipe_detail.g.dart';
 
 @JsonSerializable()
 class RecipeDetail extends Recipe {
+  @JsonKey(name: "cooking_steps", includeFromJson: true, includeToJson: false)
   final List<CookingStep>? cookingSteps;
+  @JsonKey(
+      name: "cooking_steps_attributes",
+      includeFromJson: false,
+      includeToJson: true)
+  final List<CookingStep>? cookingStepsAttributes;
+  @JsonKey(
+      name: "recipe_ingredients", includeFromJson: true, includeToJson: false)
   final List<RecipeIngredient>? recipeIngredients;
+  @JsonKey(
+      name: "recipe_ingredients_attributes",
+      includeFromJson: false,
+      includeToJson: true)
+  final List<RecipeIngredient>? recipeIngredientsAttributes;
   const RecipeDetail({
-    required this.cookingSteps,
-    required this.recipeIngredients,
+    this.cookingSteps,
+    this.recipeIngredients,
+    this.cookingStepsAttributes,
+    this.recipeIngredientsAttributes,
     required id,
     required title,
     required posterPicUrl,
@@ -19,7 +34,7 @@ class RecipeDetail extends Recipe {
     required prepTime,
     required serving,
     required user,
-    required tag,
+    required tags,
   }) : super(
             id: id,
             title: title,
@@ -28,7 +43,7 @@ class RecipeDetail extends Recipe {
             prepTime: prepTime,
             serving: serving,
             user: user,
-            tag: tag);
+            tags: tags);
 
   factory RecipeDetail.fromJson(Map<String, dynamic> json) =>
       _$RecipeDetailFromJson(json);

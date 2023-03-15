@@ -14,7 +14,7 @@ Recipe _$RecipeFromJson(Map<String, dynamic> json) => Recipe(
       prepTime: json['prep_time'] as String,
       serving: json['serving'] as String,
       user: User.fromJson(json['user'] as Map<String, dynamic>),
-      tag: (json['tag'] as List<dynamic>?)
+      tags: (json['tags'] as List<dynamic>?)
           ?.map((e) => Tag.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
@@ -27,5 +27,5 @@ Map<String, dynamic> _$RecipeToJson(Recipe instance) => <String, dynamic>{
       'prep_time': instance.prepTime,
       'serving': instance.serving,
       'user': instance.user,
-      'tag': instance.tag,
+      'recipe_tags_attributes': instance.recipeTagsAttributes,
     };
