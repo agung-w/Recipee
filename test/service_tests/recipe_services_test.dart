@@ -634,7 +634,7 @@ void main() async {
   group("Save recipe", () {
     test("SUCCESS", () async {
       when(mockDio.put(
-        '${dotenv.env['API_URL']}/save-recipe/8',
+        '${dotenv.env['API_URL']}/save-recipe/1',
         options: optionWithToken,
       )).thenAnswer((_) async => Future.value(
             Response(
@@ -645,7 +645,7 @@ void main() async {
                 "data": {"saved_recipe_id": 1, "recipe_total_saved": 1}
               },
               requestOptions: RequestOptions(
-                  path: '${dotenv.env['API_URL']}/save-recipe/8'),
+                  path: '${dotenv.env['API_URL']}/save-recipe/1'),
             ),
           ));
       ApiResult<String> request =
@@ -659,7 +659,7 @@ void main() async {
     });
     test("user already saved this recipe FAILED", () async {
       when(mockDio.put(
-        '${dotenv.env['API_URL']}/save-recipe/8',
+        '${dotenv.env['API_URL']}/save-recipe/1',
         options: optionWithToken,
       )).thenAnswer((_) async => Future.value(
             Response(
@@ -671,37 +671,40 @@ void main() async {
                 }
               },
               requestOptions: RequestOptions(
-                  path: '${dotenv.env['API_URL']}/save-recipe/8'),
+                  path: '${dotenv.env['API_URL']}/save-recipe/1'),
             ),
           ));
       ApiResult<String> request =
           await RecipeServices(dio: mockDio, options: optionWithToken)
               .saveRecipe(recipeId: 1, token: 'token');
-      expect(request,
-          equals(const ApiResult.failed("user has already been taken")));
+      expect(
+          request,
+          equals(
+              const ApiResult<String>.failed("user has already been taken")));
     });
     test("no auth token provided FAILED", () async {
       when(mockDio.put(
-        '${dotenv.env['API_URL']}/save-recipe/8',
+        '${dotenv.env['API_URL']}/save-recipe/1',
         options: optionNoToken,
       )).thenAnswer((_) async => Future.value(
             Response(
               statusCode: 401,
               data: {"status": 401, "message": "Nil JSON web token"},
               requestOptions: RequestOptions(
-                  path: '${dotenv.env['API_URL']}/save-recipe/8'),
+                  path: '${dotenv.env['API_URL']}/save-recipe/1'),
             ),
           ));
       ApiResult<String> request =
           await RecipeServices(dio: mockDio, options: optionNoToken)
               .saveRecipe(recipeId: 1, token: '');
-      expect(request, equals(const ApiResult.failed("Nil JSON web token")));
+      expect(request,
+          equals(const ApiResult<String>.failed("Nil JSON web token")));
     });
   });
   group("Delete saved recipe", () {
     test("SUCCESS", () async {
-      when(mockDio.put(
-        '${dotenv.env['API_URL']}/save-recipe/8',
+      when(mockDio.delete(
+        '${dotenv.env['API_URL']}/save-recipe/1',
         options: optionWithToken,
       )).thenAnswer((_) async => Future.value(
             Response(
@@ -712,7 +715,7 @@ void main() async {
                 "data": {"saved_recipe_id": 1, "recipe_total_saved": 0}
               },
               requestOptions: RequestOptions(
-                  path: '${dotenv.env['API_URL']}/save-recipe/8'),
+                  path: '${dotenv.env['API_URL']}/save-recipe/1'),
             ),
           ));
       ApiResult<String> request =
@@ -725,8 +728,8 @@ void main() async {
           equals("Success"));
     });
     test("user haven't save this recipe yet FAILED", () async {
-      when(mockDio.put(
-        '${dotenv.env['API_URL']}/save-recipe/8',
+      when(mockDio.delete(
+        '${dotenv.env['API_URL']}/save-recipe/1',
         options: optionWithToken,
       )).thenAnswer((_) async => Future.value(
             Response(
@@ -740,11 +743,11 @@ void main() async {
           await RecipeServices(dio: mockDio, options: optionWithToken)
               .removeSavedRecipe(recipeId: 1, token: 'token');
       expect(request,
-          equals(const ApiResult.failed("user has already been taken")));
+          equals(const ApiResult<String>.failed("Cant prosses this now")));
     });
     test("no auth token provided FAILED", () async {
-      when(mockDio.put(
-        '${dotenv.env['API_URL']}/save-recipe/8',
+      when(mockDio.delete(
+        '${dotenv.env['API_URL']}/save-recipe/1',
         options: optionNoToken,
       )).thenAnswer((_) async => Future.value(
             Response(
@@ -757,7 +760,8 @@ void main() async {
       ApiResult<String> request =
           await RecipeServices(dio: mockDio, options: optionNoToken)
               .removeSavedRecipe(recipeId: 1, token: '');
-      expect(request, equals(const ApiResult.failed("Nil JSON web token")));
+      expect(request,
+          equals(const ApiResult<String>.failed("Nil JSON web token")));
     });
   });
 }
