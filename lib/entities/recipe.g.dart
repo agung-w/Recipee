@@ -17,6 +17,7 @@ Recipe _$RecipeFromJson(Map<String, dynamic> json) => Recipe(
       tags: (json['tags'] as List<dynamic>?)
           ?.map((e) => Tag.fromJson(e as Map<String, dynamic>))
           .toList(),
+      isSaved: json['is_saved'] as bool?,
     );
 
 Map<String, dynamic> _$RecipeToJson(Recipe instance) => <String, dynamic>{
@@ -27,5 +28,6 @@ Map<String, dynamic> _$RecipeToJson(Recipe instance) => <String, dynamic>{
       'prep_time': instance.prepTime,
       'serving': instance.serving,
       'user': instance.user,
+      'is_saved': instance.isSaved,
       'recipe_tags_attributes': instance.recipeTagsAttributes,
     };

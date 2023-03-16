@@ -17,22 +17,24 @@ class Recipe {
   final User user;
   @JsonKey(includeFromJson: true, includeToJson: false)
   final List<Tag>? tags;
+  @JsonKey(name: "is_saved")
+  final bool? isSaved;
   @JsonKey(
       name: "recipe_tags_attributes",
       includeFromJson: false,
       includeToJson: true)
   final List<Tag>? recipeTagsAttributes;
-  const Recipe({
-    this.id,
-    required this.title,
-    this.posterPicUrl,
-    required this.description,
-    this.prepTime,
-    this.serving,
-    required this.user,
-    this.tags,
-    this.recipeTagsAttributes,
-  });
+  const Recipe(
+      {this.id,
+      required this.title,
+      this.posterPicUrl,
+      required this.description,
+      this.prepTime,
+      this.serving,
+      required this.user,
+      this.tags,
+      this.recipeTagsAttributes,
+      this.isSaved});
 
   List<Tag>? get tagList => tags ?? recipeTagsAttributes;
 
