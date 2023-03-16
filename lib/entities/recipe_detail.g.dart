@@ -13,14 +13,16 @@ RecipeDetail _$RecipeDetailFromJson(Map<String, dynamic> json) => RecipeDetail(
       recipeIngredients: (json['recipe_ingredients'] as List<dynamic>?)
           ?.map((e) => RecipeIngredient.fromJson(e as Map<String, dynamic>))
           .toList(),
-      id: json['id'],
-      title: json['title'],
-      posterPicUrl: json['poster_pic_url'],
-      description: json['description'],
-      prepTime: json['prep_time'],
-      serving: json['serving'],
-      user: json['user'],
-      tags: json['tags'],
+      id: json['id'] as int?,
+      title: json['title'] as String,
+      posterPicUrl: json['poster_pic_url'] as String?,
+      description: json['description'] as String,
+      prepTime: json['prep_time'] as int?,
+      serving: json['serving'] as int?,
+      user: User.fromJson(json['user'] as Map<String, dynamic>),
+      tags: (json['tags'] as List<dynamic>?)
+          ?.map((e) => Tag.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$RecipeDetailToJson(RecipeDetail instance) =>

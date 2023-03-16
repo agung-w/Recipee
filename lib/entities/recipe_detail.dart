@@ -2,6 +2,8 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:ta_recipe_app/entities/cooking_step.dart';
 import 'package:ta_recipe_app/entities/recipe.dart';
 import 'package:ta_recipe_app/entities/recipe_ingredient.dart';
+import 'package:ta_recipe_app/entities/tag.dart';
+import 'package:ta_recipe_app/entities/user.dart';
 
 part 'recipe_detail.g.dart';
 
@@ -27,23 +29,24 @@ class RecipeDetail extends Recipe {
     this.recipeIngredients,
     this.cookingStepsAttributes,
     this.recipeIngredientsAttributes,
-    required id,
-    required title,
-    required posterPicUrl,
-    required description,
-    required prepTime,
-    required serving,
-    required user,
-    required tags,
+    int? id,
+    required String title,
+    String? posterPicUrl,
+    required String description,
+    int? prepTime,
+    int? serving,
+    required User user,
+    List<Tag>? tags,
   }) : super(
-            id: id,
-            title: title,
-            posterPicUrl: posterPicUrl,
-            description: description,
-            prepTime: prepTime,
-            serving: serving,
-            user: user,
-            tags: tags);
+          id: id,
+          title: title,
+          posterPicUrl: posterPicUrl,
+          description: description,
+          prepTime: prepTime,
+          serving: serving,
+          user: user,
+          tags: tags,
+        );
 
   factory RecipeDetail.fromJson(Map<String, dynamic> json) =>
       _$RecipeDetailFromJson(json);
