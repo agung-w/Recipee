@@ -4,6 +4,8 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ta_recipe_app/entities/metric.dart';
+import 'package:ta_recipe_app/helpers/api_result.dart';
+import 'package:ta_recipe_app/services/metric_services.dart';
 
 import 'tag_services_test.mocks.dart';
 
@@ -36,10 +38,11 @@ void main() async {
                   RequestOptions(path: '${dotenv.env['API_URL']}/metric/list'),
             ),
           ));
-      List<Metric?> request =
+      ApiResult<List<Metric?>> request =
           await MetricServices(dio: mockDio, options: optionNoToken)
               .getMetrics();
-      expect(request.length, equals(1));
+      expect(
+          request.mapOrNull(success: (value) => value.value.length), equals(1));
     });
   });
 }
