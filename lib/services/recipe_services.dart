@@ -88,7 +88,32 @@ class RecipeServices {
 
   Future<ApiResult<List<RecipeComment?>>> getRecipeComment(
       {required int id, required String token}) async {
-    return ApiResult.failed("later");
+    try {
+      Response result = await _dio.get(
+        "${dotenv.env['API_URL']}/recipe-comments/$id",
+        options: options ??
+            Options(headers: {
+              "Content-Type": "application/json",
+              "Authorization": "Bearer $token",
+            }),
+      );
+      if (result.statusCode != 200) {
+        throw (DioError(
+            response: result, requestOptions: result.requestOptions));
+      }
+      List<RecipeComment?> resultListObj =
+          (result.data['data']['recipe_comments'] as List)
+              .map((e) => RecipeComment.fromJson(e))
+              .toList();
+
+      return ApiResult.success(resultListObj);
+    } on DioError catch (e) {
+      String errorMessage = "Connection timeout";
+      if (e.response != null) {
+        errorMessage = e.response!.data['message'];
+      }
+      return ApiResult.failed(errorMessage);
+    }
   }
 
   Future<ApiResult<RecipeComment>> addRecipeComment(

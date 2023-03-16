@@ -546,8 +546,11 @@ void main() async {
           ));
       ApiResult<List<RecipeComment?>> request =
           await RecipeServices(dio: mockDio, options: optionNoToken)
-              .getRecipeComment(id: 10, token: '');
-      expect(request, equals(const ApiResult.failed("Nil JSON web token")));
+              .getRecipeComment(id: 8, token: '');
+      expect(
+          request,
+          equals(const ApiResult<List<RecipeComment?>>.failed(
+              "Nil JSON web token")));
     });
   });
   group("Post recipe comment", () {
@@ -598,7 +601,7 @@ void main() async {
                   token: 'token');
       expect(
           request,
-          equals(const ApiResult.failed(
+          equals(const ApiResult<RecipeComment>.failed(
               "content is too short (minimum is 1 character)")));
     });
     test("no auth token provided FAILED", () async {
@@ -617,7 +620,8 @@ void main() async {
       ApiResult<RecipeComment> request =
           await RecipeServices(dio: mockDio, options: optionNoToken)
               .addRecipeComment(comment: validComment, token: '');
-      expect(request, equals(const ApiResult.failed("Nil JSON web token")));
+      expect(request,
+          equals(const ApiResult<RecipeComment>.failed("Nil JSON web token")));
     });
   });
   group("Save recipe", () {
