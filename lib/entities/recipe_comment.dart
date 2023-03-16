@@ -5,18 +5,22 @@ part 'recipe_comment.g.dart';
 
 @JsonSerializable()
 class RecipeComment {
+  @JsonKey(name: "recipe_id")
+  final int? recipeId;
   final String content;
   @JsonKey(name: "updated_at")
-  final String updatedAt;
-  final User user;
+  final String? updatedAt;
+  final User? user;
   const RecipeComment({
+    this.recipeId,
     required this.content,
-    required this.updatedAt,
-    required this.user,
+    this.updatedAt,
+    this.user,
   });
 
   factory RecipeComment.fromJson(Map<String, dynamic> json) =>
       _$RecipeCommentFromJson(json);
 
+  @override
   Map<String, dynamic> toJson() => _$RecipeCommentToJson(this);
 }
