@@ -385,11 +385,8 @@ void main() async {
       ApiResult<RecipeDetail> request =
           await RecipeServices(dio: mockDio, options: optionNoToken)
               .getRecipeDetail(id: 24, token: '');
-      expect(
-          request.mapOrNull(
-            success: (value) => value.value.title,
-          ),
-          equals(validRecipe.title));
+      expect(request,
+          equals(const ApiResult<RecipeDetail>.failed('Nil JSON web token')));
     });
     test("recipe not existed FAILED", () async {
       when(mockDio.get(
@@ -406,7 +403,8 @@ void main() async {
       ApiResult<RecipeDetail> request =
           await RecipeServices(dio: mockDio, options: optionWithToken)
               .getRecipeDetail(id: 10, token: 'token');
-      expect(request, equals(const ApiResult.failed('Recipe not found')));
+      expect(request,
+          equals(const ApiResult<RecipeDetail>.failed('Recipe not found')));
     });
   });
   group("Search recipe by title", () {

@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:ta_recipe_app/entities/recipe.dart';
+import 'package:ta_recipe_app/entities/recipe_comment.dart';
 import 'package:ta_recipe_app/entities/recipe_detail.dart';
 import 'package:ta_recipe_app/helpers/api_result.dart';
 
@@ -44,5 +46,63 @@ class RecipeServices {
       }
       return ApiResult.failed(errorMessage);
     }
+  }
+
+  Future<ApiResult<RecipeDetail>> getRecipeDetail(
+      {required int id, required String token}) async {
+    try {
+      Response result = await _dio.get(
+        "${dotenv.env['API_URL']}/recipe/$id",
+        options: options ??
+            Options(headers: {
+              "Content-Type": "application/json",
+              "Authorization": "Bearer $token",
+            }),
+      );
+      if (result.statusCode != 200) {
+        throw (DioError(
+            response: result, requestOptions: result.requestOptions));
+      }
+      RecipeDetail resultObj =
+          RecipeDetail.fromJson(result.data['data']['recipe']);
+
+      return ApiResult.success(resultObj);
+    } on DioError catch (e) {
+      String errorMessage = "Connection timeout";
+      if (e.response != null) {
+        errorMessage = e.response!.data['message'];
+      }
+      return ApiResult.failed(errorMessage);
+    }
+  }
+
+  Future<ApiResult<List<Recipe?>>> searchByTitle(
+      {required String query}) async {
+    return ApiResult.failed("later");
+  }
+
+  Future<ApiResult<List<Recipe?>>> searchByIngredients(
+      {required String query}) async {
+    return ApiResult.failed("later");
+  }
+
+  Future<ApiResult<List<RecipeComment?>>> getRecipeComment(
+      {required int id, required String token}) async {
+    return ApiResult.failed("later");
+  }
+
+  Future<ApiResult<RecipeComment>> addRecipeComment(
+      {required RecipeComment comment, required String token}) async {
+    return ApiResult.failed("later");
+  }
+
+  Future<ApiResult<String>> saveRecipe(
+      {required int recipeId, required String token}) async {
+    return ApiResult.failed("later");
+  }
+
+  Future<ApiResult<String>> removeSavedRecipe(
+      {required int recipeId, required String token}) async {
+    return ApiResult.failed("later");
   }
 }
