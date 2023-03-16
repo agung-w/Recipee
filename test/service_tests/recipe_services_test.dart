@@ -161,7 +161,8 @@ void main() async {
           },
           "tags": [
             {"id": 1, "name": "sarapan"}
-          ]
+          ],
+          "is_saved": null
         },
         {
           "id": 6,
@@ -178,7 +179,8 @@ void main() async {
           },
           "tags": [
             {"id": 1, "name": "sarapan"}
-          ]
+          ],
+          "is_saved": null
         },
         {
           "id": 11,
@@ -195,7 +197,8 @@ void main() async {
           },
           "tags": [
             {"id": 1, "name": "sarapan"}
-          ]
+          ],
+          "is_saved": true
         }
       ]
     }
@@ -410,25 +413,26 @@ void main() async {
   group("Search recipe by title", () {
     test("query found SUCCESS", () async {
       when(mockDio.get(
-        '${dotenv.env['API_URL']}/search/recipe/by-title/tes',
+        '${dotenv.env['API_URL']}/search/recipe/by-title?query=tes',
         options: optionNoToken,
       )).thenAnswer((_) async => Future.value(
             Response(
               statusCode: 200,
               data: recipeListSucessResponse,
-              requestOptions:
-                  RequestOptions(path: '${dotenv.env['API_URL']}/recipe/tes'),
+              requestOptions: RequestOptions(
+                  path:
+                      '${dotenv.env['API_URL']}/search/recipe/by-title?query=tes'),
             ),
           ));
       ApiResult<List<Recipe?>> request =
           await RecipeServices(dio: mockDio, options: optionNoToken)
               .searchByTitle(query: "tes");
       expect(
-          request.mapOrNull(success: (value) => value.value.length), equals(2));
+          request.mapOrNull(success: (value) => value.value.length), equals(3));
     });
     test("query not found SUCCESS", () async {
       when(mockDio.get(
-        '${dotenv.env['API_URL']}/search/recipe/by-title/tes123',
+        '${dotenv.env['API_URL']}/search/recipe/by-title?query=tes123',
         options: optionNoToken,
       )).thenAnswer((_) async => Future.value(
             Response(
@@ -439,7 +443,8 @@ void main() async {
                 "data": {"recipes": []}
               },
               requestOptions: RequestOptions(
-                  path: '${dotenv.env['API_URL']}/recipe/tes123'),
+                  path:
+                      '${dotenv.env['API_URL']}/search/recipe/by-title?query=tes123'),
             ),
           ));
       ApiResult<List<Recipe?>> request =
@@ -452,25 +457,26 @@ void main() async {
   group("Search recipe by ingredients", () {
     test("query found SUCCESS", () async {
       when(mockDio.get(
-        '${dotenv.env['API_URL']}/search/recipe/by-ingredient/tes',
+        '${dotenv.env['API_URL']}/search/recipe/by-ingredient?query=tes,ayam',
         options: optionNoToken,
       )).thenAnswer((_) async => Future.value(
             Response(
               statusCode: 200,
               data: recipeListSucessResponse,
-              requestOptions:
-                  RequestOptions(path: '${dotenv.env['API_URL']}/recipe/tes'),
+              requestOptions: RequestOptions(
+                  path:
+                      '${dotenv.env['API_URL']}/search/recipe/by-ingredient?query=tes,ayam'),
             ),
           ));
       ApiResult<List<Recipe?>> request =
           await RecipeServices(dio: mockDio, options: optionNoToken)
-              .searchByIngredients(query: "tes");
+              .searchByIngredients(query: List<String>.of(['tes', 'ayam']));
       expect(
           request.mapOrNull(success: (value) => value.value.length), equals(2));
     });
     test("query not found SUCCESS", () async {
       when(mockDio.get(
-        '${dotenv.env['API_URL']}/search/recipe/by-ingredient/tes123',
+        '${dotenv.env['API_URL']}/search/recipe/by-ingredient?query=tes123',
         options: optionNoToken,
       )).thenAnswer((_) async => Future.value(
             Response(
@@ -481,12 +487,13 @@ void main() async {
                 "data": {"recipes": []}
               },
               requestOptions: RequestOptions(
-                  path: '${dotenv.env['API_URL']}/recipe/tes123'),
+                  path:
+                      '${dotenv.env['API_URL']}/search/recipe/by-ingredient?query=tes123'),
             ),
           ));
       ApiResult<List<Recipe?>> request =
           await RecipeServices(dio: mockDio, options: optionNoToken)
-              .searchByIngredients(query: "tes123");
+              .searchByIngredients(query: List<String>.of(['tes123']));
       expect(request.mapOrNull(success: (value) => value.value.isEmpty),
           equals(true));
     });

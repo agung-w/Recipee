@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:ta_recipe_app/entities/recipe.dart';
@@ -77,12 +79,58 @@ class RecipeServices {
 
   Future<ApiResult<List<Recipe?>>> searchByTitle(
       {required String query}) async {
-    return ApiResult.failed("later");
+    try {
+      Response result = await _dio.get(
+        "${dotenv.env['API_URL']}/search/recipe/by-title?query=$query",
+        options: options ??
+            Options(headers: {
+              "Content-Type": "application/json",
+            }),
+      );
+      if (result.statusCode != 200) {
+        throw (DioError(
+            response: result, requestOptions: result.requestOptions));
+      }
+      List<Recipe?> resultListObj = (result.data['data']['recipes'] as List)
+          .map((e) => Recipe.fromJson(e))
+          .toList();
+
+      return ApiResult.success(resultListObj);
+    } on DioError catch (e) {
+      String errorMessage = "Connection timeout";
+      if (e.response != null) {
+        errorMessage = e.response!.data['message'];
+      }
+      return ApiResult.failed(errorMessage);
+    }
   }
 
   Future<ApiResult<List<Recipe?>>> searchByIngredients(
-      {required String query}) async {
-    return ApiResult.failed("later");
+      {required List<String> query}) async {
+    try {
+      Response result = await _dio.get(
+        "${dotenv.env['API_URL']}/search/recipe/by-ingredient?query=${query.join(",")}",
+        options: options ??
+            Options(headers: {
+              "Content-Type": "application/json",
+            }),
+      );
+      if (result.statusCode != 200) {
+        throw (DioError(
+            response: result, requestOptions: result.requestOptions));
+      }
+      List<Recipe?> resultListObj = (result.data['data']['recipes'] as List)
+          .map((e) => Recipe.fromJson(e))
+          .toList();
+
+      return ApiResult.success(resultListObj);
+    } on DioError catch (e) {
+      String errorMessage = "Connection timeout";
+      if (e.response != null) {
+        errorMessage = e.response!.data['message'];
+      }
+      return ApiResult.failed(errorMessage);
+    }
   }
 
   Future<ApiResult<List<RecipeComment?>>> getRecipeComment(
