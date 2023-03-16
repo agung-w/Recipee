@@ -36,7 +36,6 @@ class RecipeServices {
       if (e.response != null) {
         if (e.response!.data['message'] is Map) {
           var error = e.response!.data['message'];
-
           var pos = error.keys.first.lastIndexOf('.');
           errorMessage =
               "${(pos != -1) ? error.keys.first.substring(pos + 1) : error.keys.first} ${error.values.first[0]}";
@@ -118,7 +117,37 @@ class RecipeServices {
 
   Future<ApiResult<RecipeComment>> addRecipeComment(
       {required RecipeComment comment, required String token}) async {
-    return ApiResult.failed("later");
+    try {
+      Response result =
+          await _dio.post("${dotenv.env['API_URL']}/recipe-comment",
+              options: options ??
+                  Options(headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer $token",
+                  }),
+              data: comment.toJson());
+      if (result.statusCode != 200) {
+        throw (DioError(
+            response: result, requestOptions: result.requestOptions));
+      }
+      RecipeComment resultObj =
+          RecipeComment.fromJson(result.data['data']['recipe_comment']);
+
+      return ApiResult.success(resultObj);
+    } on DioError catch (e) {
+      String errorMessage = "Connection timeout";
+      if (e.response != null) {
+        if (e.response!.data['message'] is Map) {
+          var error = e.response!.data['message'];
+          var pos = error.keys.first.lastIndexOf('.');
+          errorMessage =
+              "${(pos != -1) ? error.keys.first.substring(pos + 1) : error.keys.first} ${error.values.first[0]}";
+        } else {
+          errorMessage = e.response!.data['message'];
+        }
+      }
+      return ApiResult.failed(errorMessage);
+    }
   }
 
   Future<ApiResult<String>> saveRecipe(

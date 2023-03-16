@@ -562,7 +562,7 @@ void main() async {
       )).thenAnswer((_) async => Future.value(
             Response(
               statusCode: 200,
-              data: recipeCommentsSuccessResponse,
+              data: recipeCommentSuccessResponse,
               requestOptions: RequestOptions(
                   path: '${dotenv.env['API_URL']}/recipe-comment'),
             ),
@@ -579,7 +579,7 @@ void main() async {
     test("invalid comment attributes blank content FAILED", () async {
       when(mockDio.post(
         '${dotenv.env['API_URL']}/recipe-comment',
-        data: const RecipeComment(recipeId: 8, content: ""),
+        data: const RecipeComment(recipeId: 8, content: "").toJson(),
         options: optionWithToken,
       )).thenAnswer((_) async => Future.value(
             Response(
