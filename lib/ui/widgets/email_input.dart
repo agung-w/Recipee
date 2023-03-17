@@ -23,7 +23,9 @@ class _EmailInputState extends State<EmailInput> {
       }),
       controller: widget.controller,
       decoration: InputDecoration(
-          hintText: "Email",
+          label: const Text("Email"),
+          alignLabelWithHint: false,
+          floatingLabelBehavior: FloatingLabelBehavior.always,
           prefixIconConstraints: const BoxConstraints(),
           errorText: valid != true && widget.controller.text.isNotEmpty
               ? "Please provide valid email address"

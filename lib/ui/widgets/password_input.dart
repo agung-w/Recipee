@@ -20,7 +20,9 @@ class _PasswordInputState extends State<PasswordInput> {
       autocorrect: false,
       obscureText: !_visible,
       decoration: InputDecoration(
-        hintText: "Password",
+        label: const Text("Password"),
+        alignLabelWithHint: false,
+        floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: IconButton(
           icon: Icon(_visible ? Icons.visibility : Icons.visibility_off),
           onPressed: () {
