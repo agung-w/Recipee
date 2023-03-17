@@ -2,17 +2,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 
-class EmailInput extends StatefulWidget {
+class EmailInput extends StatelessWidget {
   final TextEditingController controller;
 
   const EmailInput({super.key, required this.controller});
 
-  @override
-  State<EmailInput> createState() => _EmailInputState();
-}
-
-class _EmailInputState extends State<EmailInput> {
-  bool valid = false;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -25,7 +19,7 @@ class _EmailInputState extends State<EmailInput> {
         }
         return null;
       },
-      controller: widget.controller,
+      controller: controller,
       decoration: const InputDecoration(
         label: Text("Email"),
         alignLabelWithHint: false,

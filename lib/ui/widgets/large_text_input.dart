@@ -4,14 +4,17 @@ import 'package:flutter/src/widgets/placeholder.dart';
 
 class LargeTextInput extends StatelessWidget {
   final String? hint;
+  final TextEditingController controller;
 
-  const LargeTextInput({super.key, this.hint});
+  const LargeTextInput({super.key, this.hint, required this.controller});
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       style: Theme.of(context).textTheme.displayMedium,
       maxLength: 100,
+      validator: (value) {},
+      controller: controller,
       buildCounter: null,
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.only(left: 16, right: 16),
