@@ -1,7 +1,8 @@
 {
   "header_in_create_page": "Ayo buat recipe mu sekarang",
   "create_recipe_button": "Buat recipe",
-  "save_button":"Simpan",
-  "publish_button":"Terbitkan",
-  "title_place_holder":"Judul"
+  "create_button":"Buat",
+  "title_place_holder":"Judul",
+  "email_input_error":"Masukan email yang valid",
+  "password_input_error":"Password harus memiliki 6 karakter atau lebih"
 }

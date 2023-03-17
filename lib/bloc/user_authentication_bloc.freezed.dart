@@ -532,23 +532,23 @@ mixin _$UserAuthenticationState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_SignedIn value) signedIn,
-    required TResult Function(_SignedOut value) signedOut,
-    required TResult Function(_Loading value) loading,
+    required TResult Function(SignedIn value) signedIn,
+    required TResult Function(SignedOut value) signedOut,
+    required TResult Function(Loading value) loading,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_SignedIn value)? signedIn,
-    TResult? Function(_SignedOut value)? signedOut,
-    TResult? Function(_Loading value)? loading,
+    TResult? Function(SignedIn value)? signedIn,
+    TResult? Function(SignedOut value)? signedOut,
+    TResult? Function(Loading value)? loading,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_SignedIn value)? signedIn,
-    TResult Function(_SignedOut value)? signedOut,
-    TResult Function(_Loading value)? loading,
+    TResult Function(SignedIn value)? signedIn,
+    TResult Function(SignedOut value)? signedOut,
+    TResult Function(Loading value)? loading,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -574,20 +574,19 @@ class _$UserAuthenticationStateCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_SignedInCopyWith<$Res> {
-  factory _$$_SignedInCopyWith(
-          _$_SignedIn value, $Res Function(_$_SignedIn) then) =
-      __$$_SignedInCopyWithImpl<$Res>;
+abstract class _$$SignedInCopyWith<$Res> {
+  factory _$$SignedInCopyWith(
+          _$SignedIn value, $Res Function(_$SignedIn) then) =
+      __$$SignedInCopyWithImpl<$Res>;
   @useResult
   $Res call({UserDetail user});
 }
 
 /// @nodoc
-class __$$_SignedInCopyWithImpl<$Res>
-    extends _$UserAuthenticationStateCopyWithImpl<$Res, _$_SignedIn>
-    implements _$$_SignedInCopyWith<$Res> {
-  __$$_SignedInCopyWithImpl(
-      _$_SignedIn _value, $Res Function(_$_SignedIn) _then)
+class __$$SignedInCopyWithImpl<$Res>
+    extends _$UserAuthenticationStateCopyWithImpl<$Res, _$SignedIn>
+    implements _$$SignedInCopyWith<$Res> {
+  __$$SignedInCopyWithImpl(_$SignedIn _value, $Res Function(_$SignedIn) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -595,7 +594,7 @@ class __$$_SignedInCopyWithImpl<$Res>
   $Res call({
     Object? user = null,
   }) {
-    return _then(_$_SignedIn(
+    return _then(_$SignedIn(
       null == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -606,8 +605,8 @@ class __$$_SignedInCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_SignedIn implements _SignedIn {
-  const _$_SignedIn(this.user);
+class _$SignedIn implements SignedIn {
+  const _$SignedIn(this.user);
 
   @override
   final UserDetail user;
@@ -621,7 +620,7 @@ class _$_SignedIn implements _SignedIn {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SignedIn &&
+            other is _$SignedIn &&
             (identical(other.user, user) || other.user == user));
   }
 
@@ -631,8 +630,8 @@ class _$_SignedIn implements _SignedIn {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SignedInCopyWith<_$_SignedIn> get copyWith =>
-      __$$_SignedInCopyWithImpl<_$_SignedIn>(this, _$identity);
+  _$$SignedInCopyWith<_$SignedIn> get copyWith =>
+      __$$SignedInCopyWithImpl<_$SignedIn>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -671,9 +670,9 @@ class _$_SignedIn implements _SignedIn {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_SignedIn value) signedIn,
-    required TResult Function(_SignedOut value) signedOut,
-    required TResult Function(_Loading value) loading,
+    required TResult Function(SignedIn value) signedIn,
+    required TResult Function(SignedOut value) signedOut,
+    required TResult Function(Loading value) loading,
   }) {
     return signedIn(this);
   }
@@ -681,9 +680,9 @@ class _$_SignedIn implements _SignedIn {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_SignedIn value)? signedIn,
-    TResult? Function(_SignedOut value)? signedOut,
-    TResult? Function(_Loading value)? loading,
+    TResult? Function(SignedIn value)? signedIn,
+    TResult? Function(SignedOut value)? signedOut,
+    TResult? Function(Loading value)? loading,
   }) {
     return signedIn?.call(this);
   }
@@ -691,9 +690,9 @@ class _$_SignedIn implements _SignedIn {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_SignedIn value)? signedIn,
-    TResult Function(_SignedOut value)? signedOut,
-    TResult Function(_Loading value)? loading,
+    TResult Function(SignedIn value)? signedIn,
+    TResult Function(SignedOut value)? signedOut,
+    TResult Function(Loading value)? loading,
     required TResult orElse(),
   }) {
     if (signedIn != null) {
@@ -703,35 +702,35 @@ class _$_SignedIn implements _SignedIn {
   }
 }
 
-abstract class _SignedIn implements UserAuthenticationState {
-  const factory _SignedIn(final UserDetail user) = _$_SignedIn;
+abstract class SignedIn implements UserAuthenticationState {
+  const factory SignedIn(final UserDetail user) = _$SignedIn;
 
   UserDetail get user;
   @JsonKey(ignore: true)
-  _$$_SignedInCopyWith<_$_SignedIn> get copyWith =>
+  _$$SignedInCopyWith<_$SignedIn> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_SignedOutCopyWith<$Res> {
-  factory _$$_SignedOutCopyWith(
-          _$_SignedOut value, $Res Function(_$_SignedOut) then) =
-      __$$_SignedOutCopyWithImpl<$Res>;
+abstract class _$$SignedOutCopyWith<$Res> {
+  factory _$$SignedOutCopyWith(
+          _$SignedOut value, $Res Function(_$SignedOut) then) =
+      __$$SignedOutCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_SignedOutCopyWithImpl<$Res>
-    extends _$UserAuthenticationStateCopyWithImpl<$Res, _$_SignedOut>
-    implements _$$_SignedOutCopyWith<$Res> {
-  __$$_SignedOutCopyWithImpl(
-      _$_SignedOut _value, $Res Function(_$_SignedOut) _then)
+class __$$SignedOutCopyWithImpl<$Res>
+    extends _$UserAuthenticationStateCopyWithImpl<$Res, _$SignedOut>
+    implements _$$SignedOutCopyWith<$Res> {
+  __$$SignedOutCopyWithImpl(
+      _$SignedOut _value, $Res Function(_$SignedOut) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_SignedOut implements _SignedOut {
-  const _$_SignedOut();
+class _$SignedOut implements SignedOut {
+  const _$SignedOut();
 
   @override
   String toString() {
@@ -741,7 +740,7 @@ class _$_SignedOut implements _SignedOut {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_SignedOut);
+        (other.runtimeType == runtimeType && other is _$SignedOut);
   }
 
   @override
@@ -784,9 +783,9 @@ class _$_SignedOut implements _SignedOut {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_SignedIn value) signedIn,
-    required TResult Function(_SignedOut value) signedOut,
-    required TResult Function(_Loading value) loading,
+    required TResult Function(SignedIn value) signedIn,
+    required TResult Function(SignedOut value) signedOut,
+    required TResult Function(Loading value) loading,
   }) {
     return signedOut(this);
   }
@@ -794,9 +793,9 @@ class _$_SignedOut implements _SignedOut {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_SignedIn value)? signedIn,
-    TResult? Function(_SignedOut value)? signedOut,
-    TResult? Function(_Loading value)? loading,
+    TResult? Function(SignedIn value)? signedIn,
+    TResult? Function(SignedOut value)? signedOut,
+    TResult? Function(Loading value)? loading,
   }) {
     return signedOut?.call(this);
   }
@@ -804,9 +803,9 @@ class _$_SignedOut implements _SignedOut {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_SignedIn value)? signedIn,
-    TResult Function(_SignedOut value)? signedOut,
-    TResult Function(_Loading value)? loading,
+    TResult Function(SignedIn value)? signedIn,
+    TResult Function(SignedOut value)? signedOut,
+    TResult Function(Loading value)? loading,
     required TResult orElse(),
   }) {
     if (signedOut != null) {
@@ -816,29 +815,28 @@ class _$_SignedOut implements _SignedOut {
   }
 }
 
-abstract class _SignedOut implements UserAuthenticationState {
-  const factory _SignedOut() = _$_SignedOut;
+abstract class SignedOut implements UserAuthenticationState {
+  const factory SignedOut() = _$SignedOut;
 }
 
 /// @nodoc
-abstract class _$$_LoadingCopyWith<$Res> {
-  factory _$$_LoadingCopyWith(
-          _$_Loading value, $Res Function(_$_Loading) then) =
-      __$$_LoadingCopyWithImpl<$Res>;
+abstract class _$$LoadingCopyWith<$Res> {
+  factory _$$LoadingCopyWith(_$Loading value, $Res Function(_$Loading) then) =
+      __$$LoadingCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_LoadingCopyWithImpl<$Res>
-    extends _$UserAuthenticationStateCopyWithImpl<$Res, _$_Loading>
-    implements _$$_LoadingCopyWith<$Res> {
-  __$$_LoadingCopyWithImpl(_$_Loading _value, $Res Function(_$_Loading) _then)
+class __$$LoadingCopyWithImpl<$Res>
+    extends _$UserAuthenticationStateCopyWithImpl<$Res, _$Loading>
+    implements _$$LoadingCopyWith<$Res> {
+  __$$LoadingCopyWithImpl(_$Loading _value, $Res Function(_$Loading) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_Loading implements _Loading {
-  const _$_Loading();
+class _$Loading implements Loading {
+  const _$Loading();
 
   @override
   String toString() {
@@ -848,7 +846,7 @@ class _$_Loading implements _Loading {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_Loading);
+        (other.runtimeType == runtimeType && other is _$Loading);
   }
 
   @override
@@ -891,9 +889,9 @@ class _$_Loading implements _Loading {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_SignedIn value) signedIn,
-    required TResult Function(_SignedOut value) signedOut,
-    required TResult Function(_Loading value) loading,
+    required TResult Function(SignedIn value) signedIn,
+    required TResult Function(SignedOut value) signedOut,
+    required TResult Function(Loading value) loading,
   }) {
     return loading(this);
   }
@@ -901,9 +899,9 @@ class _$_Loading implements _Loading {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_SignedIn value)? signedIn,
-    TResult? Function(_SignedOut value)? signedOut,
-    TResult? Function(_Loading value)? loading,
+    TResult? Function(SignedIn value)? signedIn,
+    TResult? Function(SignedOut value)? signedOut,
+    TResult? Function(Loading value)? loading,
   }) {
     return loading?.call(this);
   }
@@ -911,9 +909,9 @@ class _$_Loading implements _Loading {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_SignedIn value)? signedIn,
-    TResult Function(_SignedOut value)? signedOut,
-    TResult Function(_Loading value)? loading,
+    TResult Function(SignedIn value)? signedIn,
+    TResult Function(SignedOut value)? signedOut,
+    TResult Function(Loading value)? loading,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -923,6 +921,6 @@ class _$_Loading implements _Loading {
   }
 }
 
-abstract class _Loading implements UserAuthenticationState {
-  const factory _Loading() = _$_Loading;
+abstract class Loading implements UserAuthenticationState {
+  const factory Loading() = _$Loading;
 }

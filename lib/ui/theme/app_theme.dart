@@ -15,6 +15,18 @@ ThemeData lightTheme = ThemeData(
       foregroundColor: Color(0xFF000000),
       elevation: 0,
     ),
+    colorScheme: const ColorScheme(
+        brightness: Brightness.light,
+        primary: Color(0xFFFF7A00),
+        onPrimary: Color(0xFFFFFFFF),
+        secondary: Color(0xFFD9D9D9),
+        onSecondary: Color(0xFF252323),
+        error: Colors.red,
+        onError: Color(0xFFFFFFFF),
+        background: Color(0xFFF6F6F6),
+        onBackground: Color(0xFF252323),
+        surface: Color(0xFFFFFFFF),
+        onSurface: Color(0xFF252323)),
     textTheme: const TextTheme(
         bodyMedium: TextStyle(fontSize: 14),
         displayMedium: TextStyle(fontSize: 22, fontWeight: FontWeight.w700)),

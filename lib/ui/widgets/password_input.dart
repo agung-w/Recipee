@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -19,6 +20,14 @@ class _PasswordInputState extends State<PasswordInput> {
       controller: widget.controller,
       autocorrect: false,
       obscureText: !_visible,
+      validator: (value) {
+        if (value == null) {
+          return 'password_input_error'.tr();
+        } else if (value.length < 6) {
+          return 'password_input_error'.tr();
+        }
+        return null;
+      },
       decoration: InputDecoration(
         label: const Text("Password"),
         alignLabelWithHint: false,

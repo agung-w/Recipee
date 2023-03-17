@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -32,14 +30,7 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
             padding: const EdgeInsets.all(8.0),
             child: ElevatedButton(
               onPressed: () {},
-              child: const Text("save_button").tr(),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ElevatedButton(
-              onPressed: () {},
-              child: const Text("publish_button").tr(),
+              child: const Text("create_button").tr(),
             ),
           )
         ],
@@ -57,8 +48,15 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
             setState(() {});
           },
         ),
-        LargeTextInput(
-          hint: "title_place_holder".tr(),
+        Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: [
+              LargeTextInput(
+                hint: "title_place_holder".tr(),
+              ),
+            ],
+          ),
         )
       ]),
     );

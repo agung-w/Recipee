@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 
@@ -18,18 +19,19 @@ class _EmailInputState extends State<EmailInput> {
       textAlignVertical: TextAlignVertical.bottom,
       style: const TextStyle(fontSize: 18),
       autocorrect: false,
-      onChanged: (value) => setState(() {
-        valid = EmailValidator.validate(value);
-      }),
+      validator: (value) {
+        if (value == null || EmailValidator.validate(value) == false) {
+          return 'email_input_error'.tr();
+        }
+        return null;
+      },
       controller: widget.controller,
-      decoration: InputDecoration(
-          label: const Text("Email"),
-          alignLabelWithHint: false,
-          floatingLabelBehavior: FloatingLabelBehavior.always,
-          prefixIconConstraints: const BoxConstraints(),
-          errorText: valid != true && widget.controller.text.isNotEmpty
-              ? "Please provide valid email address"
-              : null),
+      decoration: const InputDecoration(
+        label: Text("Email"),
+        alignLabelWithHint: false,
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        prefixIconConstraints: BoxConstraints(),
+      ),
     );
   }
 }
