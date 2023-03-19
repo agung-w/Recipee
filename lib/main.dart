@@ -2,7 +2,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:ta_recipe_app/bloc/create_recipe_bloc.dart';
 import 'package:ta_recipe_app/bloc/user_authentication_bloc.dart';
+import 'package:ta_recipe_app/cubit/metric_cubit.dart';
 import 'package:ta_recipe_app/ui/pages/main_page.dart';
 import 'package:ta_recipe_app/ui/theme/app_theme.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -34,6 +36,8 @@ class RecipeApp extends StatelessWidget {
             create: (context) => UserAuthenticationBloc()
               ..add(
                   UserAuthenticationEvent.checkSignInStatus(context: context))),
+        BlocProvider(create: (context) => CreateRecipeBloc()),
+        BlocProvider(create: (context) => MetricCubit()..getLists()),
         // BlocProvider(
         //     create: (context) =>
         //         WalletBloc()..add(const WalletEvent.getBalance())),

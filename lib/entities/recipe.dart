@@ -1,3 +1,4 @@
+import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:ta_recipe_app/entities/tag.dart';
 import 'package:ta_recipe_app/entities/user.dart';
@@ -5,6 +6,7 @@ import 'package:ta_recipe_app/entities/user.dart';
 part 'recipe.g.dart';
 
 @JsonSerializable()
+@CopyWith()
 class Recipe {
   final int? id;
   final String title;

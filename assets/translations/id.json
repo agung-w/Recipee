@@ -4,5 +4,15 @@
   "create_button":"Buat",
   "title_place_holder":"Judul",
   "email_input_error":"Masukan email yang valid",
-  "password_input_error":"Password harus memiliki 6 karakter atau lebih"
+  "password_input_error":"Password harus memiliki 6 karakter atau lebih",
+  "this_section_cant_be_blank":"Bagian ini tidak dapat kosong",
+  "cooking_steps_title_create_recipe":"Langkah memasak",
+  "ingredient_input_hint_create_recipe":"Masukan nama bahan (contoh: Ayam)",
+  "title_placeholder_create_recipe":"Judul : Resep ayam goreng serundeng",
+  "prep_time_label_create_recipe":"Waktu memasak",
+  "serving_label_create_recipe":"Porsi",
+  "description_placeholder_create_recipe":"Deskripsikan masakanmu sejarah, citarasa, dan masih banyak lagi",
+  "ingredients_title_create_recipe":"Bahan-bahan",
+  "cooking_step_input_hint_create_recipe":"Masukan langkah memasak (contoh: kocok telur hingga merata)",
+  "add_cooking_step_button":"Tambahkan langkah memasak"
 }

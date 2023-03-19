@@ -6,10 +6,10 @@ part 'recipe_ingredient.g.dart';
 
 @JsonSerializable()
 class RecipeIngredient {
-  final int? quantity;
-  final Ingredient ingredient;
-  final Metric? metric;
-  const RecipeIngredient({
+  int? quantity;
+  Ingredient ingredient;
+  Metric? metric;
+  RecipeIngredient({
     this.quantity,
     required this.ingredient,
     this.metric,

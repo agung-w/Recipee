@@ -22,7 +22,6 @@ class EmailInput extends StatelessWidget {
       controller: controller,
       decoration: const InputDecoration(
         label: Text("Email"),
-        alignLabelWithHint: false,
         floatingLabelBehavior: FloatingLabelBehavior.always,
         prefixIconConstraints: BoxConstraints(),
       ),

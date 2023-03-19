@@ -4,31 +4,32 @@ import 'package:ta_recipe_app/entities/recipe.dart';
 import 'package:ta_recipe_app/entities/recipe_ingredient.dart';
 import 'package:ta_recipe_app/entities/tag.dart';
 import 'package:ta_recipe_app/entities/user.dart';
-
+import 'package:copy_with_extension/copy_with_extension.dart';
 part 'recipe_detail.g.dart';
 
 @JsonSerializable()
+@CopyWith()
 class RecipeDetail extends Recipe {
   @JsonKey(name: "cooking_steps", includeFromJson: true, includeToJson: false)
-  final List<CookingStep>? cookingSteps;
+  final List<CookingStep> cookingSteps;
   @JsonKey(
       name: "cooking_steps_attributes",
       includeFromJson: false,
       includeToJson: true)
-  final List<CookingStep>? cookingStepsAttributes;
+  final List<CookingStep> cookingStepsAttributes;
   @JsonKey(
       name: "recipe_ingredients", includeFromJson: true, includeToJson: false)
-  final List<RecipeIngredient>? recipeIngredients;
+  final List<RecipeIngredient> recipeIngredients;
   @JsonKey(
       name: "recipe_ingredients_attributes",
       includeFromJson: false,
       includeToJson: true)
-  final List<RecipeIngredient>? recipeIngredientsAttributes;
+  final List<RecipeIngredient> recipeIngredientsAttributes;
   const RecipeDetail({
-    this.cookingSteps,
-    this.recipeIngredients,
-    this.cookingStepsAttributes,
-    this.recipeIngredientsAttributes,
+    this.cookingSteps = const [],
+    this.recipeIngredients = const [],
+    this.cookingStepsAttributes = const [],
+    this.recipeIngredientsAttributes = const [],
     int? id,
     required String title,
     String? posterPicUrl,

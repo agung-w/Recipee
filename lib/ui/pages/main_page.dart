@@ -15,6 +15,8 @@ class _MainPageState extends State<MainPage> {
     TabItem.home: GlobalKey<NavigatorState>(),
     TabItem.explore: GlobalKey<NavigatorState>(),
     TabItem.create: GlobalKey<NavigatorState>(),
+    TabItem.order: GlobalKey<NavigatorState>(),
+    TabItem.profile: GlobalKey<NavigatorState>(),
   };
   void _onItemTapped(TabItem tabItem) {
     setState(() {
