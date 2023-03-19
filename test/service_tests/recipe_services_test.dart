@@ -472,7 +472,7 @@ void main() async {
           await RecipeServices(dio: mockDio, options: optionNoToken)
               .searchByIngredients(query: List<String>.of(['tes', 'ayam']));
       expect(
-          request.mapOrNull(success: (value) => value.value.length), equals(2));
+          request.mapOrNull(success: (value) => value.value.length), equals(3));
     });
     test("query not found SUCCESS", () async {
       when(mockDio.get(
