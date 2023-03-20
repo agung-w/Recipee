@@ -22,7 +22,6 @@ class _IngredientFormTileState extends State<IngredientFormTile> {
   @override
   void initState() {
     super.initState();
-
     _quantityController.text = widget.ingredient.quantity != null
         ? widget.ingredient.quantity.toString()
         : "";
@@ -68,18 +67,16 @@ class _IngredientFormTileState extends State<IngredientFormTile> {
               },
               child: TextField(
                 controller: _nameController,
-                onEditingComplete: () => context.read<CreateRecipeBloc>().add(
+                onTapOutside: (_) => context.read<CreateRecipeBloc>().add(
                     CreateRecipeEvent.editIngredientName(
                         ingredient: widget.ingredient,
                         name: _nameController.text)),
-                onSubmitted: (value) => setState(() {
-                  context.read<CreateRecipeBloc>().add(
-                      CreateRecipeEvent.editIngredientName(
-                          ingredient: widget.ingredient, name: value));
-                }),
+                onSubmitted: (value) => context.read<CreateRecipeBloc>().add(
+                    CreateRecipeEvent.editIngredientName(
+                        ingredient: widget.ingredient, name: value)),
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.zero,
-                  hintText: "ingredient_name".tr(),
+                  hintText: "ingredient_input_hint_create_recipe".tr(),
                   counterStyle: const TextStyle(
                     height: double.minPositive,
                   ),
@@ -100,12 +97,12 @@ class _IngredientFormTileState extends State<IngredientFormTile> {
                           .read<CreateRecipeBloc>()
                           .add(CreateRecipeEvent.editIngredientQuantity(
                               ingredient: widget.ingredient,
-                              quantity: int.parse(value))),
+                              quantity: int.tryParse(value))),
                       onSubmitted: (value) => context
                           .read<CreateRecipeBloc>()
                           .add(CreateRecipeEvent.editIngredientQuantity(
                               ingredient: widget.ingredient,
-                              quantity: int.parse(value))),
+                              quantity: int.tryParse(value))),
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.zero,
                         hintText: "qty".tr(),

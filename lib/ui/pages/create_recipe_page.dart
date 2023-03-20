@@ -1,15 +1,11 @@
-import 'dart:developer';
-
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:ta_recipe_app/bloc/create_recipe_bloc.dart';
+import 'package:ta_recipe_app/entities/recipe_detail.dart';
 
 import 'package:ta_recipe_app/ui/widgets/half_length_number_input.dart';
 import 'package:ta_recipe_app/ui/widgets/large_text_input.dart';
-import 'package:ta_recipe_app/services/picture_services.dart';
 import 'package:ta_recipe_app/ui/widgets/long_text_input.dart';
 
 class CreateRecipePage extends StatefulWidget {
@@ -19,8 +15,6 @@ class CreateRecipePage extends StatefulWidget {
 }
 
 class _CreateRecipePageState extends State<CreateRecipePage> {
-  String? str;
-  UploadTask? uploadTask;
   final formKey = GlobalKey<FormState>();
 
   TextEditingController titleController = TextEditingController();
@@ -43,17 +37,30 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
         actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: ElevatedButton(
-              onPressed: () {
-                if (formKey.currentState!.validate()) {
-                  ScaffoldMessenger.of(context)
-                      .showSnackBar(SnackBar(content: Text("valid")));
-                } else {
-                  ScaffoldMessenger.of(context)
-                      .showSnackBar(SnackBar(content: Text("teu valid")));
-                }
+            child: BlocBuilder<CreateRecipeBloc, CreateRecipeState>(
+              builder: (context, state) {
+                return ElevatedButton(
+                  onPressed: state.map(
+                      creating: (creating) => () {
+                            if (formKey.currentState!.validate()) {
+                              context
+                                  .read<CreateRecipeBloc>()
+                                  .add(CreateRecipeEvent.submit(
+                                      recipe: creating.recipe.copyWith(
+                                        description: descriptionController.text,
+                                        title: titleController.text,
+                                        prepTime: int.tryParse(
+                                            prepTimeController.text),
+                                        serving: int.tryParse(
+                                            servingController.text),
+                                      ),
+                                      context: context));
+                            }
+                          },
+                      initial: (_) => null),
+                  child: const Text("create_button").tr(),
+                );
               },
-              child: const Text("create_button").tr(),
             ),
           )
         ],
@@ -71,12 +78,15 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
                           height: 150,
                           width: MediaQuery.of(context).size.width,
                           color: Colors.amber,
-                          child: str != null ? Image.network(str!) : null,
+                          child: creating.recipe.posterPicUrl != null
+                              ? Image.network(creating.recipe.posterPicUrl!)
+                              : Image.asset(
+                                  "assets/images/placeholder/add_image.png"),
                         ),
                         onTap: () async {
-                          str = await PictureServices()
-                              .uploadPosterPicture(await getImage());
-                          setState(() {});
+                          context
+                              .read<CreateRecipeBloc>()
+                              .add(const CreateRecipeEvent.addRecipePoster());
                         },
                       ),
                       Container(
@@ -88,29 +98,47 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
                             LargeTextInput(
                               hint: "title_placeholder_create_recipe".tr(),
                               controller: titleController,
-                            ),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: HalfLengthNumberInput(
-                                    hint: "serving_label_create_recipe".tr(),
-                                    controller: servingController,
-                                  ),
-                                ),
-                                Expanded(
-                                  child: HalfLengthNumberInput(
-                                    hint: "prep_time_label_create_recipe".tr(),
-                                    controller: prepTimeController,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            LongTextInput(
-                              hint:
-                                  "description_placeholder_create_recipe".tr(),
-                              controller: descriptionController,
                               nullable: false,
-                              maxLength: 1000,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 6, 0, 0),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: SizedBox(
+                                      child: HalfLengthNumberInput(
+                                        hint:
+                                            "serving_label_create_recipe".tr(),
+                                        controller: servingController,
+                                        endText:
+                                            "serving_end_text_create_recipe"
+                                                .tr(),
+                                      ),
+                                    ),
+                                  ),
+                                  const Expanded(child: SizedBox()),
+                                  Expanded(
+                                    child: HalfLengthNumberInput(
+                                      hint:
+                                          "prep_time_label_create_recipe".tr(),
+                                      controller: prepTimeController,
+                                      endText:
+                                          "prep_time_end_text_create_recipe"
+                                              .tr(),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 10),
+                              child: LongTextInput(
+                                hint: "description_placeholder_create_recipe"
+                                    .tr(),
+                                controller: descriptionController,
+                                nullable: false,
+                                maxLength: 1000,
+                              ),
                             ),
                           ],
                         ),
@@ -150,7 +178,7 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
                                 onFieldSubmitted: (value) {
                                   context.read<CreateRecipeBloc>().add(
                                       CreateRecipeEvent.addIngredient(
-                                          ingredient: value));
+                                          context: context, ingredient: value));
                                   setState(() {
                                     ingredientInputController.text = "";
                                   });
@@ -198,15 +226,17 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
                             ),
                             Padding(
                                 padding:
-                                    const EdgeInsets.fromLTRB(16, 0, 16, 8),
+                                    const EdgeInsets.fromLTRB(16, 8, 16, 8),
                                 child: ElevatedButton(
                                   onPressed: () {
                                     context.read<CreateRecipeBloc>().add(
                                         const CreateRecipeEvent
                                             .addCookingStep());
                                   },
-                                  child: const Text("add_cooking_step_button")
-                                      .tr(),
+                                  child: Center(
+                                    child: const Text("add_cooking_step_button")
+                                        .tr(),
+                                  ),
                                 ))
                           ],
                         ),
@@ -220,13 +250,4 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
       ),
     );
   }
-
-  void onAddIngredient() {}
-  void onDelete() {
-    log("message");
-  }
-}
-
-Future<XFile?> getImage() async {
-  return ImagePicker().pickImage(source: ImageSource.gallery);
 }

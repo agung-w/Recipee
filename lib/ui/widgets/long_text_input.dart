@@ -28,12 +28,14 @@ class LongTextInput extends StatelessWidget {
       minLines: 3,
       controller: controller,
       decoration: InputDecoration(
+        hintMaxLines: 3,
         contentPadding: const EdgeInsets.only(left: 16, right: 16, bottom: 6),
         counterStyle: const TextStyle(
           height: double.minPositive,
         ),
         hintText: hint,
       ),
+      keyboardType: TextInputType.multiline,
     );
   }
 }

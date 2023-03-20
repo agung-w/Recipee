@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 class HalfLengthNumberInput extends StatelessWidget {
   final String hint;
+  final String endText;
   final TextEditingController controller;
   final bool nullable;
   final int? maxLength;
@@ -13,7 +14,8 @@ class HalfLengthNumberInput extends StatelessWidget {
       required this.controller,
       this.nullable = true,
       this.padding = EdgeInsets.zero,
-      this.maxLength});
+      this.maxLength,
+      required this.endText});
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +35,10 @@ class HalfLengthNumberInput extends StatelessWidget {
               height: double.minPositive,
             ),
             labelText: hint,
-            labelStyle: Theme.of(context).textTheme.titleMedium,
-            floatingLabelStyle: Theme.of(context).textTheme.titleMedium,
-            floatingLabelBehavior: FloatingLabelBehavior.always,
+            suffix: Text(
+              endText,
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
           )),
     );
   }

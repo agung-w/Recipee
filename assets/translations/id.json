@@ -14,5 +14,9 @@
   "description_placeholder_create_recipe":"Deskripsikan masakanmu sejarah, citarasa, dan masih banyak lagi",
   "ingredients_title_create_recipe":"Bahan-bahan",
   "cooking_step_input_hint_create_recipe":"Masukan langkah memasak (contoh: kocok telur hingga merata)",
-  "add_cooking_step_button":"Tambahkan langkah memasak"
+  "add_cooking_step_button":"Tambahkan langkah memasak",
+  "serving_end_text_create_recipe":"Orang",
+  "prep_time_end_text_create_recipe":"Menit",
+  "qty":"qty",
+  "create_recipe_success_message":"Berhasil membuat resep"
 }

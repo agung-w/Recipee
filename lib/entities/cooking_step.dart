@@ -1,15 +1,17 @@
+import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'cooking_step.g.dart';
 
+@CopyWith()
 @JsonSerializable()
 class CookingStep {
-  final int step;
-  final String description;
+  int? step;
+  String description;
   @JsonKey(name: "pic_url")
-  final String? picUrl;
-  const CookingStep({
-    required this.step,
+  String? picUrl;
+  CookingStep({
+    this.step,
     required this.description,
     this.picUrl,
   });
