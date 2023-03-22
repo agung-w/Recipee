@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ta_recipe_app/bloc/profile_page_bloc.dart';
 import 'package:ta_recipe_app/bloc/user_authentication_bloc.dart';
 import 'package:ta_recipe_app/ui/pages/login_page.dart';
 import 'package:ta_recipe_app/ui/widgets/skeleton.dart';
@@ -9,11 +10,56 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<UserAuthenticationBloc, UserAuthenticationState>(
+    return BlocBuilder<ProfilePageBloc, ProfilePageState>(
       builder: (context, state) {
         return Scaffold(
-            body: state.when(
-          signedIn: (_) => Padding(
+            body: state.when(failed: (message) {
+          return Column(
+            children: [
+              InkWell(
+                child: Container(
+                  color: Theme.of(context).colorScheme.background,
+                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+                  margin: const EdgeInsets.only(top: 12),
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 45,
+                        height: 45,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(100),
+                            color: Theme.of(context).colorScheme.primary),
+                      ),
+                      Container(
+                        height: 45,
+                        padding: const EdgeInsets.only(left: 16),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              message,
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
+                            Text(
+                              'Buat, simpan resep kapanpun dimanapun',
+                              style: Theme.of(context).textTheme.bodySmall,
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                onTap: () {
+                  Navigator.of(context, rootNavigator: true).push(
+                      MaterialPageRoute(builder: (_) => const LoginPage()));
+                },
+              ),
+            ],
+          );
+        }, loaded: (user, savedRecipeList, createdRecipeList) {
+          return Padding(
             padding: const EdgeInsets.all(16),
             child: Column(children: [
               Row(
@@ -33,7 +79,7 @@ class ProfilePage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Agung Wijaya",
+                            user.name,
                             style: Theme.of(context).textTheme.displayMedium,
                           ),
                           Text(
@@ -64,52 +110,9 @@ class ProfilePage extends StatelessWidget {
                 child: const Text("logout"),
               )
             ]),
-          ),
-          signedOut: () => Column(
-            children: [
-              InkWell(
-                child: Container(
-                  color: Theme.of(context).colorScheme.background,
-                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-                  margin: const EdgeInsets.only(top: 12),
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 45,
-                        height: 45,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
-                            color: Theme.of(context).colorScheme.primary),
-                      ),
-                      Container(
-                        height: 45,
-                        padding: const EdgeInsets.only(left: 16),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Masuk',
-                              style: Theme.of(context).textTheme.titleMedium,
-                            ),
-                            Text(
-                              'Buat, simpan resep kapanpun dimanapun',
-                              style: Theme.of(context).textTheme.bodySmall,
-                            )
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                onTap: () {
-                  Navigator.of(context, rootNavigator: true).push(
-                      MaterialPageRoute(builder: (_) => const LoginPage()));
-                },
-              ),
-            ],
-          ),
-          loading: () => Column(
+          );
+        }, loading: () {
+          return Column(
             children: [
               Skeleton(
                 child: ElevatedButton(
@@ -121,8 +124,8 @@ class ProfilePage extends StatelessWidget {
                 ),
               )
             ],
-          ),
-        ));
+          );
+        }));
       },
     );
   }

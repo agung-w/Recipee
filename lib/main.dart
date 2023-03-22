@@ -1,8 +1,11 @@
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:ta_recipe_app/bloc/create_recipe_bloc.dart';
+import 'package:ta_recipe_app/bloc/profile_page_bloc.dart';
 import 'package:ta_recipe_app/bloc/user_authentication_bloc.dart';
 import 'package:ta_recipe_app/cubit/metric_cubit.dart';
 import 'package:ta_recipe_app/ui/pages/main_page.dart';
@@ -32,14 +35,12 @@ class RecipeApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(create: (_) => CreateRecipeBloc()),
+        BlocProvider(create: (context) => ProfilePageBloc()),
+        BlocProvider(create: (context) => MetricCubit()..getLists()),
         BlocProvider(
             create: (context) => UserAuthenticationBloc()
               ..add(const UserAuthenticationEvent.checkSignInStatus())),
-        BlocProvider(create: (context) => CreateRecipeBloc()),
-        BlocProvider(create: (context) => MetricCubit()..getLists()),
-        // BlocProvider(
-        //     create: (context) =>
-        //         WalletBloc()..add(const WalletEvent.getBalance())),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -48,7 +49,18 @@ class RecipeApp extends StatelessWidget {
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,
         locale: context.locale,
-        home: const SafeArea(child: MainPage()),
+        home: SafeArea(
+            child:
+                BlocConsumer<UserAuthenticationBloc, UserAuthenticationState>(
+          listener: (context, state) {
+            context
+                .read<ProfilePageBloc>()
+                .add(ProfilePageEvent.started(authState: state));
+          },
+          builder: (context, state) {
+            return const MainPage();
+          },
+        )),
       ),
     );
   }
