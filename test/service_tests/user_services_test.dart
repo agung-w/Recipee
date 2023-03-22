@@ -11,13 +11,16 @@ import 'user_services_test.mocks.dart';
 
 @GenerateMocks([Dio])
 void main() {
+  Dio dio = MockDio();
+  var options = Options(headers: {
+    "Content-Type": "application/json",
+    "Authorization": "Bearer token",
+  });
+  var noTokenOptions = Options(headers: {
+    "Content-Type": "application/json",
+  });
   group("Get user signed in info", () {
     test("auth token provided (Success)", () async {
-      Dio dio = MockDio();
-      var options = Options(headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer token",
-      });
       await dotenv.load(fileName: ".env");
       when(dio.get("${dotenv.env['API_URL']}/my-profile", options: options))
           .thenAnswer((_) {
@@ -52,12 +55,9 @@ void main() {
     });
 
     test("auth token not provided (Failed)", () async {
-      Dio dio = MockDio();
-      var options = Options(headers: {
-        "Content-Type": "application/json",
-      });
       await dotenv.load(fileName: ".env");
-      when(dio.get("${dotenv.env['API_URL']}/my-profile", options: options))
+      when(dio.get("${dotenv.env['API_URL']}/my-profile",
+              options: noTokenOptions))
           .thenAnswer((_) {
         return Future.value(Response(
             data: {"status": 401, "message": "Nil JSON web token"},
@@ -67,7 +67,7 @@ void main() {
             )));
       });
       ApiResult<UserDetail> result =
-          await UserServices(dio: dio, options: options)
+          await UserServices(dio: dio, options: noTokenOptions)
               .getSignedInInfo(token: "");
       expect(result,
           equals(const ApiResult<UserDetail>.failed("Nil JSON web token")));
@@ -76,11 +76,6 @@ void main() {
 
   group("Get User by username", () {
     test("user found", () async {
-      Dio dio = MockDio();
-      var options = Options(headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer token",
-      });
       await dotenv.load(fileName: ".env");
       when(dio.get("${dotenv.env['API_URL']}/profile/user_00000001",
               options: options))
@@ -116,10 +111,6 @@ void main() {
     });
 
     test("user not found", () async {
-      Dio dio = MockDio();
-      var options = Options(headers: {
-        "Content-Type": "application/json",
-      });
       await dotenv.load(fileName: ".env");
       when(dio.get("${dotenv.env['API_URL']}/profile/user_notfound",
               options: options))
