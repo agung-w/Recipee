@@ -8,6 +8,6 @@ class UserAuthenticationEvent with _$UserAuthenticationEvent {
     required BuildContext context,
   }) = _LoginByEmail;
   const factory UserAuthenticationEvent.logout() = _Logout;
-  const factory UserAuthenticationEvent.checkSignInStatus(
-      {required BuildContext context}) = _CheckSignInStatus;
+  const factory UserAuthenticationEvent.checkSignInStatus() =
+      _CheckSignInStatus;
 }

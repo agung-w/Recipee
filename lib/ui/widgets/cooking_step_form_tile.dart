@@ -13,9 +13,6 @@ class CookingStepFormTile extends StatefulWidget {
 
   @override
   State<CookingStepFormTile> createState() => _CookingStepFormTileState();
-  bool validate() {
-    return validate();
-  }
 }
 
 class _CookingStepFormTileState extends State<CookingStepFormTile> {
@@ -28,61 +25,63 @@ class _CookingStepFormTileState extends State<CookingStepFormTile> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      autovalidateMode: AutovalidateMode.always,
-      child: Slidable(
-          endActionPane: ActionPane(motion: const ScrollMotion(), children: [
-            SlidableAction(
-              onPressed: (_) {
+    return Slidable(
+        endActionPane: ActionPane(motion: const ScrollMotion(), children: [
+          SlidableAction(
+            onPressed: (_) {
+              context.read<CreateRecipeBloc>().add(
+                  CreateRecipeEvent.deleteCookingStep(
+                      cookingStep: widget.cookingStep));
+            },
+            backgroundColor: Theme.of(context).colorScheme.error,
+            icon: Icons.delete_outline,
+          ),
+        ]),
+        child: ListTile(
+          leading: InkWell(
+            onTap: () async {
+              widget.cookingStep.picUrl = await PictureServices()
+                  .uploadPosterPicture(await ImagePicker()
+                      .pickImage(source: ImageSource.gallery));
+              setState(() {});
+            },
+            child: SizedBox(
+                width: 50,
+                height: 50,
+                child: widget.cookingStep.picUrl != null
+                    ? Image.network(widget.cookingStep.picUrl!)
+                    : Image.asset("assets/images/placeholder/add_image.png")),
+          ),
+          title: FocusScope(
+            onFocusChange: (value) {
+              if (!value) {
                 context.read<CreateRecipeBloc>().add(
-                    CreateRecipeEvent.deleteCookingStep(
-                        cookingStep: widget.cookingStep));
-              },
-              backgroundColor: Theme.of(context).colorScheme.error,
-              icon: Icons.delete_outline,
-            ),
-          ]),
-          child: ListTile(
-            leading: InkWell(
-              onTap: () async {
-                widget.cookingStep.picUrl = await PictureServices()
-                    .uploadPosterPicture(await ImagePicker()
-                        .pickImage(source: ImageSource.gallery));
-                setState(() {});
-              },
-              child: SizedBox(
-                  width: 50,
-                  height: 50,
-                  child: widget.cookingStep.picUrl != null
-                      ? Image.network(widget.cookingStep.picUrl!)
-                      : Image.asset("assets/images/placeholder/add_image.png")),
-            ),
-            title: FocusScope(
-              onFocusChange: (value) {
-                if (!value) {}
-              },
-              child: TextFormField(
-                controller: _descriptionController,
-                maxLines: 3,
-                minLines: 2,
-                validator: (value) =>
-                    value!.isEmpty ? "this_section_cant_be_blank".tr() : null,
-                onTapOutside: (event) => context.read<CreateRecipeBloc>().add(
                     CreateRecipeEvent.editCookingStepDescription(
                         cookingStep: widget.cookingStep,
-                        description: _descriptionController.text)),
-                decoration: InputDecoration(
-                  hintMaxLines: 2,
-                  contentPadding: EdgeInsets.zero,
-                  hintText: "cooking_step_input_hint_create_recipe".tr(),
-                  counterStyle: const TextStyle(
-                    height: double.minPositive,
-                  ),
-                  counterText: "",
+                        description: _descriptionController.text));
+              }
+            },
+            child: TextFormField(
+              controller: _descriptionController,
+              maxLines: 3,
+              minLines: 2,
+              validator: (value) =>
+                  value!.isEmpty ? "this_section_cant_be_blank".tr() : null,
+              onTapOutside: (event) => context.read<CreateRecipeBloc>().add(
+                  CreateRecipeEvent.editCookingStepDescription(
+                      cookingStep: widget.cookingStep,
+                      description: _descriptionController.text)),
+              decoration: InputDecoration(
+                hintMaxLines: 2,
+                contentPadding: EdgeInsets.zero,
+                hintText: "cooking_step_input_hint_create_recipe".tr(),
+                counterStyle: const TextStyle(
+                  height: double.minPositive,
                 ),
+                counterText: "",
               ),
             ),
-          )),
-    );
+          ),
+        ));
   }
 }

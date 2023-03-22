@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -17,6 +18,7 @@ import 'package:ta_recipe_app/services/ingredient_services.dart';
 import 'package:ta_recipe_app/services/picture_services.dart';
 import 'package:ta_recipe_app/services/recipe_services.dart';
 import 'package:ta_recipe_app/ui/pages/create_recipe_page.dart';
+import 'package:ta_recipe_app/ui/pages/home_page.dart';
 import 'package:ta_recipe_app/ui/pages/login_page.dart';
 import 'package:ta_recipe_app/ui/widgets/cooking_step_form_tile.dart';
 import 'package:ta_recipe_app/ui/widgets/ingredient_form_tile.dart';
@@ -28,21 +30,19 @@ part 'create_recipe_bloc.freezed.dart';
 class CreateRecipeBloc extends Bloc<CreateRecipeEvent, CreateRecipeState> {
   CreateRecipeBloc() : super(const _Initial()) {
     on<_Create>((event, emit) async {
-      event.state.maybeMap(signedIn: (value) {
+      event.state.map(signedIn: (value) {
         emit(_Creating(
             recipe: RecipeDetail(title: "", description: "", user: value.user),
             ingredientForms: [],
-            cookingStepForms: [
-              CookingStepFormTile(
-                cookingStep: CookingStep(description: ""),
-              ),
-            ]));
+            cookingStepForms: []));
         Navigator.of(event.context, rootNavigator: true)
             .push(MaterialPageRoute(builder: (_) => const CreateRecipePage()));
-      }, orElse: () {
+      }, signedOut: (_) {
         emit(const _Initial());
         Navigator.of(event.context, rootNavigator: true)
             .push(MaterialPageRoute(builder: (_) => const LoginPage()));
+      }, loading: (_) {
+        emit(const _Initial());
       });
     });
     on<_AddIngredient>((event, emit) async {
@@ -116,8 +116,9 @@ class CreateRecipeBloc extends Bloc<CreateRecipeEvent, CreateRecipeState> {
       if (state is _Creating) {
         _Creating? creating = state.mapOrNull(creating: ((value) => value));
         List<CookingStepFormTile> forms = List.from(creating!.cookingStepForms);
-        forms.add(
-            CookingStepFormTile(cookingStep: CookingStep(description: "")));
+        forms.add(CookingStepFormTile(
+          cookingStep: CookingStep(description: ""),
+        ));
         emit(creating.copyWith(cookingStepForms: forms));
       }
     });

@@ -22,7 +22,7 @@ mixin _$UserAuthenticationEvent {
             String email, String password, BuildContext context)
         loginByEmail,
     required TResult Function() logout,
-    required TResult Function(BuildContext context) checkSignInStatus,
+    required TResult Function() checkSignInStatus,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -30,7 +30,7 @@ mixin _$UserAuthenticationEvent {
     TResult? Function(String email, String password, BuildContext context)?
         loginByEmail,
     TResult? Function()? logout,
-    TResult? Function(BuildContext context)? checkSignInStatus,
+    TResult? Function()? checkSignInStatus,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -38,7 +38,7 @@ mixin _$UserAuthenticationEvent {
     TResult Function(String email, String password, BuildContext context)?
         loginByEmail,
     TResult Function()? logout,
-    TResult Function(BuildContext context)? checkSignInStatus,
+    TResult Function()? checkSignInStatus,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -171,7 +171,7 @@ class _$_LoginByEmail implements _LoginByEmail {
             String email, String password, BuildContext context)
         loginByEmail,
     required TResult Function() logout,
-    required TResult Function(BuildContext context) checkSignInStatus,
+    required TResult Function() checkSignInStatus,
   }) {
     return loginByEmail(email, password, context);
   }
@@ -182,7 +182,7 @@ class _$_LoginByEmail implements _LoginByEmail {
     TResult? Function(String email, String password, BuildContext context)?
         loginByEmail,
     TResult? Function()? logout,
-    TResult? Function(BuildContext context)? checkSignInStatus,
+    TResult? Function()? checkSignInStatus,
   }) {
     return loginByEmail?.call(email, password, context);
   }
@@ -193,7 +193,7 @@ class _$_LoginByEmail implements _LoginByEmail {
     TResult Function(String email, String password, BuildContext context)?
         loginByEmail,
     TResult Function()? logout,
-    TResult Function(BuildContext context)? checkSignInStatus,
+    TResult Function()? checkSignInStatus,
     required TResult orElse(),
   }) {
     if (loginByEmail != null) {
@@ -291,7 +291,7 @@ class _$_Logout implements _Logout {
             String email, String password, BuildContext context)
         loginByEmail,
     required TResult Function() logout,
-    required TResult Function(BuildContext context) checkSignInStatus,
+    required TResult Function() checkSignInStatus,
   }) {
     return logout();
   }
@@ -302,7 +302,7 @@ class _$_Logout implements _Logout {
     TResult? Function(String email, String password, BuildContext context)?
         loginByEmail,
     TResult? Function()? logout,
-    TResult? Function(BuildContext context)? checkSignInStatus,
+    TResult? Function()? checkSignInStatus,
   }) {
     return logout?.call();
   }
@@ -313,7 +313,7 @@ class _$_Logout implements _Logout {
     TResult Function(String email, String password, BuildContext context)?
         loginByEmail,
     TResult Function()? logout,
-    TResult Function(BuildContext context)? checkSignInStatus,
+    TResult Function()? checkSignInStatus,
     required TResult orElse(),
   }) {
     if (logout != null) {
@@ -366,8 +366,6 @@ abstract class _$$_CheckSignInStatusCopyWith<$Res> {
   factory _$$_CheckSignInStatusCopyWith(_$_CheckSignInStatus value,
           $Res Function(_$_CheckSignInStatus) then) =
       __$$_CheckSignInStatusCopyWithImpl<$Res>;
-  @useResult
-  $Res call({BuildContext context});
 }
 
 /// @nodoc
@@ -377,51 +375,26 @@ class __$$_CheckSignInStatusCopyWithImpl<$Res>
   __$$_CheckSignInStatusCopyWithImpl(
       _$_CheckSignInStatus _value, $Res Function(_$_CheckSignInStatus) _then)
       : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? context = null,
-  }) {
-    return _then(_$_CheckSignInStatus(
-      context: null == context
-          ? _value.context
-          : context // ignore: cast_nullable_to_non_nullable
-              as BuildContext,
-    ));
-  }
 }
 
 /// @nodoc
 
 class _$_CheckSignInStatus implements _CheckSignInStatus {
-  const _$_CheckSignInStatus({required this.context});
-
-  @override
-  final BuildContext context;
+  const _$_CheckSignInStatus();
 
   @override
   String toString() {
-    return 'UserAuthenticationEvent.checkSignInStatus(context: $context)';
+    return 'UserAuthenticationEvent.checkSignInStatus()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_CheckSignInStatus &&
-            (identical(other.context, context) || other.context == context));
+        (other.runtimeType == runtimeType && other is _$_CheckSignInStatus);
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, context);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_CheckSignInStatusCopyWith<_$_CheckSignInStatus> get copyWith =>
-      __$$_CheckSignInStatusCopyWithImpl<_$_CheckSignInStatus>(
-          this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
@@ -430,9 +403,9 @@ class _$_CheckSignInStatus implements _CheckSignInStatus {
             String email, String password, BuildContext context)
         loginByEmail,
     required TResult Function() logout,
-    required TResult Function(BuildContext context) checkSignInStatus,
+    required TResult Function() checkSignInStatus,
   }) {
-    return checkSignInStatus(context);
+    return checkSignInStatus();
   }
 
   @override
@@ -441,9 +414,9 @@ class _$_CheckSignInStatus implements _CheckSignInStatus {
     TResult? Function(String email, String password, BuildContext context)?
         loginByEmail,
     TResult? Function()? logout,
-    TResult? Function(BuildContext context)? checkSignInStatus,
+    TResult? Function()? checkSignInStatus,
   }) {
-    return checkSignInStatus?.call(context);
+    return checkSignInStatus?.call();
   }
 
   @override
@@ -452,11 +425,11 @@ class _$_CheckSignInStatus implements _CheckSignInStatus {
     TResult Function(String email, String password, BuildContext context)?
         loginByEmail,
     TResult Function()? logout,
-    TResult Function(BuildContext context)? checkSignInStatus,
+    TResult Function()? checkSignInStatus,
     required TResult orElse(),
   }) {
     if (checkSignInStatus != null) {
-      return checkSignInStatus(context);
+      return checkSignInStatus();
     }
     return orElse();
   }
@@ -497,13 +470,7 @@ class _$_CheckSignInStatus implements _CheckSignInStatus {
 }
 
 abstract class _CheckSignInStatus implements UserAuthenticationEvent {
-  const factory _CheckSignInStatus({required final BuildContext context}) =
-      _$_CheckSignInStatus;
-
-  BuildContext get context;
-  @JsonKey(ignore: true)
-  _$$_CheckSignInStatusCopyWith<_$_CheckSignInStatus> get copyWith =>
-      throw _privateConstructorUsedError;
+  const factory _CheckSignInStatus() = _$_CheckSignInStatus;
 }
 
 /// @nodoc

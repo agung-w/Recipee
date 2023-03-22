@@ -63,8 +63,6 @@ class UserAuthenticationBloc
         user.map(
             success: (result) => emit(SignedIn(result.value)),
             failed: (result) {
-              ScaffoldMessenger.of(event.context)
-                  .showSnackBar(SnackBar(content: Text(result.message)));
               emit(const SignedOut());
             });
       } else {

@@ -34,8 +34,7 @@ class RecipeApp extends StatelessWidget {
       providers: [
         BlocProvider(
             create: (context) => UserAuthenticationBloc()
-              ..add(
-                  UserAuthenticationEvent.checkSignInStatus(context: context))),
+              ..add(const UserAuthenticationEvent.checkSignInStatus())),
         BlocProvider(create: (context) => CreateRecipeBloc()),
         BlocProvider(create: (context) => MetricCubit()..getLists()),
         // BlocProvider(
