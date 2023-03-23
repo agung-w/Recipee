@@ -77,7 +77,8 @@ void main() async {
           "user": {
             "name": "tes",
             "email": "tes@gmail.com",
-            "password": "123456"
+            "username": "username",
+            "password": "123456",
           }
         }),
         options: options,
@@ -95,7 +96,10 @@ void main() async {
           ));
       ApiResult<String> token =
           await AuthServices(dio: mockDio, options: options).registerByEmail(
-              email: "tes@gmail.com", password: "123456", name: "tes");
+              email: "tes@gmail.com",
+              password: "123456",
+              name: "tes",
+              username: 'username');
       expect(token, equals(const ApiResult.success("jwt-token")));
     });
     test("Use existing email (Failed)", () async {
@@ -105,6 +109,7 @@ void main() async {
           "user": {
             "name": "tes",
             "email": "tes@gmail.com",
+            "username": "username",
             "password": "password"
           }
         }),
@@ -124,7 +129,10 @@ void main() async {
           ));
       ApiResult<String> token =
           await AuthServices(dio: mockDio, options: options).registerByEmail(
-              email: "tes@gmail.com", password: "password", name: "tes");
+              email: "tes@gmail.com",
+              password: "password",
+              name: "tes",
+              username: 'username');
       expect(
           token,
           equals(

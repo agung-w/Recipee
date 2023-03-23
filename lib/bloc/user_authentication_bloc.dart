@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:ta_recipe_app/entities/user.dart';
 import 'package:ta_recipe_app/entities/user_detail.dart';
 import 'package:ta_recipe_app/helpers/api_result.dart';
 import 'package:ta_recipe_app/services/auth_services.dart';
@@ -33,13 +34,14 @@ class UserAuthenticationBloc
         if (pref.getString('token') != null) {
           ApiResult<UserDetail> user = await UserServices()
               .getSignedInInfo(token: pref.getString('token')!);
-          user.map(
-              success: (result) {
-                Navigator.of(event.context).pop();
-                emit(SignedIn(result.value));
-              },
-              failed: (result) => ScaffoldMessenger.of(event.context)
-                  .showSnackBar(SnackBar(content: Text(result.message))));
+          user.map(success: (result) {
+            Navigator.popUntil(event.context, (route) => route.isFirst);
+            emit(SignedIn(result.value));
+          }, failed: (result) {
+            emit(const SignedOut());
+            ScaffoldMessenger.of(event.context)
+                .showSnackBar(SnackBar(content: Text(result.message)));
+          });
         }
       }
     });
@@ -67,6 +69,37 @@ class UserAuthenticationBloc
             });
       } else {
         emit(const SignedOut());
+      }
+    });
+
+    on<_Register>((event, emit) async {
+      emit(const Loading());
+      SharedPreferences pref = await SharedPreferences.getInstance();
+
+      ApiResult<String> result = await AuthServices().registerByEmail(
+        email: event.email,
+        name: event.name,
+        password: event.password,
+        username: event.username,
+      );
+      result.map(success: (value) {
+        pref.setString('token', value.value);
+      }, failed: (result) {
+        ScaffoldMessenger.of(event.context)
+            .showSnackBar(SnackBar(content: Text(result.message)));
+        emit(const SignedOut());
+      });
+      if (pref.getString('token') != null) {
+        ApiResult<UserDetail> user = await UserServices()
+            .getSignedInInfo(token: pref.getString('token')!);
+        user.map(success: (result) {
+          Navigator.popUntil(event.context, (route) => route.isFirst);
+          emit(SignedIn(result.value));
+        }, failed: (result) {
+          ScaffoldMessenger.of(event.context)
+              .showSnackBar(SnackBar(content: Text(result.message)));
+          emit(const SignedOut());
+        });
       }
     });
   }

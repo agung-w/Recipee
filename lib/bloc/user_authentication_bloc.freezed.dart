@@ -23,6 +23,9 @@ mixin _$UserAuthenticationEvent {
         loginByEmail,
     required TResult Function() logout,
     required TResult Function() checkSignInStatus,
+    required TResult Function(String name, String? username, String email,
+            String password, BuildContext context)
+        register,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -31,6 +34,9 @@ mixin _$UserAuthenticationEvent {
         loginByEmail,
     TResult? Function()? logout,
     TResult? Function()? checkSignInStatus,
+    TResult? Function(String name, String? username, String email,
+            String password, BuildContext context)?
+        register,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -39,6 +45,9 @@ mixin _$UserAuthenticationEvent {
         loginByEmail,
     TResult Function()? logout,
     TResult Function()? checkSignInStatus,
+    TResult Function(String name, String? username, String email,
+            String password, BuildContext context)?
+        register,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -47,6 +56,7 @@ mixin _$UserAuthenticationEvent {
     required TResult Function(_LoginByEmail value) loginByEmail,
     required TResult Function(_Logout value) logout,
     required TResult Function(_CheckSignInStatus value) checkSignInStatus,
+    required TResult Function(_Register value) register,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -54,6 +64,7 @@ mixin _$UserAuthenticationEvent {
     TResult? Function(_LoginByEmail value)? loginByEmail,
     TResult? Function(_Logout value)? logout,
     TResult? Function(_CheckSignInStatus value)? checkSignInStatus,
+    TResult? Function(_Register value)? register,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -61,6 +72,7 @@ mixin _$UserAuthenticationEvent {
     TResult Function(_LoginByEmail value)? loginByEmail,
     TResult Function(_Logout value)? logout,
     TResult Function(_CheckSignInStatus value)? checkSignInStatus,
+    TResult Function(_Register value)? register,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -172,6 +184,9 @@ class _$_LoginByEmail implements _LoginByEmail {
         loginByEmail,
     required TResult Function() logout,
     required TResult Function() checkSignInStatus,
+    required TResult Function(String name, String? username, String email,
+            String password, BuildContext context)
+        register,
   }) {
     return loginByEmail(email, password, context);
   }
@@ -183,6 +198,9 @@ class _$_LoginByEmail implements _LoginByEmail {
         loginByEmail,
     TResult? Function()? logout,
     TResult? Function()? checkSignInStatus,
+    TResult? Function(String name, String? username, String email,
+            String password, BuildContext context)?
+        register,
   }) {
     return loginByEmail?.call(email, password, context);
   }
@@ -194,6 +212,9 @@ class _$_LoginByEmail implements _LoginByEmail {
         loginByEmail,
     TResult Function()? logout,
     TResult Function()? checkSignInStatus,
+    TResult Function(String name, String? username, String email,
+            String password, BuildContext context)?
+        register,
     required TResult orElse(),
   }) {
     if (loginByEmail != null) {
@@ -208,6 +229,7 @@ class _$_LoginByEmail implements _LoginByEmail {
     required TResult Function(_LoginByEmail value) loginByEmail,
     required TResult Function(_Logout value) logout,
     required TResult Function(_CheckSignInStatus value) checkSignInStatus,
+    required TResult Function(_Register value) register,
   }) {
     return loginByEmail(this);
   }
@@ -218,6 +240,7 @@ class _$_LoginByEmail implements _LoginByEmail {
     TResult? Function(_LoginByEmail value)? loginByEmail,
     TResult? Function(_Logout value)? logout,
     TResult? Function(_CheckSignInStatus value)? checkSignInStatus,
+    TResult? Function(_Register value)? register,
   }) {
     return loginByEmail?.call(this);
   }
@@ -228,6 +251,7 @@ class _$_LoginByEmail implements _LoginByEmail {
     TResult Function(_LoginByEmail value)? loginByEmail,
     TResult Function(_Logout value)? logout,
     TResult Function(_CheckSignInStatus value)? checkSignInStatus,
+    TResult Function(_Register value)? register,
     required TResult orElse(),
   }) {
     if (loginByEmail != null) {
@@ -292,6 +316,9 @@ class _$_Logout implements _Logout {
         loginByEmail,
     required TResult Function() logout,
     required TResult Function() checkSignInStatus,
+    required TResult Function(String name, String? username, String email,
+            String password, BuildContext context)
+        register,
   }) {
     return logout();
   }
@@ -303,6 +330,9 @@ class _$_Logout implements _Logout {
         loginByEmail,
     TResult? Function()? logout,
     TResult? Function()? checkSignInStatus,
+    TResult? Function(String name, String? username, String email,
+            String password, BuildContext context)?
+        register,
   }) {
     return logout?.call();
   }
@@ -314,6 +344,9 @@ class _$_Logout implements _Logout {
         loginByEmail,
     TResult Function()? logout,
     TResult Function()? checkSignInStatus,
+    TResult Function(String name, String? username, String email,
+            String password, BuildContext context)?
+        register,
     required TResult orElse(),
   }) {
     if (logout != null) {
@@ -328,6 +361,7 @@ class _$_Logout implements _Logout {
     required TResult Function(_LoginByEmail value) loginByEmail,
     required TResult Function(_Logout value) logout,
     required TResult Function(_CheckSignInStatus value) checkSignInStatus,
+    required TResult Function(_Register value) register,
   }) {
     return logout(this);
   }
@@ -338,6 +372,7 @@ class _$_Logout implements _Logout {
     TResult? Function(_LoginByEmail value)? loginByEmail,
     TResult? Function(_Logout value)? logout,
     TResult? Function(_CheckSignInStatus value)? checkSignInStatus,
+    TResult? Function(_Register value)? register,
   }) {
     return logout?.call(this);
   }
@@ -348,6 +383,7 @@ class _$_Logout implements _Logout {
     TResult Function(_LoginByEmail value)? loginByEmail,
     TResult Function(_Logout value)? logout,
     TResult Function(_CheckSignInStatus value)? checkSignInStatus,
+    TResult Function(_Register value)? register,
     required TResult orElse(),
   }) {
     if (logout != null) {
@@ -404,6 +440,9 @@ class _$_CheckSignInStatus implements _CheckSignInStatus {
         loginByEmail,
     required TResult Function() logout,
     required TResult Function() checkSignInStatus,
+    required TResult Function(String name, String? username, String email,
+            String password, BuildContext context)
+        register,
   }) {
     return checkSignInStatus();
   }
@@ -415,6 +454,9 @@ class _$_CheckSignInStatus implements _CheckSignInStatus {
         loginByEmail,
     TResult? Function()? logout,
     TResult? Function()? checkSignInStatus,
+    TResult? Function(String name, String? username, String email,
+            String password, BuildContext context)?
+        register,
   }) {
     return checkSignInStatus?.call();
   }
@@ -426,6 +468,9 @@ class _$_CheckSignInStatus implements _CheckSignInStatus {
         loginByEmail,
     TResult Function()? logout,
     TResult Function()? checkSignInStatus,
+    TResult Function(String name, String? username, String email,
+            String password, BuildContext context)?
+        register,
     required TResult orElse(),
   }) {
     if (checkSignInStatus != null) {
@@ -440,6 +485,7 @@ class _$_CheckSignInStatus implements _CheckSignInStatus {
     required TResult Function(_LoginByEmail value) loginByEmail,
     required TResult Function(_Logout value) logout,
     required TResult Function(_CheckSignInStatus value) checkSignInStatus,
+    required TResult Function(_Register value) register,
   }) {
     return checkSignInStatus(this);
   }
@@ -450,6 +496,7 @@ class _$_CheckSignInStatus implements _CheckSignInStatus {
     TResult? Function(_LoginByEmail value)? loginByEmail,
     TResult? Function(_Logout value)? logout,
     TResult? Function(_CheckSignInStatus value)? checkSignInStatus,
+    TResult? Function(_Register value)? register,
   }) {
     return checkSignInStatus?.call(this);
   }
@@ -460,6 +507,7 @@ class _$_CheckSignInStatus implements _CheckSignInStatus {
     TResult Function(_LoginByEmail value)? loginByEmail,
     TResult Function(_Logout value)? logout,
     TResult Function(_CheckSignInStatus value)? checkSignInStatus,
+    TResult Function(_Register value)? register,
     required TResult orElse(),
   }) {
     if (checkSignInStatus != null) {
@@ -471,6 +519,215 @@ class _$_CheckSignInStatus implements _CheckSignInStatus {
 
 abstract class _CheckSignInStatus implements UserAuthenticationEvent {
   const factory _CheckSignInStatus() = _$_CheckSignInStatus;
+}
+
+/// @nodoc
+abstract class _$$_RegisterCopyWith<$Res> {
+  factory _$$_RegisterCopyWith(
+          _$_Register value, $Res Function(_$_Register) then) =
+      __$$_RegisterCopyWithImpl<$Res>;
+  @useResult
+  $Res call(
+      {String name,
+      String? username,
+      String email,
+      String password,
+      BuildContext context});
+}
+
+/// @nodoc
+class __$$_RegisterCopyWithImpl<$Res>
+    extends _$UserAuthenticationEventCopyWithImpl<$Res, _$_Register>
+    implements _$$_RegisterCopyWith<$Res> {
+  __$$_RegisterCopyWithImpl(
+      _$_Register _value, $Res Function(_$_Register) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? username = freezed,
+    Object? email = null,
+    Object? password = null,
+    Object? context = null,
+  }) {
+    return _then(_$_Register(
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      username: freezed == username
+          ? _value.username
+          : username // ignore: cast_nullable_to_non_nullable
+              as String?,
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      password: null == password
+          ? _value.password
+          : password // ignore: cast_nullable_to_non_nullable
+              as String,
+      context: null == context
+          ? _value.context
+          : context // ignore: cast_nullable_to_non_nullable
+              as BuildContext,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_Register implements _Register {
+  const _$_Register(
+      {required this.name,
+      required this.username,
+      required this.email,
+      required this.password,
+      required this.context});
+
+  @override
+  final String name;
+  @override
+  final String? username;
+  @override
+  final String email;
+  @override
+  final String password;
+  @override
+  final BuildContext context;
+
+  @override
+  String toString() {
+    return 'UserAuthenticationEvent.register(name: $name, username: $username, email: $email, password: $password, context: $context)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_Register &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.username, username) ||
+                other.username == username) &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.password, password) ||
+                other.password == password) &&
+            (identical(other.context, context) || other.context == context));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, name, username, email, password, context);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_RegisterCopyWith<_$_Register> get copyWith =>
+      __$$_RegisterCopyWithImpl<_$_Register>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            String email, String password, BuildContext context)
+        loginByEmail,
+    required TResult Function() logout,
+    required TResult Function() checkSignInStatus,
+    required TResult Function(String name, String? username, String email,
+            String password, BuildContext context)
+        register,
+  }) {
+    return register(name, username, email, password, context);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String email, String password, BuildContext context)?
+        loginByEmail,
+    TResult? Function()? logout,
+    TResult? Function()? checkSignInStatus,
+    TResult? Function(String name, String? username, String email,
+            String password, BuildContext context)?
+        register,
+  }) {
+    return register?.call(name, username, email, password, context);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String email, String password, BuildContext context)?
+        loginByEmail,
+    TResult Function()? logout,
+    TResult Function()? checkSignInStatus,
+    TResult Function(String name, String? username, String email,
+            String password, BuildContext context)?
+        register,
+    required TResult orElse(),
+  }) {
+    if (register != null) {
+      return register(name, username, email, password, context);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_LoginByEmail value) loginByEmail,
+    required TResult Function(_Logout value) logout,
+    required TResult Function(_CheckSignInStatus value) checkSignInStatus,
+    required TResult Function(_Register value) register,
+  }) {
+    return register(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_LoginByEmail value)? loginByEmail,
+    TResult? Function(_Logout value)? logout,
+    TResult? Function(_CheckSignInStatus value)? checkSignInStatus,
+    TResult? Function(_Register value)? register,
+  }) {
+    return register?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_LoginByEmail value)? loginByEmail,
+    TResult Function(_Logout value)? logout,
+    TResult Function(_CheckSignInStatus value)? checkSignInStatus,
+    TResult Function(_Register value)? register,
+    required TResult orElse(),
+  }) {
+    if (register != null) {
+      return register(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Register implements UserAuthenticationEvent {
+  const factory _Register(
+      {required final String name,
+      required final String? username,
+      required final String email,
+      required final String password,
+      required final BuildContext context}) = _$_Register;
+
+  String get name;
+  String? get username;
+  String get email;
+  String get password;
+  BuildContext get context;
+  @JsonKey(ignore: true)
+  _$$_RegisterCopyWith<_$_Register> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc

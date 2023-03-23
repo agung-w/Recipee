@@ -10,4 +10,10 @@ class UserAuthenticationEvent with _$UserAuthenticationEvent {
   const factory UserAuthenticationEvent.logout() = _Logout;
   const factory UserAuthenticationEvent.checkSignInStatus() =
       _CheckSignInStatus;
+  const factory UserAuthenticationEvent.register(
+      {required String name,
+      required String? username,
+      required String email,
+      required String password,
+      required BuildContext context}) = _Register;
 }

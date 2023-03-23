@@ -45,10 +45,16 @@ class AuthServices {
 
   Future<ApiResult<String>> registerByEmail(
       {required String email,
+      required String? username,
       required String name,
       required String password}) async {
     var data = {
-      "user": {"name": name, "email": email, "password": password}
+      "user": {
+        "name": name,
+        "email": email,
+        "username": username,
+        "password": password
+      }
     };
     try {
       Response result = await _dio.post(

@@ -19,10 +19,23 @@
   "prep_time_end_text_create_recipe":"Menit",
   "qty":"qty",
   "create_recipe_success_message":"Berhasil membuat resep",
-  "login_banner_text":"Masuk",
-  "login_banner_description_text":"Buat, simpan resep kapanpun dimanapun",
+  "profile_signed_out_banner_text":"Lakukan lebih banyak hal disini",
+  "profile_signed_out_description_text":"Masuk untuk membuat anda dapat menyimpan, membuat, hingga membeli bahan-bahan pada resep",
+  "login_button_text":"Masuk",
+  "register_button_text":"Daftar",
+  "or":"atau",
   "created_tab_bar_text":"Dibuat",
   "saved_tab_bar_text":"Disimpan",
-  "settings_text":"Pengaturan"
-
+  "settings_text":"Pengaturan",
+  "login_page_app_bar_text":"Masuk",
+  "register_page_app_bar_text":"Daftar",
+  "name_label_text":"Nama",
+  "username_label_text":"Username",
+  "email_label_text":"Email",
+  "password_label_text":"Password",
+  "password_confirmation_label_text":"Password confirmation",
+  "input_length_error":"Minimal {min} karakter maksimal {max} karakter",
+  "password_missmatch_error":"Password tidak sama",
+  "already_has_account_text":"Sudah punya akun ?",
+  "not_have_account_yet_text":"Belum punya akun ?"
 }

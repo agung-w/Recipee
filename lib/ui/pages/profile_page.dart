@@ -6,10 +6,10 @@ import 'package:ta_recipe_app/bloc/user_authentication_bloc.dart';
 import 'package:ta_recipe_app/entities/recipe.dart';
 import 'package:ta_recipe_app/entities/user_detail.dart';
 import 'package:ta_recipe_app/ui/pages/login_page.dart';
+import 'package:ta_recipe_app/ui/pages/register_page.dart';
 import 'package:ta_recipe_app/ui/widgets/draggable_sheet.dart';
 import 'package:ta_recipe_app/ui/widgets/loading_indicator.dart';
 import 'package:ta_recipe_app/ui/widgets/recipe_card_with_creator.dart';
-import 'package:ta_recipe_app/ui/widgets/skeleton.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -20,49 +20,54 @@ class ProfilePage extends StatelessWidget {
       builder: (context, state) {
         return state.when(failed: (message) {
           return Scaffold(
-              body: Column(
-            children: [
-              InkWell(
-                child: Container(
-                  color: Theme.of(context).colorScheme.background,
-                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-                  margin: const EdgeInsets.only(top: 12),
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 45,
-                        height: 45,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
-                            color: Theme.of(context).colorScheme.primary),
+              body: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "profile_signed_out_banner_text",
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Theme.of(context).colorScheme.primary,
+                        fontWeight: FontWeight.bold,
                       ),
-                      Container(
-                        height: 45,
-                        padding: const EdgeInsets.only(left: 16),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'login_banner_text'.tr(),
-                              style: Theme.of(context).textTheme.titleMedium,
-                            ),
-                            Text(
-                              'login_banner_description_text'.tr(),
-                              style: Theme.of(context).textTheme.bodySmall,
-                            )
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                onTap: () {
-                  Navigator.of(context, rootNavigator: true).push(
-                      MaterialPageRoute(builder: (_) => const LoginPage()));
-                },
-              ),
-            ],
+                      textAlign: TextAlign.center,
+                    ).tr(),
+                    const SizedBox(
+                      height: 6,
+                    ),
+                    const Text(
+                      "profile_signed_out_description_text",
+                      textAlign: TextAlign.center,
+                    ).tr(),
+                    const SizedBox(
+                      height: 6,
+                    ),
+                    ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context, rootNavigator: true).push(
+                              MaterialPageRoute(
+                                  builder: (_) => const LoginPage()));
+                        },
+                        child: const Text("login_button_text").tr()),
+                    const SizedBox(
+                      height: 6,
+                    ),
+                    const Text("or").tr(),
+                    const SizedBox(
+                      height: 6,
+                    ),
+                    ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context, rootNavigator: true).push(
+                              MaterialPageRoute(
+                                  builder: (_) => const RegisterPage()));
+                        },
+                        child: const Text("register_button_text").tr()),
+                  ]),
+            ),
           ));
         }, loaded: (user, savedRecipeList, createdRecipeList) {
           TabBar tabBar = TabBar(

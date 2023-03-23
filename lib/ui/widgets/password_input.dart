@@ -1,11 +1,15 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class PasswordInput extends StatefulWidget {
   final TextEditingController controller;
-  const PasswordInput({super.key, required this.controller});
+  final String label;
+  final Function(String? s)? validation;
+  const PasswordInput({
+    super.key,
+    required this.controller,
+    required this.label,
+    this.validation,
+  });
 
   @override
   State<PasswordInput> createState() => _PasswordInputState();
@@ -20,16 +24,10 @@ class _PasswordInputState extends State<PasswordInput> {
       controller: widget.controller,
       autocorrect: false,
       obscureText: !_visible,
-      validator: (value) {
-        if (value == null) {
-          return 'password_input_error'.tr();
-        } else if (value.length < 6) {
-          return 'password_input_error'.tr();
-        }
-        return null;
-      },
+      validator:
+          widget.validation != null ? (v) => widget.validation!(v) : null,
       decoration: InputDecoration(
-        label: const Text("Password"),
+        label: Text(widget.label),
         alignLabelWithHint: false,
         floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: IconButton(

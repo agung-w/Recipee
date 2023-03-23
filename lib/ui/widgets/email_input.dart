@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 
 class EmailInput extends StatelessWidget {
   final TextEditingController controller;
+  final String label;
 
-  const EmailInput({super.key, required this.controller});
+  const EmailInput({super.key, required this.controller, required this.label});
 
   @override
   Widget build(BuildContext context) {
@@ -20,10 +21,10 @@ class EmailInput extends StatelessWidget {
         return null;
       },
       controller: controller,
-      decoration: const InputDecoration(
-        label: Text("Email"),
+      decoration: InputDecoration(
+        label: Text(label),
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        prefixIconConstraints: BoxConstraints(),
+        prefixIconConstraints: const BoxConstraints(),
       ),
     );
   }
