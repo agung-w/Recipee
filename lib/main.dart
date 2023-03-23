@@ -8,6 +8,7 @@ import 'package:ta_recipe_app/bloc/create_recipe_bloc.dart';
 import 'package:ta_recipe_app/bloc/profile_page_bloc.dart';
 import 'package:ta_recipe_app/bloc/user_authentication_bloc.dart';
 import 'package:ta_recipe_app/cubit/metric_cubit.dart';
+import 'package:ta_recipe_app/cubit/save_recipe_cubit.dart';
 import 'package:ta_recipe_app/ui/pages/main_page.dart';
 import 'package:ta_recipe_app/ui/theme/app_theme.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -38,6 +39,7 @@ class RecipeApp extends StatelessWidget {
         BlocProvider(create: (_) => CreateRecipeBloc()),
         BlocProvider(create: (context) => ProfilePageBloc()),
         BlocProvider(create: (context) => MetricCubit()..getLists()),
+        BlocProvider(create: (context) => SaveRecipeCubit()),
         BlocProvider(
             create: (context) => UserAuthenticationBloc()
               ..add(const UserAuthenticationEvent.checkSignInStatus())),

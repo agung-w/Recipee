@@ -25,7 +25,7 @@ class RecipeDetail extends Recipe {
       includeFromJson: false,
       includeToJson: true)
   final List<RecipeIngredient> recipeIngredientsAttributes;
-  const RecipeDetail({
+  RecipeDetail({
     this.cookingSteps = const [],
     this.recipeIngredients = const [],
     this.cookingStepsAttributes = const [],

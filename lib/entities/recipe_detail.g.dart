@@ -215,7 +215,7 @@ RecipeDetail _$RecipeDetailFromJson(Map<String, dynamic> json) => RecipeDetail(
       tags: (json['tags'] as List<dynamic>?)
           ?.map((e) => Tag.fromJson(e as Map<String, dynamic>))
           .toList(),
-    );
+    )..isSaved = json['is_saved'] as bool?;
 
 Map<String, dynamic> _$RecipeDetailToJson(RecipeDetail instance) =>
     <String, dynamic>{
@@ -226,6 +226,7 @@ Map<String, dynamic> _$RecipeDetailToJson(RecipeDetail instance) =>
       'prep_time': instance.prepTime,
       'serving': instance.serving,
       'user': instance.user,
+      'is_saved': instance.isSaved,
       'recipe_tags_attributes': instance.recipeTagsAttributes,
       'cooking_steps_attributes': instance.cookingStepsAttributes,
       'recipe_ingredients_attributes': instance.recipeIngredientsAttributes,

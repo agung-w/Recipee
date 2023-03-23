@@ -1,8 +1,11 @@
+import 'dart:math';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ta_recipe_app/bloc/profile_page_bloc.dart';
 import 'package:ta_recipe_app/bloc/user_authentication_bloc.dart';
+import 'package:ta_recipe_app/cubit/save_recipe_cubit.dart';
 import 'package:ta_recipe_app/entities/recipe.dart';
 import 'package:ta_recipe_app/entities/user_detail.dart';
 import 'package:ta_recipe_app/ui/pages/login_page.dart';
@@ -11,9 +14,14 @@ import 'package:ta_recipe_app/ui/widgets/draggable_sheet.dart';
 import 'package:ta_recipe_app/ui/widgets/loading_indicator.dart';
 import 'package:ta_recipe_app/ui/widgets/recipe_card_with_creator.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProfilePageBloc, ProfilePageState>(
@@ -70,6 +78,8 @@ class ProfilePage extends StatelessWidget {
             ),
           ));
         }, loaded: (user, savedRecipeList, createdRecipeList) {
+          List<Recipe?> createdList = List.from(createdRecipeList);
+          List<Recipe?> savedList = List.from(savedRecipeList);
           TabBar tabBar = TabBar(
             isScrollable: true,
             padding: const EdgeInsets.only(left: 16),
@@ -104,11 +114,33 @@ class ProfilePage extends StatelessWidget {
                     ),
                   ];
                 },
-                body: TabBarView(
-                  children: [
-                    _RecipeList(list: createdRecipeList),
-                    _RecipeList(list: savedRecipeList),
-                  ],
+                body: BlocListener<SaveRecipeCubit, SaveRecipeState>(
+                  listener: (context, state) {
+                    state.whenOrNull(
+                      initial: (id, isSaved, _) {
+                        Recipe? recipe = createdList
+                            .firstWhere((element) => element!.id == id);
+                        if (recipe != null) {
+                          recipe.isSaved = isSaved;
+                          if (isSaved == true) {
+                            savedList.add(recipe);
+                          } else {
+                            savedList.removeWhere(
+                                (element) => element!.id == recipe.id);
+                            setState(() {});
+                          }
+                        }
+                      },
+                    );
+                  },
+                  child: TabBarView(
+                    children: [
+                      _RecipeList(
+                        list: createdList,
+                      ),
+                      _RecipeList(list: savedList),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -147,11 +179,25 @@ class _RecipeList extends StatelessWidget {
           childAspectRatio: 0.63,
           crossAxisCount: 2),
       children: list.map((e) {
-        return RecipeCardWithCreator(
-            creator: e!.user,
-            title: e.title,
-            isSaved: e.isSaved ?? false,
-            picUrl: e.posterPicUrl);
+        return BlocBuilder<SaveRecipeCubit, SaveRecipeState>(
+          builder: (context, state) {
+            return state.when(
+                initial: (id, isSaved, _) {
+                  if (e!.id == id) {
+                    return RecipeCardWithCreator(
+                      recipe: e.copyWith(isSaved: isSaved),
+                    );
+                  } else {
+                    return RecipeCardWithCreator(
+                      recipe: e,
+                    );
+                  }
+                },
+                loading: () => RecipeCardWithCreator(
+                      recipe: e!,
+                    ));
+          },
+        );
       }).toList(),
     );
   }

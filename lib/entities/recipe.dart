@@ -20,13 +20,13 @@ class Recipe {
   @JsonKey(includeFromJson: true, includeToJson: false)
   final List<Tag>? tags;
   @JsonKey(name: "is_saved")
-  final bool? isSaved;
+  bool? isSaved;
   @JsonKey(
       name: "recipe_tags_attributes",
       includeFromJson: false,
       includeToJson: true)
   final List<Tag>? recipeTagsAttributes;
-  const Recipe(
+  Recipe(
       {this.id,
       required this.title,
       this.posterPicUrl,

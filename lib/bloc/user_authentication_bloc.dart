@@ -36,7 +36,7 @@ class UserAuthenticationBloc
               .getSignedInInfo(token: pref.getString('token')!);
           user.map(success: (result) {
             Navigator.popUntil(event.context, (route) => route.isFirst);
-            emit(SignedIn(result.value));
+            emit(SignedIn(result.value, pref.getString('token')!));
           }, failed: (result) {
             emit(const SignedOut());
             ScaffoldMessenger.of(event.context)
@@ -63,7 +63,8 @@ class UserAuthenticationBloc
         ApiResult<UserDetail> user =
             await UserServices().getSignedInInfo(token: token);
         user.map(
-            success: (result) => emit(SignedIn(result.value)),
+            success: (result) =>
+                emit(SignedIn(result.value, pref.getString('token')!)),
             failed: (result) {
               emit(const SignedOut());
             });
@@ -94,7 +95,7 @@ class UserAuthenticationBloc
             .getSignedInInfo(token: pref.getString('token')!);
         user.map(success: (result) {
           Navigator.popUntil(event.context, (route) => route.isFirst);
-          emit(SignedIn(result.value));
+          emit(SignedIn(result.value, pref.getString('token')!));
         }, failed: (result) {
           ScaffoldMessenger.of(event.context)
               .showSnackBar(SnackBar(content: Text(result.message)));

@@ -734,21 +734,21 @@ abstract class _Register implements UserAuthenticationEvent {
 mixin _$UserAuthenticationState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(UserDetail user) signedIn,
+    required TResult Function(UserDetail user, String token) signedIn,
     required TResult Function() signedOut,
     required TResult Function() loading,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(UserDetail user)? signedIn,
+    TResult? Function(UserDetail user, String token)? signedIn,
     TResult? Function()? signedOut,
     TResult? Function()? loading,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(UserDetail user)? signedIn,
+    TResult Function(UserDetail user, String token)? signedIn,
     TResult Function()? signedOut,
     TResult Function()? loading,
     required TResult orElse(),
@@ -803,7 +803,7 @@ abstract class _$$SignedInCopyWith<$Res> {
           _$SignedIn value, $Res Function(_$SignedIn) then) =
       __$$SignedInCopyWithImpl<$Res>;
   @useResult
-  $Res call({UserDetail user});
+  $Res call({UserDetail user, String token});
 }
 
 /// @nodoc
@@ -817,12 +817,17 @@ class __$$SignedInCopyWithImpl<$Res>
   @override
   $Res call({
     Object? user = null,
+    Object? token = null,
   }) {
     return _then(_$SignedIn(
       null == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as UserDetail,
+      null == token
+          ? _value.token
+          : token // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -830,14 +835,16 @@ class __$$SignedInCopyWithImpl<$Res>
 /// @nodoc
 
 class _$SignedIn implements SignedIn {
-  const _$SignedIn(this.user);
+  const _$SignedIn(this.user, this.token);
 
   @override
   final UserDetail user;
+  @override
+  final String token;
 
   @override
   String toString() {
-    return 'UserAuthenticationState.signedIn(user: $user)';
+    return 'UserAuthenticationState.signedIn(user: $user, token: $token)';
   }
 
   @override
@@ -845,11 +852,12 @@ class _$SignedIn implements SignedIn {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SignedIn &&
-            (identical(other.user, user) || other.user == user));
+            (identical(other.user, user) || other.user == user) &&
+            (identical(other.token, token) || other.token == token));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, user);
+  int get hashCode => Object.hash(runtimeType, user, token);
 
   @JsonKey(ignore: true)
   @override
@@ -860,33 +868,33 @@ class _$SignedIn implements SignedIn {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(UserDetail user) signedIn,
+    required TResult Function(UserDetail user, String token) signedIn,
     required TResult Function() signedOut,
     required TResult Function() loading,
   }) {
-    return signedIn(user);
+    return signedIn(user, token);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(UserDetail user)? signedIn,
+    TResult? Function(UserDetail user, String token)? signedIn,
     TResult? Function()? signedOut,
     TResult? Function()? loading,
   }) {
-    return signedIn?.call(user);
+    return signedIn?.call(user, token);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(UserDetail user)? signedIn,
+    TResult Function(UserDetail user, String token)? signedIn,
     TResult Function()? signedOut,
     TResult Function()? loading,
     required TResult orElse(),
   }) {
     if (signedIn != null) {
-      return signedIn(user);
+      return signedIn(user, token);
     }
     return orElse();
   }
@@ -927,9 +935,11 @@ class _$SignedIn implements SignedIn {
 }
 
 abstract class SignedIn implements UserAuthenticationState {
-  const factory SignedIn(final UserDetail user) = _$SignedIn;
+  const factory SignedIn(final UserDetail user, final String token) =
+      _$SignedIn;
 
   UserDetail get user;
+  String get token;
   @JsonKey(ignore: true)
   _$$SignedInCopyWith<_$SignedIn> get copyWith =>
       throw _privateConstructorUsedError;
@@ -973,7 +983,7 @@ class _$SignedOut implements SignedOut {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(UserDetail user) signedIn,
+    required TResult Function(UserDetail user, String token) signedIn,
     required TResult Function() signedOut,
     required TResult Function() loading,
   }) {
@@ -983,7 +993,7 @@ class _$SignedOut implements SignedOut {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(UserDetail user)? signedIn,
+    TResult? Function(UserDetail user, String token)? signedIn,
     TResult? Function()? signedOut,
     TResult? Function()? loading,
   }) {
@@ -993,7 +1003,7 @@ class _$SignedOut implements SignedOut {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(UserDetail user)? signedIn,
+    TResult Function(UserDetail user, String token)? signedIn,
     TResult Function()? signedOut,
     TResult Function()? loading,
     required TResult orElse(),
@@ -1079,7 +1089,7 @@ class _$Loading implements Loading {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(UserDetail user) signedIn,
+    required TResult Function(UserDetail user, String token) signedIn,
     required TResult Function() signedOut,
     required TResult Function() loading,
   }) {
@@ -1089,7 +1099,7 @@ class _$Loading implements Loading {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(UserDetail user)? signedIn,
+    TResult? Function(UserDetail user, String token)? signedIn,
     TResult? Function()? signedOut,
     TResult? Function()? loading,
   }) {
@@ -1099,7 +1109,7 @@ class _$Loading implements Loading {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(UserDetail user)? signedIn,
+    TResult Function(UserDetail user, String token)? signedIn,
     TResult Function()? signedOut,
     TResult Function()? loading,
     required TResult orElse(),
