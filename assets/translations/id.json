@@ -18,5 +18,11 @@
   "serving_end_text_create_recipe":"Orang",
   "prep_time_end_text_create_recipe":"Menit",
   "qty":"qty",
-  "create_recipe_success_message":"Berhasil membuat resep"
+  "create_recipe_success_message":"Berhasil membuat resep",
+  "login_banner_text":"Masuk",
+  "login_banner_description_text":"Buat, simpan resep kapanpun dimanapun",
+  "created_tab_bar_text":"Dibuat",
+  "saved_tab_bar_text":"Disimpan",
+  "settings_text":"Pengaturan"
+
 }
