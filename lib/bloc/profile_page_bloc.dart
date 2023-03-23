@@ -27,6 +27,8 @@ class ProfilePageBloc extends Bloc<ProfilePageEvent, ProfilePageState> {
               createdRecipeList:
                   (createdRecipeList as Success<List<Recipe?>>).value));
         }
+      } else if (event.authState is Loading) {
+        emit(const _Loading());
       } else {
         emit(_Failed(message: event.authState.toString()));
       }

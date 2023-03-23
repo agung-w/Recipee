@@ -7,6 +7,7 @@ import 'package:ta_recipe_app/entities/recipe.dart';
 import 'package:ta_recipe_app/entities/user_detail.dart';
 import 'package:ta_recipe_app/ui/pages/login_page.dart';
 import 'package:ta_recipe_app/ui/widgets/draggable_sheet.dart';
+import 'package:ta_recipe_app/ui/widgets/loading_indicator.dart';
 import 'package:ta_recipe_app/ui/widgets/recipe_card_with_creator.dart';
 import 'package:ta_recipe_app/ui/widgets/skeleton.dart';
 
@@ -109,20 +110,16 @@ class ProfilePage extends StatelessWidget {
           );
         }, loading: () {
           return Scaffold(
-            body: Column(
-              children: [
-                Skeleton(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context, rootNavigator: true).push(
-                          MaterialPageRoute(builder: (_) => const LoginPage()));
-                    },
-                    child: const Text("login"),
-                  ),
-                )
-              ],
+              body: Align(
+            alignment: Alignment.topCenter,
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: LoadingIndicator(
+                size: 22,
+                color: Theme.of(context).colorScheme.primary,
+              ),
             ),
-          );
+          ));
         });
       },
     );
