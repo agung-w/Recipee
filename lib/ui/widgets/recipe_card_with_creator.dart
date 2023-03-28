@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ta_recipe_app/bloc/recipe_detail_bloc.dart';
 import 'package:ta_recipe_app/bloc/user_authentication_bloc.dart';
 import 'package:ta_recipe_app/cubit/save_recipe_cubit.dart';
 import 'package:ta_recipe_app/entities/recipe.dart';
@@ -19,7 +20,14 @@ class RecipeCardWithCreator extends StatelessWidget {
           child: BlocBuilder<UserAuthenticationBloc, UserAuthenticationState>(
             builder: (_, authState) {
               return InkWell(
-                onTap: () {},
+                onTap: () {
+                  context.read<RecipeDetailBloc>().add(
+                        RecipeDetailEvent.started(
+                            authState: authState,
+                            recipeId: recipe.id!,
+                            context: context),
+                      );
+                },
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
@@ -107,12 +115,13 @@ class RecipeCardWithCreator extends StatelessWidget {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(100),
                         color: Theme.of(context).colorScheme.primary),
-                    child: recipe.user.photoUrl != null
-                        ? Image.network(recipe.user.photoUrl!)
-                        : Icon(
-                            Icons.person,
-                            color: Theme.of(context).colorScheme.onPrimary,
-                          )),
+                    child: Image.network(
+                      recipe.user.photoUrl ?? "",
+                      errorBuilder: (context, error, stackTrace) => Icon(
+                        Icons.person,
+                        color: Theme.of(context).colorScheme.onPrimary,
+                      ),
+                    )),
                 Align(
                     alignment: Alignment.bottomLeft,
                     child: Text(

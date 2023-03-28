@@ -37,5 +37,8 @@
   "input_length_error":"Minimal {min} karakter maksimal {max} karakter",
   "password_missmatch_error":"Password tidak sama",
   "already_has_account_text":"Sudah punya akun ?",
-  "not_have_account_yet_text":"Belum punya akun ?"
+  "not_have_account_yet_text":"Belum punya akun ?",
+  "serving_label_recipe_detail":"Porsi :",
+  "minute_label_recipe_detail":"menit{s}",
+  "ingredients_title_text":"Bahan-bahan"
 }
