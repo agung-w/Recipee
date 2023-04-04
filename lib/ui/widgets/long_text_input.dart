@@ -22,14 +22,15 @@ class LongTextInput extends StatelessWidget {
           .merge(const TextStyle(height: 1.3)),
       maxLength: maxLength,
       validator: !nullable
-          ? (value) => value!.isEmpty ? "this_section_cant_be_blank".tr() : null
+          ? (value) =>
+              value!.trim().isEmpty ? "this_section_cant_be_blank".tr() : null
           : null,
       maxLines: null,
       minLines: 3,
       controller: controller,
       decoration: InputDecoration(
         hintMaxLines: 3,
-        contentPadding: const EdgeInsets.only(left: 16, right: 16, bottom: 6),
+        contentPadding: const EdgeInsets.only(left: 8, right: 8, bottom: 6),
         counterStyle: const TextStyle(
           height: double.minPositive,
         ),

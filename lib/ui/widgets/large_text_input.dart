@@ -20,12 +20,13 @@ class LargeTextInput extends StatelessWidget {
       style: Theme.of(context).textTheme.displayMedium,
       maxLength: maxLength,
       validator: !nullable
-          ? (value) => value!.isEmpty ? "this_section_cant_be_blank".tr() : null
+          ? (value) =>
+              value!.trim().isEmpty ? "this_section_cant_be_blank".tr() : null
           : null,
       controller: controller,
       buildCounter: null,
       decoration: InputDecoration(
-        contentPadding: const EdgeInsets.only(left: 16, right: 16),
+        contentPadding: const EdgeInsets.only(left: 8, right: 8),
         counterStyle: const TextStyle(
           height: double.minPositive,
         ),

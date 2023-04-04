@@ -25,6 +25,7 @@ class RecipeDetail extends Recipe {
       includeFromJson: false,
       includeToJson: true)
   final List<RecipeIngredient> recipeIngredientsAttributes;
+
   RecipeDetail({
     this.cookingSteps = const [],
     this.recipeIngredients = const [],
@@ -38,6 +39,7 @@ class RecipeDetail extends Recipe {
     int? serving,
     required User user,
     List<Tag>? tags,
+    List<Tag>? recipeTagsAttributes,
   }) : super(
           id: id,
           title: title,
@@ -47,6 +49,7 @@ class RecipeDetail extends Recipe {
           serving: serving,
           user: user,
           tags: tags,
+          recipeTagsAttributes: recipeTagsAttributes,
         );
 
   factory RecipeDetail.fromJson(Map<String, dynamic> json) =>

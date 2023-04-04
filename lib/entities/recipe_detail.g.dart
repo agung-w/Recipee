@@ -32,6 +32,8 @@ abstract class _$RecipeDetailCWProxy {
 
   RecipeDetail tags(List<Tag>? tags);
 
+  RecipeDetail recipeTagsAttributes(List<Tag>? recipeTagsAttributes);
+
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `RecipeDetail(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
   /// Usage
@@ -51,6 +53,7 @@ abstract class _$RecipeDetailCWProxy {
     int? serving,
     User? user,
     List<Tag>? tags,
+    List<Tag>? recipeTagsAttributes,
   });
 }
 
@@ -105,6 +108,10 @@ class _$RecipeDetailCWProxyImpl implements _$RecipeDetailCWProxy {
   RecipeDetail tags(List<Tag>? tags) => this(tags: tags);
 
   @override
+  RecipeDetail recipeTagsAttributes(List<Tag>? recipeTagsAttributes) =>
+      this(recipeTagsAttributes: recipeTagsAttributes);
+
+  @override
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `RecipeDetail(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -125,6 +132,7 @@ class _$RecipeDetailCWProxyImpl implements _$RecipeDetailCWProxy {
     Object? serving = const $CopyWithPlaceholder(),
     Object? user = const $CopyWithPlaceholder(),
     Object? tags = const $CopyWithPlaceholder(),
+    Object? recipeTagsAttributes = const $CopyWithPlaceholder(),
   }) {
     return RecipeDetail(
       cookingSteps:
@@ -182,6 +190,10 @@ class _$RecipeDetailCWProxyImpl implements _$RecipeDetailCWProxy {
           ? _value.tags
           // ignore: cast_nullable_to_non_nullable
           : tags as List<Tag>?,
+      recipeTagsAttributes: recipeTagsAttributes == const $CopyWithPlaceholder()
+          ? _value.recipeTagsAttributes
+          // ignore: cast_nullable_to_non_nullable
+          : recipeTagsAttributes as List<Tag>?,
     );
   }
 }

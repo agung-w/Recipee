@@ -13,15 +13,15 @@ import 'package:ta_recipe_app/entities/ingredient.dart';
 import 'package:ta_recipe_app/entities/metric.dart';
 import 'package:ta_recipe_app/entities/recipe_detail.dart';
 import 'package:ta_recipe_app/entities/recipe_ingredient.dart';
+import 'package:ta_recipe_app/entities/tag.dart';
 import 'package:ta_recipe_app/helpers/api_result.dart';
+import 'package:ta_recipe_app/helpers/string_formatter.dart';
 import 'package:ta_recipe_app/services/ingredient_services.dart';
 import 'package:ta_recipe_app/services/picture_services.dart';
 import 'package:ta_recipe_app/services/recipe_services.dart';
+import 'package:ta_recipe_app/services/tag_services.dart';
 import 'package:ta_recipe_app/ui/pages/create_recipe_page.dart';
-import 'package:ta_recipe_app/ui/pages/home_page.dart';
 import 'package:ta_recipe_app/ui/pages/login_page.dart';
-import 'package:ta_recipe_app/ui/widgets/cooking_step_form_tile.dart';
-import 'package:ta_recipe_app/ui/widgets/ingredient_form_tile.dart';
 
 part 'create_recipe_event.dart';
 part 'create_recipe_state.dart';
@@ -32,9 +32,8 @@ class CreateRecipeBloc extends Bloc<CreateRecipeEvent, CreateRecipeState> {
     on<_Create>((event, emit) async {
       event.state.map(signedIn: (value) {
         emit(_Creating(
-            recipe: RecipeDetail(title: "", description: "", user: value.user),
-            ingredientForms: [],
-            cookingStepForms: []));
+          recipe: RecipeDetail(title: "", description: "", user: value.user),
+        ));
         Navigator.of(event.context, rootNavigator: true)
             .push(MaterialPageRoute(builder: (_) => const CreateRecipePage()));
       }, signedOut: (_) {
@@ -45,17 +44,21 @@ class CreateRecipeBloc extends Bloc<CreateRecipeEvent, CreateRecipeState> {
         emit(const _Initial());
       });
     });
+
     on<_AddIngredient>((event, emit) async {
       if (state is _Creating) {
         _Creating? creating = state.mapOrNull(creating: ((value) => value));
-
         ApiResult<Ingredient> ingredient =
             await IngredientServices().findIngredient(name: event.ingredient);
         ingredient.map(success: (value) {
-          List<IngredientFormTile> forms = List.from(creating!.ingredientForms);
-          forms.add(IngredientFormTile(
-              ingredient: RecipeIngredient(ingredient: value.value)));
-          emit(creating.copyWith(ingredientForms: forms));
+          List<RecipeIngredient> ingredients =
+              List.from(creating!.recipe.recipeIngredientsAttributes);
+          ingredients.add(RecipeIngredient(
+              ingredient: value.value, ingredientId: value.value.id));
+          event.controller.clear();
+          emit(creating.copyWith(
+              recipe: creating.recipe
+                  .copyWith(recipeIngredientsAttributes: ingredients)));
         }, failed: (value) {
           ScaffoldMessenger.of(event.context)
               .showSnackBar(SnackBar(content: Text(value.message)));
@@ -63,86 +66,169 @@ class CreateRecipeBloc extends Bloc<CreateRecipeEvent, CreateRecipeState> {
         });
       }
     });
+
     on<_DeleteIngredient>((event, emit) async {
       if (state is _Creating) {
         _Creating? creating = state.mapOrNull(creating: ((value) => value));
-        List<IngredientFormTile> forms = List.from(creating!.ingredientForms);
-        forms.removeWhere((element) => element.ingredient == event.ingredient);
-        emit(creating.copyWith(ingredientForms: forms));
+        List<RecipeIngredient> ingredients =
+            List.from(creating!.recipe.recipeIngredientsAttributes);
+        ingredients.removeWhere((element) => element == event.ingredient);
+        emit(creating.copyWith(
+            recipe: creating.recipe
+                .copyWith(recipeIngredientsAttributes: ingredients)));
       }
     });
+
     on<_EditIngredientName>((event, emit) async {
-      if (state is _Creating) {
+      if (state is _Creating &&
+          event.name != event.ingredient.ingredient.name) {
         _Creating? creating = state.mapOrNull(creating: ((value) => value));
-        List<IngredientFormTile> forms = List.from(creating!.ingredientForms);
+        List<RecipeIngredient> ingredients =
+            List.from(creating!.recipe.recipeIngredientsAttributes);
         ApiResult<Ingredient> ingredient =
             await IngredientServices().findIngredient(name: event.name);
         ingredient.map(success: (value) {
-          forms
-              .firstWhere((element) => element.ingredient == event.ingredient)
-              .ingredient
-              .ingredient = value.value;
-          emit(creating.copyWith(ingredientForms: forms));
+          int i =
+              ingredients.indexWhere((element) => element == event.ingredient);
+          ingredients[i] = ingredients[i]
+              .copyWith(ingredient: value.value, ingredientId: value.value.id);
+          emit(creating.copyWith(
+              recipe: creating.recipe
+                  .copyWith(recipeIngredientsAttributes: ingredients)));
         }, failed: (value) {
-          forms
-              .removeWhere((element) => element.ingredient == event.ingredient);
-          emit(creating.copyWith(ingredientForms: forms));
+          ingredients.removeWhere((element) => element == event.ingredient);
+          emit(creating.copyWith(
+              recipe: creating.recipe
+                  .copyWith(recipeIngredientsAttributes: ingredients)));
         });
       }
     });
+
     on<_EditIngredientQuantity>((event, emit) async {
-      if (state is _Creating) {
+      if (state is _Creating && event.quantity != event.ingredient.quantity) {
         _Creating? creating = state.mapOrNull(creating: ((value) => value));
-        List<IngredientFormTile> forms = creating!.ingredientForms;
-        forms
-            .firstWhere((element) => element.ingredient == event.ingredient)
-            .ingredient
-            .quantity = event.quantity;
-        emit(creating.copyWith(ingredientForms: forms));
+        List<RecipeIngredient> ingredients =
+            creating!.recipe.recipeIngredientsAttributes;
+        int i =
+            ingredients.indexWhere((element) => element == event.ingredient);
+        ingredients[i] = ingredients[i].copyWith(quantity: event.quantity);
+        emit(creating.copyWith(
+            recipe: creating.recipe
+                .copyWith(recipeIngredientsAttributes: ingredients)));
       }
     });
+
     on<_EditIngredientMetric>((event, emit) async {
-      if (state is _Creating) {
+      if (state is _Creating && event.metric != event.ingredient.metric) {
         _Creating? creating = state.mapOrNull(creating: ((value) => value));
-        List<IngredientFormTile> forms = List.from(creating!.ingredientForms);
-        forms
-            .firstWhere((element) => element.ingredient == event.ingredient)
-            .ingredient
-            .metric = event.metric;
-        emit(creating.copyWith(ingredientForms: forms));
+        List<RecipeIngredient> ingredients =
+            List.from(creating!.recipe.recipeIngredientsAttributes);
+        int i =
+            ingredients.indexWhere((element) => element == event.ingredient);
+        ingredients[i] = ingredients[i]
+            .copyWith(metric: event.metric, metricId: event.metric?.id);
+        emit(creating.copyWith(
+            recipe: creating.recipe
+                .copyWith(recipeIngredientsAttributes: ingredients)));
       }
     });
+
+    on<_EditCookingStepPic>((event, emit) async {
+      if (state is _Creating) {
+        _Creating? creating = state.mapOrNull(creating: ((value) => value));
+        String? picUrl = await PictureServices().uploadPosterPicture(
+            await ImagePicker().pickImage(source: ImageSource.gallery));
+        if (picUrl != null) {
+          List<CookingStep> cookingSteps =
+              List.from(creating!.recipe.cookingStepsAttributes);
+          int i = cookingSteps
+              .indexWhere((element) => element == event.cookingStep);
+          cookingSteps[i] = cookingSteps[i].copyWith(picUrl: picUrl);
+          emit(creating.copyWith(
+              recipe: creating.recipe
+                  .copyWith(cookingStepsAttributes: cookingSteps)));
+        }
+      }
+    });
+
     on<_AddCookingStep>((event, emit) async {
       if (state is _Creating) {
         _Creating? creating = state.mapOrNull(creating: ((value) => value));
-        List<CookingStepFormTile> forms = List.from(creating!.cookingStepForms);
-        forms.add(CookingStepFormTile(
-          cookingStep: CookingStep(description: ""),
+        List<CookingStep> cookingSteps =
+            List.from(creating!.recipe.cookingStepsAttributes);
+        cookingSteps.add(CookingStep(
+          description: "",
         ));
-        emit(creating.copyWith(cookingStepForms: forms));
+        emit(creating.copyWith(
+            recipe: creating.recipe
+                .copyWith(cookingStepsAttributes: cookingSteps)));
       }
     });
+
     on<_EditCookingStepDescription>((event, emit) async {
       if (state is _Creating) {
         _Creating? creating = state.mapOrNull(creating: ((value) => value));
-        List<CookingStepFormTile> forms = creating!.cookingStepForms;
-        forms
-            .firstWhere((element) => element.cookingStep == event.cookingStep)
-            .cookingStep
-            .description = event.description;
-        emit(creating.copyWith(cookingStepForms: forms));
+        List<CookingStep> cookingSteps =
+            List.from(creating!.recipe.cookingStepsAttributes);
+        int i =
+            cookingSteps.indexWhere((element) => element == event.cookingStep);
+        cookingSteps[i] = cookingSteps[i]
+            .copyWith(description: squish(event.description).trim());
+        emit(creating.copyWith(
+            recipe: creating.recipe
+                .copyWith(cookingStepsAttributes: cookingSteps)));
       }
     });
+
     on<_DeleteCookingStep>((event, emit) async {
       if (state is _Creating) {
         _Creating? creating = state.mapOrNull(creating: ((value) => value));
-        List<CookingStepFormTile> forms = List.from(creating!.cookingStepForms);
-        forms.removeWhere(
-          (element) => element.cookingStep == event.cookingStep,
+        List<CookingStep> cookingSteps =
+            List.from(creating!.recipe.cookingStepsAttributes);
+        cookingSteps.removeWhere(
+          (element) => element == event.cookingStep,
         );
-        emit(creating.copyWith(cookingStepForms: forms));
+        emit(creating.copyWith(
+            recipe: creating.recipe
+                .copyWith(cookingStepsAttributes: cookingSteps)));
       }
     });
+
+    on<_AddTag>((event, emit) async {
+      if (state is _Creating) {
+        _Creating? creating = state.mapOrNull(creating: ((value) => value));
+        ApiResult<Tag> tag = await TagServices().findTag(name: event.tag);
+        tag.map(success: (value) {
+          List<Tag> tags =
+              List.from(creating!.recipe.recipeTagsAttributes ?? []);
+          int i =
+              tags.indexWhere((element) => element.name == value.value.name);
+          if (i == -1) {
+            tags.add(value.value.copyWith(tagId: value.value.id));
+            emit(creating.copyWith(
+                recipe: creating.recipe.copyWith(recipeTagsAttributes: tags)));
+          }
+          event.controller.clear();
+        }, failed: (value) {
+          ScaffoldMessenger.of(event.context)
+              .showSnackBar(SnackBar(content: Text("Tag ${value.message}")));
+          emit(creating!);
+        });
+      }
+    });
+
+    on<_DeleteTag>((event, emit) async {
+      if (state is _Creating) {
+        _Creating? creating = state.mapOrNull(creating: ((value) => value));
+        List<Tag> tags = List.from(creating!.recipe.recipeTagsAttributes ?? []);
+        tags.removeWhere(
+          (element) => element == event.tag,
+        );
+        emit(creating.copyWith(
+            recipe: creating.recipe.copyWith(recipeTagsAttributes: tags)));
+      }
+    });
+
     on<_AddRecipePoster>((event, emit) async {
       if (state is _Creating) {
         _Creating? creating = state.mapOrNull(creating: ((value) => value));
@@ -156,27 +242,15 @@ class CreateRecipeBloc extends Bloc<CreateRecipeEvent, CreateRecipeState> {
         }
       }
     });
+
     on<_Submit>((event, emit) async {
       if (state is _Creating) {
         SharedPreferences pref = await SharedPreferences.getInstance();
         String? token = pref.getString('token');
         _Creating? creating = state.mapOrNull(creating: ((value) => value));
         if (token != null) {
-          List<RecipeIngredient> ingredients = creating!.ingredientForms
-              .map((e) => e.ingredient.copyWith(
-                  ingredientId: e.ingredient.ingredient.id,
-                  metricId: e.ingredient.metric?.id))
-              .toList();
-          List<CookingStep> cookingSteps = creating.cookingStepForms
-              .asMap()
-              .map((i, e) => MapEntry(i, e.cookingStep.copyWith(step: i + 1)))
-              .values
-              .toList();
-          ApiResult<RecipeDetail> result = await RecipeServices().create(
-              token: token,
-              recipe: event.recipe.copyWith(
-                  cookingStepsAttributes: cookingSteps,
-                  recipeIngredientsAttributes: ingredients));
+          ApiResult<RecipeDetail> result =
+              await RecipeServices().create(token: token, recipe: event.recipe);
           result.map(success: (_) {
             Navigator.pop(event.context);
             ScaffoldMessenger.of(event.context).showSnackBar(
@@ -185,7 +259,7 @@ class CreateRecipeBloc extends Bloc<CreateRecipeEvent, CreateRecipeState> {
           }, failed: (message) {
             ScaffoldMessenger.of(event.context)
                 .showSnackBar(SnackBar(content: Text(message.message)));
-            emit(creating);
+            emit(creating!);
           });
         }
       }

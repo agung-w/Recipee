@@ -12,8 +12,10 @@ class MetricCubit extends Cubit<MetricState> {
   MetricCubit() : super(const MetricState.initial());
   void getLists() async {
     ApiResult<List<Metric?>> metrics = await MetricServices().getMetrics();
+    List<Metric?> metricList = [null];
     metrics.map(
-        success: (result) => emit(MetricState.loaded(result.value)),
+        success: (result) =>
+            emit(MetricState.loaded(metricList + result.value)),
         failed: (_) =>
             emit(MetricState.error("metrics_get_list_error_message".tr())));
   }

@@ -40,5 +40,8 @@
   "not_have_account_yet_text":"Belum punya akun ?",
   "serving_label_recipe_detail":"Porsi :",
   "minute_label_recipe_detail":"menit{s}",
-  "ingredients_title_text":"Bahan-bahan"
+  "ingredients_title_text":"Bahan-bahan",
+  "tag_title":"Tagar",
+  "add_tag_description":"Tambahkan tagar agar resepmu lebih mudah dicari",
+  "add_tag_input_hint":"Tambahkan tagar (contoh: resep buka)"
 }
