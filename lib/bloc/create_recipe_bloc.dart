@@ -303,5 +303,25 @@ class CreateRecipeBloc extends Bloc<CreateRecipeEvent, CreateRecipeState> {
         }
       }
     });
+
+    on<_Cancel>((event, emit) async {
+      if (state is _Creating) {
+        _Creating creating = state as _Creating;
+        if (creating.recipe.posterPicUrl != null) {
+          PictureServices().deletePicture(
+            picUrl: creating.recipe.posterPicUrl!,
+          );
+        }
+        creating.recipe.cookingStepsAttributes.map((e) {
+          if (e.picUrl != null) {
+            PictureServices().deletePicture(
+              picUrl: e.picUrl!,
+            );
+          }
+        });
+        emit(const _Initial());
+        Navigator.of(event.context).popUntil((route) => route.isFirst);
+      }
+    });
   }
 }

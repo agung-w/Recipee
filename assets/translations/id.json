@@ -43,5 +43,9 @@
   "ingredients_title_text":"Bahan-bahan",
   "tag_title":"Tagar",
   "add_tag_description":"Tambahkan tagar agar resepmu lebih mudah dicari",
-  "add_tag_input_hint":"Tambahkan tagar (contoh: resep buka)"
+  "add_tag_input_hint":"Tambahkan tagar (contoh: resep buka)",
+  "cancel_create_recipe_dialog_title":"Batal membuat resep",
+  "cancel_create_recipe_dialog_content":"Membatalkan pembuatan resep mengakibatkan penghapusan resep ini secara permanen.",
+  "cancel_text":"Batal",
+  "delete_text":"Hapus"
 }

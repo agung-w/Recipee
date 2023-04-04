@@ -13,6 +13,8 @@ import 'package:ta_recipe_app/ui/widgets/ingredient_form_tile.dart';
 import 'package:ta_recipe_app/ui/widgets/large_text_input.dart';
 import 'package:ta_recipe_app/ui/widgets/long_text_input.dart';
 
+import '../widgets/confirmation_dialog.dart';
+
 class CreateRecipePage extends StatelessWidget {
   const CreateRecipePage({super.key});
 
@@ -34,7 +36,46 @@ class CreateRecipePage extends StatelessWidget {
             leading: IconButton(
               icon: const Icon(Icons.close),
               onPressed: () {
-                Navigator.of(context).pop();
+                showDialog(
+                    barrierDismissible: false,
+                    context: context,
+                    builder: (builder) => ConfirmationDialog(
+                          actions: [
+                            Expanded(
+                              child: TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Text(
+                                    "cancel_text".tr(),
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onSecondary),
+                                  )),
+                            ),
+                            Expanded(
+                              child: TextButton(
+                                  onPressed: () {
+                                    context.read<CreateRecipeBloc>().add(
+                                          CreateRecipeEvent.cancel(
+                                              context: context),
+                                        );
+                                  },
+                                  child: Text(
+                                    "delete_text".tr(),
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .error),
+                                  ).tr()),
+                            )
+                          ],
+                          title: 'cancel_create_recipe_dialog_title'.tr(),
+                          content: 'cancel_create_recipe_dialog_content'.tr(),
+                        ));
               },
             ),
             actions: [

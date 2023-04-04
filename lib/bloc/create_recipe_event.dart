@@ -53,8 +53,12 @@ class CreateRecipeEvent with _$CreateRecipeEvent {
 
   const factory CreateRecipeEvent.deletePoster(
       {required String picUrl, required BuildContext context}) = _DeletePoster;
+
   const factory CreateRecipeEvent.deleteCookingStepPic(
       {required String picUrl,
       required BuildContext context,
       required CookingStep cookingStep}) = _DeleteCookingStepPic;
+
+  const factory CreateRecipeEvent.cancel({required BuildContext context}) =
+      _Cancel;
 }
