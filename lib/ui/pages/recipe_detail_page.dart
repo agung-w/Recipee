@@ -29,10 +29,7 @@ class RecipeDetailPage extends StatelessWidget {
                         alignment: FractionalOffset.bottomRight,
                         child: Text(
                           recipe.title,
-                          style: TextStyle(
-                              fontSize: 78,
-                              fontWeight: FontWeight.bold,
-                              color: Theme.of(context).colorScheme.onPrimary),
+                          style: Theme.of(context).textTheme.displayLarge,
                         ),
                       ),
                     ),
@@ -55,42 +52,50 @@ class RecipeDetailPage extends StatelessWidget {
                           height: 6,
                         ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
+                            if (recipe.serving != null) ...{
+                              Expanded(
+                                  child: Row(
+                                children: [
+                                  Text("serving_label_recipe_detail",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelMedium)
+                                      .tr(),
+                                  Text(" ${recipe.serving} ",
+                                      textAlign: TextAlign.start,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelMedium),
+                                  Icon(
+                                    Icons.person,
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                  )
+                                ],
+                              ))
+                            },
                             if (recipe.prepTime != null) ...{
                               Expanded(
                                   child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   Icon(
                                     Icons.timer_outlined,
                                     color:
                                         Theme.of(context).colorScheme.primary,
                                   ),
-                                  Text("${recipe.prepTime} ",
+                                  Text(" ${recipe.prepTime} ",
                                       textAlign: TextAlign.start,
-                                      style: const TextStyle(fontSize: 16)),
-                                  const Text("minute_label_recipe_detail",
-                                          style: TextStyle(fontSize: 16))
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelMedium),
+                                  Text("minute_label_recipe_detail",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelMedium)
                                       .tr(namedArgs: {'s': ''}),
-                                ],
-                              ))
-                            },
-                            if (recipe.serving != null) ...{
-                              Expanded(
-                                  child: Row(
-                                children: [
-                                  const Text("serving_label_recipe_detail",
-                                          style: TextStyle(fontSize: 16))
-                                      .tr(),
-                                  Text(" ${recipe.serving} ",
-                                      textAlign: TextAlign.start,
-                                      style: const TextStyle(fontSize: 16)),
-                                  Icon(
-                                    Icons.person,
-                                    color:
-                                        Theme.of(context).colorScheme.primary,
-                                  )
                                 ],
                               ))
                             },

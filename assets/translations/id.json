@@ -47,5 +47,7 @@
   "cancel_create_recipe_dialog_title":"Batal membuat resep",
   "cancel_create_recipe_dialog_content":"Membatalkan pembuatan resep mengakibatkan penghapusan resep ini secara permanen.",
   "cancel_text":"Batal",
-  "delete_text":"Hapus"
+  "delete_text":"Hapus",
+  "follower_text":"Follower",
+  "following_text":"Following"
 }

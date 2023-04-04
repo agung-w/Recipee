@@ -45,11 +45,7 @@ class RecipeCardWithCreator extends StatelessWidget {
                             alignment: FractionalOffset.centerLeft,
                             child: Text(
                               recipe.title,
-                              style: TextStyle(
-                                  fontSize: 48,
-                                  fontWeight: FontWeight.bold,
-                                  color:
-                                      Theme.of(context).colorScheme.onPrimary),
+                              style: Theme.of(context).textTheme.displayMedium,
                             ),
                           ),
                         ),

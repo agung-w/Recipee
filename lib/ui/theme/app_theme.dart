@@ -28,8 +28,39 @@ ThemeData lightTheme = ThemeData(
         surface: Color(0xFFFFFFFF),
         onSurface: Color(0xFF252323)),
     textTheme: const TextTheme(
-        bodyMedium: TextStyle(fontSize: 14),
-        displayMedium: TextStyle(fontSize: 22, fontWeight: FontWeight.w700)),
+        bodyMedium: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w400,
+            color: Color(0xFF252323)),
+        labelSmall: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            color: Color(0xFF252323),
+            letterSpacing: 0.1),
+        labelMedium: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+            color: Color(0xFF252323)),
+        displaySmall: TextStyle(
+            fontSize: 32,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFFFFFFFF)),
+        displayMedium: TextStyle(
+            fontSize: 48,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFFFFFFFF)),
+        displayLarge: TextStyle(
+            fontSize: 78,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFFFFFFFF)),
+        headlineMedium: TextStyle(
+            fontSize: 36,
+            fontWeight: FontWeight.w500,
+            color: Color(0xFF252323)),
+        headlineSmall: TextStyle(
+            fontSize: 28,
+            fontWeight: FontWeight.w500,
+            color: Color(0xFF252323))),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         selectedItemColor: Color(0xFFff4500),
         unselectedItemColor: Colors.black));

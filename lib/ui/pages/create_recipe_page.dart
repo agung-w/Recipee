@@ -168,7 +168,8 @@ class CreateRecipePage extends StatelessWidget {
                         Container(
                           color: Colors.white,
                           margin: const EdgeInsets.only(bottom: 8),
-                          padding: const EdgeInsets.only(left: 16, right: 16),
+                          padding: const EdgeInsets.only(
+                              left: 16, right: 16, bottom: 8),
                           child: Column(
                             children: [
                               Padding(
@@ -233,8 +234,9 @@ class CreateRecipePage extends StatelessWidget {
                                     vertical: 8, horizontal: 16),
                                 child: Text(
                                   "ingredients_title_create_recipe",
-                                  style:
-                                      Theme.of(context).textTheme.displayMedium,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineMedium,
                                 ).tr(),
                               ),
                               ListView.builder(
@@ -294,8 +296,9 @@ class CreateRecipePage extends StatelessWidget {
                                     vertical: 8, horizontal: 16),
                                 child: Text(
                                   "cooking_steps_title_create_recipe",
-                                  style:
-                                      Theme.of(context).textTheme.displayMedium,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineMedium,
                                 ).tr(),
                               ),
                               ListView.builder(
@@ -339,7 +342,7 @@ class CreateRecipePage extends StatelessWidget {
                               Text(
                                 "tag_title",
                                 style:
-                                    Theme.of(context).textTheme.displayMedium,
+                                    Theme.of(context).textTheme.headlineMedium,
                               ).tr(),
                               if (creating.recipe.recipeTagsAttributes !=
                                       null &&
@@ -424,7 +427,7 @@ class CreateRecipePage extends StatelessWidget {
                               } else ...{
                                 Padding(
                                   padding:
-                                      const EdgeInsets.only(top: 5, left: 2),
+                                      const EdgeInsets.only(top: 8, left: 6),
                                   child: const Text("add_tag_description").tr(),
                                 )
                               },

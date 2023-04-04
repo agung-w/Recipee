@@ -243,12 +243,12 @@ class _UserInfo extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(top: 8),
+                    padding: const EdgeInsets.symmetric(vertical: 8),
                     child: Text(
                       user.name,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context).textTheme.displayMedium,
+                      style: Theme.of(context).textTheme.headlineSmall,
                     ),
                   ),
                   Text(
@@ -260,13 +260,14 @@ class _UserInfo extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(top: 8),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         _CountText(
-                            count: user.followingCount, text: "Following"),
-                        const SizedBox(
-                          width: 16,
-                        ),
-                        _CountText(count: user.followerCount, text: "Follower")
+                            count: user.followingCount,
+                            text: "following_text".tr()),
+                        _CountText(
+                            count: user.followerCount,
+                            text: "follower_text".tr())
                       ],
                     ),
                   ),
@@ -350,9 +351,15 @@ class _CountText extends StatelessWidget {
       onTap: () {},
       child: Row(
         children: [
-          Text(count.toString()),
+          Text(
+            count.toString(),
+            style: Theme.of(context).textTheme.labelMedium,
+          ),
           const Text(" "),
-          Text(text.toString()),
+          Text(
+            text.toString(),
+            style: Theme.of(context).textTheme.labelMedium,
+          ),
         ],
       ),
     );
