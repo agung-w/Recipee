@@ -136,8 +136,9 @@ class CreateRecipeBloc extends Bloc<CreateRecipeEvent, CreateRecipeState> {
     on<_EditCookingStepPic>((event, emit) async {
       if (state is _Creating) {
         _Creating? creating = state.mapOrNull(creating: ((value) => value));
-        String? picUrl = await PictureServices().uploadPosterPicture(
-            await ImagePicker().pickImage(source: ImageSource.gallery));
+        String? picUrl = await PictureServices().uploadPicture(
+            picture: await ImagePicker().pickImage(source: ImageSource.gallery),
+            type: 'step-pic');
         if (picUrl != null) {
           List<CookingStep> cookingSteps =
               List.from(creating!.recipe.cookingStepsAttributes);
@@ -232,14 +233,52 @@ class CreateRecipeBloc extends Bloc<CreateRecipeEvent, CreateRecipeState> {
     on<_AddRecipePoster>((event, emit) async {
       if (state is _Creating) {
         _Creating? creating = state.mapOrNull(creating: ((value) => value));
-        String? picUrl = await PictureServices().uploadPosterPicture(
-            await ImagePicker().pickImage(source: ImageSource.gallery));
+        String? picUrl = await PictureServices().uploadPicture(
+            picture: await ImagePicker().pickImage(source: ImageSource.gallery),
+            type: 'poster');
         if (picUrl != null) {
           emit(creating!.copyWith(
               recipe: creating.recipe.copyWith(posterPicUrl: picUrl)));
         } else {
           emit(creating!);
         }
+      }
+    });
+
+    on<_DeletePoster>((event, emit) async {
+      if (state is _Creating) {
+        _Creating? creating = state.mapOrNull(creating: ((value) => value));
+        ApiResult result = await PictureServices().deletePicture(
+          picUrl: event.picUrl,
+        );
+        result.map(success: (value) {
+          emit(creating!
+              .copyWith(recipe: creating.recipe.copyWith(posterPicUrl: null)));
+        }, failed: (value) {
+          ScaffoldMessenger.of(event.context)
+              .showSnackBar(SnackBar(content: Text(value.message)));
+        });
+      }
+    });
+    on<_DeleteCookingStepPic>((event, emit) async {
+      if (state is _Creating) {
+        _Creating? creating = state.mapOrNull(creating: ((value) => value));
+        ApiResult result = await PictureServices().deletePicture(
+          picUrl: event.picUrl,
+        );
+        result.map(success: (value) {
+          List<CookingStep> cookingSteps =
+              List.from(creating!.recipe.cookingStepsAttributes);
+          int i = cookingSteps
+              .indexWhere((element) => element == event.cookingStep);
+          cookingSteps[i] = cookingSteps[i].copyWith(picUrl: null);
+          emit(creating.copyWith(
+              recipe: creating.recipe
+                  .copyWith(cookingStepsAttributes: cookingSteps)));
+        }, failed: (value) {
+          ScaffoldMessenger.of(event.context)
+              .showSnackBar(SnackBar(content: Text(value.message)));
+        });
       }
     });
 

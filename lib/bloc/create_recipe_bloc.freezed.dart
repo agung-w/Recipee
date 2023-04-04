@@ -42,6 +42,10 @@ mixin _$CreateRecipeEvent {
         addTag,
     required TResult Function(Tag tag) deleteTag,
     required TResult Function(RecipeDetail recipe, BuildContext context) submit,
+    required TResult Function(String picUrl, BuildContext context) deletePoster,
+    required TResult Function(
+            String picUrl, BuildContext context, CookingStep cookingStep)
+        deleteCookingStepPic,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -69,6 +73,10 @@ mixin _$CreateRecipeEvent {
         addTag,
     TResult? Function(Tag tag)? deleteTag,
     TResult? Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult? Function(String picUrl, BuildContext context)? deletePoster,
+    TResult? Function(
+            String picUrl, BuildContext context, CookingStep cookingStep)?
+        deleteCookingStepPic,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -96,6 +104,10 @@ mixin _$CreateRecipeEvent {
         addTag,
     TResult Function(Tag tag)? deleteTag,
     TResult Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult Function(String picUrl, BuildContext context)? deletePoster,
+    TResult Function(
+            String picUrl, BuildContext context, CookingStep cookingStep)?
+        deleteCookingStepPic,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -117,6 +129,8 @@ mixin _$CreateRecipeEvent {
     required TResult Function(_AddTag value) addTag,
     required TResult Function(_DeleteTag value) deleteTag,
     required TResult Function(_Submit value) submit,
+    required TResult Function(_DeletePoster value) deletePoster,
+    required TResult Function(_DeleteCookingStepPic value) deleteCookingStepPic,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -136,6 +150,8 @@ mixin _$CreateRecipeEvent {
     TResult? Function(_AddTag value)? addTag,
     TResult? Function(_DeleteTag value)? deleteTag,
     TResult? Function(_Submit value)? submit,
+    TResult? Function(_DeletePoster value)? deletePoster,
+    TResult? Function(_DeleteCookingStepPic value)? deleteCookingStepPic,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -155,6 +171,8 @@ mixin _$CreateRecipeEvent {
     TResult Function(_AddTag value)? addTag,
     TResult Function(_DeleteTag value)? deleteTag,
     TResult Function(_Submit value)? submit,
+    TResult Function(_DeletePoster value)? deletePoster,
+    TResult Function(_DeleteCookingStepPic value)? deleteCookingStepPic,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -282,6 +300,10 @@ class _$_Create implements _Create {
         addTag,
     required TResult Function(Tag tag) deleteTag,
     required TResult Function(RecipeDetail recipe, BuildContext context) submit,
+    required TResult Function(String picUrl, BuildContext context) deletePoster,
+    required TResult Function(
+            String picUrl, BuildContext context, CookingStep cookingStep)
+        deleteCookingStepPic,
   }) {
     return create(state, context);
   }
@@ -312,6 +334,10 @@ class _$_Create implements _Create {
         addTag,
     TResult? Function(Tag tag)? deleteTag,
     TResult? Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult? Function(String picUrl, BuildContext context)? deletePoster,
+    TResult? Function(
+            String picUrl, BuildContext context, CookingStep cookingStep)?
+        deleteCookingStepPic,
   }) {
     return create?.call(state, context);
   }
@@ -342,6 +368,10 @@ class _$_Create implements _Create {
         addTag,
     TResult Function(Tag tag)? deleteTag,
     TResult Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult Function(String picUrl, BuildContext context)? deletePoster,
+    TResult Function(
+            String picUrl, BuildContext context, CookingStep cookingStep)?
+        deleteCookingStepPic,
     required TResult orElse(),
   }) {
     if (create != null) {
@@ -369,6 +399,8 @@ class _$_Create implements _Create {
     required TResult Function(_AddTag value) addTag,
     required TResult Function(_DeleteTag value) deleteTag,
     required TResult Function(_Submit value) submit,
+    required TResult Function(_DeletePoster value) deletePoster,
+    required TResult Function(_DeleteCookingStepPic value) deleteCookingStepPic,
   }) {
     return create(this);
   }
@@ -391,6 +423,8 @@ class _$_Create implements _Create {
     TResult? Function(_AddTag value)? addTag,
     TResult? Function(_DeleteTag value)? deleteTag,
     TResult? Function(_Submit value)? submit,
+    TResult? Function(_DeletePoster value)? deletePoster,
+    TResult? Function(_DeleteCookingStepPic value)? deleteCookingStepPic,
   }) {
     return create?.call(this);
   }
@@ -413,6 +447,8 @@ class _$_Create implements _Create {
     TResult Function(_AddTag value)? addTag,
     TResult Function(_DeleteTag value)? deleteTag,
     TResult Function(_Submit value)? submit,
+    TResult Function(_DeletePoster value)? deletePoster,
+    TResult Function(_DeleteCookingStepPic value)? deleteCookingStepPic,
     required TResult orElse(),
   }) {
     if (create != null) {
@@ -496,6 +532,10 @@ class _$_AddRecipePoster implements _AddRecipePoster {
         addTag,
     required TResult Function(Tag tag) deleteTag,
     required TResult Function(RecipeDetail recipe, BuildContext context) submit,
+    required TResult Function(String picUrl, BuildContext context) deletePoster,
+    required TResult Function(
+            String picUrl, BuildContext context, CookingStep cookingStep)
+        deleteCookingStepPic,
   }) {
     return addRecipePoster();
   }
@@ -526,6 +566,10 @@ class _$_AddRecipePoster implements _AddRecipePoster {
         addTag,
     TResult? Function(Tag tag)? deleteTag,
     TResult? Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult? Function(String picUrl, BuildContext context)? deletePoster,
+    TResult? Function(
+            String picUrl, BuildContext context, CookingStep cookingStep)?
+        deleteCookingStepPic,
   }) {
     return addRecipePoster?.call();
   }
@@ -556,6 +600,10 @@ class _$_AddRecipePoster implements _AddRecipePoster {
         addTag,
     TResult Function(Tag tag)? deleteTag,
     TResult Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult Function(String picUrl, BuildContext context)? deletePoster,
+    TResult Function(
+            String picUrl, BuildContext context, CookingStep cookingStep)?
+        deleteCookingStepPic,
     required TResult orElse(),
   }) {
     if (addRecipePoster != null) {
@@ -583,6 +631,8 @@ class _$_AddRecipePoster implements _AddRecipePoster {
     required TResult Function(_AddTag value) addTag,
     required TResult Function(_DeleteTag value) deleteTag,
     required TResult Function(_Submit value) submit,
+    required TResult Function(_DeletePoster value) deletePoster,
+    required TResult Function(_DeleteCookingStepPic value) deleteCookingStepPic,
   }) {
     return addRecipePoster(this);
   }
@@ -605,6 +655,8 @@ class _$_AddRecipePoster implements _AddRecipePoster {
     TResult? Function(_AddTag value)? addTag,
     TResult? Function(_DeleteTag value)? deleteTag,
     TResult? Function(_Submit value)? submit,
+    TResult? Function(_DeletePoster value)? deletePoster,
+    TResult? Function(_DeleteCookingStepPic value)? deleteCookingStepPic,
   }) {
     return addRecipePoster?.call(this);
   }
@@ -627,6 +679,8 @@ class _$_AddRecipePoster implements _AddRecipePoster {
     TResult Function(_AddTag value)? addTag,
     TResult Function(_DeleteTag value)? deleteTag,
     TResult Function(_Submit value)? submit,
+    TResult Function(_DeletePoster value)? deletePoster,
+    TResult Function(_DeleteCookingStepPic value)? deleteCookingStepPic,
     required TResult orElse(),
   }) {
     if (addRecipePoster != null) {
@@ -752,6 +806,10 @@ class _$_AddIngredient implements _AddIngredient {
         addTag,
     required TResult Function(Tag tag) deleteTag,
     required TResult Function(RecipeDetail recipe, BuildContext context) submit,
+    required TResult Function(String picUrl, BuildContext context) deletePoster,
+    required TResult Function(
+            String picUrl, BuildContext context, CookingStep cookingStep)
+        deleteCookingStepPic,
   }) {
     return addIngredient(ingredient, controller, context);
   }
@@ -782,6 +840,10 @@ class _$_AddIngredient implements _AddIngredient {
         addTag,
     TResult? Function(Tag tag)? deleteTag,
     TResult? Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult? Function(String picUrl, BuildContext context)? deletePoster,
+    TResult? Function(
+            String picUrl, BuildContext context, CookingStep cookingStep)?
+        deleteCookingStepPic,
   }) {
     return addIngredient?.call(ingredient, controller, context);
   }
@@ -812,6 +874,10 @@ class _$_AddIngredient implements _AddIngredient {
         addTag,
     TResult Function(Tag tag)? deleteTag,
     TResult Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult Function(String picUrl, BuildContext context)? deletePoster,
+    TResult Function(
+            String picUrl, BuildContext context, CookingStep cookingStep)?
+        deleteCookingStepPic,
     required TResult orElse(),
   }) {
     if (addIngredient != null) {
@@ -839,6 +905,8 @@ class _$_AddIngredient implements _AddIngredient {
     required TResult Function(_AddTag value) addTag,
     required TResult Function(_DeleteTag value) deleteTag,
     required TResult Function(_Submit value) submit,
+    required TResult Function(_DeletePoster value) deletePoster,
+    required TResult Function(_DeleteCookingStepPic value) deleteCookingStepPic,
   }) {
     return addIngredient(this);
   }
@@ -861,6 +929,8 @@ class _$_AddIngredient implements _AddIngredient {
     TResult? Function(_AddTag value)? addTag,
     TResult? Function(_DeleteTag value)? deleteTag,
     TResult? Function(_Submit value)? submit,
+    TResult? Function(_DeletePoster value)? deletePoster,
+    TResult? Function(_DeleteCookingStepPic value)? deleteCookingStepPic,
   }) {
     return addIngredient?.call(this);
   }
@@ -883,6 +953,8 @@ class _$_AddIngredient implements _AddIngredient {
     TResult Function(_AddTag value)? addTag,
     TResult Function(_DeleteTag value)? deleteTag,
     TResult Function(_Submit value)? submit,
+    TResult Function(_DeletePoster value)? deletePoster,
+    TResult Function(_DeleteCookingStepPic value)? deleteCookingStepPic,
     required TResult orElse(),
   }) {
     if (addIngredient != null) {
@@ -1004,6 +1076,10 @@ class _$_EditIngredientName implements _EditIngredientName {
         addTag,
     required TResult Function(Tag tag) deleteTag,
     required TResult Function(RecipeDetail recipe, BuildContext context) submit,
+    required TResult Function(String picUrl, BuildContext context) deletePoster,
+    required TResult Function(
+            String picUrl, BuildContext context, CookingStep cookingStep)
+        deleteCookingStepPic,
   }) {
     return editIngredientName(ingredient, name);
   }
@@ -1034,6 +1110,10 @@ class _$_EditIngredientName implements _EditIngredientName {
         addTag,
     TResult? Function(Tag tag)? deleteTag,
     TResult? Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult? Function(String picUrl, BuildContext context)? deletePoster,
+    TResult? Function(
+            String picUrl, BuildContext context, CookingStep cookingStep)?
+        deleteCookingStepPic,
   }) {
     return editIngredientName?.call(ingredient, name);
   }
@@ -1064,6 +1144,10 @@ class _$_EditIngredientName implements _EditIngredientName {
         addTag,
     TResult Function(Tag tag)? deleteTag,
     TResult Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult Function(String picUrl, BuildContext context)? deletePoster,
+    TResult Function(
+            String picUrl, BuildContext context, CookingStep cookingStep)?
+        deleteCookingStepPic,
     required TResult orElse(),
   }) {
     if (editIngredientName != null) {
@@ -1091,6 +1175,8 @@ class _$_EditIngredientName implements _EditIngredientName {
     required TResult Function(_AddTag value) addTag,
     required TResult Function(_DeleteTag value) deleteTag,
     required TResult Function(_Submit value) submit,
+    required TResult Function(_DeletePoster value) deletePoster,
+    required TResult Function(_DeleteCookingStepPic value) deleteCookingStepPic,
   }) {
     return editIngredientName(this);
   }
@@ -1113,6 +1199,8 @@ class _$_EditIngredientName implements _EditIngredientName {
     TResult? Function(_AddTag value)? addTag,
     TResult? Function(_DeleteTag value)? deleteTag,
     TResult? Function(_Submit value)? submit,
+    TResult? Function(_DeletePoster value)? deletePoster,
+    TResult? Function(_DeleteCookingStepPic value)? deleteCookingStepPic,
   }) {
     return editIngredientName?.call(this);
   }
@@ -1135,6 +1223,8 @@ class _$_EditIngredientName implements _EditIngredientName {
     TResult Function(_AddTag value)? addTag,
     TResult Function(_DeleteTag value)? deleteTag,
     TResult Function(_Submit value)? submit,
+    TResult Function(_DeletePoster value)? deletePoster,
+    TResult Function(_DeleteCookingStepPic value)? deleteCookingStepPic,
     required TResult orElse(),
   }) {
     if (editIngredientName != null) {
@@ -1256,6 +1346,10 @@ class _$_EditIngredientQuantity implements _EditIngredientQuantity {
         addTag,
     required TResult Function(Tag tag) deleteTag,
     required TResult Function(RecipeDetail recipe, BuildContext context) submit,
+    required TResult Function(String picUrl, BuildContext context) deletePoster,
+    required TResult Function(
+            String picUrl, BuildContext context, CookingStep cookingStep)
+        deleteCookingStepPic,
   }) {
     return editIngredientQuantity(ingredient, quantity);
   }
@@ -1286,6 +1380,10 @@ class _$_EditIngredientQuantity implements _EditIngredientQuantity {
         addTag,
     TResult? Function(Tag tag)? deleteTag,
     TResult? Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult? Function(String picUrl, BuildContext context)? deletePoster,
+    TResult? Function(
+            String picUrl, BuildContext context, CookingStep cookingStep)?
+        deleteCookingStepPic,
   }) {
     return editIngredientQuantity?.call(ingredient, quantity);
   }
@@ -1316,6 +1414,10 @@ class _$_EditIngredientQuantity implements _EditIngredientQuantity {
         addTag,
     TResult Function(Tag tag)? deleteTag,
     TResult Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult Function(String picUrl, BuildContext context)? deletePoster,
+    TResult Function(
+            String picUrl, BuildContext context, CookingStep cookingStep)?
+        deleteCookingStepPic,
     required TResult orElse(),
   }) {
     if (editIngredientQuantity != null) {
@@ -1343,6 +1445,8 @@ class _$_EditIngredientQuantity implements _EditIngredientQuantity {
     required TResult Function(_AddTag value) addTag,
     required TResult Function(_DeleteTag value) deleteTag,
     required TResult Function(_Submit value) submit,
+    required TResult Function(_DeletePoster value) deletePoster,
+    required TResult Function(_DeleteCookingStepPic value) deleteCookingStepPic,
   }) {
     return editIngredientQuantity(this);
   }
@@ -1365,6 +1469,8 @@ class _$_EditIngredientQuantity implements _EditIngredientQuantity {
     TResult? Function(_AddTag value)? addTag,
     TResult? Function(_DeleteTag value)? deleteTag,
     TResult? Function(_Submit value)? submit,
+    TResult? Function(_DeletePoster value)? deletePoster,
+    TResult? Function(_DeleteCookingStepPic value)? deleteCookingStepPic,
   }) {
     return editIngredientQuantity?.call(this);
   }
@@ -1387,6 +1493,8 @@ class _$_EditIngredientQuantity implements _EditIngredientQuantity {
     TResult Function(_AddTag value)? addTag,
     TResult Function(_DeleteTag value)? deleteTag,
     TResult Function(_Submit value)? submit,
+    TResult Function(_DeletePoster value)? deletePoster,
+    TResult Function(_DeleteCookingStepPic value)? deleteCookingStepPic,
     required TResult orElse(),
   }) {
     if (editIngredientQuantity != null) {
@@ -1507,6 +1615,10 @@ class _$_EditIngredientMetric implements _EditIngredientMetric {
         addTag,
     required TResult Function(Tag tag) deleteTag,
     required TResult Function(RecipeDetail recipe, BuildContext context) submit,
+    required TResult Function(String picUrl, BuildContext context) deletePoster,
+    required TResult Function(
+            String picUrl, BuildContext context, CookingStep cookingStep)
+        deleteCookingStepPic,
   }) {
     return editIngredientMetric(ingredient, metric);
   }
@@ -1537,6 +1649,10 @@ class _$_EditIngredientMetric implements _EditIngredientMetric {
         addTag,
     TResult? Function(Tag tag)? deleteTag,
     TResult? Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult? Function(String picUrl, BuildContext context)? deletePoster,
+    TResult? Function(
+            String picUrl, BuildContext context, CookingStep cookingStep)?
+        deleteCookingStepPic,
   }) {
     return editIngredientMetric?.call(ingredient, metric);
   }
@@ -1567,6 +1683,10 @@ class _$_EditIngredientMetric implements _EditIngredientMetric {
         addTag,
     TResult Function(Tag tag)? deleteTag,
     TResult Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult Function(String picUrl, BuildContext context)? deletePoster,
+    TResult Function(
+            String picUrl, BuildContext context, CookingStep cookingStep)?
+        deleteCookingStepPic,
     required TResult orElse(),
   }) {
     if (editIngredientMetric != null) {
@@ -1594,6 +1714,8 @@ class _$_EditIngredientMetric implements _EditIngredientMetric {
     required TResult Function(_AddTag value) addTag,
     required TResult Function(_DeleteTag value) deleteTag,
     required TResult Function(_Submit value) submit,
+    required TResult Function(_DeletePoster value) deletePoster,
+    required TResult Function(_DeleteCookingStepPic value) deleteCookingStepPic,
   }) {
     return editIngredientMetric(this);
   }
@@ -1616,6 +1738,8 @@ class _$_EditIngredientMetric implements _EditIngredientMetric {
     TResult? Function(_AddTag value)? addTag,
     TResult? Function(_DeleteTag value)? deleteTag,
     TResult? Function(_Submit value)? submit,
+    TResult? Function(_DeletePoster value)? deletePoster,
+    TResult? Function(_DeleteCookingStepPic value)? deleteCookingStepPic,
   }) {
     return editIngredientMetric?.call(this);
   }
@@ -1638,6 +1762,8 @@ class _$_EditIngredientMetric implements _EditIngredientMetric {
     TResult Function(_AddTag value)? addTag,
     TResult Function(_DeleteTag value)? deleteTag,
     TResult Function(_Submit value)? submit,
+    TResult Function(_DeletePoster value)? deletePoster,
+    TResult Function(_DeleteCookingStepPic value)? deleteCookingStepPic,
     required TResult orElse(),
   }) {
     if (editIngredientMetric != null) {
@@ -1748,6 +1874,10 @@ class _$_DeleteIngredient implements _DeleteIngredient {
         addTag,
     required TResult Function(Tag tag) deleteTag,
     required TResult Function(RecipeDetail recipe, BuildContext context) submit,
+    required TResult Function(String picUrl, BuildContext context) deletePoster,
+    required TResult Function(
+            String picUrl, BuildContext context, CookingStep cookingStep)
+        deleteCookingStepPic,
   }) {
     return deleteIngredient(ingredient);
   }
@@ -1778,6 +1908,10 @@ class _$_DeleteIngredient implements _DeleteIngredient {
         addTag,
     TResult? Function(Tag tag)? deleteTag,
     TResult? Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult? Function(String picUrl, BuildContext context)? deletePoster,
+    TResult? Function(
+            String picUrl, BuildContext context, CookingStep cookingStep)?
+        deleteCookingStepPic,
   }) {
     return deleteIngredient?.call(ingredient);
   }
@@ -1808,6 +1942,10 @@ class _$_DeleteIngredient implements _DeleteIngredient {
         addTag,
     TResult Function(Tag tag)? deleteTag,
     TResult Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult Function(String picUrl, BuildContext context)? deletePoster,
+    TResult Function(
+            String picUrl, BuildContext context, CookingStep cookingStep)?
+        deleteCookingStepPic,
     required TResult orElse(),
   }) {
     if (deleteIngredient != null) {
@@ -1835,6 +1973,8 @@ class _$_DeleteIngredient implements _DeleteIngredient {
     required TResult Function(_AddTag value) addTag,
     required TResult Function(_DeleteTag value) deleteTag,
     required TResult Function(_Submit value) submit,
+    required TResult Function(_DeletePoster value) deletePoster,
+    required TResult Function(_DeleteCookingStepPic value) deleteCookingStepPic,
   }) {
     return deleteIngredient(this);
   }
@@ -1857,6 +1997,8 @@ class _$_DeleteIngredient implements _DeleteIngredient {
     TResult? Function(_AddTag value)? addTag,
     TResult? Function(_DeleteTag value)? deleteTag,
     TResult? Function(_Submit value)? submit,
+    TResult? Function(_DeletePoster value)? deletePoster,
+    TResult? Function(_DeleteCookingStepPic value)? deleteCookingStepPic,
   }) {
     return deleteIngredient?.call(this);
   }
@@ -1879,6 +2021,8 @@ class _$_DeleteIngredient implements _DeleteIngredient {
     TResult Function(_AddTag value)? addTag,
     TResult Function(_DeleteTag value)? deleteTag,
     TResult Function(_Submit value)? submit,
+    TResult Function(_DeletePoster value)? deletePoster,
+    TResult Function(_DeleteCookingStepPic value)? deleteCookingStepPic,
     required TResult orElse(),
   }) {
     if (deleteIngredient != null) {
@@ -1960,6 +2104,10 @@ class _$_AddCookingStep implements _AddCookingStep {
         addTag,
     required TResult Function(Tag tag) deleteTag,
     required TResult Function(RecipeDetail recipe, BuildContext context) submit,
+    required TResult Function(String picUrl, BuildContext context) deletePoster,
+    required TResult Function(
+            String picUrl, BuildContext context, CookingStep cookingStep)
+        deleteCookingStepPic,
   }) {
     return addCookingStep();
   }
@@ -1990,6 +2138,10 @@ class _$_AddCookingStep implements _AddCookingStep {
         addTag,
     TResult? Function(Tag tag)? deleteTag,
     TResult? Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult? Function(String picUrl, BuildContext context)? deletePoster,
+    TResult? Function(
+            String picUrl, BuildContext context, CookingStep cookingStep)?
+        deleteCookingStepPic,
   }) {
     return addCookingStep?.call();
   }
@@ -2020,6 +2172,10 @@ class _$_AddCookingStep implements _AddCookingStep {
         addTag,
     TResult Function(Tag tag)? deleteTag,
     TResult Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult Function(String picUrl, BuildContext context)? deletePoster,
+    TResult Function(
+            String picUrl, BuildContext context, CookingStep cookingStep)?
+        deleteCookingStepPic,
     required TResult orElse(),
   }) {
     if (addCookingStep != null) {
@@ -2047,6 +2203,8 @@ class _$_AddCookingStep implements _AddCookingStep {
     required TResult Function(_AddTag value) addTag,
     required TResult Function(_DeleteTag value) deleteTag,
     required TResult Function(_Submit value) submit,
+    required TResult Function(_DeletePoster value) deletePoster,
+    required TResult Function(_DeleteCookingStepPic value) deleteCookingStepPic,
   }) {
     return addCookingStep(this);
   }
@@ -2069,6 +2227,8 @@ class _$_AddCookingStep implements _AddCookingStep {
     TResult? Function(_AddTag value)? addTag,
     TResult? Function(_DeleteTag value)? deleteTag,
     TResult? Function(_Submit value)? submit,
+    TResult? Function(_DeletePoster value)? deletePoster,
+    TResult? Function(_DeleteCookingStepPic value)? deleteCookingStepPic,
   }) {
     return addCookingStep?.call(this);
   }
@@ -2091,6 +2251,8 @@ class _$_AddCookingStep implements _AddCookingStep {
     TResult Function(_AddTag value)? addTag,
     TResult Function(_DeleteTag value)? deleteTag,
     TResult Function(_Submit value)? submit,
+    TResult Function(_DeletePoster value)? deletePoster,
+    TResult Function(_DeleteCookingStepPic value)? deleteCookingStepPic,
     required TResult orElse(),
   }) {
     if (addCookingStep != null) {
@@ -2206,6 +2368,10 @@ class _$_EditCookingStepDescription implements _EditCookingStepDescription {
         addTag,
     required TResult Function(Tag tag) deleteTag,
     required TResult Function(RecipeDetail recipe, BuildContext context) submit,
+    required TResult Function(String picUrl, BuildContext context) deletePoster,
+    required TResult Function(
+            String picUrl, BuildContext context, CookingStep cookingStep)
+        deleteCookingStepPic,
   }) {
     return editCookingStepDescription(cookingStep, description);
   }
@@ -2236,6 +2402,10 @@ class _$_EditCookingStepDescription implements _EditCookingStepDescription {
         addTag,
     TResult? Function(Tag tag)? deleteTag,
     TResult? Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult? Function(String picUrl, BuildContext context)? deletePoster,
+    TResult? Function(
+            String picUrl, BuildContext context, CookingStep cookingStep)?
+        deleteCookingStepPic,
   }) {
     return editCookingStepDescription?.call(cookingStep, description);
   }
@@ -2266,6 +2436,10 @@ class _$_EditCookingStepDescription implements _EditCookingStepDescription {
         addTag,
     TResult Function(Tag tag)? deleteTag,
     TResult Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult Function(String picUrl, BuildContext context)? deletePoster,
+    TResult Function(
+            String picUrl, BuildContext context, CookingStep cookingStep)?
+        deleteCookingStepPic,
     required TResult orElse(),
   }) {
     if (editCookingStepDescription != null) {
@@ -2293,6 +2467,8 @@ class _$_EditCookingStepDescription implements _EditCookingStepDescription {
     required TResult Function(_AddTag value) addTag,
     required TResult Function(_DeleteTag value) deleteTag,
     required TResult Function(_Submit value) submit,
+    required TResult Function(_DeletePoster value) deletePoster,
+    required TResult Function(_DeleteCookingStepPic value) deleteCookingStepPic,
   }) {
     return editCookingStepDescription(this);
   }
@@ -2315,6 +2491,8 @@ class _$_EditCookingStepDescription implements _EditCookingStepDescription {
     TResult? Function(_AddTag value)? addTag,
     TResult? Function(_DeleteTag value)? deleteTag,
     TResult? Function(_Submit value)? submit,
+    TResult? Function(_DeletePoster value)? deletePoster,
+    TResult? Function(_DeleteCookingStepPic value)? deleteCookingStepPic,
   }) {
     return editCookingStepDescription?.call(this);
   }
@@ -2337,6 +2515,8 @@ class _$_EditCookingStepDescription implements _EditCookingStepDescription {
     TResult Function(_AddTag value)? addTag,
     TResult Function(_DeleteTag value)? deleteTag,
     TResult Function(_Submit value)? submit,
+    TResult Function(_DeletePoster value)? deletePoster,
+    TResult Function(_DeleteCookingStepPic value)? deleteCookingStepPic,
     required TResult orElse(),
   }) {
     if (editCookingStepDescription != null) {
@@ -2448,6 +2628,10 @@ class _$_EditCookingStepPic implements _EditCookingStepPic {
         addTag,
     required TResult Function(Tag tag) deleteTag,
     required TResult Function(RecipeDetail recipe, BuildContext context) submit,
+    required TResult Function(String picUrl, BuildContext context) deletePoster,
+    required TResult Function(
+            String picUrl, BuildContext context, CookingStep cookingStep)
+        deleteCookingStepPic,
   }) {
     return editCookingStepPic(cookingStep);
   }
@@ -2478,6 +2662,10 @@ class _$_EditCookingStepPic implements _EditCookingStepPic {
         addTag,
     TResult? Function(Tag tag)? deleteTag,
     TResult? Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult? Function(String picUrl, BuildContext context)? deletePoster,
+    TResult? Function(
+            String picUrl, BuildContext context, CookingStep cookingStep)?
+        deleteCookingStepPic,
   }) {
     return editCookingStepPic?.call(cookingStep);
   }
@@ -2508,6 +2696,10 @@ class _$_EditCookingStepPic implements _EditCookingStepPic {
         addTag,
     TResult Function(Tag tag)? deleteTag,
     TResult Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult Function(String picUrl, BuildContext context)? deletePoster,
+    TResult Function(
+            String picUrl, BuildContext context, CookingStep cookingStep)?
+        deleteCookingStepPic,
     required TResult orElse(),
   }) {
     if (editCookingStepPic != null) {
@@ -2535,6 +2727,8 @@ class _$_EditCookingStepPic implements _EditCookingStepPic {
     required TResult Function(_AddTag value) addTag,
     required TResult Function(_DeleteTag value) deleteTag,
     required TResult Function(_Submit value) submit,
+    required TResult Function(_DeletePoster value) deletePoster,
+    required TResult Function(_DeleteCookingStepPic value) deleteCookingStepPic,
   }) {
     return editCookingStepPic(this);
   }
@@ -2557,6 +2751,8 @@ class _$_EditCookingStepPic implements _EditCookingStepPic {
     TResult? Function(_AddTag value)? addTag,
     TResult? Function(_DeleteTag value)? deleteTag,
     TResult? Function(_Submit value)? submit,
+    TResult? Function(_DeletePoster value)? deletePoster,
+    TResult? Function(_DeleteCookingStepPic value)? deleteCookingStepPic,
   }) {
     return editCookingStepPic?.call(this);
   }
@@ -2579,6 +2775,8 @@ class _$_EditCookingStepPic implements _EditCookingStepPic {
     TResult Function(_AddTag value)? addTag,
     TResult Function(_DeleteTag value)? deleteTag,
     TResult Function(_Submit value)? submit,
+    TResult Function(_DeletePoster value)? deletePoster,
+    TResult Function(_DeleteCookingStepPic value)? deleteCookingStepPic,
     required TResult orElse(),
   }) {
     if (editCookingStepPic != null) {
@@ -2688,6 +2886,10 @@ class _$_DeleteCookingStep implements _DeleteCookingStep {
         addTag,
     required TResult Function(Tag tag) deleteTag,
     required TResult Function(RecipeDetail recipe, BuildContext context) submit,
+    required TResult Function(String picUrl, BuildContext context) deletePoster,
+    required TResult Function(
+            String picUrl, BuildContext context, CookingStep cookingStep)
+        deleteCookingStepPic,
   }) {
     return deleteCookingStep(cookingStep);
   }
@@ -2718,6 +2920,10 @@ class _$_DeleteCookingStep implements _DeleteCookingStep {
         addTag,
     TResult? Function(Tag tag)? deleteTag,
     TResult? Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult? Function(String picUrl, BuildContext context)? deletePoster,
+    TResult? Function(
+            String picUrl, BuildContext context, CookingStep cookingStep)?
+        deleteCookingStepPic,
   }) {
     return deleteCookingStep?.call(cookingStep);
   }
@@ -2748,6 +2954,10 @@ class _$_DeleteCookingStep implements _DeleteCookingStep {
         addTag,
     TResult Function(Tag tag)? deleteTag,
     TResult Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult Function(String picUrl, BuildContext context)? deletePoster,
+    TResult Function(
+            String picUrl, BuildContext context, CookingStep cookingStep)?
+        deleteCookingStepPic,
     required TResult orElse(),
   }) {
     if (deleteCookingStep != null) {
@@ -2775,6 +2985,8 @@ class _$_DeleteCookingStep implements _DeleteCookingStep {
     required TResult Function(_AddTag value) addTag,
     required TResult Function(_DeleteTag value) deleteTag,
     required TResult Function(_Submit value) submit,
+    required TResult Function(_DeletePoster value) deletePoster,
+    required TResult Function(_DeleteCookingStepPic value) deleteCookingStepPic,
   }) {
     return deleteCookingStep(this);
   }
@@ -2797,6 +3009,8 @@ class _$_DeleteCookingStep implements _DeleteCookingStep {
     TResult? Function(_AddTag value)? addTag,
     TResult? Function(_DeleteTag value)? deleteTag,
     TResult? Function(_Submit value)? submit,
+    TResult? Function(_DeletePoster value)? deletePoster,
+    TResult? Function(_DeleteCookingStepPic value)? deleteCookingStepPic,
   }) {
     return deleteCookingStep?.call(this);
   }
@@ -2819,6 +3033,8 @@ class _$_DeleteCookingStep implements _DeleteCookingStep {
     TResult Function(_AddTag value)? addTag,
     TResult Function(_DeleteTag value)? deleteTag,
     TResult Function(_Submit value)? submit,
+    TResult Function(_DeletePoster value)? deletePoster,
+    TResult Function(_DeleteCookingStepPic value)? deleteCookingStepPic,
     required TResult orElse(),
   }) {
     if (deleteCookingStep != null) {
@@ -2943,6 +3159,10 @@ class _$_AddTag implements _AddTag {
         addTag,
     required TResult Function(Tag tag) deleteTag,
     required TResult Function(RecipeDetail recipe, BuildContext context) submit,
+    required TResult Function(String picUrl, BuildContext context) deletePoster,
+    required TResult Function(
+            String picUrl, BuildContext context, CookingStep cookingStep)
+        deleteCookingStepPic,
   }) {
     return addTag(tag, context, controller);
   }
@@ -2973,6 +3193,10 @@ class _$_AddTag implements _AddTag {
         addTag,
     TResult? Function(Tag tag)? deleteTag,
     TResult? Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult? Function(String picUrl, BuildContext context)? deletePoster,
+    TResult? Function(
+            String picUrl, BuildContext context, CookingStep cookingStep)?
+        deleteCookingStepPic,
   }) {
     return addTag?.call(tag, context, controller);
   }
@@ -3003,6 +3227,10 @@ class _$_AddTag implements _AddTag {
         addTag,
     TResult Function(Tag tag)? deleteTag,
     TResult Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult Function(String picUrl, BuildContext context)? deletePoster,
+    TResult Function(
+            String picUrl, BuildContext context, CookingStep cookingStep)?
+        deleteCookingStepPic,
     required TResult orElse(),
   }) {
     if (addTag != null) {
@@ -3030,6 +3258,8 @@ class _$_AddTag implements _AddTag {
     required TResult Function(_AddTag value) addTag,
     required TResult Function(_DeleteTag value) deleteTag,
     required TResult Function(_Submit value) submit,
+    required TResult Function(_DeletePoster value) deletePoster,
+    required TResult Function(_DeleteCookingStepPic value) deleteCookingStepPic,
   }) {
     return addTag(this);
   }
@@ -3052,6 +3282,8 @@ class _$_AddTag implements _AddTag {
     TResult? Function(_AddTag value)? addTag,
     TResult? Function(_DeleteTag value)? deleteTag,
     TResult? Function(_Submit value)? submit,
+    TResult? Function(_DeletePoster value)? deletePoster,
+    TResult? Function(_DeleteCookingStepPic value)? deleteCookingStepPic,
   }) {
     return addTag?.call(this);
   }
@@ -3074,6 +3306,8 @@ class _$_AddTag implements _AddTag {
     TResult Function(_AddTag value)? addTag,
     TResult Function(_DeleteTag value)? deleteTag,
     TResult Function(_Submit value)? submit,
+    TResult Function(_DeletePoster value)? deletePoster,
+    TResult Function(_DeleteCookingStepPic value)? deleteCookingStepPic,
     required TResult orElse(),
   }) {
     if (addTag != null) {
@@ -3185,6 +3419,10 @@ class _$_DeleteTag implements _DeleteTag {
         addTag,
     required TResult Function(Tag tag) deleteTag,
     required TResult Function(RecipeDetail recipe, BuildContext context) submit,
+    required TResult Function(String picUrl, BuildContext context) deletePoster,
+    required TResult Function(
+            String picUrl, BuildContext context, CookingStep cookingStep)
+        deleteCookingStepPic,
   }) {
     return deleteTag(tag);
   }
@@ -3215,6 +3453,10 @@ class _$_DeleteTag implements _DeleteTag {
         addTag,
     TResult? Function(Tag tag)? deleteTag,
     TResult? Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult? Function(String picUrl, BuildContext context)? deletePoster,
+    TResult? Function(
+            String picUrl, BuildContext context, CookingStep cookingStep)?
+        deleteCookingStepPic,
   }) {
     return deleteTag?.call(tag);
   }
@@ -3245,6 +3487,10 @@ class _$_DeleteTag implements _DeleteTag {
         addTag,
     TResult Function(Tag tag)? deleteTag,
     TResult Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult Function(String picUrl, BuildContext context)? deletePoster,
+    TResult Function(
+            String picUrl, BuildContext context, CookingStep cookingStep)?
+        deleteCookingStepPic,
     required TResult orElse(),
   }) {
     if (deleteTag != null) {
@@ -3272,6 +3518,8 @@ class _$_DeleteTag implements _DeleteTag {
     required TResult Function(_AddTag value) addTag,
     required TResult Function(_DeleteTag value) deleteTag,
     required TResult Function(_Submit value) submit,
+    required TResult Function(_DeletePoster value) deletePoster,
+    required TResult Function(_DeleteCookingStepPic value) deleteCookingStepPic,
   }) {
     return deleteTag(this);
   }
@@ -3294,6 +3542,8 @@ class _$_DeleteTag implements _DeleteTag {
     TResult? Function(_AddTag value)? addTag,
     TResult? Function(_DeleteTag value)? deleteTag,
     TResult? Function(_Submit value)? submit,
+    TResult? Function(_DeletePoster value)? deletePoster,
+    TResult? Function(_DeleteCookingStepPic value)? deleteCookingStepPic,
   }) {
     return deleteTag?.call(this);
   }
@@ -3316,6 +3566,8 @@ class _$_DeleteTag implements _DeleteTag {
     TResult Function(_AddTag value)? addTag,
     TResult Function(_DeleteTag value)? deleteTag,
     TResult Function(_Submit value)? submit,
+    TResult Function(_DeletePoster value)? deletePoster,
+    TResult Function(_DeleteCookingStepPic value)? deleteCookingStepPic,
     required TResult orElse(),
   }) {
     if (deleteTag != null) {
@@ -3428,6 +3680,10 @@ class _$_Submit implements _Submit {
         addTag,
     required TResult Function(Tag tag) deleteTag,
     required TResult Function(RecipeDetail recipe, BuildContext context) submit,
+    required TResult Function(String picUrl, BuildContext context) deletePoster,
+    required TResult Function(
+            String picUrl, BuildContext context, CookingStep cookingStep)
+        deleteCookingStepPic,
   }) {
     return submit(recipe, context);
   }
@@ -3458,6 +3714,10 @@ class _$_Submit implements _Submit {
         addTag,
     TResult? Function(Tag tag)? deleteTag,
     TResult? Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult? Function(String picUrl, BuildContext context)? deletePoster,
+    TResult? Function(
+            String picUrl, BuildContext context, CookingStep cookingStep)?
+        deleteCookingStepPic,
   }) {
     return submit?.call(recipe, context);
   }
@@ -3488,6 +3748,10 @@ class _$_Submit implements _Submit {
         addTag,
     TResult Function(Tag tag)? deleteTag,
     TResult Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult Function(String picUrl, BuildContext context)? deletePoster,
+    TResult Function(
+            String picUrl, BuildContext context, CookingStep cookingStep)?
+        deleteCookingStepPic,
     required TResult orElse(),
   }) {
     if (submit != null) {
@@ -3515,6 +3779,8 @@ class _$_Submit implements _Submit {
     required TResult Function(_AddTag value) addTag,
     required TResult Function(_DeleteTag value) deleteTag,
     required TResult Function(_Submit value) submit,
+    required TResult Function(_DeletePoster value) deletePoster,
+    required TResult Function(_DeleteCookingStepPic value) deleteCookingStepPic,
   }) {
     return submit(this);
   }
@@ -3537,6 +3803,8 @@ class _$_Submit implements _Submit {
     TResult? Function(_AddTag value)? addTag,
     TResult? Function(_DeleteTag value)? deleteTag,
     TResult? Function(_Submit value)? submit,
+    TResult? Function(_DeletePoster value)? deletePoster,
+    TResult? Function(_DeleteCookingStepPic value)? deleteCookingStepPic,
   }) {
     return submit?.call(this);
   }
@@ -3559,6 +3827,8 @@ class _$_Submit implements _Submit {
     TResult Function(_AddTag value)? addTag,
     TResult Function(_DeleteTag value)? deleteTag,
     TResult Function(_Submit value)? submit,
+    TResult Function(_DeletePoster value)? deletePoster,
+    TResult Function(_DeleteCookingStepPic value)? deleteCookingStepPic,
     required TResult orElse(),
   }) {
     if (submit != null) {
@@ -3577,6 +3847,551 @@ abstract class _Submit implements CreateRecipeEvent {
   BuildContext get context;
   @JsonKey(ignore: true)
   _$$_SubmitCopyWith<_$_Submit> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_DeletePosterCopyWith<$Res> {
+  factory _$$_DeletePosterCopyWith(
+          _$_DeletePoster value, $Res Function(_$_DeletePoster) then) =
+      __$$_DeletePosterCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String picUrl, BuildContext context});
+}
+
+/// @nodoc
+class __$$_DeletePosterCopyWithImpl<$Res>
+    extends _$CreateRecipeEventCopyWithImpl<$Res, _$_DeletePoster>
+    implements _$$_DeletePosterCopyWith<$Res> {
+  __$$_DeletePosterCopyWithImpl(
+      _$_DeletePoster _value, $Res Function(_$_DeletePoster) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? picUrl = null,
+    Object? context = null,
+  }) {
+    return _then(_$_DeletePoster(
+      picUrl: null == picUrl
+          ? _value.picUrl
+          : picUrl // ignore: cast_nullable_to_non_nullable
+              as String,
+      context: null == context
+          ? _value.context
+          : context // ignore: cast_nullable_to_non_nullable
+              as BuildContext,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_DeletePoster implements _DeletePoster {
+  const _$_DeletePoster({required this.picUrl, required this.context});
+
+  @override
+  final String picUrl;
+  @override
+  final BuildContext context;
+
+  @override
+  String toString() {
+    return 'CreateRecipeEvent.deletePoster(picUrl: $picUrl, context: $context)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_DeletePoster &&
+            (identical(other.picUrl, picUrl) || other.picUrl == picUrl) &&
+            (identical(other.context, context) || other.context == context));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, picUrl, context);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_DeletePosterCopyWith<_$_DeletePoster> get copyWith =>
+      __$$_DeletePosterCopyWithImpl<_$_DeletePoster>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            UserAuthenticationState state, BuildContext context)
+        create,
+    required TResult Function() addRecipePoster,
+    required TResult Function(String ingredient,
+            TextEditingController controller, BuildContext context)
+        addIngredient,
+    required TResult Function(RecipeIngredient ingredient, String name)
+        editIngredientName,
+    required TResult Function(RecipeIngredient ingredient, int? quantity)
+        editIngredientQuantity,
+    required TResult Function(RecipeIngredient ingredient, Metric? metric)
+        editIngredientMetric,
+    required TResult Function(RecipeIngredient ingredient) deleteIngredient,
+    required TResult Function() addCookingStep,
+    required TResult Function(CookingStep cookingStep, String description)
+        editCookingStepDescription,
+    required TResult Function(CookingStep cookingStep) editCookingStepPic,
+    required TResult Function(CookingStep cookingStep) deleteCookingStep,
+    required TResult Function(
+            String tag, BuildContext context, TextEditingController controller)
+        addTag,
+    required TResult Function(Tag tag) deleteTag,
+    required TResult Function(RecipeDetail recipe, BuildContext context) submit,
+    required TResult Function(String picUrl, BuildContext context) deletePoster,
+    required TResult Function(
+            String picUrl, BuildContext context, CookingStep cookingStep)
+        deleteCookingStepPic,
+  }) {
+    return deletePoster(picUrl, context);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(UserAuthenticationState state, BuildContext context)?
+        create,
+    TResult? Function()? addRecipePoster,
+    TResult? Function(String ingredient, TextEditingController controller,
+            BuildContext context)?
+        addIngredient,
+    TResult? Function(RecipeIngredient ingredient, String name)?
+        editIngredientName,
+    TResult? Function(RecipeIngredient ingredient, int? quantity)?
+        editIngredientQuantity,
+    TResult? Function(RecipeIngredient ingredient, Metric? metric)?
+        editIngredientMetric,
+    TResult? Function(RecipeIngredient ingredient)? deleteIngredient,
+    TResult? Function()? addCookingStep,
+    TResult? Function(CookingStep cookingStep, String description)?
+        editCookingStepDescription,
+    TResult? Function(CookingStep cookingStep)? editCookingStepPic,
+    TResult? Function(CookingStep cookingStep)? deleteCookingStep,
+    TResult? Function(
+            String tag, BuildContext context, TextEditingController controller)?
+        addTag,
+    TResult? Function(Tag tag)? deleteTag,
+    TResult? Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult? Function(String picUrl, BuildContext context)? deletePoster,
+    TResult? Function(
+            String picUrl, BuildContext context, CookingStep cookingStep)?
+        deleteCookingStepPic,
+  }) {
+    return deletePoster?.call(picUrl, context);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(UserAuthenticationState state, BuildContext context)?
+        create,
+    TResult Function()? addRecipePoster,
+    TResult Function(String ingredient, TextEditingController controller,
+            BuildContext context)?
+        addIngredient,
+    TResult Function(RecipeIngredient ingredient, String name)?
+        editIngredientName,
+    TResult Function(RecipeIngredient ingredient, int? quantity)?
+        editIngredientQuantity,
+    TResult Function(RecipeIngredient ingredient, Metric? metric)?
+        editIngredientMetric,
+    TResult Function(RecipeIngredient ingredient)? deleteIngredient,
+    TResult Function()? addCookingStep,
+    TResult Function(CookingStep cookingStep, String description)?
+        editCookingStepDescription,
+    TResult Function(CookingStep cookingStep)? editCookingStepPic,
+    TResult Function(CookingStep cookingStep)? deleteCookingStep,
+    TResult Function(
+            String tag, BuildContext context, TextEditingController controller)?
+        addTag,
+    TResult Function(Tag tag)? deleteTag,
+    TResult Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult Function(String picUrl, BuildContext context)? deletePoster,
+    TResult Function(
+            String picUrl, BuildContext context, CookingStep cookingStep)?
+        deleteCookingStepPic,
+    required TResult orElse(),
+  }) {
+    if (deletePoster != null) {
+      return deletePoster(picUrl, context);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Create value) create,
+    required TResult Function(_AddRecipePoster value) addRecipePoster,
+    required TResult Function(_AddIngredient value) addIngredient,
+    required TResult Function(_EditIngredientName value) editIngredientName,
+    required TResult Function(_EditIngredientQuantity value)
+        editIngredientQuantity,
+    required TResult Function(_EditIngredientMetric value) editIngredientMetric,
+    required TResult Function(_DeleteIngredient value) deleteIngredient,
+    required TResult Function(_AddCookingStep value) addCookingStep,
+    required TResult Function(_EditCookingStepDescription value)
+        editCookingStepDescription,
+    required TResult Function(_EditCookingStepPic value) editCookingStepPic,
+    required TResult Function(_DeleteCookingStep value) deleteCookingStep,
+    required TResult Function(_AddTag value) addTag,
+    required TResult Function(_DeleteTag value) deleteTag,
+    required TResult Function(_Submit value) submit,
+    required TResult Function(_DeletePoster value) deletePoster,
+    required TResult Function(_DeleteCookingStepPic value) deleteCookingStepPic,
+  }) {
+    return deletePoster(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Create value)? create,
+    TResult? Function(_AddRecipePoster value)? addRecipePoster,
+    TResult? Function(_AddIngredient value)? addIngredient,
+    TResult? Function(_EditIngredientName value)? editIngredientName,
+    TResult? Function(_EditIngredientQuantity value)? editIngredientQuantity,
+    TResult? Function(_EditIngredientMetric value)? editIngredientMetric,
+    TResult? Function(_DeleteIngredient value)? deleteIngredient,
+    TResult? Function(_AddCookingStep value)? addCookingStep,
+    TResult? Function(_EditCookingStepDescription value)?
+        editCookingStepDescription,
+    TResult? Function(_EditCookingStepPic value)? editCookingStepPic,
+    TResult? Function(_DeleteCookingStep value)? deleteCookingStep,
+    TResult? Function(_AddTag value)? addTag,
+    TResult? Function(_DeleteTag value)? deleteTag,
+    TResult? Function(_Submit value)? submit,
+    TResult? Function(_DeletePoster value)? deletePoster,
+    TResult? Function(_DeleteCookingStepPic value)? deleteCookingStepPic,
+  }) {
+    return deletePoster?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Create value)? create,
+    TResult Function(_AddRecipePoster value)? addRecipePoster,
+    TResult Function(_AddIngredient value)? addIngredient,
+    TResult Function(_EditIngredientName value)? editIngredientName,
+    TResult Function(_EditIngredientQuantity value)? editIngredientQuantity,
+    TResult Function(_EditIngredientMetric value)? editIngredientMetric,
+    TResult Function(_DeleteIngredient value)? deleteIngredient,
+    TResult Function(_AddCookingStep value)? addCookingStep,
+    TResult Function(_EditCookingStepDescription value)?
+        editCookingStepDescription,
+    TResult Function(_EditCookingStepPic value)? editCookingStepPic,
+    TResult Function(_DeleteCookingStep value)? deleteCookingStep,
+    TResult Function(_AddTag value)? addTag,
+    TResult Function(_DeleteTag value)? deleteTag,
+    TResult Function(_Submit value)? submit,
+    TResult Function(_DeletePoster value)? deletePoster,
+    TResult Function(_DeleteCookingStepPic value)? deleteCookingStepPic,
+    required TResult orElse(),
+  }) {
+    if (deletePoster != null) {
+      return deletePoster(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _DeletePoster implements CreateRecipeEvent {
+  const factory _DeletePoster(
+      {required final String picUrl,
+      required final BuildContext context}) = _$_DeletePoster;
+
+  String get picUrl;
+  BuildContext get context;
+  @JsonKey(ignore: true)
+  _$$_DeletePosterCopyWith<_$_DeletePoster> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_DeleteCookingStepPicCopyWith<$Res> {
+  factory _$$_DeleteCookingStepPicCopyWith(_$_DeleteCookingStepPic value,
+          $Res Function(_$_DeleteCookingStepPic) then) =
+      __$$_DeleteCookingStepPicCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String picUrl, BuildContext context, CookingStep cookingStep});
+}
+
+/// @nodoc
+class __$$_DeleteCookingStepPicCopyWithImpl<$Res>
+    extends _$CreateRecipeEventCopyWithImpl<$Res, _$_DeleteCookingStepPic>
+    implements _$$_DeleteCookingStepPicCopyWith<$Res> {
+  __$$_DeleteCookingStepPicCopyWithImpl(_$_DeleteCookingStepPic _value,
+      $Res Function(_$_DeleteCookingStepPic) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? picUrl = null,
+    Object? context = null,
+    Object? cookingStep = null,
+  }) {
+    return _then(_$_DeleteCookingStepPic(
+      picUrl: null == picUrl
+          ? _value.picUrl
+          : picUrl // ignore: cast_nullable_to_non_nullable
+              as String,
+      context: null == context
+          ? _value.context
+          : context // ignore: cast_nullable_to_non_nullable
+              as BuildContext,
+      cookingStep: null == cookingStep
+          ? _value.cookingStep
+          : cookingStep // ignore: cast_nullable_to_non_nullable
+              as CookingStep,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_DeleteCookingStepPic implements _DeleteCookingStepPic {
+  const _$_DeleteCookingStepPic(
+      {required this.picUrl, required this.context, required this.cookingStep});
+
+  @override
+  final String picUrl;
+  @override
+  final BuildContext context;
+  @override
+  final CookingStep cookingStep;
+
+  @override
+  String toString() {
+    return 'CreateRecipeEvent.deleteCookingStepPic(picUrl: $picUrl, context: $context, cookingStep: $cookingStep)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_DeleteCookingStepPic &&
+            (identical(other.picUrl, picUrl) || other.picUrl == picUrl) &&
+            (identical(other.context, context) || other.context == context) &&
+            (identical(other.cookingStep, cookingStep) ||
+                other.cookingStep == cookingStep));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, picUrl, context, cookingStep);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_DeleteCookingStepPicCopyWith<_$_DeleteCookingStepPic> get copyWith =>
+      __$$_DeleteCookingStepPicCopyWithImpl<_$_DeleteCookingStepPic>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            UserAuthenticationState state, BuildContext context)
+        create,
+    required TResult Function() addRecipePoster,
+    required TResult Function(String ingredient,
+            TextEditingController controller, BuildContext context)
+        addIngredient,
+    required TResult Function(RecipeIngredient ingredient, String name)
+        editIngredientName,
+    required TResult Function(RecipeIngredient ingredient, int? quantity)
+        editIngredientQuantity,
+    required TResult Function(RecipeIngredient ingredient, Metric? metric)
+        editIngredientMetric,
+    required TResult Function(RecipeIngredient ingredient) deleteIngredient,
+    required TResult Function() addCookingStep,
+    required TResult Function(CookingStep cookingStep, String description)
+        editCookingStepDescription,
+    required TResult Function(CookingStep cookingStep) editCookingStepPic,
+    required TResult Function(CookingStep cookingStep) deleteCookingStep,
+    required TResult Function(
+            String tag, BuildContext context, TextEditingController controller)
+        addTag,
+    required TResult Function(Tag tag) deleteTag,
+    required TResult Function(RecipeDetail recipe, BuildContext context) submit,
+    required TResult Function(String picUrl, BuildContext context) deletePoster,
+    required TResult Function(
+            String picUrl, BuildContext context, CookingStep cookingStep)
+        deleteCookingStepPic,
+  }) {
+    return deleteCookingStepPic(picUrl, context, cookingStep);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(UserAuthenticationState state, BuildContext context)?
+        create,
+    TResult? Function()? addRecipePoster,
+    TResult? Function(String ingredient, TextEditingController controller,
+            BuildContext context)?
+        addIngredient,
+    TResult? Function(RecipeIngredient ingredient, String name)?
+        editIngredientName,
+    TResult? Function(RecipeIngredient ingredient, int? quantity)?
+        editIngredientQuantity,
+    TResult? Function(RecipeIngredient ingredient, Metric? metric)?
+        editIngredientMetric,
+    TResult? Function(RecipeIngredient ingredient)? deleteIngredient,
+    TResult? Function()? addCookingStep,
+    TResult? Function(CookingStep cookingStep, String description)?
+        editCookingStepDescription,
+    TResult? Function(CookingStep cookingStep)? editCookingStepPic,
+    TResult? Function(CookingStep cookingStep)? deleteCookingStep,
+    TResult? Function(
+            String tag, BuildContext context, TextEditingController controller)?
+        addTag,
+    TResult? Function(Tag tag)? deleteTag,
+    TResult? Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult? Function(String picUrl, BuildContext context)? deletePoster,
+    TResult? Function(
+            String picUrl, BuildContext context, CookingStep cookingStep)?
+        deleteCookingStepPic,
+  }) {
+    return deleteCookingStepPic?.call(picUrl, context, cookingStep);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(UserAuthenticationState state, BuildContext context)?
+        create,
+    TResult Function()? addRecipePoster,
+    TResult Function(String ingredient, TextEditingController controller,
+            BuildContext context)?
+        addIngredient,
+    TResult Function(RecipeIngredient ingredient, String name)?
+        editIngredientName,
+    TResult Function(RecipeIngredient ingredient, int? quantity)?
+        editIngredientQuantity,
+    TResult Function(RecipeIngredient ingredient, Metric? metric)?
+        editIngredientMetric,
+    TResult Function(RecipeIngredient ingredient)? deleteIngredient,
+    TResult Function()? addCookingStep,
+    TResult Function(CookingStep cookingStep, String description)?
+        editCookingStepDescription,
+    TResult Function(CookingStep cookingStep)? editCookingStepPic,
+    TResult Function(CookingStep cookingStep)? deleteCookingStep,
+    TResult Function(
+            String tag, BuildContext context, TextEditingController controller)?
+        addTag,
+    TResult Function(Tag tag)? deleteTag,
+    TResult Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult Function(String picUrl, BuildContext context)? deletePoster,
+    TResult Function(
+            String picUrl, BuildContext context, CookingStep cookingStep)?
+        deleteCookingStepPic,
+    required TResult orElse(),
+  }) {
+    if (deleteCookingStepPic != null) {
+      return deleteCookingStepPic(picUrl, context, cookingStep);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Create value) create,
+    required TResult Function(_AddRecipePoster value) addRecipePoster,
+    required TResult Function(_AddIngredient value) addIngredient,
+    required TResult Function(_EditIngredientName value) editIngredientName,
+    required TResult Function(_EditIngredientQuantity value)
+        editIngredientQuantity,
+    required TResult Function(_EditIngredientMetric value) editIngredientMetric,
+    required TResult Function(_DeleteIngredient value) deleteIngredient,
+    required TResult Function(_AddCookingStep value) addCookingStep,
+    required TResult Function(_EditCookingStepDescription value)
+        editCookingStepDescription,
+    required TResult Function(_EditCookingStepPic value) editCookingStepPic,
+    required TResult Function(_DeleteCookingStep value) deleteCookingStep,
+    required TResult Function(_AddTag value) addTag,
+    required TResult Function(_DeleteTag value) deleteTag,
+    required TResult Function(_Submit value) submit,
+    required TResult Function(_DeletePoster value) deletePoster,
+    required TResult Function(_DeleteCookingStepPic value) deleteCookingStepPic,
+  }) {
+    return deleteCookingStepPic(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Create value)? create,
+    TResult? Function(_AddRecipePoster value)? addRecipePoster,
+    TResult? Function(_AddIngredient value)? addIngredient,
+    TResult? Function(_EditIngredientName value)? editIngredientName,
+    TResult? Function(_EditIngredientQuantity value)? editIngredientQuantity,
+    TResult? Function(_EditIngredientMetric value)? editIngredientMetric,
+    TResult? Function(_DeleteIngredient value)? deleteIngredient,
+    TResult? Function(_AddCookingStep value)? addCookingStep,
+    TResult? Function(_EditCookingStepDescription value)?
+        editCookingStepDescription,
+    TResult? Function(_EditCookingStepPic value)? editCookingStepPic,
+    TResult? Function(_DeleteCookingStep value)? deleteCookingStep,
+    TResult? Function(_AddTag value)? addTag,
+    TResult? Function(_DeleteTag value)? deleteTag,
+    TResult? Function(_Submit value)? submit,
+    TResult? Function(_DeletePoster value)? deletePoster,
+    TResult? Function(_DeleteCookingStepPic value)? deleteCookingStepPic,
+  }) {
+    return deleteCookingStepPic?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Create value)? create,
+    TResult Function(_AddRecipePoster value)? addRecipePoster,
+    TResult Function(_AddIngredient value)? addIngredient,
+    TResult Function(_EditIngredientName value)? editIngredientName,
+    TResult Function(_EditIngredientQuantity value)? editIngredientQuantity,
+    TResult Function(_EditIngredientMetric value)? editIngredientMetric,
+    TResult Function(_DeleteIngredient value)? deleteIngredient,
+    TResult Function(_AddCookingStep value)? addCookingStep,
+    TResult Function(_EditCookingStepDescription value)?
+        editCookingStepDescription,
+    TResult Function(_EditCookingStepPic value)? editCookingStepPic,
+    TResult Function(_DeleteCookingStep value)? deleteCookingStep,
+    TResult Function(_AddTag value)? addTag,
+    TResult Function(_DeleteTag value)? deleteTag,
+    TResult Function(_Submit value)? submit,
+    TResult Function(_DeletePoster value)? deletePoster,
+    TResult Function(_DeleteCookingStepPic value)? deleteCookingStepPic,
+    required TResult orElse(),
+  }) {
+    if (deleteCookingStepPic != null) {
+      return deleteCookingStepPic(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _DeleteCookingStepPic implements CreateRecipeEvent {
+  const factory _DeleteCookingStepPic(
+      {required final String picUrl,
+      required final BuildContext context,
+      required final CookingStep cookingStep}) = _$_DeleteCookingStepPic;
+
+  String get picUrl;
+  BuildContext get context;
+  CookingStep get cookingStep;
+  @JsonKey(ignore: true)
+  _$$_DeleteCookingStepPicCopyWith<_$_DeleteCookingStepPic> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

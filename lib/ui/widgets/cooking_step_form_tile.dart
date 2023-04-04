@@ -27,23 +27,50 @@ class CookingStepFormTile extends StatelessWidget {
           ),
         ]),
         child: ListTile(
-          leading: InkWell(
-            onTap: () async {
-              context.read<CreateRecipeBloc>().add(
-                  CreateRecipeEvent.editCookingStepPic(
-                      cookingStep: cookingStep));
-            },
-            child: SizedBox(
-                width: 50,
-                height: 50,
-                child: cookingStep.picUrl != null
-                    ? Image.network(
-                        cookingStep.picUrl!,
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) =>
-                            const Icon(Icons.error_outline),
-                      )
-                    : const Icon(Icons.add_a_photo_outlined)),
+          leading: Stack(
+            children: [
+              InkWell(
+                onTap: () async {
+                  context.read<CreateRecipeBloc>().add(
+                      CreateRecipeEvent.editCookingStepPic(
+                          cookingStep: cookingStep));
+                },
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(6),
+                  child: SizedBox(
+                      width: 50,
+                      height: 50,
+                      child: cookingStep.picUrl != null
+                          ? Image.network(
+                              cookingStep.picUrl!,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) =>
+                                  const Icon(Icons.error_outline),
+                            )
+                          : const Icon(Icons.add_a_photo_outlined)),
+                ),
+              ),
+              if (cookingStep.picUrl != null) ...{
+                Positioned(
+                  top: 1,
+                  right: 0,
+                  child: GestureDetector(
+                    child: Icon(
+                      Icons.delete_outline,
+                      size: 15,
+                      color: Theme.of(context).colorScheme.onPrimary,
+                    ),
+                    onTap: () {
+                      context.read<CreateRecipeBloc>().add(
+                          CreateRecipeEvent.deleteCookingStepPic(
+                              picUrl: cookingStep.picUrl!,
+                              context: context,
+                              cookingStep: cookingStep));
+                    },
+                  ),
+                ),
+              }
+            ],
           ),
           title: FocusScope(
             onFocusChange: (value) {

@@ -75,29 +75,54 @@ class CreateRecipePage extends StatelessWidget {
                     key: formKey,
                     child: ListView(
                       children: [
-                        InkWell(
-                          child: Container(
-                            height: 150,
-                            width: MediaQuery.of(context).size.width,
-                            color: Theme.of(context).colorScheme.secondary,
-                            child: creating.recipe.posterPicUrl != null
-                                ? Image.network(
-                                    creating.recipe.posterPicUrl!,
-                                    fit: BoxFit.cover,
-                                    errorBuilder:
-                                        (context, error, stackTrace) =>
-                                            const Icon(Icons.error_outline),
-                                  )
-                                : const Icon(
-                                    Icons.add_a_photo_outlined,
-                                    size: 36,
+                        Stack(
+                          children: [
+                            InkWell(
+                              child: Container(
+                                height: 165,
+                                width: MediaQuery.of(context).size.width,
+                                color: Theme.of(context).colorScheme.secondary,
+                                child: creating.recipe.posterPicUrl != null
+                                    ? Image.network(
+                                        creating.recipe.posterPicUrl!,
+                                        fit: BoxFit.cover,
+                                        errorBuilder:
+                                            (context, error, stackTrace) =>
+                                                const Icon(Icons.error_outline),
+                                      )
+                                    : const Icon(
+                                        Icons.add_a_photo_outlined,
+                                        size: 36,
+                                      ),
+                              ),
+                              onTap: () async {
+                                context.read<CreateRecipeBloc>().add(
+                                    const CreateRecipeEvent.addRecipePoster());
+                              },
+                            ),
+                            if (creating.recipe.posterPicUrl != null) ...{
+                              Positioned(
+                                bottom: 2,
+                                right: 0,
+                                child: GestureDetector(
+                                  child: Icon(
+                                    Icons.delete_outline,
+                                    size: 22,
+                                    color:
+                                        Theme.of(context).colorScheme.onPrimary,
                                   ),
-                          ),
-                          onTap: () async {
-                            context
-                                .read<CreateRecipeBloc>()
-                                .add(const CreateRecipeEvent.addRecipePoster());
-                          },
+                                  onTap: () {
+                                    context.read<CreateRecipeBloc>().add(
+                                          CreateRecipeEvent.deletePoster(
+                                              picUrl:
+                                                  creating.recipe.posterPicUrl!,
+                                              context: context),
+                                        );
+                                  },
+                                ),
+                              ),
+                            }
+                          ],
                         ),
                         Container(
                           color: Colors.white,
