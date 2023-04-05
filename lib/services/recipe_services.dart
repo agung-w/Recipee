@@ -133,6 +133,36 @@ class RecipeServices {
     }
   }
 
+  Future<ApiResult<RecipeComment?>> getFirstRecipeComment(
+      {required int id, required String token}) async {
+    try {
+      Response result = await _dio.get(
+        "${dotenv.env['API_URL']}/first-recipe-comment/$id",
+        options: options ??
+            Options(headers: {
+              "Content-Type": "application/json",
+              "Authorization": "Bearer $token",
+            }),
+      );
+      if (result.statusCode != 200) {
+        throw (DioError(
+            response: result, requestOptions: result.requestOptions));
+      }
+      RecipeComment? resultObj;
+      if (result.data['data']['recipe_comment'] != null) {
+        resultObj =
+            RecipeComment.fromJson(result.data['data']['recipe_comment']);
+      }
+      return ApiResult.success(resultObj);
+    } on DioError catch (e) {
+      String errorMessage = "Connection timeout";
+      if (e.response != null) {
+        errorMessage = e.response!.data['message'];
+      }
+      return ApiResult.failed(errorMessage);
+    }
+  }
+
   Future<ApiResult<List<RecipeComment?>>> getRecipeComment(
       {required int id, required String token}) async {
     try {

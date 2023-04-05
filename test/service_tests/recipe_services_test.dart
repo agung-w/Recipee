@@ -498,6 +498,67 @@ void main() async {
           equals(true));
     });
   });
+  group("Get first recipe comment", () {
+    test("recipe existed SUCCESS", () async {
+      when(mockDio.get(
+        '${dotenv.env['API_URL']}/first-recipe-comment/8',
+        options: optionWithToken,
+      )).thenAnswer((_) async => Future.value(
+            Response(
+              statusCode: 200,
+              data: recipeCommentSuccessResponse,
+              requestOptions: RequestOptions(
+                  path: '${dotenv.env['API_URL']}/first-recipe-comment/8'),
+            ),
+          ));
+      ApiResult<RecipeComment?> request =
+          await RecipeServices(dio: mockDio, options: optionWithToken)
+              .getFirstRecipeComment(id: 8, token: 'token');
+      expect(
+          request.mapOrNull(success: (value) => value.value!.content),
+          equals((recipeCommentSuccessResponse.values.last
+              as dynamic)["recipe_comment"]["content"]));
+    });
+    test("recipe existed but no comment SUCCESS", () async {
+      when(mockDio.get(
+        '${dotenv.env['API_URL']}/first-recipe-comment/24',
+        options: optionWithToken,
+      )).thenAnswer((_) async => Future.value(
+            Response(
+              statusCode: 200,
+              data: {
+                "status": 200,
+                "message": "Sucess",
+                "data": {"recipe_comment": null}
+              },
+              requestOptions: RequestOptions(
+                  path: '${dotenv.env['API_URL']}/first-recipe-comment/24'),
+            ),
+          ));
+      ApiResult<RecipeComment?> request =
+          await RecipeServices(dio: mockDio, options: optionWithToken)
+              .getFirstRecipeComment(id: 24, token: 'token');
+      expect(request.mapOrNull(success: (value) => value.value), equals(null));
+    });
+    test("recipe exsited but no token provided FAILED", () async {
+      when(mockDio.get(
+        '${dotenv.env['API_URL']}/first-recipe-comment/8',
+        options: optionNoToken,
+      )).thenAnswer((_) async => Future.value(
+            Response(
+              statusCode: 401,
+              data: {"status": 401, "message": "Nil JSON web token"},
+              requestOptions: RequestOptions(
+                  path: '${dotenv.env['API_URL']}/first-recipe-comment/8'),
+            ),
+          ));
+      ApiResult<RecipeComment?> request =
+          await RecipeServices(dio: mockDio, options: optionNoToken)
+              .getFirstRecipeComment(id: 8, token: '');
+      expect(request,
+          equals(const ApiResult<RecipeComment?>.failed("Nil JSON web token")));
+    });
+  });
   group("Get recipe comment", () {
     test("recipe existed SUCCESS", () async {
       when(mockDio.get(
