@@ -11,14 +11,14 @@ UserDetail _$UserDetailFromJson(Map<String, dynamic> json) => UserDetail(
       followingCount: json['following_count'] as int,
       name: json['name'],
       username: json['username'],
-      photoUrl: json['photo_url'],
+      photoUrl: json['profile_pic_url'],
     );
 
 Map<String, dynamic> _$UserDetailToJson(UserDetail instance) =>
     <String, dynamic>{
       'name': instance.name,
       'username': instance.username,
-      'photo_url': instance.photoUrl,
+      'profile_pic_url': instance.photoUrl,
       'followers_count': instance.followerCount,
       'following_count': instance.followingCount,
     };

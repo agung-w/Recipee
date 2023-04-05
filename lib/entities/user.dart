@@ -6,7 +6,7 @@ part 'user.g.dart';
 class User {
   final String name;
   final String username;
-  @JsonKey(name: 'photo_url')
+  @JsonKey(name: 'profile_pic_url')
   final String? photoUrl;
   const User({
     required this.name,
