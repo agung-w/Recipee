@@ -17,7 +17,7 @@ class LargeTextInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      style: Theme.of(context).textTheme.displayMedium,
+      style: Theme.of(context).textTheme.headlineMedium,
       maxLength: maxLength,
       validator: !nullable
           ? (value) =>

@@ -28,8 +28,16 @@ ThemeData lightTheme = ThemeData(
         surface: Color(0xFFFFFFFF),
         onSurface: Color(0xFF252323)),
     textTheme: const TextTheme(
+        bodyLarge: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w400,
+            color: Color(0xFF252323)),
         bodyMedium: TextStyle(
             fontSize: 14,
+            fontWeight: FontWeight.w400,
+            color: Color(0xFF252323)),
+        bodySmall: TextStyle(
+            fontSize: 12,
             fontWeight: FontWeight.w400,
             color: Color(0xFF252323)),
         labelSmall: TextStyle(
@@ -54,7 +62,7 @@ ThemeData lightTheme = ThemeData(
             fontWeight: FontWeight.bold,
             color: Color(0xFFFFFFFF)),
         headlineMedium: TextStyle(
-            fontSize: 36,
+            fontSize: 32,
             fontWeight: FontWeight.w500,
             color: Color(0xFF252323)),
         headlineSmall: TextStyle(
