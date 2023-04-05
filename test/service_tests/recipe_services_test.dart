@@ -625,7 +625,9 @@ void main() async {
     test("valid comment attributes SUCCESS", () async {
       when(mockDio.post(
         '${dotenv.env['API_URL']}/recipe-comment',
-        data: validComment.toJson(),
+        data: {
+          "comment": {"recipe_id": 8, "content": "TestComment"}
+        },
         options: optionWithToken,
       )).thenAnswer((_) async => Future.value(
             Response(
@@ -647,7 +649,9 @@ void main() async {
     test("invalid comment attributes blank content FAILED", () async {
       when(mockDio.post(
         '${dotenv.env['API_URL']}/recipe-comment',
-        data: const RecipeComment(recipeId: 8, content: "").toJson(),
+        data: {
+          "comment": {"recipe_id": 8, "content": ""}
+        },
         options: optionWithToken,
       )).thenAnswer((_) async => Future.value(
             Response(
@@ -675,7 +679,9 @@ void main() async {
     test("no auth token provided FAILED", () async {
       when(mockDio.post(
         '${dotenv.env['API_URL']}/recipe-comment',
-        data: validComment.toJson(),
+        data: {
+          "comment": {"recipe_id": 8, "content": "TestComment"}
+        },
         options: optionNoToken,
       )).thenAnswer((_) async => Future.value(
             Response(

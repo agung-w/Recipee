@@ -203,7 +203,12 @@ class RecipeServices {
                     "Content-Type": "application/json",
                     "Authorization": "Bearer $token",
                   }),
-              data: comment.toJson());
+              data: {
+            "comment": {
+              "recipe_id": comment.recipeId,
+              "content": comment.content
+            }
+          });
       if (result.statusCode != 200) {
         throw (DioError(
             response: result, requestOptions: result.requestOptions));
