@@ -214,26 +214,21 @@ class _UserInfo extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            decoration: BoxDecoration(
+          ClipRRect(
+            borderRadius: BorderRadius.circular(100),
+            child: ColoredBox(
                 color: Theme.of(context).colorScheme.primary,
-                borderRadius: BorderRadius.circular(100)),
-            width: 100,
-            height: 100,
-            child: user.photoUrl != null
-                ? Image.network(
-                    user.photoUrl!,
-                    errorBuilder: (_, __, ___) => Icon(
-                      Icons.person,
-                      size: 100,
-                      color: Theme.of(context).colorScheme.onPrimary,
-                    ),
-                  )
-                : Icon(
+                child: Image.network(
+                  user.photoUrl ?? "",
+                  width: 100,
+                  height: 100,
+                  fit: BoxFit.cover,
+                  errorBuilder: (_, __, ___) => Icon(
                     Icons.person,
                     size: 100,
                     color: Theme.of(context).colorScheme.onPrimary,
                   ),
+                )),
           ),
           Expanded(
             child: Container(

@@ -4,6 +4,7 @@ import 'package:ta_recipe_app/bloc/recipe_detail_bloc.dart';
 import 'package:ta_recipe_app/bloc/user_authentication_bloc.dart';
 import 'package:ta_recipe_app/cubit/save_recipe_cubit.dart';
 import 'package:ta_recipe_app/entities/recipe.dart';
+import 'package:ta_recipe_app/ui/widgets/small_user_profile_pic.dart';
 
 class RecipeCardWithCreator extends StatelessWidget {
   final Recipe recipe;
@@ -106,24 +107,16 @@ class RecipeCardWithCreator extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(2, 4, 8, 0),
             child: Row(
               children: [
-                Container(
-                    margin: const EdgeInsets.only(right: 4),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(100),
-                        color: Theme.of(context).colorScheme.primary),
-                    child: Image.network(
-                      recipe.user.photoUrl ?? "",
-                      errorBuilder: (context, error, stackTrace) => Icon(
-                        Icons.person,
-                        color: Theme.of(context).colorScheme.onPrimary,
-                      ),
-                    )),
-                Align(
-                    alignment: Alignment.bottomLeft,
-                    child: Text(
-                      recipe.user.name,
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    )),
+                SmallUserProfilePic(photoUrl: recipe.user.photoUrl),
+                Padding(
+                  padding: const EdgeInsets.only(left: 4),
+                  child: Align(
+                      alignment: Alignment.bottomLeft,
+                      child: Text(
+                        recipe.user.name,
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      )),
+                ),
               ],
             ),
           ),

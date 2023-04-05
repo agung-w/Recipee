@@ -288,8 +288,8 @@ mixin _$RecipeDetailState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(
-            RecipeDetail recipeDetail, ApiResult<List<RecipeComment?>> comment)
+    required TResult Function(RecipeDetail recipeDetail,
+            ApiResult<RecipeComment?> comment, SignedIn authState)
         loaded,
     required TResult Function(String? message) failed,
   }) =>
@@ -297,8 +297,8 @@ mixin _$RecipeDetailState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(
-            RecipeDetail recipeDetail, ApiResult<List<RecipeComment?>> comment)?
+    TResult? Function(RecipeDetail recipeDetail,
+            ApiResult<RecipeComment?> comment, SignedIn authState)?
         loaded,
     TResult? Function(String? message)? failed,
   }) =>
@@ -306,8 +306,8 @@ mixin _$RecipeDetailState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(
-            RecipeDetail recipeDetail, ApiResult<List<RecipeComment?>> comment)?
+    TResult Function(RecipeDetail recipeDetail,
+            ApiResult<RecipeComment?> comment, SignedIn authState)?
         loaded,
     TResult Function(String? message)? failed,
     required TResult orElse(),
@@ -393,8 +393,8 @@ class _$_Loading implements _Loading {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(
-            RecipeDetail recipeDetail, ApiResult<List<RecipeComment?>> comment)
+    required TResult Function(RecipeDetail recipeDetail,
+            ApiResult<RecipeComment?> comment, SignedIn authState)
         loaded,
     required TResult Function(String? message) failed,
   }) {
@@ -405,8 +405,8 @@ class _$_Loading implements _Loading {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(
-            RecipeDetail recipeDetail, ApiResult<List<RecipeComment?>> comment)?
+    TResult? Function(RecipeDetail recipeDetail,
+            ApiResult<RecipeComment?> comment, SignedIn authState)?
         loaded,
     TResult? Function(String? message)? failed,
   }) {
@@ -417,8 +417,8 @@ class _$_Loading implements _Loading {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(
-            RecipeDetail recipeDetail, ApiResult<List<RecipeComment?>> comment)?
+    TResult Function(RecipeDetail recipeDetail,
+            ApiResult<RecipeComment?> comment, SignedIn authState)?
         loaded,
     TResult Function(String? message)? failed,
     required TResult orElse(),
@@ -474,9 +474,11 @@ abstract class _$$_LoadedCopyWith<$Res> {
       __$$_LoadedCopyWithImpl<$Res>;
   @useResult
   $Res call(
-      {RecipeDetail recipeDetail, ApiResult<List<RecipeComment?>> comment});
+      {RecipeDetail recipeDetail,
+      ApiResult<RecipeComment?> comment,
+      SignedIn authState});
 
-  $ApiResultCopyWith<List<RecipeComment?>, $Res> get comment;
+  $ApiResultCopyWith<RecipeComment?, $Res> get comment;
 }
 
 /// @nodoc
@@ -491,6 +493,7 @@ class __$$_LoadedCopyWithImpl<$Res>
   $Res call({
     Object? recipeDetail = null,
     Object? comment = null,
+    Object? authState = null,
   }) {
     return _then(_$_Loaded(
       recipeDetail: null == recipeDetail
@@ -500,15 +503,18 @@ class __$$_LoadedCopyWithImpl<$Res>
       comment: null == comment
           ? _value.comment
           : comment // ignore: cast_nullable_to_non_nullable
-              as ApiResult<List<RecipeComment?>>,
+              as ApiResult<RecipeComment?>,
+      authState: null == authState
+          ? _value.authState
+          : authState // ignore: cast_nullable_to_non_nullable
+              as SignedIn,
     ));
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $ApiResultCopyWith<List<RecipeComment?>, $Res> get comment {
-    return $ApiResultCopyWith<List<RecipeComment?>, $Res>(_value.comment,
-        (value) {
+  $ApiResultCopyWith<RecipeComment?, $Res> get comment {
+    return $ApiResultCopyWith<RecipeComment?, $Res>(_value.comment, (value) {
       return _then(_value.copyWith(comment: value));
     });
   }
@@ -517,16 +523,21 @@ class __$$_LoadedCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Loaded implements _Loaded {
-  const _$_Loaded({required this.recipeDetail, required this.comment});
+  const _$_Loaded(
+      {required this.recipeDetail,
+      required this.comment,
+      required this.authState});
 
   @override
   final RecipeDetail recipeDetail;
   @override
-  final ApiResult<List<RecipeComment?>> comment;
+  final ApiResult<RecipeComment?> comment;
+  @override
+  final SignedIn authState;
 
   @override
   String toString() {
-    return 'RecipeDetailState.loaded(recipeDetail: $recipeDetail, comment: $comment)';
+    return 'RecipeDetailState.loaded(recipeDetail: $recipeDetail, comment: $comment, authState: $authState)';
   }
 
   @override
@@ -536,11 +547,14 @@ class _$_Loaded implements _Loaded {
             other is _$_Loaded &&
             (identical(other.recipeDetail, recipeDetail) ||
                 other.recipeDetail == recipeDetail) &&
-            (identical(other.comment, comment) || other.comment == comment));
+            (identical(other.comment, comment) || other.comment == comment) &&
+            (identical(other.authState, authState) ||
+                other.authState == authState));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, recipeDetail, comment);
+  int get hashCode =>
+      Object.hash(runtimeType, recipeDetail, comment, authState);
 
   @JsonKey(ignore: true)
   @override
@@ -552,38 +566,38 @@ class _$_Loaded implements _Loaded {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(
-            RecipeDetail recipeDetail, ApiResult<List<RecipeComment?>> comment)
+    required TResult Function(RecipeDetail recipeDetail,
+            ApiResult<RecipeComment?> comment, SignedIn authState)
         loaded,
     required TResult Function(String? message) failed,
   }) {
-    return loaded(recipeDetail, comment);
+    return loaded(recipeDetail, comment, authState);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(
-            RecipeDetail recipeDetail, ApiResult<List<RecipeComment?>> comment)?
+    TResult? Function(RecipeDetail recipeDetail,
+            ApiResult<RecipeComment?> comment, SignedIn authState)?
         loaded,
     TResult? Function(String? message)? failed,
   }) {
-    return loaded?.call(recipeDetail, comment);
+    return loaded?.call(recipeDetail, comment, authState);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(
-            RecipeDetail recipeDetail, ApiResult<List<RecipeComment?>> comment)?
+    TResult Function(RecipeDetail recipeDetail,
+            ApiResult<RecipeComment?> comment, SignedIn authState)?
         loaded,
     TResult Function(String? message)? failed,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(recipeDetail, comment);
+      return loaded(recipeDetail, comment, authState);
     }
     return orElse();
   }
@@ -626,10 +640,12 @@ class _$_Loaded implements _Loaded {
 abstract class _Loaded implements RecipeDetailState {
   const factory _Loaded(
       {required final RecipeDetail recipeDetail,
-      required final ApiResult<List<RecipeComment?>> comment}) = _$_Loaded;
+      required final ApiResult<RecipeComment?> comment,
+      required final SignedIn authState}) = _$_Loaded;
 
   RecipeDetail get recipeDetail;
-  ApiResult<List<RecipeComment?>> get comment;
+  ApiResult<RecipeComment?> get comment;
+  SignedIn get authState;
   @JsonKey(ignore: true)
   _$$_LoadedCopyWith<_$_Loaded> get copyWith =>
       throw _privateConstructorUsedError;
@@ -698,8 +714,8 @@ class _$_Failed implements _Failed {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(
-            RecipeDetail recipeDetail, ApiResult<List<RecipeComment?>> comment)
+    required TResult Function(RecipeDetail recipeDetail,
+            ApiResult<RecipeComment?> comment, SignedIn authState)
         loaded,
     required TResult Function(String? message) failed,
   }) {
@@ -710,8 +726,8 @@ class _$_Failed implements _Failed {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(
-            RecipeDetail recipeDetail, ApiResult<List<RecipeComment?>> comment)?
+    TResult? Function(RecipeDetail recipeDetail,
+            ApiResult<RecipeComment?> comment, SignedIn authState)?
         loaded,
     TResult? Function(String? message)? failed,
   }) {
@@ -722,8 +738,8 @@ class _$_Failed implements _Failed {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(
-            RecipeDetail recipeDetail, ApiResult<List<RecipeComment?>> comment)?
+    TResult Function(RecipeDetail recipeDetail,
+            ApiResult<RecipeComment?> comment, SignedIn authState)?
         loaded,
     TResult Function(String? message)? failed,
     required TResult orElse(),

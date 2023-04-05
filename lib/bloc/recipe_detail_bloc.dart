@@ -45,10 +45,13 @@ class RecipeDetailBloc extends Bloc<RecipeDetailEvent, RecipeDetailState> {
     String token = (event.authState as SignedIn).token;
     ApiResult<RecipeDetail> recipe = await RecipeServices()
         .getRecipeDetail(id: event.recipeId, token: token);
-    ApiResult<List<RecipeComment?>> comment = await RecipeServices()
-        .getRecipeComment(id: event.recipeId, token: token);
+    ApiResult<RecipeComment?> comment = await RecipeServices()
+        .getFirstRecipeComment(id: event.recipeId, token: token);
     recipe.map(success: (value) {
-      emit(_Loaded(recipeDetail: value.value, comment: comment));
+      emit(_Loaded(
+          recipeDetail: value.value,
+          comment: comment,
+          authState: (event.authState as SignedIn)));
     }, failed: (value) {
       emit(_Failed(message: value.message));
     });
