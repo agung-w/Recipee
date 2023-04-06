@@ -3,10 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ta_recipe_app/bloc/my_profile_page_bloc.dart';
 import 'package:ta_recipe_app/bloc/user_authentication_bloc.dart';
-import 'package:ta_recipe_app/cubit/save_recipe_cubit.dart';
-import 'package:ta_recipe_app/entities/recipe.dart';
 import 'package:ta_recipe_app/entities/user_detail.dart';
-import 'package:ta_recipe_app/helpers/api_result.dart';
 import 'package:ta_recipe_app/ui/pages/login_page.dart';
 import 'package:ta_recipe_app/ui/pages/register_page.dart';
 import 'package:ta_recipe_app/ui/widgets/draggable_sheet.dart';
@@ -14,14 +11,9 @@ import 'package:ta_recipe_app/ui/widgets/follower_count_text.dart';
 import 'package:ta_recipe_app/ui/widgets/loading_indicator.dart';
 import 'package:ta_recipe_app/ui/widgets/profile_recipe_list.dart';
 
-class MyProfilePage extends StatefulWidget {
+class MyProfilePage extends StatelessWidget {
   const MyProfilePage({super.key});
 
-  @override
-  State<MyProfilePage> createState() => _MyProfilePageState();
-}
-
-class _MyProfilePageState extends State<MyProfilePage> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MyProfilePageBloc, MyProfilePageState>(
@@ -116,68 +108,43 @@ class _MyProfilePageState extends State<MyProfilePage> {
                     ),
                   ];
                 },
-                body: BlocListener<SaveRecipeCubit, SaveRecipeState>(
-                  listener: (context, state) {
-                    state.whenOrNull(
-                      initial: (id, isSaved, _) {
-                        Recipe? recipe = (createdList as Success)
-                            .value
-                            .firstWhere((element) => element!.id == id);
-                        if (recipe != null) {
-                          recipe.isSaved = isSaved;
-                          if (isSaved == true) {
-                            (savedList as Success<List<Recipe?>>)
-                                .value
-                                .add(recipe);
-                          } else {
-                            (savedList as Success<List<Recipe?>>)
-                                .value
-                                .removeWhere(
-                                    (element) => element!.id == recipe.id);
-                            setState(() {});
-                          }
-                        }
-                      },
-                    );
-                  },
-                  child: TabBarView(
-                    children: [
-                      createdList.map(
-                          success: (value) => ProfileRecipeList(
-                                list: value.value,
-                              ),
-                          failed: (_) =>
-                              const Text("cannot_load_recipe_list_text")
-                                  .tr(namedArgs: {'type': 'created'})),
-                      savedList.map(
-                          success: (value) => ProfileRecipeList(
-                                list: value.value,
-                              ),
-                          failed: (_) =>
-                              const Text("cannot_load_recipe_list_text")
-                                  .tr(namedArgs: {'type': 'saved'})),
-                      draftList.map(
-                          success: (value) => ProfileRecipeList(
-                                list: value.value,
-                              ),
-                          failed: (_) =>
-                              const Text("cannot_load_recipe_list_text")
-                                  .tr(namedArgs: {'type': 'draft'})),
-                      rejectedList.map(
-                          success: (value) => ProfileRecipeList(
-                                list: value.value,
-                              ),
-                          failed: (_) =>
-                              const Text("cannot_load_recipe_list_text")
-                                  .tr(namedArgs: {'type': 'rejected'})),
-                      pendingList.map(
-                          success: (value) => ProfileRecipeList(
-                                list: value.value,
-                              ),
-                          failed: (_) => const Text("cannot_load_recipe_list")
-                              .tr(namedArgs: {'type': 'pending'})),
-                    ],
-                  ),
+                body: TabBarView(
+                  children: [
+                    createdList.map(
+                        success: (value) => ProfileRecipeList(
+                              list: value.value,
+                            ),
+                        failed: (_) =>
+                            const Text("cannot_load_recipe_list_text")
+                                .tr(namedArgs: {'type': 'created'})),
+                    savedList.map(
+                        success: (value) => ProfileRecipeList(
+                              list: value.value,
+                            ),
+                        failed: (_) =>
+                            const Text("cannot_load_recipe_list_text")
+                                .tr(namedArgs: {'type': 'saved'})),
+                    draftList.map(
+                        success: (value) => ProfileRecipeList(
+                              list: value.value,
+                            ),
+                        failed: (_) =>
+                            const Text("cannot_load_recipe_list_text")
+                                .tr(namedArgs: {'type': 'draft'})),
+                    rejectedList.map(
+                        success: (value) => ProfileRecipeList(
+                              list: value.value,
+                            ),
+                        failed: (_) =>
+                            const Text("cannot_load_recipe_list_text")
+                                .tr(namedArgs: {'type': 'rejected'})),
+                    pendingList.map(
+                        success: (value) => ProfileRecipeList(
+                              list: value.value,
+                            ),
+                        failed: (_) => const Text("cannot_load_recipe_list")
+                            .tr(namedArgs: {'type': 'pending'})),
+                  ],
                 ),
               ),
             ),

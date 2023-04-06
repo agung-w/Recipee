@@ -69,47 +69,21 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ];
                 },
-                body: BlocListener<SaveRecipeCubit, SaveRecipeState>(
-                  listener: (context, state) {
-                    state.whenOrNull(
-                      initial: (id, isSaved, _) {
-                        Recipe? recipe = (createdRecipeList as Success)
-                            .value
-                            .firstWhere((element) => element!.id == id);
-                        if (recipe != null) {
-                          recipe.isSaved = isSaved;
-                          if (isSaved == true) {
-                            (savedRecipeList as Success<List<Recipe?>>)
-                                .value
-                                .add(recipe);
-                          } else {
-                            (savedRecipeList as Success<List<Recipe?>>)
-                                .value
-                                .removeWhere(
-                                    (element) => element!.id == recipe.id);
-                            setState(() {});
-                          }
-                        }
-                      },
-                    );
-                  },
-                  child: TabBarView(
-                    children: [
-                      createdRecipeList.map(
-                          success: (value) => ProfileRecipeList(
-                                list: value.value,
-                              ),
-                          failed: (_) =>
-                              const Text("cannot_load_created_recipe_list")
-                                  .tr()),
-                      savedRecipeList.map(
-                          success: (value) => ProfileRecipeList(
-                                list: value.value,
-                              ),
-                          failed: (_) =>
-                              const Text("cannot_load_saved_recipe_list").tr()),
-                    ],
-                  ),
+                body: TabBarView(
+                  children: [
+                    createdRecipeList.map(
+                        success: (value) => ProfileRecipeList(
+                              list: value.value,
+                            ),
+                        failed: (_) =>
+                            const Text("cannot_load_created_recipe_list").tr()),
+                    savedRecipeList.map(
+                        success: (value) => ProfileRecipeList(
+                              list: value.value,
+                            ),
+                        failed: (_) =>
+                            const Text("cannot_load_saved_recipe_list").tr()),
+                  ],
                 ),
               ),
             ),
