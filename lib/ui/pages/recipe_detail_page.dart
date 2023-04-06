@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,6 +7,7 @@ import 'package:ta_recipe_app/bloc/recipe_detail_bloc.dart';
 import 'package:ta_recipe_app/bloc/user_authentication_bloc.dart';
 import 'dart:ui' as ui;
 import 'package:ta_recipe_app/cubit/comment_cubit.dart';
+import 'package:ta_recipe_app/cubit/save_recipe_cubit.dart';
 import 'package:ta_recipe_app/entities/cooking_step.dart';
 import 'package:ta_recipe_app/entities/recipe_comment.dart';
 import 'package:ta_recipe_app/entities/recipe_detail.dart';
@@ -14,310 +17,368 @@ import 'package:ta_recipe_app/ui/widgets/loading_indicator.dart';
 import 'package:ta_recipe_app/ui/widgets/save_recipe_button.dart';
 import 'package:ta_recipe_app/ui/widgets/small_user_profile_pic.dart';
 
-import '../../cubit/save_recipe_cubit.dart';
-
 class RecipeDetailPage extends StatelessWidget {
   const RecipeDetailPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    double posterSize = MediaQuery.of(context).size.width;
+    ScrollController controller = ScrollController();
+
     return BlocBuilder<RecipeDetailBloc, RecipeDetailState>(
       builder: (context, state) {
         return state.map(
           loaded: (value) {
             RecipeDetail recipe = value.recipeDetail;
             return Scaffold(
-              extendBodyBehindAppBar: true,
-              appBar: AppBar(
-                backgroundColor: Colors.transparent,
-                actions: [
-                  BlocBuilder<SaveRecipeCubit, SaveRecipeState>(
-                    builder: (context, state) {
-                      return state.when(
-                          initial: (id, isSaved, _) {
-                            return SaveRecipeButton(
-                                recipe: recipe.copyWith(isSaved: isSaved));
-                          },
-                          loading: () => SaveRecipeButton(recipe: recipe));
+                body: GestureDetector(
+                    onTap: () {
+                      FocusScope.of(context).unfocus();
                     },
-                  )
-                ],
-              ),
-              body: GestureDetector(
-                onTap: () {
-                  FocusScope.of(context).unfocus();
-                },
-                child: CustomScrollView(slivers: [
-                  SliverToBoxAdapter(
-                    child: Container(
-                      color: Theme.of(context).colorScheme.secondary,
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.width,
-                      child: Image.network(
-                        recipe.posterPicUrl ?? "",
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) => Align(
-                          alignment: FractionalOffset.bottomRight,
-                          child: Text(
-                            recipe.title,
-                            style: Theme.of(context).textTheme.displayLarge,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SliverToBoxAdapter(
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            recipe.title,
-                            style: Theme.of(context).textTheme.headlineMedium,
-                            textAlign: TextAlign.start,
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                          ),
-                          const SizedBox(
-                            height: 6,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              if (recipe.serving != null) ...{
-                                Expanded(
-                                    child: Row(
-                                  children: [
-                                    Text("serving_label_recipe_detail",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .labelMedium)
-                                        .tr(),
-                                    Text(" ${recipe.serving} ",
-                                        textAlign: TextAlign.start,
+                    child: NestedScrollView(
+                        headerSliverBuilder:
+                            (BuildContext context, bool innerBoxIsScrolled) {
+                          return [];
+                        },
+                        body: CustomScrollView(
+                            controller: controller,
+                            physics: const AlwaysScrollableScrollPhysics(),
+                            slivers: [
+                              Builder(builder: (context) {
+                                return SliverOverlapAbsorber(
+                                  handle: NestedScrollView
+                                      .sliverOverlapAbsorberHandleFor(context),
+                                  sliver: SliverLayoutBuilder(
+                                    builder: (BuildContext headerContext,
+                                        constraints) {
+                                      final scrolled =
+                                          constraints.scrollOffset + 50 <
+                                              posterSize;
+                                      return RecipeDetailAppBar(
+                                          scrolled: scrolled, recipe: recipe);
+                                    },
+                                  ),
+                                );
+                              }),
+                              SliverToBoxAdapter(
+                                child: Container(
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
+                                  width: posterSize,
+                                  height: posterSize,
+                                  child: Image.network(
+                                    recipe.posterPicUrl ?? "",
+                                    fit: BoxFit.cover,
+                                    errorBuilder:
+                                        (context, error, stackTrace) => Align(
+                                      alignment: FractionalOffset.bottomRight,
+                                      child: Text(
+                                        recipe.title,
                                         style: Theme.of(context)
                                             .textTheme
-                                            .labelMedium),
-                                    Icon(
-                                      Icons.person,
-                                      color:
-                                          Theme.of(context).colorScheme.primary,
-                                    )
-                                  ],
-                                ))
-                              },
-                              if (recipe.prepTime != null) ...{
-                                Expanded(
-                                    child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    Icon(
-                                      Icons.timer_outlined,
-                                      color:
-                                          Theme.of(context).colorScheme.primary,
-                                    ),
-                                    Text(" ${recipe.prepTime} ",
-                                        textAlign: TextAlign.start,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .labelMedium),
-                                    Text("minute_label_recipe_detail",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .labelMedium)
-                                        .tr(namedArgs: {'s': ''}),
-                                  ],
-                                ))
-                              },
-                            ],
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8),
-                            child: Text(
-                              recipe.description,
-                              maxLines: 3,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8, bottom: 16),
-                            child: Wrap(
-                              spacing: 8, // space between items
-                              children: recipe.tags!
-                                  .map(
-                                    (e) => Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 8, vertical: 4),
-                                      margin: const EdgeInsets.only(top: 8),
-                                      decoration: BoxDecoration(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .primary,
-                                        borderRadius:
-                                            BorderRadius.circular(100),
+                                            .displayLarge,
                                       ),
-                                      constraints: BoxConstraints(
-                                          maxWidth: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.65),
-                                      child: Text(e.name.toString(),
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: 1,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .labelSmall!
-                                              .merge(TextStyle(
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SliverToBoxAdapter(
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(16, 8, 16, 0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        recipe.title,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headlineMedium,
+                                        textAlign: TextAlign.start,
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                      ),
+                                      const SizedBox(
+                                        height: 6,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          if (recipe.serving != null) ...{
+                                            Expanded(
+                                                child: Row(
+                                              children: [
+                                                Text("serving_label_recipe_detail",
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .labelMedium)
+                                                    .tr(),
+                                                Text(" ${recipe.serving} ",
+                                                    textAlign: TextAlign.start,
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .labelMedium),
+                                                Icon(
+                                                  Icons.person,
                                                   color: Theme.of(context)
                                                       .colorScheme
-                                                      .onPrimary))),
-                                    ),
-                                  )
-                                  .toList(),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SliverToBoxAdapter(
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "ingredients_title_text",
-                            style: Theme.of(context).textTheme.headlineMedium,
-                            textAlign: TextAlign.start,
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                          ).tr(),
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 16),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: recipe.recipeIngredients
-                                  .map((e) => IngredientTile(ingredient: e))
-                                  .toList(),
-                            ),
-                          ),
-                          Text(
-                            "cooking_step_title_text",
-                            style: Theme.of(context).textTheme.headlineMedium,
-                            textAlign: TextAlign.start,
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                          ).tr(),
-                          const SizedBox(
-                            height: 16,
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  SliverToBoxAdapter(
-                    child: SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.23,
-                      child: ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: [
-                          for (int i = 0;
-                              i < recipe.cookingSteps.length;
-                              i++) ...{
-                            if (i == 0) ...{
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 16, right: 16),
-                                child: CookingStepTile(
-                                  cookingStep: recipe.cookingSteps[i],
+                                                      .primary,
+                                                )
+                                              ],
+                                            ))
+                                          },
+                                          if (recipe.prepTime != null) ...{
+                                            Expanded(
+                                                child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.end,
+                                              children: [
+                                                Icon(
+                                                  Icons.timer_outlined,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .primary,
+                                                ),
+                                                Text(" ${recipe.prepTime} ",
+                                                    textAlign: TextAlign.start,
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .labelMedium),
+                                                Text("minute_label_recipe_detail",
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .labelMedium)
+                                                    .tr(namedArgs: {'s': ''}),
+                                              ],
+                                            ))
+                                          },
+                                        ],
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 8),
+                                        child: Text(
+                                          recipe.description,
+                                          maxLines: 3,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 8, bottom: 16),
+                                        child: Wrap(
+                                          spacing: 8, // space between items
+                                          children: recipe.tags!
+                                              .map(
+                                                (e) => Container(
+                                                  padding: const EdgeInsets
+                                                          .symmetric(
+                                                      horizontal: 8,
+                                                      vertical: 4),
+                                                  margin: const EdgeInsets.only(
+                                                      top: 8),
+                                                  decoration: BoxDecoration(
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            100),
+                                                  ),
+                                                  constraints: BoxConstraints(
+                                                      maxWidth:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.65),
+                                                  child: Text(e.name.toString(),
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      maxLines: 1,
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .labelSmall!
+                                                          .merge(TextStyle(
+                                                              color: Theme.of(
+                                                                      context)
+                                                                  .colorScheme
+                                                                  .onPrimary))),
+                                                ),
+                                              )
+                                              .toList(),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              )
-                            } else ...{
-                              Padding(
-                                padding: const EdgeInsets.only(right: 16),
-                                child: CookingStepTile(
-                                  cookingStep: recipe.cookingSteps[i],
+                              ),
+                              SliverToBoxAdapter(
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(16, 8, 16, 0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "ingredients_title_text",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headlineMedium,
+                                        textAlign: TextAlign.start,
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                      ).tr(),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 16),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: recipe.recipeIngredients
+                                              .map((e) =>
+                                                  IngredientTile(ingredient: e))
+                                              .toList(),
+                                        ),
+                                      ),
+                                      Text(
+                                        "cooking_step_title_text",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headlineMedium,
+                                        textAlign: TextAlign.start,
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                      ).tr(),
+                                      const SizedBox(
+                                        height: 16,
+                                      )
+                                    ],
+                                  ),
                                 ),
-                              )
-                            }
-                          }
-                        ],
-                      ),
-                    ),
-                  ),
-                  SliverToBoxAdapter(
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "comment_title_text",
-                            style: Theme.of(context).textTheme.headlineMedium,
-                            textAlign: TextAlign.start,
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 2,
-                          ).tr(),
-                          InkWell(
-                            onTap: () {
-                              context.read<CommentCubit>().getComments(
-                                  id: recipe.id ?? -1,
-                                  token: value.authState.token);
-                              showModalBottomSheet(
-                                  isScrollControlled: true,
-                                  isDismissible: true,
-                                  useRootNavigator: true,
-                                  context: context,
-                                  shape: const RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(20),
-                                          topRight: Radius.circular(20))),
-                                  builder: (_) => _CommentSheet(
-                                        recipe: recipe,
-                                        user: value.authState,
-                                      ));
-                            },
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                value.comment.map(
-                                    success: (value) {
-                                      if (value.value != null) {
-                                        return Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 8, bottom: 16),
-                                          child: CommentTile(
-                                            comment: value.value!,
-                                          ),
-                                        );
-                                      } else {
-                                        return Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              vertical: 16),
-                                          child: const Text("no_comment_text")
-                                              .tr(),
-                                        );
+                              ),
+                              SliverToBoxAdapter(
+                                child: SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.23,
+                                  child: ListView(
+                                    scrollDirection: Axis.horizontal,
+                                    children: [
+                                      for (int i = 0;
+                                          i < recipe.cookingSteps.length;
+                                          i++) ...{
+                                        if (i == 0) ...{
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 16, right: 16),
+                                            child: CookingStepTile(
+                                              cookingStep:
+                                                  recipe.cookingSteps[i],
+                                            ),
+                                          )
+                                        } else ...{
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 16),
+                                            child: CookingStepTile(
+                                              cookingStep:
+                                                  recipe.cookingSteps[i],
+                                            ),
+                                          )
+                                        }
                                       }
-                                    },
-                                    failed: (_) =>
-                                        const Text("failed_load_comment_text")),
-                                IgnorePointer(
-                                    child: CommentInputBox(
-                                  recipe: recipe,
-                                  readOnly: true,
-                                  signedInUser: value.authState.user,
-                                )),
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ]),
-              ),
-            );
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              SliverToBoxAdapter(
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(16, 8, 16, 0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "comment_title_text",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headlineMedium,
+                                        textAlign: TextAlign.start,
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 2,
+                                      ).tr(),
+                                      InkWell(
+                                        onTap: () {
+                                          context
+                                              .read<CommentCubit>()
+                                              .getComments(
+                                                  id: recipe.id ?? -1,
+                                                  token: value.authState.token);
+                                          showModalBottomSheet(
+                                              isScrollControlled: true,
+                                              isDismissible: true,
+                                              useRootNavigator: true,
+                                              context: context,
+                                              shape:
+                                                  const RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.only(
+                                                              topLeft: Radius
+                                                                  .circular(20),
+                                                              topRight:
+                                                                  Radius
+                                                                      .circular(
+                                                                          20))),
+                                              builder: (_) => _CommentSheet(
+                                                    recipe: recipe,
+                                                    user: value.authState,
+                                                  ));
+                                        },
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            value.comment.map(
+                                                success: (value) {
+                                                  if (value.value != null) {
+                                                    return Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              top: 8,
+                                                              bottom: 16),
+                                                      child: CommentTile(
+                                                        comment: value.value!,
+                                                      ),
+                                                    );
+                                                  } else {
+                                                    return Padding(
+                                                      padding: const EdgeInsets
+                                                              .symmetric(
+                                                          vertical: 16),
+                                                      child: const Text(
+                                                              "no_comment_text")
+                                                          .tr(),
+                                                    );
+                                                  }
+                                                },
+                                                failed: (_) => const Text(
+                                                    "failed_load_comment_text")),
+                                            IgnorePointer(
+                                                child: CommentInputBox(
+                                              recipe: recipe,
+                                              readOnly: true,
+                                              signedInUser:
+                                                  value.authState.user,
+                                            )),
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ]))));
           },
           failed: (value) {
             return Text(value.message ?? "");
@@ -334,6 +395,44 @@ class RecipeDetailPage extends StatelessWidget {
           },
         );
       },
+    );
+  }
+}
+
+class RecipeDetailAppBar extends StatelessWidget {
+  const RecipeDetailAppBar({
+    super.key,
+    required this.scrolled,
+    required this.recipe,
+  });
+
+  final bool scrolled;
+  final RecipeDetail recipe;
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverAppBar(
+      backgroundColor: scrolled ? Colors.transparent : null,
+      pinned: true,
+      actions: [
+        Padding(
+          padding: const EdgeInsets.only(right: 8.0),
+          child: BlocBuilder<SaveRecipeCubit, SaveRecipeState>(
+            builder: (context, state) {
+              return state.when(
+                  initial: (id, isSaved, _) {
+                    if (recipe.id == id) {
+                      return SaveRecipeButton(
+                          recipe: recipe.copyWith(isSaved: isSaved));
+                    } else {
+                      return SaveRecipeButton(recipe: recipe);
+                    }
+                  },
+                  loading: () => SaveRecipeButton(recipe: recipe));
+            },
+          ),
+        )
+      ],
     );
   }
 }
