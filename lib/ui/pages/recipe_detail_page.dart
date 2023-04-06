@@ -433,12 +433,20 @@ class _CommentInputFormState extends State<CommentInputForm> {
           InkWell(
             onTap: controller.text.isNotEmpty
                 ? () {
-                    context.read<CommentCubit>().sendComment(
-                        id: widget.recipe.id!,
-                        content: controller.text,
-                        token: widget.user.token);
-                    setState(() {
-                      controller.clear();
+                    context
+                        .read<CommentCubit>()
+                        .sendComment(
+                            id: widget.recipe.id!,
+                            content: controller.text,
+                            token: widget.user.token)
+                        .whenComplete(() {
+                      context.read<RecipeDetailBloc>().add(
+                          RecipeDetailEvent.refreshComment(
+                              recipeId: widget.recipe.id!,
+                              token: widget.user.token));
+                      setState(() {
+                        controller.clear();
+                      });
                     });
                   }
                 : null,
@@ -571,8 +579,7 @@ class CommentInputBox extends StatelessWidget {
                 contentPadding: EdgeInsets.all(8),
                 isDense: true,
                 constraints: BoxConstraints(minHeight: 0, maxWidth: 0),
-                border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.amber))),
+                border: OutlineInputBorder(borderSide: BorderSide())),
           ),
         )
       ],

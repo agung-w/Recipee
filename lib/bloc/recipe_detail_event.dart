@@ -6,4 +6,6 @@ class RecipeDetailEvent with _$RecipeDetailEvent {
       {required UserAuthenticationState authState,
       required int recipeId,
       required BuildContext context}) = _Started;
+  const factory RecipeDetailEvent.refreshComment(
+      {required int recipeId, required String token}) = _RefreshComment;
 }

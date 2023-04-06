@@ -16,14 +16,13 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$RecipeDetailEvent {
-  UserAuthenticationState get authState => throw _privateConstructorUsedError;
   int get recipeId => throw _privateConstructorUsedError;
-  BuildContext get context => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(UserAuthenticationState authState, int recipeId,
             BuildContext context)
         started,
+    required TResult Function(int recipeId, String token) refreshComment,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -31,6 +30,7 @@ mixin _$RecipeDetailEvent {
     TResult? Function(UserAuthenticationState authState, int recipeId,
             BuildContext context)?
         started,
+    TResult? Function(int recipeId, String token)? refreshComment,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -38,22 +38,26 @@ mixin _$RecipeDetailEvent {
     TResult Function(UserAuthenticationState authState, int recipeId,
             BuildContext context)?
         started,
+    TResult Function(int recipeId, String token)? refreshComment,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
+    required TResult Function(_RefreshComment value) refreshComment,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
+    TResult? Function(_RefreshComment value)? refreshComment,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
+    TResult Function(_RefreshComment value)? refreshComment,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -69,10 +73,7 @@ abstract class $RecipeDetailEventCopyWith<$Res> {
           RecipeDetailEvent value, $Res Function(RecipeDetailEvent) then) =
       _$RecipeDetailEventCopyWithImpl<$Res, RecipeDetailEvent>;
   @useResult
-  $Res call(
-      {UserAuthenticationState authState, int recipeId, BuildContext context});
-
-  $UserAuthenticationStateCopyWith<$Res> get authState;
+  $Res call({int recipeId});
 }
 
 /// @nodoc
@@ -88,32 +89,14 @@ class _$RecipeDetailEventCopyWithImpl<$Res, $Val extends RecipeDetailEvent>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? authState = null,
     Object? recipeId = null,
-    Object? context = null,
   }) {
     return _then(_value.copyWith(
-      authState: null == authState
-          ? _value.authState
-          : authState // ignore: cast_nullable_to_non_nullable
-              as UserAuthenticationState,
       recipeId: null == recipeId
           ? _value.recipeId
           : recipeId // ignore: cast_nullable_to_non_nullable
               as int,
-      context: null == context
-          ? _value.context
-          : context // ignore: cast_nullable_to_non_nullable
-              as BuildContext,
     ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $UserAuthenticationStateCopyWith<$Res> get authState {
-    return $UserAuthenticationStateCopyWith<$Res>(_value.authState, (value) {
-      return _then(_value.copyWith(authState: value) as $Val);
-    });
   }
 }
 
@@ -128,7 +111,6 @@ abstract class _$$_StartedCopyWith<$Res>
   $Res call(
       {UserAuthenticationState authState, int recipeId, BuildContext context});
 
-  @override
   $UserAuthenticationStateCopyWith<$Res> get authState;
 }
 
@@ -160,6 +142,14 @@ class __$$_StartedCopyWithImpl<$Res>
           : context // ignore: cast_nullable_to_non_nullable
               as BuildContext,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $UserAuthenticationStateCopyWith<$Res> get authState {
+    return $UserAuthenticationStateCopyWith<$Res>(_value.authState, (value) {
+      return _then(_value.copyWith(authState: value));
+    });
   }
 }
 
@@ -208,6 +198,7 @@ class _$_Started implements _Started {
     required TResult Function(UserAuthenticationState authState, int recipeId,
             BuildContext context)
         started,
+    required TResult Function(int recipeId, String token) refreshComment,
   }) {
     return started(authState, recipeId, context);
   }
@@ -218,6 +209,7 @@ class _$_Started implements _Started {
     TResult? Function(UserAuthenticationState authState, int recipeId,
             BuildContext context)?
         started,
+    TResult? Function(int recipeId, String token)? refreshComment,
   }) {
     return started?.call(authState, recipeId, context);
   }
@@ -228,6 +220,7 @@ class _$_Started implements _Started {
     TResult Function(UserAuthenticationState authState, int recipeId,
             BuildContext context)?
         started,
+    TResult Function(int recipeId, String token)? refreshComment,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -240,6 +233,7 @@ class _$_Started implements _Started {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
+    required TResult Function(_RefreshComment value) refreshComment,
   }) {
     return started(this);
   }
@@ -248,6 +242,7 @@ class _$_Started implements _Started {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
+    TResult? Function(_RefreshComment value)? refreshComment,
   }) {
     return started?.call(this);
   }
@@ -256,6 +251,7 @@ class _$_Started implements _Started {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
+    TResult Function(_RefreshComment value)? refreshComment,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -271,15 +267,168 @@ abstract class _Started implements RecipeDetailEvent {
       required final int recipeId,
       required final BuildContext context}) = _$_Started;
 
-  @override
   UserAuthenticationState get authState;
   @override
   int get recipeId;
-  @override
   BuildContext get context;
   @override
   @JsonKey(ignore: true)
   _$$_StartedCopyWith<_$_Started> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_RefreshCommentCopyWith<$Res>
+    implements $RecipeDetailEventCopyWith<$Res> {
+  factory _$$_RefreshCommentCopyWith(
+          _$_RefreshComment value, $Res Function(_$_RefreshComment) then) =
+      __$$_RefreshCommentCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({int recipeId, String token});
+}
+
+/// @nodoc
+class __$$_RefreshCommentCopyWithImpl<$Res>
+    extends _$RecipeDetailEventCopyWithImpl<$Res, _$_RefreshComment>
+    implements _$$_RefreshCommentCopyWith<$Res> {
+  __$$_RefreshCommentCopyWithImpl(
+      _$_RefreshComment _value, $Res Function(_$_RefreshComment) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? recipeId = null,
+    Object? token = null,
+  }) {
+    return _then(_$_RefreshComment(
+      recipeId: null == recipeId
+          ? _value.recipeId
+          : recipeId // ignore: cast_nullable_to_non_nullable
+              as int,
+      token: null == token
+          ? _value.token
+          : token // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_RefreshComment implements _RefreshComment {
+  const _$_RefreshComment({required this.recipeId, required this.token});
+
+  @override
+  final int recipeId;
+  @override
+  final String token;
+
+  @override
+  String toString() {
+    return 'RecipeDetailEvent.refreshComment(recipeId: $recipeId, token: $token)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_RefreshComment &&
+            (identical(other.recipeId, recipeId) ||
+                other.recipeId == recipeId) &&
+            (identical(other.token, token) || other.token == token));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, recipeId, token);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_RefreshCommentCopyWith<_$_RefreshComment> get copyWith =>
+      __$$_RefreshCommentCopyWithImpl<_$_RefreshComment>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(UserAuthenticationState authState, int recipeId,
+            BuildContext context)
+        started,
+    required TResult Function(int recipeId, String token) refreshComment,
+  }) {
+    return refreshComment(recipeId, token);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(UserAuthenticationState authState, int recipeId,
+            BuildContext context)?
+        started,
+    TResult? Function(int recipeId, String token)? refreshComment,
+  }) {
+    return refreshComment?.call(recipeId, token);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(UserAuthenticationState authState, int recipeId,
+            BuildContext context)?
+        started,
+    TResult Function(int recipeId, String token)? refreshComment,
+    required TResult orElse(),
+  }) {
+    if (refreshComment != null) {
+      return refreshComment(recipeId, token);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_RefreshComment value) refreshComment,
+  }) {
+    return refreshComment(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_RefreshComment value)? refreshComment,
+  }) {
+    return refreshComment?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_RefreshComment value)? refreshComment,
+    required TResult orElse(),
+  }) {
+    if (refreshComment != null) {
+      return refreshComment(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _RefreshComment implements RecipeDetailEvent {
+  const factory _RefreshComment(
+      {required final int recipeId,
+      required final String token}) = _$_RefreshComment;
+
+  @override
+  int get recipeId;
+  String get token;
+  @override
+  @JsonKey(ignore: true)
+  _$$_RefreshCommentCopyWith<_$_RefreshComment> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

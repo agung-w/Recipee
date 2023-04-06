@@ -36,6 +36,21 @@ class RecipeDetailBloc extends Bloc<RecipeDetailEvent, RecipeDetailState> {
         emit(_Failed(message: event.authState.toString()));
       }
     });
+    on<_RefreshComment>((event, emit) async {
+      if ((state as _Loaded).comment is Success) {
+        if (((state as _Loaded).comment as Success).value == null) {
+          ApiResult<RecipeComment?> comment = await RecipeServices()
+              .getFirstRecipeComment(
+                  id: event.recipeId, token: (event.token as SignedIn).token);
+          emit((state as _Loaded).copyWith(comment: comment));
+        }
+      } else {
+        ApiResult<RecipeComment?> comment = await RecipeServices()
+            .getFirstRecipeComment(
+                id: event.recipeId, token: (event.token as SignedIn).token);
+        emit((state as _Loaded).copyWith(comment: comment));
+      }
+    });
   }
 
   Future<void> _getData(Emitter<RecipeDetailState> emit, _Started event) async {

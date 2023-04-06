@@ -20,21 +20,22 @@ mixin _$CommentState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(String? message) failed,
-    required TResult Function(List<RecipeComment?> comments) loaded,
+    required TResult Function(List<RecipeComment?> comments, int recipeId)
+        loaded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(String? message)? failed,
-    TResult? Function(List<RecipeComment?> comments)? loaded,
+    TResult? Function(List<RecipeComment?> comments, int recipeId)? loaded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(String? message)? failed,
-    TResult Function(List<RecipeComment?> comments)? loaded,
+    TResult Function(List<RecipeComment?> comments, int recipeId)? loaded,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -119,7 +120,8 @@ class _$_Initial implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(String? message) failed,
-    required TResult Function(List<RecipeComment?> comments) loaded,
+    required TResult Function(List<RecipeComment?> comments, int recipeId)
+        loaded,
   }) {
     return initial();
   }
@@ -129,7 +131,7 @@ class _$_Initial implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(String? message)? failed,
-    TResult? Function(List<RecipeComment?> comments)? loaded,
+    TResult? Function(List<RecipeComment?> comments, int recipeId)? loaded,
   }) {
     return initial?.call();
   }
@@ -139,7 +141,7 @@ class _$_Initial implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(String? message)? failed,
-    TResult Function(List<RecipeComment?> comments)? loaded,
+    TResult Function(List<RecipeComment?> comments, int recipeId)? loaded,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -251,7 +253,8 @@ class _$_Failed implements _Failed {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(String? message) failed,
-    required TResult Function(List<RecipeComment?> comments) loaded,
+    required TResult Function(List<RecipeComment?> comments, int recipeId)
+        loaded,
   }) {
     return failed(message);
   }
@@ -261,7 +264,7 @@ class _$_Failed implements _Failed {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(String? message)? failed,
-    TResult? Function(List<RecipeComment?> comments)? loaded,
+    TResult? Function(List<RecipeComment?> comments, int recipeId)? loaded,
   }) {
     return failed?.call(message);
   }
@@ -271,7 +274,7 @@ class _$_Failed implements _Failed {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(String? message)? failed,
-    TResult Function(List<RecipeComment?> comments)? loaded,
+    TResult Function(List<RecipeComment?> comments, int recipeId)? loaded,
     required TResult orElse(),
   }) {
     if (failed != null) {
@@ -329,7 +332,7 @@ abstract class _$$_LoadedCopyWith<$Res> {
   factory _$$_LoadedCopyWith(_$_Loaded value, $Res Function(_$_Loaded) then) =
       __$$_LoadedCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<RecipeComment?> comments});
+  $Res call({List<RecipeComment?> comments, int recipeId});
 }
 
 /// @nodoc
@@ -343,12 +346,17 @@ class __$$_LoadedCopyWithImpl<$Res>
   @override
   $Res call({
     Object? comments = null,
+    Object? recipeId = null,
   }) {
     return _then(_$_Loaded(
       comments: null == comments
           ? _value._comments
           : comments // ignore: cast_nullable_to_non_nullable
               as List<RecipeComment?>,
+      recipeId: null == recipeId
+          ? _value.recipeId
+          : recipeId // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -356,7 +364,8 @@ class __$$_LoadedCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Loaded implements _Loaded {
-  const _$_Loaded({required final List<RecipeComment?> comments})
+  const _$_Loaded(
+      {required final List<RecipeComment?> comments, required this.recipeId})
       : _comments = comments;
 
   final List<RecipeComment?> _comments;
@@ -368,8 +377,11 @@ class _$_Loaded implements _Loaded {
   }
 
   @override
+  final int recipeId;
+
+  @override
   String toString() {
-    return 'CommentState.loaded(comments: $comments)';
+    return 'CommentState.loaded(comments: $comments, recipeId: $recipeId)';
   }
 
   @override
@@ -377,12 +389,14 @@ class _$_Loaded implements _Loaded {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Loaded &&
-            const DeepCollectionEquality().equals(other._comments, _comments));
+            const DeepCollectionEquality().equals(other._comments, _comments) &&
+            (identical(other.recipeId, recipeId) ||
+                other.recipeId == recipeId));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_comments));
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_comments), recipeId);
 
   @JsonKey(ignore: true)
   @override
@@ -395,9 +409,10 @@ class _$_Loaded implements _Loaded {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(String? message) failed,
-    required TResult Function(List<RecipeComment?> comments) loaded,
+    required TResult Function(List<RecipeComment?> comments, int recipeId)
+        loaded,
   }) {
-    return loaded(comments);
+    return loaded(comments, recipeId);
   }
 
   @override
@@ -405,9 +420,9 @@ class _$_Loaded implements _Loaded {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(String? message)? failed,
-    TResult? Function(List<RecipeComment?> comments)? loaded,
+    TResult? Function(List<RecipeComment?> comments, int recipeId)? loaded,
   }) {
-    return loaded?.call(comments);
+    return loaded?.call(comments, recipeId);
   }
 
   @override
@@ -415,11 +430,11 @@ class _$_Loaded implements _Loaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(String? message)? failed,
-    TResult Function(List<RecipeComment?> comments)? loaded,
+    TResult Function(List<RecipeComment?> comments, int recipeId)? loaded,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(comments);
+      return loaded(comments, recipeId);
     }
     return orElse();
   }
@@ -460,10 +475,12 @@ class _$_Loaded implements _Loaded {
 }
 
 abstract class _Loaded implements CommentState {
-  const factory _Loaded({required final List<RecipeComment?> comments}) =
-      _$_Loaded;
+  const factory _Loaded(
+      {required final List<RecipeComment?> comments,
+      required final int recipeId}) = _$_Loaded;
 
   List<RecipeComment?> get comments;
+  int get recipeId;
   @JsonKey(ignore: true)
   _$$_LoadedCopyWith<_$_Loaded> get copyWith =>
       throw _privateConstructorUsedError;
