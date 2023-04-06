@@ -40,6 +40,7 @@ class RecipeDetail extends Recipe {
     required User user,
     List<Tag>? tags,
     List<Tag>? recipeTagsAttributes,
+    bool? isSaved,
   }) : super(
           id: id,
           title: title,
@@ -50,6 +51,7 @@ class RecipeDetail extends Recipe {
           user: user,
           tags: tags,
           recipeTagsAttributes: recipeTagsAttributes,
+          isSaved: isSaved,
         );
 
   factory RecipeDetail.fromJson(Map<String, dynamic> json) =>

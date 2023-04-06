@@ -11,7 +11,10 @@ import 'package:ta_recipe_app/entities/recipe_detail.dart';
 import 'package:ta_recipe_app/entities/recipe_ingredient.dart';
 import 'package:ta_recipe_app/entities/user_detail.dart';
 import 'package:ta_recipe_app/ui/widgets/loading_indicator.dart';
+import 'package:ta_recipe_app/ui/widgets/save_recipe_button.dart';
 import 'package:ta_recipe_app/ui/widgets/small_user_profile_pic.dart';
+
+import '../../cubit/save_recipe_cubit.dart';
 
 class RecipeDetailPage extends StatelessWidget {
   const RecipeDetailPage({super.key});
@@ -25,7 +28,21 @@ class RecipeDetailPage extends StatelessWidget {
             RecipeDetail recipe = value.recipeDetail;
             return Scaffold(
               extendBodyBehindAppBar: true,
-              appBar: AppBar(backgroundColor: Colors.transparent),
+              appBar: AppBar(
+                backgroundColor: Colors.transparent,
+                actions: [
+                  BlocBuilder<SaveRecipeCubit, SaveRecipeState>(
+                    builder: (context, state) {
+                      return state.when(
+                          initial: (id, isSaved, _) {
+                            return SaveRecipeButton(
+                                recipe: recipe.copyWith(isSaved: isSaved));
+                          },
+                          loading: () => SaveRecipeButton(recipe: recipe));
+                    },
+                  )
+                ],
+              ),
               body: GestureDetector(
                 onTap: () {
                   FocusScope.of(context).unfocus();

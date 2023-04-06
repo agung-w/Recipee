@@ -4,6 +4,7 @@ import 'package:ta_recipe_app/bloc/recipe_detail_bloc.dart';
 import 'package:ta_recipe_app/bloc/user_authentication_bloc.dart';
 import 'package:ta_recipe_app/cubit/save_recipe_cubit.dart';
 import 'package:ta_recipe_app/entities/recipe.dart';
+import 'package:ta_recipe_app/ui/widgets/save_recipe_button.dart';
 import 'package:ta_recipe_app/ui/widgets/small_user_profile_pic.dart';
 
 class RecipeCardWithCreator extends StatelessWidget {
@@ -57,37 +58,8 @@ class RecipeCardWithCreator extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Align(
-                              alignment: Alignment.topRight,
-                              child: recipe.isSaved == true
-                                  ? IconButton(
-                                      padding: EdgeInsets.zero,
-                                      constraints: const BoxConstraints(),
-                                      icon: const Icon(Icons.bookmark),
-                                      onPressed: () {
-                                        context
-                                            .read<SaveRecipeCubit>()
-                                            .removeSavedRecipe(
-                                              id: recipe.id!,
-                                              context: context,
-                                              state: authState,
-                                            );
-                                      },
-                                    )
-                                  : IconButton(
-                                      padding: EdgeInsets.zero,
-                                      constraints: const BoxConstraints(),
-                                      icon: const Icon(Icons.bookmark_border),
-                                      onPressed: () {
-                                        context
-                                            .read<SaveRecipeCubit>()
-                                            .saveRecipe(
-                                              id: recipe.id!,
-                                              context: context,
-                                              state: authState,
-                                            );
-                                      },
-                                    ),
-                            ),
+                                alignment: Alignment.topRight,
+                                child: SaveRecipeButton(recipe: recipe)),
                             Align(
                                 alignment: Alignment.bottomLeft,
                                 child: Text(recipe.title))

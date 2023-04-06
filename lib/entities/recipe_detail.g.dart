@@ -34,6 +34,8 @@ abstract class _$RecipeDetailCWProxy {
 
   RecipeDetail recipeTagsAttributes(List<Tag>? recipeTagsAttributes);
 
+  RecipeDetail isSaved(bool? isSaved);
+
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `RecipeDetail(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
   /// Usage
@@ -54,6 +56,7 @@ abstract class _$RecipeDetailCWProxy {
     User? user,
     List<Tag>? tags,
     List<Tag>? recipeTagsAttributes,
+    bool? isSaved,
   });
 }
 
@@ -112,6 +115,9 @@ class _$RecipeDetailCWProxyImpl implements _$RecipeDetailCWProxy {
       this(recipeTagsAttributes: recipeTagsAttributes);
 
   @override
+  RecipeDetail isSaved(bool? isSaved) => this(isSaved: isSaved);
+
+  @override
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `RecipeDetail(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -133,6 +139,7 @@ class _$RecipeDetailCWProxyImpl implements _$RecipeDetailCWProxy {
     Object? user = const $CopyWithPlaceholder(),
     Object? tags = const $CopyWithPlaceholder(),
     Object? recipeTagsAttributes = const $CopyWithPlaceholder(),
+    Object? isSaved = const $CopyWithPlaceholder(),
   }) {
     return RecipeDetail(
       cookingSteps:
@@ -194,6 +201,10 @@ class _$RecipeDetailCWProxyImpl implements _$RecipeDetailCWProxy {
           ? _value.recipeTagsAttributes
           // ignore: cast_nullable_to_non_nullable
           : recipeTagsAttributes as List<Tag>?,
+      isSaved: isSaved == const $CopyWithPlaceholder()
+          ? _value.isSaved
+          // ignore: cast_nullable_to_non_nullable
+          : isSaved as bool?,
     );
   }
 }
@@ -227,7 +238,8 @@ RecipeDetail _$RecipeDetailFromJson(Map<String, dynamic> json) => RecipeDetail(
       tags: (json['tags'] as List<dynamic>?)
           ?.map((e) => Tag.fromJson(e as Map<String, dynamic>))
           .toList(),
-    )..isSaved = json['is_saved'] as bool?;
+      isSaved: json['is_saved'] as bool?,
+    );
 
 Map<String, dynamic> _$RecipeDetailToJson(RecipeDetail instance) =>
     <String, dynamic>{
