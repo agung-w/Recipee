@@ -1,30 +1,29 @@
-import 'dart:math';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ta_recipe_app/bloc/profile_page_bloc.dart';
+import 'package:ta_recipe_app/bloc/my_profile_page_bloc.dart';
 import 'package:ta_recipe_app/bloc/user_authentication_bloc.dart';
 import 'package:ta_recipe_app/cubit/save_recipe_cubit.dart';
 import 'package:ta_recipe_app/entities/recipe.dart';
 import 'package:ta_recipe_app/entities/user_detail.dart';
+import 'package:ta_recipe_app/helpers/api_result.dart';
 import 'package:ta_recipe_app/ui/pages/login_page.dart';
 import 'package:ta_recipe_app/ui/pages/register_page.dart';
 import 'package:ta_recipe_app/ui/widgets/draggable_sheet.dart';
 import 'package:ta_recipe_app/ui/widgets/loading_indicator.dart';
 import 'package:ta_recipe_app/ui/widgets/recipe_card_with_creator.dart';
 
-class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+class MyProfilePage extends StatefulWidget {
+  const MyProfilePage({super.key});
 
   @override
-  State<ProfilePage> createState() => _ProfilePageState();
+  State<MyProfilePage> createState() => _MyProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _MyProfilePageState extends State<MyProfilePage> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ProfilePageBloc, ProfilePageState>(
+    return BlocBuilder<MyProfilePageBloc, MyProfilePageState>(
       builder: (context, state) {
         return state.when(failed: (message) {
           return Scaffold(
@@ -78,8 +77,6 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
           ));
         }, loaded: (user, savedRecipeList, createdRecipeList) {
-          List<Recipe?> createdList = List.from(createdRecipeList);
-          List<Recipe?> savedList = List.from(savedRecipeList);
           TabBar tabBar = TabBar(
             isScrollable: true,
             padding: const EdgeInsets.only(left: 16),
@@ -103,7 +100,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     (BuildContext context, bool innerBoxIsScrolled) {
                   return [
                     SliverToBoxAdapter(
-                      child: _UserInfo(user: user),
+                      child: _UserInfo(user: user.user),
                     ),
                     SliverAppBar(
                       toolbarHeight: tabBar.preferredSize.height,
@@ -118,15 +115,20 @@ class _ProfilePageState extends State<ProfilePage> {
                   listener: (context, state) {
                     state.whenOrNull(
                       initial: (id, isSaved, _) {
-                        Recipe? recipe = createdList
+                        Recipe? recipe = (createdRecipeList as Success)
+                            .value
                             .firstWhere((element) => element!.id == id);
                         if (recipe != null) {
                           recipe.isSaved = isSaved;
                           if (isSaved == true) {
-                            savedList.add(recipe);
+                            (savedRecipeList as Success<List<Recipe?>>)
+                                .value
+                                .add(recipe);
                           } else {
-                            savedList.removeWhere(
-                                (element) => element!.id == recipe.id);
+                            (savedRecipeList as Success<List<Recipe?>>)
+                                .value
+                                .removeWhere(
+                                    (element) => element!.id == recipe.id);
                             setState(() {});
                           }
                         }
@@ -135,10 +137,19 @@ class _ProfilePageState extends State<ProfilePage> {
                   },
                   child: TabBarView(
                     children: [
-                      _RecipeList(
-                        list: createdList,
-                      ),
-                      _RecipeList(list: savedList),
+                      createdRecipeList.map(
+                          success: (value) => _RecipeList(
+                                list: value.value,
+                              ),
+                          failed: (_) =>
+                              const Text("cannot_load_created_recipe_list")
+                                  .tr()),
+                      savedRecipeList.map(
+                          success: (value) => _RecipeList(
+                                list: value.value,
+                              ),
+                          failed: (_) =>
+                              const Text("cannot_load_saved_recipe_list").tr()),
                     ],
                   ),
                 ),

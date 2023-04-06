@@ -58,13 +58,14 @@ class UserServices {
   }
 
   Future<ApiResult<List<Recipe?>>> getCreatedRecipeList(
-      {required String username}) async {
+      {required String username, String? token}) async {
     try {
       Response result = await _dio.get(
         "${dotenv.env['API_URL']}/created-recipe-by?username=$username",
         options: options ??
             Options(headers: {
               "Content-Type": "application/json",
+              "Authorization": "Bearer $token",
             }),
       );
       if (result.statusCode != 200) {
@@ -83,13 +84,14 @@ class UserServices {
   }
 
   Future<ApiResult<List<Recipe?>>> getSavedRecipeList(
-      {required String username}) async {
+      {required String username, String? token}) async {
     try {
       Response result = await _dio.get(
         "${dotenv.env['API_URL']}/saved-recipe-by?username=$username",
         options: options ??
             Options(headers: {
               "Content-Type": "application/json",
+              "Authorization": "Bearer $token",
             }),
       );
       if (result.statusCode != 200) {

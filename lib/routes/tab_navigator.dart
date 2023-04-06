@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ta_recipe_app/ui/pages/create_page.dart';
 import 'package:ta_recipe_app/ui/pages/explore_page.dart';
 import 'package:ta_recipe_app/ui/pages/home_page.dart';
-import 'package:ta_recipe_app/ui/pages/profile_page.dart';
+import 'package:ta_recipe_app/ui/pages/my_profile_page.dart';
 import 'package:ta_recipe_app/ui/pages/shopping_list_page.dart';
 import 'package:ta_recipe_app/routes/tab_item.dart';
 import 'package:ta_recipe_app/routes/tab_navigator_routes.dart';
@@ -27,7 +27,7 @@ class TabNavigator extends StatelessWidget {
         } else if (tabItem.index == 3) {
           return const ShoppingListPage();
         } else if (tabItem.index == 4) {
-          return const ProfilePage();
+          return const MyProfilePage();
         } else {
           return const HomePage();
         }

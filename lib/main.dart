@@ -1,10 +1,9 @@
-import 'dart:developer';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:ta_recipe_app/bloc/create_recipe_bloc.dart';
+import 'package:ta_recipe_app/bloc/my_profile_page_bloc.dart';
 import 'package:ta_recipe_app/bloc/profile_page_bloc.dart';
 import 'package:ta_recipe_app/bloc/recipe_detail_bloc.dart';
 import 'package:ta_recipe_app/bloc/user_authentication_bloc.dart';
@@ -40,6 +39,7 @@ class RecipeApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (_) => CreateRecipeBloc()),
         BlocProvider(create: (context) => ProfilePageBloc()),
+        BlocProvider(create: (context) => MyProfilePageBloc()),
         BlocProvider(create: (context) => MetricCubit()..getLists()),
         BlocProvider(create: (context) => SaveRecipeCubit()),
         BlocProvider(create: (context) => CommentCubit()),
@@ -60,8 +60,8 @@ class RecipeApp extends StatelessWidget {
                 BlocConsumer<UserAuthenticationBloc, UserAuthenticationState>(
           listener: (context, state) {
             context
-                .read<ProfilePageBloc>()
-                .add(ProfilePageEvent.started(authState: state));
+                .read<MyProfilePageBloc>()
+                .add(MyProfilePageEvent.started(authState: state));
           },
           builder: (context, state) {
             return const MainPage();

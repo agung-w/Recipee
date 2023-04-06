@@ -13,25 +13,19 @@ part 'profile_page_bloc.freezed.dart';
 class ProfilePageBloc extends Bloc<ProfilePageEvent, ProfilePageState> {
   ProfilePageBloc() : super(const _Loading()) {
     on<_Started>((event, emit) async {
-      if (event.authState is SignedIn) {
-        UserDetail user = (event.authState as SignedIn).user;
-        ApiResult<List<Recipe?>> savedRecipeList =
-            await UserServices().getSavedRecipeList(username: user.username);
-        ApiResult<List<Recipe?>> createdRecipeList =
-            await UserServices().getCreatedRecipeList(username: user.username);
-        if (savedRecipeList is Success && createdRecipeList is Success) {
-          emit(_Loaded(
-              user: user,
-              savedRecipeList:
-                  (savedRecipeList as Success<List<Recipe?>>).value,
-              createdRecipeList:
-                  (createdRecipeList as Success<List<Recipe?>>).value));
-        }
-      } else if (event.authState is Loading) {
-        emit(const _Loading());
-      } else {
-        emit(_Failed(message: event.authState.toString()));
-      }
+      UserDetail user = (event.authState as SignedIn).user;
+      ApiResult<List<Recipe?>> savedRecipeList =
+          await UserServices().getSavedRecipeList(username: user.username);
+      ApiResult<List<Recipe?>> createdRecipeList =
+          await UserServices().getCreatedRecipeList(username: user.username);
+      if (savedRecipeList is Success && createdRecipeList is Success) {
+        emit(_Loaded(
+            user: user,
+            savedRecipeList: (savedRecipeList as Success<List<Recipe?>>).value,
+            createdRecipeList:
+                (createdRecipeList as Success<List<Recipe?>>).value));
+      } else
+        (emit(_Loaded(user: user, savedRecipeList: [], createdRecipeList: [])));
     });
   }
 }
