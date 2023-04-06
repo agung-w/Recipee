@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:ta_recipe_app/bloc/user_authentication_bloc.dart';
 import 'package:ta_recipe_app/entities/recipe.dart';
 import 'package:ta_recipe_app/entities/user_detail.dart';
 import 'package:ta_recipe_app/helpers/api_result.dart';
@@ -12,20 +11,24 @@ part 'profile_page_bloc.freezed.dart';
 
 class ProfilePageBloc extends Bloc<ProfilePageEvent, ProfilePageState> {
   ProfilePageBloc() : super(const _Loading()) {
-    on<_Started>((event, emit) async {
-      UserDetail user = (event.authState as SignedIn).user;
+    on<_GetProfileData>((event, emit) async {
+      ApiResult<UserDetail> user = await UserServices()
+          .getUserDetailByUsername(username: event.username);
       ApiResult<List<Recipe?>> savedRecipeList =
-          await UserServices().getSavedRecipeList(username: user.username);
+          await UserServices().getSavedRecipeList(username: event.username);
       ApiResult<List<Recipe?>> createdRecipeList =
-          await UserServices().getCreatedRecipeList(username: user.username);
-      if (savedRecipeList is Success && createdRecipeList is Success) {
-        emit(_Loaded(
-            user: user,
-            savedRecipeList: (savedRecipeList as Success<List<Recipe?>>).value,
-            createdRecipeList:
-                (createdRecipeList as Success<List<Recipe?>>).value));
-      } else
-        (emit(_Loaded(user: user, savedRecipeList: [], createdRecipeList: [])));
+          await UserServices().getCreatedRecipeList(username: event.username);
+      user.map(
+        success: (value) {
+          emit(_Loaded(
+              user: value.value,
+              savedListResult: savedRecipeList,
+              createdListResult: createdRecipeList));
+        },
+        failed: (value) {
+          emit(_Failed(message: value.message));
+        },
+      );
     });
   }
 }

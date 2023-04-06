@@ -16,36 +16,36 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$ProfilePageEvent {
-  UserAuthenticationState get authState => throw _privateConstructorUsedError;
+  String get username => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(UserAuthenticationState authState) started,
+    required TResult Function(String username) getProfileData,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(UserAuthenticationState authState)? started,
+    TResult? Function(String username)? getProfileData,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(UserAuthenticationState authState)? started,
+    TResult Function(String username)? getProfileData,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Started value) started,
+    required TResult Function(_GetProfileData value) getProfileData,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Started value)? started,
+    TResult? Function(_GetProfileData value)? getProfileData,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Started value)? started,
+    TResult Function(_GetProfileData value)? getProfileData,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -61,9 +61,7 @@ abstract class $ProfilePageEventCopyWith<$Res> {
           ProfilePageEvent value, $Res Function(ProfilePageEvent) then) =
       _$ProfilePageEventCopyWithImpl<$Res, ProfilePageEvent>;
   @useResult
-  $Res call({UserAuthenticationState authState});
-
-  $UserAuthenticationStateCopyWith<$Res> get authState;
+  $Res call({String username});
 }
 
 /// @nodoc
@@ -79,115 +77,105 @@ class _$ProfilePageEventCopyWithImpl<$Res, $Val extends ProfilePageEvent>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? authState = null,
+    Object? username = null,
   }) {
     return _then(_value.copyWith(
-      authState: null == authState
-          ? _value.authState
-          : authState // ignore: cast_nullable_to_non_nullable
-              as UserAuthenticationState,
+      username: null == username
+          ? _value.username
+          : username // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $UserAuthenticationStateCopyWith<$Res> get authState {
-    return $UserAuthenticationStateCopyWith<$Res>(_value.authState, (value) {
-      return _then(_value.copyWith(authState: value) as $Val);
-    });
-  }
 }
 
 /// @nodoc
-abstract class _$$_StartedCopyWith<$Res>
+abstract class _$$_GetProfileDataCopyWith<$Res>
     implements $ProfilePageEventCopyWith<$Res> {
-  factory _$$_StartedCopyWith(
-          _$_Started value, $Res Function(_$_Started) then) =
-      __$$_StartedCopyWithImpl<$Res>;
+  factory _$$_GetProfileDataCopyWith(
+          _$_GetProfileData value, $Res Function(_$_GetProfileData) then) =
+      __$$_GetProfileDataCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({UserAuthenticationState authState});
-
-  @override
-  $UserAuthenticationStateCopyWith<$Res> get authState;
+  $Res call({String username});
 }
 
 /// @nodoc
-class __$$_StartedCopyWithImpl<$Res>
-    extends _$ProfilePageEventCopyWithImpl<$Res, _$_Started>
-    implements _$$_StartedCopyWith<$Res> {
-  __$$_StartedCopyWithImpl(_$_Started _value, $Res Function(_$_Started) _then)
+class __$$_GetProfileDataCopyWithImpl<$Res>
+    extends _$ProfilePageEventCopyWithImpl<$Res, _$_GetProfileData>
+    implements _$$_GetProfileDataCopyWith<$Res> {
+  __$$_GetProfileDataCopyWithImpl(
+      _$_GetProfileData _value, $Res Function(_$_GetProfileData) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? authState = null,
+    Object? username = null,
   }) {
-    return _then(_$_Started(
-      authState: null == authState
-          ? _value.authState
-          : authState // ignore: cast_nullable_to_non_nullable
-              as UserAuthenticationState,
+    return _then(_$_GetProfileData(
+      username: null == username
+          ? _value.username
+          : username // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
 
 /// @nodoc
 
-class _$_Started implements _Started {
-  const _$_Started({required this.authState});
+class _$_GetProfileData implements _GetProfileData {
+  const _$_GetProfileData({required this.username});
 
   @override
-  final UserAuthenticationState authState;
+  final String username;
 
   @override
   String toString() {
-    return 'ProfilePageEvent.started(authState: $authState)';
+    return 'ProfilePageEvent.getProfileData(username: $username)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Started &&
-            (identical(other.authState, authState) ||
-                other.authState == authState));
+            other is _$_GetProfileData &&
+            (identical(other.username, username) ||
+                other.username == username));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, authState);
+  int get hashCode => Object.hash(runtimeType, username);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_StartedCopyWith<_$_Started> get copyWith =>
-      __$$_StartedCopyWithImpl<_$_Started>(this, _$identity);
+  _$$_GetProfileDataCopyWith<_$_GetProfileData> get copyWith =>
+      __$$_GetProfileDataCopyWithImpl<_$_GetProfileData>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(UserAuthenticationState authState) started,
+    required TResult Function(String username) getProfileData,
   }) {
-    return started(authState);
+    return getProfileData(username);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(UserAuthenticationState authState)? started,
+    TResult? Function(String username)? getProfileData,
   }) {
-    return started?.call(authState);
+    return getProfileData?.call(username);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(UserAuthenticationState authState)? started,
+    TResult Function(String username)? getProfileData,
     required TResult orElse(),
   }) {
-    if (started != null) {
-      return started(authState);
+    if (getProfileData != null) {
+      return getProfileData(username);
     }
     return orElse();
   }
@@ -195,41 +183,41 @@ class _$_Started implements _Started {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Started value) started,
+    required TResult Function(_GetProfileData value) getProfileData,
   }) {
-    return started(this);
+    return getProfileData(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Started value)? started,
+    TResult? Function(_GetProfileData value)? getProfileData,
   }) {
-    return started?.call(this);
+    return getProfileData?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Started value)? started,
+    TResult Function(_GetProfileData value)? getProfileData,
     required TResult orElse(),
   }) {
-    if (started != null) {
-      return started(this);
+    if (getProfileData != null) {
+      return getProfileData(this);
     }
     return orElse();
   }
 }
 
-abstract class _Started implements ProfilePageEvent {
-  const factory _Started({required final UserAuthenticationState authState}) =
-      _$_Started;
+abstract class _GetProfileData implements ProfilePageEvent {
+  const factory _GetProfileData({required final String username}) =
+      _$_GetProfileData;
 
   @override
-  UserAuthenticationState get authState;
+  String get username;
   @override
   @JsonKey(ignore: true)
-  _$$_StartedCopyWith<_$_Started> get copyWith =>
+  _$$_GetProfileDataCopyWith<_$_GetProfileData> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -238,8 +226,10 @@ mixin _$ProfilePageState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(UserDetail user, List<Recipe?> savedRecipeList,
-            List<Recipe?> createdRecipeList)
+    required TResult Function(
+            UserDetail user,
+            ApiResult<List<Recipe?>> savedListResult,
+            ApiResult<List<Recipe?>> createdListResult)
         loaded,
     required TResult Function(String message) failed,
   }) =>
@@ -247,8 +237,8 @@ mixin _$ProfilePageState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(UserDetail user, List<Recipe?> savedRecipeList,
-            List<Recipe?> createdRecipeList)?
+    TResult? Function(UserDetail user, ApiResult<List<Recipe?>> savedListResult,
+            ApiResult<List<Recipe?>> createdListResult)?
         loaded,
     TResult? Function(String message)? failed,
   }) =>
@@ -256,8 +246,8 @@ mixin _$ProfilePageState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(UserDetail user, List<Recipe?> savedRecipeList,
-            List<Recipe?> createdRecipeList)?
+    TResult Function(UserDetail user, ApiResult<List<Recipe?>> savedListResult,
+            ApiResult<List<Recipe?>> createdListResult)?
         loaded,
     TResult Function(String message)? failed,
     required TResult orElse(),
@@ -343,8 +333,10 @@ class _$_Loading implements _Loading {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(UserDetail user, List<Recipe?> savedRecipeList,
-            List<Recipe?> createdRecipeList)
+    required TResult Function(
+            UserDetail user,
+            ApiResult<List<Recipe?>> savedListResult,
+            ApiResult<List<Recipe?>> createdListResult)
         loaded,
     required TResult Function(String message) failed,
   }) {
@@ -355,8 +347,8 @@ class _$_Loading implements _Loading {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(UserDetail user, List<Recipe?> savedRecipeList,
-            List<Recipe?> createdRecipeList)?
+    TResult? Function(UserDetail user, ApiResult<List<Recipe?>> savedListResult,
+            ApiResult<List<Recipe?>> createdListResult)?
         loaded,
     TResult? Function(String message)? failed,
   }) {
@@ -367,8 +359,8 @@ class _$_Loading implements _Loading {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(UserDetail user, List<Recipe?> savedRecipeList,
-            List<Recipe?> createdRecipeList)?
+    TResult Function(UserDetail user, ApiResult<List<Recipe?>> savedListResult,
+            ApiResult<List<Recipe?>> createdListResult)?
         loaded,
     TResult Function(String message)? failed,
     required TResult orElse(),
@@ -425,8 +417,11 @@ abstract class _$$_LoadedCopyWith<$Res> {
   @useResult
   $Res call(
       {UserDetail user,
-      List<Recipe?> savedRecipeList,
-      List<Recipe?> createdRecipeList});
+      ApiResult<List<Recipe?>> savedListResult,
+      ApiResult<List<Recipe?>> createdListResult});
+
+  $ApiResultCopyWith<List<Recipe?>, $Res> get savedListResult;
+  $ApiResultCopyWith<List<Recipe?>, $Res> get createdListResult;
 }
 
 /// @nodoc
@@ -440,23 +435,41 @@ class __$$_LoadedCopyWithImpl<$Res>
   @override
   $Res call({
     Object? user = null,
-    Object? savedRecipeList = null,
-    Object? createdRecipeList = null,
+    Object? savedListResult = null,
+    Object? createdListResult = null,
   }) {
     return _then(_$_Loaded(
       user: null == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as UserDetail,
-      savedRecipeList: null == savedRecipeList
-          ? _value._savedRecipeList
-          : savedRecipeList // ignore: cast_nullable_to_non_nullable
-              as List<Recipe?>,
-      createdRecipeList: null == createdRecipeList
-          ? _value._createdRecipeList
-          : createdRecipeList // ignore: cast_nullable_to_non_nullable
-              as List<Recipe?>,
+      savedListResult: null == savedListResult
+          ? _value.savedListResult
+          : savedListResult // ignore: cast_nullable_to_non_nullable
+              as ApiResult<List<Recipe?>>,
+      createdListResult: null == createdListResult
+          ? _value.createdListResult
+          : createdListResult // ignore: cast_nullable_to_non_nullable
+              as ApiResult<List<Recipe?>>,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ApiResultCopyWith<List<Recipe?>, $Res> get savedListResult {
+    return $ApiResultCopyWith<List<Recipe?>, $Res>(_value.savedListResult,
+        (value) {
+      return _then(_value.copyWith(savedListResult: value));
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ApiResultCopyWith<List<Recipe?>, $Res> get createdListResult {
+    return $ApiResultCopyWith<List<Recipe?>, $Res>(_value.createdListResult,
+        (value) {
+      return _then(_value.copyWith(createdListResult: value));
+    });
   }
 }
 
@@ -465,33 +478,19 @@ class __$$_LoadedCopyWithImpl<$Res>
 class _$_Loaded implements _Loaded {
   const _$_Loaded(
       {required this.user,
-      required final List<Recipe?> savedRecipeList,
-      required final List<Recipe?> createdRecipeList})
-      : _savedRecipeList = savedRecipeList,
-        _createdRecipeList = createdRecipeList;
+      required this.savedListResult,
+      required this.createdListResult});
 
   @override
   final UserDetail user;
-  final List<Recipe?> _savedRecipeList;
   @override
-  List<Recipe?> get savedRecipeList {
-    if (_savedRecipeList is EqualUnmodifiableListView) return _savedRecipeList;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_savedRecipeList);
-  }
-
-  final List<Recipe?> _createdRecipeList;
+  final ApiResult<List<Recipe?>> savedListResult;
   @override
-  List<Recipe?> get createdRecipeList {
-    if (_createdRecipeList is EqualUnmodifiableListView)
-      return _createdRecipeList;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_createdRecipeList);
-  }
+  final ApiResult<List<Recipe?>> createdListResult;
 
   @override
   String toString() {
-    return 'ProfilePageState.loaded(user: $user, savedRecipeList: $savedRecipeList, createdRecipeList: $createdRecipeList)';
+    return 'ProfilePageState.loaded(user: $user, savedListResult: $savedListResult, createdListResult: $createdListResult)';
   }
 
   @override
@@ -500,18 +499,15 @@ class _$_Loaded implements _Loaded {
         (other.runtimeType == runtimeType &&
             other is _$_Loaded &&
             (identical(other.user, user) || other.user == user) &&
-            const DeepCollectionEquality()
-                .equals(other._savedRecipeList, _savedRecipeList) &&
-            const DeepCollectionEquality()
-                .equals(other._createdRecipeList, _createdRecipeList));
+            (identical(other.savedListResult, savedListResult) ||
+                other.savedListResult == savedListResult) &&
+            (identical(other.createdListResult, createdListResult) ||
+                other.createdListResult == createdListResult));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      user,
-      const DeepCollectionEquality().hash(_savedRecipeList),
-      const DeepCollectionEquality().hash(_createdRecipeList));
+  int get hashCode =>
+      Object.hash(runtimeType, user, savedListResult, createdListResult);
 
   @JsonKey(ignore: true)
   @override
@@ -523,38 +519,40 @@ class _$_Loaded implements _Loaded {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(UserDetail user, List<Recipe?> savedRecipeList,
-            List<Recipe?> createdRecipeList)
+    required TResult Function(
+            UserDetail user,
+            ApiResult<List<Recipe?>> savedListResult,
+            ApiResult<List<Recipe?>> createdListResult)
         loaded,
     required TResult Function(String message) failed,
   }) {
-    return loaded(user, savedRecipeList, createdRecipeList);
+    return loaded(user, savedListResult, createdListResult);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(UserDetail user, List<Recipe?> savedRecipeList,
-            List<Recipe?> createdRecipeList)?
+    TResult? Function(UserDetail user, ApiResult<List<Recipe?>> savedListResult,
+            ApiResult<List<Recipe?>> createdListResult)?
         loaded,
     TResult? Function(String message)? failed,
   }) {
-    return loaded?.call(user, savedRecipeList, createdRecipeList);
+    return loaded?.call(user, savedListResult, createdListResult);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(UserDetail user, List<Recipe?> savedRecipeList,
-            List<Recipe?> createdRecipeList)?
+    TResult Function(UserDetail user, ApiResult<List<Recipe?>> savedListResult,
+            ApiResult<List<Recipe?>> createdListResult)?
         loaded,
     TResult Function(String message)? failed,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(user, savedRecipeList, createdRecipeList);
+      return loaded(user, savedListResult, createdListResult);
     }
     return orElse();
   }
@@ -597,12 +595,12 @@ class _$_Loaded implements _Loaded {
 abstract class _Loaded implements ProfilePageState {
   const factory _Loaded(
       {required final UserDetail user,
-      required final List<Recipe?> savedRecipeList,
-      required final List<Recipe?> createdRecipeList}) = _$_Loaded;
+      required final ApiResult<List<Recipe?>> savedListResult,
+      required final ApiResult<List<Recipe?>> createdListResult}) = _$_Loaded;
 
   UserDetail get user;
-  List<Recipe?> get savedRecipeList;
-  List<Recipe?> get createdRecipeList;
+  ApiResult<List<Recipe?>> get savedListResult;
+  ApiResult<List<Recipe?>> get createdListResult;
   @JsonKey(ignore: true)
   _$$_LoadedCopyWith<_$_Loaded> get copyWith =>
       throw _privateConstructorUsedError;
@@ -671,8 +669,10 @@ class _$_Failed implements _Failed {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(UserDetail user, List<Recipe?> savedRecipeList,
-            List<Recipe?> createdRecipeList)
+    required TResult Function(
+            UserDetail user,
+            ApiResult<List<Recipe?>> savedListResult,
+            ApiResult<List<Recipe?>> createdListResult)
         loaded,
     required TResult Function(String message) failed,
   }) {
@@ -683,8 +683,8 @@ class _$_Failed implements _Failed {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(UserDetail user, List<Recipe?> savedRecipeList,
-            List<Recipe?> createdRecipeList)?
+    TResult? Function(UserDetail user, ApiResult<List<Recipe?>> savedListResult,
+            ApiResult<List<Recipe?>> createdListResult)?
         loaded,
     TResult? Function(String message)? failed,
   }) {
@@ -695,8 +695,8 @@ class _$_Failed implements _Failed {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(UserDetail user, List<Recipe?> savedRecipeList,
-            List<Recipe?> createdRecipeList)?
+    TResult Function(UserDetail user, ApiResult<List<Recipe?>> savedListResult,
+            ApiResult<List<Recipe?>> createdListResult)?
         loaded,
     TResult Function(String message)? failed,
     required TResult orElse(),

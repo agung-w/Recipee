@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ta_recipe_app/bloc/profile_page_bloc.dart';
 import 'package:ta_recipe_app/bloc/recipe_detail_bloc.dart';
 import 'package:ta_recipe_app/bloc/user_authentication_bloc.dart';
 import 'package:ta_recipe_app/cubit/save_recipe_cubit.dart';
 import 'package:ta_recipe_app/entities/recipe.dart';
+import 'package:ta_recipe_app/ui/pages/profile_page.dart';
 import 'package:ta_recipe_app/ui/widgets/save_recipe_button.dart';
 import 'package:ta_recipe_app/ui/widgets/small_user_profile_pic.dart';
 
@@ -74,7 +76,12 @@ class RecipeCardWithCreator extends StatelessWidget {
           ),
         ),
         InkWell(
-          onTap: () {},
+          onTap: () {
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (_) => const ProfilePage()));
+            context.read<ProfilePageBloc>().add(ProfilePageEvent.getProfileData(
+                username: recipe.user.username));
+          },
           child: Padding(
             padding: const EdgeInsets.fromLTRB(2, 4, 8, 0),
             child: Row(

@@ -15,17 +15,23 @@ class MyProfilePageBloc extends Bloc<MyProfilePageEvent, MyProfilePageState> {
       if (event.authState is SignedIn) {
         SignedIn signedInUser = (event.authState as SignedIn);
         ApiResult<List<Recipe?>> savedRecipeList = await UserServices()
-            .getSavedRecipeList(
-                username: signedInUser.user.username,
-                token: signedInUser.token);
+            .getSavedRecipeList(username: signedInUser.user.username);
         ApiResult<List<Recipe?>> createdRecipeList = await UserServices()
-            .getCreatedRecipeList(
-                username: signedInUser.user.username,
-                token: signedInUser.token);
+            .getCreatedRecipeList(username: signedInUser.user.username);
+        ApiResult<List<Recipe?>> draftRecipeList =
+            await UserServices().getDraftRecipeList(token: signedInUser.token);
+        ApiResult<List<Recipe?>> rejectedRecipeList = await UserServices()
+            .getRejectedRecipeList(token: signedInUser.token);
+        ApiResult<List<Recipe?>> pendingRecipeList = await UserServices()
+            .getPendingRecipeList(token: signedInUser.token);
+
         emit(_Loaded(
             authState: signedInUser,
             savedListResult: savedRecipeList,
-            cretedListResult: createdRecipeList));
+            createdListResult: createdRecipeList,
+            draftListResult: draftRecipeList,
+            rejectedListResult: rejectedRecipeList,
+            pendingListResult: pendingRecipeList));
       } else if (event.authState is Loading) {
         emit(const _Loading());
       } else {

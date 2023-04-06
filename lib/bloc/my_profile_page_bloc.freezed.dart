@@ -241,7 +241,10 @@ mixin _$MyProfilePageState {
     required TResult Function(
             SignedIn authState,
             ApiResult<List<Recipe?>> savedListResult,
-            ApiResult<List<Recipe?>> cretedListResult)
+            ApiResult<List<Recipe?>> createdListResult,
+            ApiResult<List<Recipe?>> draftListResult,
+            ApiResult<List<Recipe?>> rejectedListResult,
+            ApiResult<List<Recipe?>> pendingListResult)
         loaded,
     required TResult Function(String message) failed,
   }) =>
@@ -252,7 +255,10 @@ mixin _$MyProfilePageState {
     TResult? Function(
             SignedIn authState,
             ApiResult<List<Recipe?>> savedListResult,
-            ApiResult<List<Recipe?>> cretedListResult)?
+            ApiResult<List<Recipe?>> createdListResult,
+            ApiResult<List<Recipe?>> draftListResult,
+            ApiResult<List<Recipe?>> rejectedListResult,
+            ApiResult<List<Recipe?>> pendingListResult)?
         loaded,
     TResult? Function(String message)? failed,
   }) =>
@@ -263,7 +269,10 @@ mixin _$MyProfilePageState {
     TResult Function(
             SignedIn authState,
             ApiResult<List<Recipe?>> savedListResult,
-            ApiResult<List<Recipe?>> cretedListResult)?
+            ApiResult<List<Recipe?>> createdListResult,
+            ApiResult<List<Recipe?>> draftListResult,
+            ApiResult<List<Recipe?>> rejectedListResult,
+            ApiResult<List<Recipe?>> pendingListResult)?
         loaded,
     TResult Function(String message)? failed,
     required TResult orElse(),
@@ -352,7 +361,10 @@ class _$_Loading implements _Loading {
     required TResult Function(
             SignedIn authState,
             ApiResult<List<Recipe?>> savedListResult,
-            ApiResult<List<Recipe?>> cretedListResult)
+            ApiResult<List<Recipe?>> createdListResult,
+            ApiResult<List<Recipe?>> draftListResult,
+            ApiResult<List<Recipe?>> rejectedListResult,
+            ApiResult<List<Recipe?>> pendingListResult)
         loaded,
     required TResult Function(String message) failed,
   }) {
@@ -366,7 +378,10 @@ class _$_Loading implements _Loading {
     TResult? Function(
             SignedIn authState,
             ApiResult<List<Recipe?>> savedListResult,
-            ApiResult<List<Recipe?>> cretedListResult)?
+            ApiResult<List<Recipe?>> createdListResult,
+            ApiResult<List<Recipe?>> draftListResult,
+            ApiResult<List<Recipe?>> rejectedListResult,
+            ApiResult<List<Recipe?>> pendingListResult)?
         loaded,
     TResult? Function(String message)? failed,
   }) {
@@ -380,7 +395,10 @@ class _$_Loading implements _Loading {
     TResult Function(
             SignedIn authState,
             ApiResult<List<Recipe?>> savedListResult,
-            ApiResult<List<Recipe?>> cretedListResult)?
+            ApiResult<List<Recipe?>> createdListResult,
+            ApiResult<List<Recipe?>> draftListResult,
+            ApiResult<List<Recipe?>> rejectedListResult,
+            ApiResult<List<Recipe?>> pendingListResult)?
         loaded,
     TResult Function(String message)? failed,
     required TResult orElse(),
@@ -438,10 +456,16 @@ abstract class _$$_LoadedCopyWith<$Res> {
   $Res call(
       {SignedIn authState,
       ApiResult<List<Recipe?>> savedListResult,
-      ApiResult<List<Recipe?>> cretedListResult});
+      ApiResult<List<Recipe?>> createdListResult,
+      ApiResult<List<Recipe?>> draftListResult,
+      ApiResult<List<Recipe?>> rejectedListResult,
+      ApiResult<List<Recipe?>> pendingListResult});
 
   $ApiResultCopyWith<List<Recipe?>, $Res> get savedListResult;
-  $ApiResultCopyWith<List<Recipe?>, $Res> get cretedListResult;
+  $ApiResultCopyWith<List<Recipe?>, $Res> get createdListResult;
+  $ApiResultCopyWith<List<Recipe?>, $Res> get draftListResult;
+  $ApiResultCopyWith<List<Recipe?>, $Res> get rejectedListResult;
+  $ApiResultCopyWith<List<Recipe?>, $Res> get pendingListResult;
 }
 
 /// @nodoc
@@ -456,7 +480,10 @@ class __$$_LoadedCopyWithImpl<$Res>
   $Res call({
     Object? authState = null,
     Object? savedListResult = null,
-    Object? cretedListResult = null,
+    Object? createdListResult = null,
+    Object? draftListResult = null,
+    Object? rejectedListResult = null,
+    Object? pendingListResult = null,
   }) {
     return _then(_$_Loaded(
       authState: null == authState
@@ -467,9 +494,21 @@ class __$$_LoadedCopyWithImpl<$Res>
           ? _value.savedListResult
           : savedListResult // ignore: cast_nullable_to_non_nullable
               as ApiResult<List<Recipe?>>,
-      cretedListResult: null == cretedListResult
-          ? _value.cretedListResult
-          : cretedListResult // ignore: cast_nullable_to_non_nullable
+      createdListResult: null == createdListResult
+          ? _value.createdListResult
+          : createdListResult // ignore: cast_nullable_to_non_nullable
+              as ApiResult<List<Recipe?>>,
+      draftListResult: null == draftListResult
+          ? _value.draftListResult
+          : draftListResult // ignore: cast_nullable_to_non_nullable
+              as ApiResult<List<Recipe?>>,
+      rejectedListResult: null == rejectedListResult
+          ? _value.rejectedListResult
+          : rejectedListResult // ignore: cast_nullable_to_non_nullable
+              as ApiResult<List<Recipe?>>,
+      pendingListResult: null == pendingListResult
+          ? _value.pendingListResult
+          : pendingListResult // ignore: cast_nullable_to_non_nullable
               as ApiResult<List<Recipe?>>,
     ));
   }
@@ -485,10 +524,37 @@ class __$$_LoadedCopyWithImpl<$Res>
 
   @override
   @pragma('vm:prefer-inline')
-  $ApiResultCopyWith<List<Recipe?>, $Res> get cretedListResult {
-    return $ApiResultCopyWith<List<Recipe?>, $Res>(_value.cretedListResult,
+  $ApiResultCopyWith<List<Recipe?>, $Res> get createdListResult {
+    return $ApiResultCopyWith<List<Recipe?>, $Res>(_value.createdListResult,
         (value) {
-      return _then(_value.copyWith(cretedListResult: value));
+      return _then(_value.copyWith(createdListResult: value));
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ApiResultCopyWith<List<Recipe?>, $Res> get draftListResult {
+    return $ApiResultCopyWith<List<Recipe?>, $Res>(_value.draftListResult,
+        (value) {
+      return _then(_value.copyWith(draftListResult: value));
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ApiResultCopyWith<List<Recipe?>, $Res> get rejectedListResult {
+    return $ApiResultCopyWith<List<Recipe?>, $Res>(_value.rejectedListResult,
+        (value) {
+      return _then(_value.copyWith(rejectedListResult: value));
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ApiResultCopyWith<List<Recipe?>, $Res> get pendingListResult {
+    return $ApiResultCopyWith<List<Recipe?>, $Res>(_value.pendingListResult,
+        (value) {
+      return _then(_value.copyWith(pendingListResult: value));
     });
   }
 }
@@ -499,18 +565,27 @@ class _$_Loaded implements _Loaded {
   const _$_Loaded(
       {required this.authState,
       required this.savedListResult,
-      required this.cretedListResult});
+      required this.createdListResult,
+      required this.draftListResult,
+      required this.rejectedListResult,
+      required this.pendingListResult});
 
   @override
   final SignedIn authState;
   @override
   final ApiResult<List<Recipe?>> savedListResult;
   @override
-  final ApiResult<List<Recipe?>> cretedListResult;
+  final ApiResult<List<Recipe?>> createdListResult;
+  @override
+  final ApiResult<List<Recipe?>> draftListResult;
+  @override
+  final ApiResult<List<Recipe?>> rejectedListResult;
+  @override
+  final ApiResult<List<Recipe?>> pendingListResult;
 
   @override
   String toString() {
-    return 'MyProfilePageState.loaded(authState: $authState, savedListResult: $savedListResult, cretedListResult: $cretedListResult)';
+    return 'MyProfilePageState.loaded(authState: $authState, savedListResult: $savedListResult, createdListResult: $createdListResult, draftListResult: $draftListResult, rejectedListResult: $rejectedListResult, pendingListResult: $pendingListResult)';
   }
 
   @override
@@ -522,13 +597,25 @@ class _$_Loaded implements _Loaded {
                 other.authState == authState) &&
             (identical(other.savedListResult, savedListResult) ||
                 other.savedListResult == savedListResult) &&
-            (identical(other.cretedListResult, cretedListResult) ||
-                other.cretedListResult == cretedListResult));
+            (identical(other.createdListResult, createdListResult) ||
+                other.createdListResult == createdListResult) &&
+            (identical(other.draftListResult, draftListResult) ||
+                other.draftListResult == draftListResult) &&
+            (identical(other.rejectedListResult, rejectedListResult) ||
+                other.rejectedListResult == rejectedListResult) &&
+            (identical(other.pendingListResult, pendingListResult) ||
+                other.pendingListResult == pendingListResult));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, authState, savedListResult, cretedListResult);
+  int get hashCode => Object.hash(
+      runtimeType,
+      authState,
+      savedListResult,
+      createdListResult,
+      draftListResult,
+      rejectedListResult,
+      pendingListResult);
 
   @JsonKey(ignore: true)
   @override
@@ -543,11 +630,15 @@ class _$_Loaded implements _Loaded {
     required TResult Function(
             SignedIn authState,
             ApiResult<List<Recipe?>> savedListResult,
-            ApiResult<List<Recipe?>> cretedListResult)
+            ApiResult<List<Recipe?>> createdListResult,
+            ApiResult<List<Recipe?>> draftListResult,
+            ApiResult<List<Recipe?>> rejectedListResult,
+            ApiResult<List<Recipe?>> pendingListResult)
         loaded,
     required TResult Function(String message) failed,
   }) {
-    return loaded(authState, savedListResult, cretedListResult);
+    return loaded(authState, savedListResult, createdListResult,
+        draftListResult, rejectedListResult, pendingListResult);
   }
 
   @override
@@ -557,11 +648,15 @@ class _$_Loaded implements _Loaded {
     TResult? Function(
             SignedIn authState,
             ApiResult<List<Recipe?>> savedListResult,
-            ApiResult<List<Recipe?>> cretedListResult)?
+            ApiResult<List<Recipe?>> createdListResult,
+            ApiResult<List<Recipe?>> draftListResult,
+            ApiResult<List<Recipe?>> rejectedListResult,
+            ApiResult<List<Recipe?>> pendingListResult)?
         loaded,
     TResult? Function(String message)? failed,
   }) {
-    return loaded?.call(authState, savedListResult, cretedListResult);
+    return loaded?.call(authState, savedListResult, createdListResult,
+        draftListResult, rejectedListResult, pendingListResult);
   }
 
   @override
@@ -571,13 +666,17 @@ class _$_Loaded implements _Loaded {
     TResult Function(
             SignedIn authState,
             ApiResult<List<Recipe?>> savedListResult,
-            ApiResult<List<Recipe?>> cretedListResult)?
+            ApiResult<List<Recipe?>> createdListResult,
+            ApiResult<List<Recipe?>> draftListResult,
+            ApiResult<List<Recipe?>> rejectedListResult,
+            ApiResult<List<Recipe?>> pendingListResult)?
         loaded,
     TResult Function(String message)? failed,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(authState, savedListResult, cretedListResult);
+      return loaded(authState, savedListResult, createdListResult,
+          draftListResult, rejectedListResult, pendingListResult);
     }
     return orElse();
   }
@@ -621,11 +720,17 @@ abstract class _Loaded implements MyProfilePageState {
   const factory _Loaded(
       {required final SignedIn authState,
       required final ApiResult<List<Recipe?>> savedListResult,
-      required final ApiResult<List<Recipe?>> cretedListResult}) = _$_Loaded;
+      required final ApiResult<List<Recipe?>> createdListResult,
+      required final ApiResult<List<Recipe?>> draftListResult,
+      required final ApiResult<List<Recipe?>> rejectedListResult,
+      required final ApiResult<List<Recipe?>> pendingListResult}) = _$_Loaded;
 
   SignedIn get authState;
   ApiResult<List<Recipe?>> get savedListResult;
-  ApiResult<List<Recipe?>> get cretedListResult;
+  ApiResult<List<Recipe?>> get createdListResult;
+  ApiResult<List<Recipe?>> get draftListResult;
+  ApiResult<List<Recipe?>> get rejectedListResult;
+  ApiResult<List<Recipe?>> get pendingListResult;
   @JsonKey(ignore: true)
   _$$_LoadedCopyWith<_$_Loaded> get copyWith =>
       throw _privateConstructorUsedError;
@@ -697,7 +802,10 @@ class _$_Failed implements _Failed {
     required TResult Function(
             SignedIn authState,
             ApiResult<List<Recipe?>> savedListResult,
-            ApiResult<List<Recipe?>> cretedListResult)
+            ApiResult<List<Recipe?>> createdListResult,
+            ApiResult<List<Recipe?>> draftListResult,
+            ApiResult<List<Recipe?>> rejectedListResult,
+            ApiResult<List<Recipe?>> pendingListResult)
         loaded,
     required TResult Function(String message) failed,
   }) {
@@ -711,7 +819,10 @@ class _$_Failed implements _Failed {
     TResult? Function(
             SignedIn authState,
             ApiResult<List<Recipe?>> savedListResult,
-            ApiResult<List<Recipe?>> cretedListResult)?
+            ApiResult<List<Recipe?>> createdListResult,
+            ApiResult<List<Recipe?>> draftListResult,
+            ApiResult<List<Recipe?>> rejectedListResult,
+            ApiResult<List<Recipe?>> pendingListResult)?
         loaded,
     TResult? Function(String message)? failed,
   }) {
@@ -725,7 +836,10 @@ class _$_Failed implements _Failed {
     TResult Function(
             SignedIn authState,
             ApiResult<List<Recipe?>> savedListResult,
-            ApiResult<List<Recipe?>> cretedListResult)?
+            ApiResult<List<Recipe?>> createdListResult,
+            ApiResult<List<Recipe?>> draftListResult,
+            ApiResult<List<Recipe?>> rejectedListResult,
+            ApiResult<List<Recipe?>> pendingListResult)?
         loaded,
     TResult Function(String message)? failed,
     required TResult orElse(),

@@ -5,7 +5,7 @@ class ProfilePageState with _$ProfilePageState {
   const factory ProfilePageState.loading() = _Loading;
   const factory ProfilePageState.loaded(
       {required UserDetail user,
-      required List<Recipe?> savedRecipeList,
-      required List<Recipe?> createdRecipeList}) = _Loaded;
+      required ApiResult<List<Recipe?>> savedListResult,
+      required ApiResult<List<Recipe?>> createdListResult}) = _Loaded;
   const factory ProfilePageState.failed({required String message}) = _Failed;
 }

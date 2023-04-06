@@ -58,10 +58,60 @@ class UserServices {
   }
 
   Future<ApiResult<List<Recipe?>>> getCreatedRecipeList(
-      {required String username, String? token}) async {
+      {required String username}) async {
     try {
       Response result = await _dio.get(
         "${dotenv.env['API_URL']}/created-recipe-by?username=$username",
+        options: options ??
+            Options(headers: {
+              "Content-Type": "application/json",
+            }),
+      );
+      if (result.statusCode != 200) {
+        throw (DioError(
+            response: result, requestOptions: result.requestOptions));
+      }
+      List<Recipe?> resultListObj = (result.data['data']['recipes'] as List)
+          .map((e) => Recipe.fromJson(e))
+          .toList();
+      return ApiResult.success(resultListObj);
+    } on DioError catch (e) {
+      return ApiResult.failed(e.response != null
+          ? e.response!.data['message'].toString()
+          : "Connection timeout");
+    }
+  }
+
+  Future<ApiResult<List<Recipe?>>> getSavedRecipeList(
+      {required String username}) async {
+    try {
+      Response result = await _dio.get(
+        "${dotenv.env['API_URL']}/saved-recipe-by?username=$username",
+        options: options ??
+            Options(headers: {
+              "Content-Type": "application/json",
+            }),
+      );
+      if (result.statusCode != 200) {
+        throw (DioError(
+            response: result, requestOptions: result.requestOptions));
+      }
+      List<Recipe?> resultListObj = (result.data['data']['recipes'] as List)
+          .map((e) => Recipe.fromJson(e))
+          .toList();
+      return ApiResult.success(resultListObj);
+    } on DioError catch (e) {
+      return ApiResult.failed(e.response != null
+          ? e.response!.data['message'].toString()
+          : "Connection timeout");
+    }
+  }
+
+  Future<ApiResult<List<Recipe?>>> getDraftRecipeList(
+      {required String? token}) async {
+    try {
+      Response result = await _dio.get(
+        "${dotenv.env['API_URL']}/draft-recipes",
         options: options ??
             Options(headers: {
               "Content-Type": "application/json",
@@ -83,11 +133,37 @@ class UserServices {
     }
   }
 
-  Future<ApiResult<List<Recipe?>>> getSavedRecipeList(
-      {required String username, String? token}) async {
+  Future<ApiResult<List<Recipe?>>> getRejectedRecipeList(
+      {required String? token}) async {
     try {
       Response result = await _dio.get(
-        "${dotenv.env['API_URL']}/saved-recipe-by?username=$username",
+        "${dotenv.env['API_URL']}/rejected-recipes",
+        options: options ??
+            Options(headers: {
+              "Content-Type": "application/json",
+              "Authorization": "Bearer $token",
+            }),
+      );
+      if (result.statusCode != 200) {
+        throw (DioError(
+            response: result, requestOptions: result.requestOptions));
+      }
+      List<Recipe?> resultListObj = (result.data['data']['recipes'] as List)
+          .map((e) => Recipe.fromJson(e))
+          .toList();
+      return ApiResult.success(resultListObj);
+    } on DioError catch (e) {
+      return ApiResult.failed(e.response != null
+          ? e.response!.data['message'].toString()
+          : "Connection timeout");
+    }
+  }
+
+  Future<ApiResult<List<Recipe?>>> getPendingRecipeList(
+      {required String? token}) async {
+    try {
+      Response result = await _dio.get(
+        "${dotenv.env['API_URL']}/pending-recipes",
         options: options ??
             Options(headers: {
               "Content-Type": "application/json",

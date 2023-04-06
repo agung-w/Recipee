@@ -1,84 +1,35 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ta_recipe_app/bloc/my_profile_page_bloc.dart';
-import 'package:ta_recipe_app/bloc/user_authentication_bloc.dart';
+import 'package:ta_recipe_app/bloc/profile_page_bloc.dart';
 import 'package:ta_recipe_app/cubit/save_recipe_cubit.dart';
 import 'package:ta_recipe_app/entities/recipe.dart';
 import 'package:ta_recipe_app/entities/user_detail.dart';
 import 'package:ta_recipe_app/helpers/api_result.dart';
-import 'package:ta_recipe_app/ui/pages/login_page.dart';
-import 'package:ta_recipe_app/ui/pages/register_page.dart';
-import 'package:ta_recipe_app/ui/widgets/draggable_sheet.dart';
 import 'package:ta_recipe_app/ui/widgets/follower_count_text.dart';
 import 'package:ta_recipe_app/ui/widgets/loading_indicator.dart';
 import 'package:ta_recipe_app/ui/widgets/profile_recipe_list.dart';
 
-class MyProfilePage extends StatefulWidget {
-  const MyProfilePage({super.key});
+class ProfilePage extends StatefulWidget {
+  const ProfilePage({super.key});
 
   @override
-  State<MyProfilePage> createState() => _MyProfilePageState();
+  State<ProfilePage> createState() => _ProfilePageState();
 }
 
-class _MyProfilePageState extends State<MyProfilePage> {
+class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MyProfilePageBloc, MyProfilePageState>(
+    return BlocBuilder<ProfilePageBloc, ProfilePageState>(
       builder: (context, state) {
         return state.when(failed: (message) {
           return Scaffold(
               body: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "profile_signed_out_banner_text",
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Theme.of(context).colorScheme.primary,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      textAlign: TextAlign.center,
-                    ).tr(),
-                    const SizedBox(
-                      height: 6,
-                    ),
-                    const Text(
-                      "profile_signed_out_description_text",
-                      textAlign: TextAlign.center,
-                    ).tr(),
-                    const SizedBox(
-                      height: 6,
-                    ),
-                    ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(context, rootNavigator: true).push(
-                              MaterialPageRoute(
-                                  builder: (_) => const LoginPage()));
-                        },
-                        child: const Text("login_button_text").tr()),
-                    const SizedBox(
-                      height: 6,
-                    ),
-                    const Text("or").tr(),
-                    const SizedBox(
-                      height: 6,
-                    ),
-                    ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(context, rootNavigator: true).push(
-                              MaterialPageRoute(
-                                  builder: (_) => const RegisterPage()));
-                        },
-                        child: const Text("register_button_text").tr()),
-                  ]),
-            ),
-          ));
-        }, loaded: (user, savedList, createdList, draftList, rejectedList,
-            pendingList) {
+                  child: Text(
+            message,
+            textAlign: TextAlign.center,
+          )));
+        }, loaded: (user, savedRecipeList, createdRecipeList) {
           TabBar tabBar = TabBar(
             isScrollable: true,
             padding: const EdgeInsets.only(left: 16),
@@ -92,22 +43,24 @@ class _MyProfilePageState extends State<MyProfilePage> {
             tabs: [
               Tab(icon: const Text("created_tab_bar_text").tr()),
               Tab(icon: const Text("saved_tab_bar_text").tr()),
-              Tab(icon: const Text("draft_tab_bar_text").tr()),
-              Tab(icon: const Text("rejected_tab_bar_text").tr()),
-              Tab(icon: const Text("pending_tab_bar_text").tr()),
             ],
           );
           return DefaultTabController(
             length: tabBar.tabs.length,
             child: Scaffold(
+              extendBodyBehindAppBar: true,
+              appBar: AppBar(
+                backgroundColor: Colors.transparent,
+              ),
               body: NestedScrollView(
                 headerSliverBuilder:
                     (BuildContext context, bool innerBoxIsScrolled) {
                   return [
                     SliverToBoxAdapter(
-                      child: _UserInfo(user: user.user),
+                      child: _UserInfo(user: user),
                     ),
                     SliverAppBar(
+                      automaticallyImplyLeading: false,
                       toolbarHeight: tabBar.preferredSize.height,
                       backgroundColor:
                           Theme.of(context).scaffoldBackgroundColor,
@@ -120,17 +73,17 @@ class _MyProfilePageState extends State<MyProfilePage> {
                   listener: (context, state) {
                     state.whenOrNull(
                       initial: (id, isSaved, _) {
-                        Recipe? recipe = (createdList as Success)
+                        Recipe? recipe = (createdRecipeList as Success)
                             .value
                             .firstWhere((element) => element!.id == id);
                         if (recipe != null) {
                           recipe.isSaved = isSaved;
                           if (isSaved == true) {
-                            (savedList as Success<List<Recipe?>>)
+                            (savedRecipeList as Success<List<Recipe?>>)
                                 .value
                                 .add(recipe);
                           } else {
-                            (savedList as Success<List<Recipe?>>)
+                            (savedRecipeList as Success<List<Recipe?>>)
                                 .value
                                 .removeWhere(
                                     (element) => element!.id == recipe.id);
@@ -142,40 +95,19 @@ class _MyProfilePageState extends State<MyProfilePage> {
                   },
                   child: TabBarView(
                     children: [
-                      createdList.map(
+                      createdRecipeList.map(
                           success: (value) => ProfileRecipeList(
                                 list: value.value,
                               ),
                           failed: (_) =>
-                              const Text("cannot_load_recipe_list_text")
-                                  .tr(namedArgs: {'type': 'created'})),
-                      savedList.map(
+                              const Text("cannot_load_created_recipe_list")
+                                  .tr()),
+                      savedRecipeList.map(
                           success: (value) => ProfileRecipeList(
                                 list: value.value,
                               ),
                           failed: (_) =>
-                              const Text("cannot_load_recipe_list_text")
-                                  .tr(namedArgs: {'type': 'saved'})),
-                      draftList.map(
-                          success: (value) => ProfileRecipeList(
-                                list: value.value,
-                              ),
-                          failed: (_) =>
-                              const Text("cannot_load_recipe_list_text")
-                                  .tr(namedArgs: {'type': 'draft'})),
-                      rejectedList.map(
-                          success: (value) => ProfileRecipeList(
-                                list: value.value,
-                              ),
-                          failed: (_) =>
-                              const Text("cannot_load_recipe_list_text")
-                                  .tr(namedArgs: {'type': 'rejected'})),
-                      pendingList.map(
-                          success: (value) => ProfileRecipeList(
-                                list: value.value,
-                              ),
-                          failed: (_) => const Text("cannot_load_recipe_list")
-                              .tr(namedArgs: {'type': 'pending'})),
+                              const Text("cannot_load_saved_recipe_list").tr()),
                     ],
                   ),
                 ),
@@ -270,61 +202,8 @@ class _UserInfo extends StatelessWidget {
               ),
             ),
           ),
-          IconButton(
-              onPressed: () {
-                _showProfileSettings(context);
-              },
-              icon: const Icon(Icons.settings))
         ],
       ),
     );
-  }
-
-  Future<dynamic> _showProfileSettings(BuildContext context) {
-    return showModalBottomSheet(
-        isScrollControlled: true,
-        useRootNavigator: true,
-        elevation: 2,
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20), topRight: Radius.circular(20))),
-        context: context,
-        builder: (builder) => DraggableSheet(
-              initSize: 0.3,
-              maxSize: 0.3,
-              title: "settings_text".tr(),
-              children: [
-                ListTile(
-                  leading: Container(
-                    width: 48,
-                    height: 48,
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor,
-                      borderRadius: BorderRadius.circular(100),
-                    ),
-                  ),
-                  title: Text(
-                    "create_recipe_button",
-                    style: Theme.of(context).textTheme.labelLarge,
-                  ).tr(),
-                  onTap: () {},
-                ),
-                const Expanded(child: Center()),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 16),
-                  child: Center(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        context
-                            .read<UserAuthenticationBloc>()
-                            .add(const UserAuthenticationEvent.logout());
-                        Navigator.of(builder).pop();
-                      },
-                      child: const Text("logout"),
-                    ),
-                  ),
-                ),
-              ],
-            ));
   }
 }
