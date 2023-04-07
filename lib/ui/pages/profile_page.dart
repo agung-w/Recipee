@@ -2,10 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ta_recipe_app/bloc/profile_page_bloc.dart';
-import 'package:ta_recipe_app/cubit/save_recipe_cubit.dart';
-import 'package:ta_recipe_app/entities/recipe.dart';
 import 'package:ta_recipe_app/entities/user_detail.dart';
-import 'package:ta_recipe_app/helpers/api_result.dart';
 import 'package:ta_recipe_app/ui/widgets/follower_count_text.dart';
 import 'package:ta_recipe_app/ui/widgets/loading_indicator.dart';
 import 'package:ta_recipe_app/ui/widgets/profile_recipe_list.dart';
@@ -48,14 +45,22 @@ class _ProfilePageState extends State<ProfilePage> {
           return DefaultTabController(
             length: tabBar.tabs.length,
             child: Scaffold(
-              extendBodyBehindAppBar: true,
-              appBar: AppBar(
-                backgroundColor: Colors.transparent,
-              ),
               body: NestedScrollView(
                 headerSliverBuilder:
                     (BuildContext context, bool innerBoxIsScrolled) {
                   return [
+                    SliverLayoutBuilder(
+                      builder: (BuildContext context, constraints) {
+                        final scrolled = constraints.scrollOffset > 32;
+                        return SliverAppBar(
+                          pinned: true,
+                          title: scrolled ? Text(user.name) : null,
+                          toolbarHeight: tabBar.preferredSize.height,
+                          backgroundColor:
+                              Theme.of(context).scaffoldBackgroundColor,
+                        );
+                      },
+                    ),
                     SliverToBoxAdapter(
                       child: _UserInfo(user: user),
                     ),
@@ -113,7 +118,7 @@ class _UserInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.only(left: 16, right: 16),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -158,19 +163,18 @@ class _UserInfo extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(top: 8),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         FollowerCountText(
                             count: user.followingCount,
                             text: "following_text".tr()),
+                        const SizedBox(
+                          width: 16,
+                        ),
                         FollowerCountText(
                             count: user.followerCount,
                             text: "follower_text".tr())
                       ],
                     ),
-                  ),
-                  const Spacer(
-                    flex: 3,
                   ),
                 ],
               ),

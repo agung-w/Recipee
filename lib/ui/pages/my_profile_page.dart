@@ -93,7 +93,6 @@ class MyProfilePage extends StatelessWidget {
             length: tabBar.tabs.length,
             child: Scaffold(
               body: NestedScrollView(
-                physics: const NeverScrollableScrollPhysics(),
                 headerSliverBuilder:
                     (BuildContext context, bool innerBoxIsScrolled) {
                   return [
@@ -110,7 +109,6 @@ class MyProfilePage extends StatelessWidget {
                   ];
                 },
                 body: TabBarView(
-                  physics: NeverScrollableScrollPhysics(),
                   children: [
                     createdList.map(
                         success: (value) => ProfileRecipeList(
@@ -221,19 +219,18 @@ class _UserInfo extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(top: 8),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         FollowerCountText(
                             count: user.followingCount,
                             text: "following_text".tr()),
+                        const SizedBox(
+                          width: 16,
+                        ),
                         FollowerCountText(
                             count: user.followerCount,
                             text: "follower_text".tr())
                       ],
                     ),
-                  ),
-                  const Spacer(
-                    flex: 3,
                   ),
                 ],
               ),
@@ -254,46 +251,82 @@ class _UserInfo extends StatelessWidget {
         isScrollControlled: true,
         useRootNavigator: true,
         elevation: 2,
+        useSafeArea: true,
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(20), topRight: Radius.circular(20))),
         context: context,
-        builder: (builder) => DraggableSheet(
-              initSize: 0.3,
-              maxSize: 0.3,
-              title: "settings_text".tr(),
-              children: [
-                ListTile(
-                  leading: Container(
-                    width: 48,
-                    height: 48,
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor,
-                      borderRadius: BorderRadius.circular(100),
+        builder: (builder) => DraggableScrollableSheet(
+            expand: false,
+            initialChildSize: 0.3,
+            maxChildSize: 1.0,
+            minChildSize: 0.3,
+            snap: true,
+            snapSizes: const [0.3, 0.6, 1],
+            builder: (BuildContext context,
+                    ScrollController scrollController) =>
+                Stack(
+                  children: [
+                    ListView(controller: scrollController, children: [
+                      Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "settings_text",
+                              style: Theme.of(context).textTheme.headlineSmall,
+                            ).tr(),
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(100),
+                              clipBehavior: Clip.none,
+                              child: InkWell(
+                                onTap: () {
+                                  Navigator.pop(context);
+                                },
+                                splashColor: Colors.black12,
+                                child: const Icon(
+                                  Icons.close,
+                                  size: 24,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      // ListTile(
+                      //   leading: Container(
+                      //     width: 48,
+                      //     height: 48,
+                      //     decoration: BoxDecoration(
+                      //       color: Theme.of(context).primaryColor,
+                      //       borderRadius: BorderRadius.circular(100),
+                      //     ),
+                      //   ),
+                      //   title: Text(
+                      //     "create_recipe_button",
+                      //     style: Theme.of(context).textTheme.labelLarge,
+                      //   ).tr(),
+                      //   onTap: () {},
+                      // ),
+                    ]),
+                    Positioned(
+                      bottom: 16,
+                      right: 0,
+                      left: 0,
+                      child: Center(
+                        child: ElevatedButton(
+                          onPressed: () {
+                            context
+                                .read<UserAuthenticationBloc>()
+                                .add(const UserAuthenticationEvent.logout());
+                            Navigator.of(builder).pop();
+                          },
+                          child: const Text("logout"),
+                        ),
+                      ),
                     ),
-                  ),
-                  title: Text(
-                    "create_recipe_button",
-                    style: Theme.of(context).textTheme.labelLarge,
-                  ).tr(),
-                  onTap: () {},
-                ),
-                const Expanded(child: Center()),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 16),
-                  child: Center(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        context
-                            .read<UserAuthenticationBloc>()
-                            .add(const UserAuthenticationEvent.logout());
-                        Navigator.of(builder).pop();
-                      },
-                      child: const Text("logout"),
-                    ),
-                  ),
-                ),
-              ],
-            ));
+                  ],
+                )));
   }
 }
