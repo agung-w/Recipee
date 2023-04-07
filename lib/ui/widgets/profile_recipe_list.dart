@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ta_recipe_app/cubit/save_recipe_cubit.dart';
@@ -23,20 +25,21 @@ class ProfileRecipeList extends StatelessWidget {
         return BlocBuilder<SaveRecipeCubit, SaveRecipeState>(
           builder: (context, state) {
             return state.when(
-                initial: (id, isSaved, _) {
-                  if (e!.id == id) {
-                    return RecipeCardWithCreator(
-                      recipe: e.copyWith(isSaved: isSaved),
-                    );
-                  } else {
-                    return RecipeCardWithCreator(
-                      recipe: e,
-                    );
-                  }
-                },
-                loading: () => RecipeCardWithCreator(
-                      recipe: e!,
-                    ));
+              loaded: (id, isSaved) {
+                if (e!.id == id) {
+                  return RecipeCardWithCreator(
+                    recipe: e.copyWith(isSaved: isSaved),
+                  );
+                } else {
+                  return RecipeCardWithCreator(
+                    recipe: e,
+                  );
+                }
+              },
+              loading: () => RecipeCardWithCreator(
+                recipe: e!,
+              ),
+            );
           },
         );
       }).toList(),

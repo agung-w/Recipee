@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ta_recipe_app/bloc/my_profile_page_bloc.dart';
 import 'package:ta_recipe_app/bloc/user_authentication_bloc.dart';
 import 'package:ta_recipe_app/cubit/save_recipe_cubit.dart';
 import 'package:ta_recipe_app/entities/recipe.dart';
@@ -22,11 +23,16 @@ class SaveRecipeButton extends StatelessWidget {
                 constraints: const BoxConstraints(),
                 icon: const Icon(Icons.bookmark),
                 onPressed: () {
-                  context.read<SaveRecipeCubit>().removeSavedRecipe(
+                  context
+                      .read<SaveRecipeCubit>()
+                      .removeSavedRecipe(
                         id: recipe.id!,
                         context: context,
                         state: state,
-                      );
+                      )
+                      .whenComplete(() => context.read<MyProfilePageBloc>().add(
+                          MyProfilePageEvent.refreshSavedRecipeList(
+                              authState: state)));
                 },
               )
             : IconButton(
@@ -36,11 +42,16 @@ class SaveRecipeButton extends StatelessWidget {
                 iconSize: size,
                 icon: const Icon(Icons.bookmark_border),
                 onPressed: () {
-                  context.read<SaveRecipeCubit>().saveRecipe(
+                  context
+                      .read<SaveRecipeCubit>()
+                      .saveRecipe(
                         id: recipe.id!,
                         context: context,
                         state: state,
-                      );
+                      )
+                      .whenComplete(() => context.read<MyProfilePageBloc>().add(
+                          MyProfilePageEvent.refreshSavedRecipeList(
+                              authState: state)));
                 },
               );
       },

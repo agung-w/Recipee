@@ -20,32 +20,84 @@ mixin _$MyProfilePageEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(UserAuthenticationState authState) started,
+    required TResult Function(UserAuthenticationState authState)
+        refreshSavedRecipeList,
+    required TResult Function(UserAuthenticationState authState)
+        refreshCreatedRecipeList,
+    required TResult Function(UserAuthenticationState authState)
+        refreshDraftRecipeList,
+    required TResult Function(UserAuthenticationState authState)
+        refreshRejectedRecipeList,
+    required TResult Function(UserAuthenticationState authState)
+        refreshPendingRecipeList,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(UserAuthenticationState authState)? started,
+    TResult? Function(UserAuthenticationState authState)?
+        refreshSavedRecipeList,
+    TResult? Function(UserAuthenticationState authState)?
+        refreshCreatedRecipeList,
+    TResult? Function(UserAuthenticationState authState)?
+        refreshDraftRecipeList,
+    TResult? Function(UserAuthenticationState authState)?
+        refreshRejectedRecipeList,
+    TResult? Function(UserAuthenticationState authState)?
+        refreshPendingRecipeList,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(UserAuthenticationState authState)? started,
+    TResult Function(UserAuthenticationState authState)? refreshSavedRecipeList,
+    TResult Function(UserAuthenticationState authState)?
+        refreshCreatedRecipeList,
+    TResult Function(UserAuthenticationState authState)? refreshDraftRecipeList,
+    TResult Function(UserAuthenticationState authState)?
+        refreshRejectedRecipeList,
+    TResult Function(UserAuthenticationState authState)?
+        refreshPendingRecipeList,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
+    required TResult Function(_RefreshSavedRecipeList value)
+        refreshSavedRecipeList,
+    required TResult Function(_RefreshCreatedRecipeList value)
+        refreshCreatedRecipeList,
+    required TResult Function(_RefreshDraftRecipeList value)
+        refreshDraftRecipeList,
+    required TResult Function(_RefreshRejectedRecipeList value)
+        refreshRejectedRecipeList,
+    required TResult Function(_RefreshPendingRecipeList value)
+        refreshPendingRecipeList,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
+    TResult? Function(_RefreshSavedRecipeList value)? refreshSavedRecipeList,
+    TResult? Function(_RefreshCreatedRecipeList value)?
+        refreshCreatedRecipeList,
+    TResult? Function(_RefreshDraftRecipeList value)? refreshDraftRecipeList,
+    TResult? Function(_RefreshRejectedRecipeList value)?
+        refreshRejectedRecipeList,
+    TResult? Function(_RefreshPendingRecipeList value)?
+        refreshPendingRecipeList,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
+    TResult Function(_RefreshSavedRecipeList value)? refreshSavedRecipeList,
+    TResult Function(_RefreshCreatedRecipeList value)? refreshCreatedRecipeList,
+    TResult Function(_RefreshDraftRecipeList value)? refreshDraftRecipeList,
+    TResult Function(_RefreshRejectedRecipeList value)?
+        refreshRejectedRecipeList,
+    TResult Function(_RefreshPendingRecipeList value)? refreshPendingRecipeList,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -168,6 +220,16 @@ class _$_Started implements _Started {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(UserAuthenticationState authState) started,
+    required TResult Function(UserAuthenticationState authState)
+        refreshSavedRecipeList,
+    required TResult Function(UserAuthenticationState authState)
+        refreshCreatedRecipeList,
+    required TResult Function(UserAuthenticationState authState)
+        refreshDraftRecipeList,
+    required TResult Function(UserAuthenticationState authState)
+        refreshRejectedRecipeList,
+    required TResult Function(UserAuthenticationState authState)
+        refreshPendingRecipeList,
   }) {
     return started(authState);
   }
@@ -176,6 +238,16 @@ class _$_Started implements _Started {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(UserAuthenticationState authState)? started,
+    TResult? Function(UserAuthenticationState authState)?
+        refreshSavedRecipeList,
+    TResult? Function(UserAuthenticationState authState)?
+        refreshCreatedRecipeList,
+    TResult? Function(UserAuthenticationState authState)?
+        refreshDraftRecipeList,
+    TResult? Function(UserAuthenticationState authState)?
+        refreshRejectedRecipeList,
+    TResult? Function(UserAuthenticationState authState)?
+        refreshPendingRecipeList,
   }) {
     return started?.call(authState);
   }
@@ -184,6 +256,14 @@ class _$_Started implements _Started {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(UserAuthenticationState authState)? started,
+    TResult Function(UserAuthenticationState authState)? refreshSavedRecipeList,
+    TResult Function(UserAuthenticationState authState)?
+        refreshCreatedRecipeList,
+    TResult Function(UserAuthenticationState authState)? refreshDraftRecipeList,
+    TResult Function(UserAuthenticationState authState)?
+        refreshRejectedRecipeList,
+    TResult Function(UserAuthenticationState authState)?
+        refreshPendingRecipeList,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -196,6 +276,16 @@ class _$_Started implements _Started {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
+    required TResult Function(_RefreshSavedRecipeList value)
+        refreshSavedRecipeList,
+    required TResult Function(_RefreshCreatedRecipeList value)
+        refreshCreatedRecipeList,
+    required TResult Function(_RefreshDraftRecipeList value)
+        refreshDraftRecipeList,
+    required TResult Function(_RefreshRejectedRecipeList value)
+        refreshRejectedRecipeList,
+    required TResult Function(_RefreshPendingRecipeList value)
+        refreshPendingRecipeList,
   }) {
     return started(this);
   }
@@ -204,6 +294,14 @@ class _$_Started implements _Started {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
+    TResult? Function(_RefreshSavedRecipeList value)? refreshSavedRecipeList,
+    TResult? Function(_RefreshCreatedRecipeList value)?
+        refreshCreatedRecipeList,
+    TResult? Function(_RefreshDraftRecipeList value)? refreshDraftRecipeList,
+    TResult? Function(_RefreshRejectedRecipeList value)?
+        refreshRejectedRecipeList,
+    TResult? Function(_RefreshPendingRecipeList value)?
+        refreshPendingRecipeList,
   }) {
     return started?.call(this);
   }
@@ -212,6 +310,12 @@ class _$_Started implements _Started {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
+    TResult Function(_RefreshSavedRecipeList value)? refreshSavedRecipeList,
+    TResult Function(_RefreshCreatedRecipeList value)? refreshCreatedRecipeList,
+    TResult Function(_RefreshDraftRecipeList value)? refreshDraftRecipeList,
+    TResult Function(_RefreshRejectedRecipeList value)?
+        refreshRejectedRecipeList,
+    TResult Function(_RefreshPendingRecipeList value)? refreshPendingRecipeList,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -234,12 +338,966 @@ abstract class _Started implements MyProfilePageEvent {
 }
 
 /// @nodoc
+abstract class _$$_RefreshSavedRecipeListCopyWith<$Res>
+    implements $MyProfilePageEventCopyWith<$Res> {
+  factory _$$_RefreshSavedRecipeListCopyWith(_$_RefreshSavedRecipeList value,
+          $Res Function(_$_RefreshSavedRecipeList) then) =
+      __$$_RefreshSavedRecipeListCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({UserAuthenticationState authState});
+
+  @override
+  $UserAuthenticationStateCopyWith<$Res> get authState;
+}
+
+/// @nodoc
+class __$$_RefreshSavedRecipeListCopyWithImpl<$Res>
+    extends _$MyProfilePageEventCopyWithImpl<$Res, _$_RefreshSavedRecipeList>
+    implements _$$_RefreshSavedRecipeListCopyWith<$Res> {
+  __$$_RefreshSavedRecipeListCopyWithImpl(_$_RefreshSavedRecipeList _value,
+      $Res Function(_$_RefreshSavedRecipeList) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? authState = null,
+  }) {
+    return _then(_$_RefreshSavedRecipeList(
+      authState: null == authState
+          ? _value.authState
+          : authState // ignore: cast_nullable_to_non_nullable
+              as UserAuthenticationState,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_RefreshSavedRecipeList implements _RefreshSavedRecipeList {
+  const _$_RefreshSavedRecipeList({required this.authState});
+
+  @override
+  final UserAuthenticationState authState;
+
+  @override
+  String toString() {
+    return 'MyProfilePageEvent.refreshSavedRecipeList(authState: $authState)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_RefreshSavedRecipeList &&
+            (identical(other.authState, authState) ||
+                other.authState == authState));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, authState);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_RefreshSavedRecipeListCopyWith<_$_RefreshSavedRecipeList> get copyWith =>
+      __$$_RefreshSavedRecipeListCopyWithImpl<_$_RefreshSavedRecipeList>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(UserAuthenticationState authState) started,
+    required TResult Function(UserAuthenticationState authState)
+        refreshSavedRecipeList,
+    required TResult Function(UserAuthenticationState authState)
+        refreshCreatedRecipeList,
+    required TResult Function(UserAuthenticationState authState)
+        refreshDraftRecipeList,
+    required TResult Function(UserAuthenticationState authState)
+        refreshRejectedRecipeList,
+    required TResult Function(UserAuthenticationState authState)
+        refreshPendingRecipeList,
+  }) {
+    return refreshSavedRecipeList(authState);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(UserAuthenticationState authState)? started,
+    TResult? Function(UserAuthenticationState authState)?
+        refreshSavedRecipeList,
+    TResult? Function(UserAuthenticationState authState)?
+        refreshCreatedRecipeList,
+    TResult? Function(UserAuthenticationState authState)?
+        refreshDraftRecipeList,
+    TResult? Function(UserAuthenticationState authState)?
+        refreshRejectedRecipeList,
+    TResult? Function(UserAuthenticationState authState)?
+        refreshPendingRecipeList,
+  }) {
+    return refreshSavedRecipeList?.call(authState);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(UserAuthenticationState authState)? started,
+    TResult Function(UserAuthenticationState authState)? refreshSavedRecipeList,
+    TResult Function(UserAuthenticationState authState)?
+        refreshCreatedRecipeList,
+    TResult Function(UserAuthenticationState authState)? refreshDraftRecipeList,
+    TResult Function(UserAuthenticationState authState)?
+        refreshRejectedRecipeList,
+    TResult Function(UserAuthenticationState authState)?
+        refreshPendingRecipeList,
+    required TResult orElse(),
+  }) {
+    if (refreshSavedRecipeList != null) {
+      return refreshSavedRecipeList(authState);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_RefreshSavedRecipeList value)
+        refreshSavedRecipeList,
+    required TResult Function(_RefreshCreatedRecipeList value)
+        refreshCreatedRecipeList,
+    required TResult Function(_RefreshDraftRecipeList value)
+        refreshDraftRecipeList,
+    required TResult Function(_RefreshRejectedRecipeList value)
+        refreshRejectedRecipeList,
+    required TResult Function(_RefreshPendingRecipeList value)
+        refreshPendingRecipeList,
+  }) {
+    return refreshSavedRecipeList(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_RefreshSavedRecipeList value)? refreshSavedRecipeList,
+    TResult? Function(_RefreshCreatedRecipeList value)?
+        refreshCreatedRecipeList,
+    TResult? Function(_RefreshDraftRecipeList value)? refreshDraftRecipeList,
+    TResult? Function(_RefreshRejectedRecipeList value)?
+        refreshRejectedRecipeList,
+    TResult? Function(_RefreshPendingRecipeList value)?
+        refreshPendingRecipeList,
+  }) {
+    return refreshSavedRecipeList?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_RefreshSavedRecipeList value)? refreshSavedRecipeList,
+    TResult Function(_RefreshCreatedRecipeList value)? refreshCreatedRecipeList,
+    TResult Function(_RefreshDraftRecipeList value)? refreshDraftRecipeList,
+    TResult Function(_RefreshRejectedRecipeList value)?
+        refreshRejectedRecipeList,
+    TResult Function(_RefreshPendingRecipeList value)? refreshPendingRecipeList,
+    required TResult orElse(),
+  }) {
+    if (refreshSavedRecipeList != null) {
+      return refreshSavedRecipeList(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _RefreshSavedRecipeList implements MyProfilePageEvent {
+  const factory _RefreshSavedRecipeList(
+          {required final UserAuthenticationState authState}) =
+      _$_RefreshSavedRecipeList;
+
+  @override
+  UserAuthenticationState get authState;
+  @override
+  @JsonKey(ignore: true)
+  _$$_RefreshSavedRecipeListCopyWith<_$_RefreshSavedRecipeList> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_RefreshCreatedRecipeListCopyWith<$Res>
+    implements $MyProfilePageEventCopyWith<$Res> {
+  factory _$$_RefreshCreatedRecipeListCopyWith(
+          _$_RefreshCreatedRecipeList value,
+          $Res Function(_$_RefreshCreatedRecipeList) then) =
+      __$$_RefreshCreatedRecipeListCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({UserAuthenticationState authState});
+
+  @override
+  $UserAuthenticationStateCopyWith<$Res> get authState;
+}
+
+/// @nodoc
+class __$$_RefreshCreatedRecipeListCopyWithImpl<$Res>
+    extends _$MyProfilePageEventCopyWithImpl<$Res, _$_RefreshCreatedRecipeList>
+    implements _$$_RefreshCreatedRecipeListCopyWith<$Res> {
+  __$$_RefreshCreatedRecipeListCopyWithImpl(_$_RefreshCreatedRecipeList _value,
+      $Res Function(_$_RefreshCreatedRecipeList) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? authState = null,
+  }) {
+    return _then(_$_RefreshCreatedRecipeList(
+      authState: null == authState
+          ? _value.authState
+          : authState // ignore: cast_nullable_to_non_nullable
+              as UserAuthenticationState,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_RefreshCreatedRecipeList implements _RefreshCreatedRecipeList {
+  const _$_RefreshCreatedRecipeList({required this.authState});
+
+  @override
+  final UserAuthenticationState authState;
+
+  @override
+  String toString() {
+    return 'MyProfilePageEvent.refreshCreatedRecipeList(authState: $authState)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_RefreshCreatedRecipeList &&
+            (identical(other.authState, authState) ||
+                other.authState == authState));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, authState);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_RefreshCreatedRecipeListCopyWith<_$_RefreshCreatedRecipeList>
+      get copyWith => __$$_RefreshCreatedRecipeListCopyWithImpl<
+          _$_RefreshCreatedRecipeList>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(UserAuthenticationState authState) started,
+    required TResult Function(UserAuthenticationState authState)
+        refreshSavedRecipeList,
+    required TResult Function(UserAuthenticationState authState)
+        refreshCreatedRecipeList,
+    required TResult Function(UserAuthenticationState authState)
+        refreshDraftRecipeList,
+    required TResult Function(UserAuthenticationState authState)
+        refreshRejectedRecipeList,
+    required TResult Function(UserAuthenticationState authState)
+        refreshPendingRecipeList,
+  }) {
+    return refreshCreatedRecipeList(authState);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(UserAuthenticationState authState)? started,
+    TResult? Function(UserAuthenticationState authState)?
+        refreshSavedRecipeList,
+    TResult? Function(UserAuthenticationState authState)?
+        refreshCreatedRecipeList,
+    TResult? Function(UserAuthenticationState authState)?
+        refreshDraftRecipeList,
+    TResult? Function(UserAuthenticationState authState)?
+        refreshRejectedRecipeList,
+    TResult? Function(UserAuthenticationState authState)?
+        refreshPendingRecipeList,
+  }) {
+    return refreshCreatedRecipeList?.call(authState);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(UserAuthenticationState authState)? started,
+    TResult Function(UserAuthenticationState authState)? refreshSavedRecipeList,
+    TResult Function(UserAuthenticationState authState)?
+        refreshCreatedRecipeList,
+    TResult Function(UserAuthenticationState authState)? refreshDraftRecipeList,
+    TResult Function(UserAuthenticationState authState)?
+        refreshRejectedRecipeList,
+    TResult Function(UserAuthenticationState authState)?
+        refreshPendingRecipeList,
+    required TResult orElse(),
+  }) {
+    if (refreshCreatedRecipeList != null) {
+      return refreshCreatedRecipeList(authState);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_RefreshSavedRecipeList value)
+        refreshSavedRecipeList,
+    required TResult Function(_RefreshCreatedRecipeList value)
+        refreshCreatedRecipeList,
+    required TResult Function(_RefreshDraftRecipeList value)
+        refreshDraftRecipeList,
+    required TResult Function(_RefreshRejectedRecipeList value)
+        refreshRejectedRecipeList,
+    required TResult Function(_RefreshPendingRecipeList value)
+        refreshPendingRecipeList,
+  }) {
+    return refreshCreatedRecipeList(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_RefreshSavedRecipeList value)? refreshSavedRecipeList,
+    TResult? Function(_RefreshCreatedRecipeList value)?
+        refreshCreatedRecipeList,
+    TResult? Function(_RefreshDraftRecipeList value)? refreshDraftRecipeList,
+    TResult? Function(_RefreshRejectedRecipeList value)?
+        refreshRejectedRecipeList,
+    TResult? Function(_RefreshPendingRecipeList value)?
+        refreshPendingRecipeList,
+  }) {
+    return refreshCreatedRecipeList?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_RefreshSavedRecipeList value)? refreshSavedRecipeList,
+    TResult Function(_RefreshCreatedRecipeList value)? refreshCreatedRecipeList,
+    TResult Function(_RefreshDraftRecipeList value)? refreshDraftRecipeList,
+    TResult Function(_RefreshRejectedRecipeList value)?
+        refreshRejectedRecipeList,
+    TResult Function(_RefreshPendingRecipeList value)? refreshPendingRecipeList,
+    required TResult orElse(),
+  }) {
+    if (refreshCreatedRecipeList != null) {
+      return refreshCreatedRecipeList(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _RefreshCreatedRecipeList implements MyProfilePageEvent {
+  const factory _RefreshCreatedRecipeList(
+          {required final UserAuthenticationState authState}) =
+      _$_RefreshCreatedRecipeList;
+
+  @override
+  UserAuthenticationState get authState;
+  @override
+  @JsonKey(ignore: true)
+  _$$_RefreshCreatedRecipeListCopyWith<_$_RefreshCreatedRecipeList>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_RefreshDraftRecipeListCopyWith<$Res>
+    implements $MyProfilePageEventCopyWith<$Res> {
+  factory _$$_RefreshDraftRecipeListCopyWith(_$_RefreshDraftRecipeList value,
+          $Res Function(_$_RefreshDraftRecipeList) then) =
+      __$$_RefreshDraftRecipeListCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({UserAuthenticationState authState});
+
+  @override
+  $UserAuthenticationStateCopyWith<$Res> get authState;
+}
+
+/// @nodoc
+class __$$_RefreshDraftRecipeListCopyWithImpl<$Res>
+    extends _$MyProfilePageEventCopyWithImpl<$Res, _$_RefreshDraftRecipeList>
+    implements _$$_RefreshDraftRecipeListCopyWith<$Res> {
+  __$$_RefreshDraftRecipeListCopyWithImpl(_$_RefreshDraftRecipeList _value,
+      $Res Function(_$_RefreshDraftRecipeList) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? authState = null,
+  }) {
+    return _then(_$_RefreshDraftRecipeList(
+      authState: null == authState
+          ? _value.authState
+          : authState // ignore: cast_nullable_to_non_nullable
+              as UserAuthenticationState,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_RefreshDraftRecipeList implements _RefreshDraftRecipeList {
+  const _$_RefreshDraftRecipeList({required this.authState});
+
+  @override
+  final UserAuthenticationState authState;
+
+  @override
+  String toString() {
+    return 'MyProfilePageEvent.refreshDraftRecipeList(authState: $authState)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_RefreshDraftRecipeList &&
+            (identical(other.authState, authState) ||
+                other.authState == authState));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, authState);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_RefreshDraftRecipeListCopyWith<_$_RefreshDraftRecipeList> get copyWith =>
+      __$$_RefreshDraftRecipeListCopyWithImpl<_$_RefreshDraftRecipeList>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(UserAuthenticationState authState) started,
+    required TResult Function(UserAuthenticationState authState)
+        refreshSavedRecipeList,
+    required TResult Function(UserAuthenticationState authState)
+        refreshCreatedRecipeList,
+    required TResult Function(UserAuthenticationState authState)
+        refreshDraftRecipeList,
+    required TResult Function(UserAuthenticationState authState)
+        refreshRejectedRecipeList,
+    required TResult Function(UserAuthenticationState authState)
+        refreshPendingRecipeList,
+  }) {
+    return refreshDraftRecipeList(authState);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(UserAuthenticationState authState)? started,
+    TResult? Function(UserAuthenticationState authState)?
+        refreshSavedRecipeList,
+    TResult? Function(UserAuthenticationState authState)?
+        refreshCreatedRecipeList,
+    TResult? Function(UserAuthenticationState authState)?
+        refreshDraftRecipeList,
+    TResult? Function(UserAuthenticationState authState)?
+        refreshRejectedRecipeList,
+    TResult? Function(UserAuthenticationState authState)?
+        refreshPendingRecipeList,
+  }) {
+    return refreshDraftRecipeList?.call(authState);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(UserAuthenticationState authState)? started,
+    TResult Function(UserAuthenticationState authState)? refreshSavedRecipeList,
+    TResult Function(UserAuthenticationState authState)?
+        refreshCreatedRecipeList,
+    TResult Function(UserAuthenticationState authState)? refreshDraftRecipeList,
+    TResult Function(UserAuthenticationState authState)?
+        refreshRejectedRecipeList,
+    TResult Function(UserAuthenticationState authState)?
+        refreshPendingRecipeList,
+    required TResult orElse(),
+  }) {
+    if (refreshDraftRecipeList != null) {
+      return refreshDraftRecipeList(authState);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_RefreshSavedRecipeList value)
+        refreshSavedRecipeList,
+    required TResult Function(_RefreshCreatedRecipeList value)
+        refreshCreatedRecipeList,
+    required TResult Function(_RefreshDraftRecipeList value)
+        refreshDraftRecipeList,
+    required TResult Function(_RefreshRejectedRecipeList value)
+        refreshRejectedRecipeList,
+    required TResult Function(_RefreshPendingRecipeList value)
+        refreshPendingRecipeList,
+  }) {
+    return refreshDraftRecipeList(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_RefreshSavedRecipeList value)? refreshSavedRecipeList,
+    TResult? Function(_RefreshCreatedRecipeList value)?
+        refreshCreatedRecipeList,
+    TResult? Function(_RefreshDraftRecipeList value)? refreshDraftRecipeList,
+    TResult? Function(_RefreshRejectedRecipeList value)?
+        refreshRejectedRecipeList,
+    TResult? Function(_RefreshPendingRecipeList value)?
+        refreshPendingRecipeList,
+  }) {
+    return refreshDraftRecipeList?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_RefreshSavedRecipeList value)? refreshSavedRecipeList,
+    TResult Function(_RefreshCreatedRecipeList value)? refreshCreatedRecipeList,
+    TResult Function(_RefreshDraftRecipeList value)? refreshDraftRecipeList,
+    TResult Function(_RefreshRejectedRecipeList value)?
+        refreshRejectedRecipeList,
+    TResult Function(_RefreshPendingRecipeList value)? refreshPendingRecipeList,
+    required TResult orElse(),
+  }) {
+    if (refreshDraftRecipeList != null) {
+      return refreshDraftRecipeList(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _RefreshDraftRecipeList implements MyProfilePageEvent {
+  const factory _RefreshDraftRecipeList(
+          {required final UserAuthenticationState authState}) =
+      _$_RefreshDraftRecipeList;
+
+  @override
+  UserAuthenticationState get authState;
+  @override
+  @JsonKey(ignore: true)
+  _$$_RefreshDraftRecipeListCopyWith<_$_RefreshDraftRecipeList> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_RefreshRejectedRecipeListCopyWith<$Res>
+    implements $MyProfilePageEventCopyWith<$Res> {
+  factory _$$_RefreshRejectedRecipeListCopyWith(
+          _$_RefreshRejectedRecipeList value,
+          $Res Function(_$_RefreshRejectedRecipeList) then) =
+      __$$_RefreshRejectedRecipeListCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({UserAuthenticationState authState});
+
+  @override
+  $UserAuthenticationStateCopyWith<$Res> get authState;
+}
+
+/// @nodoc
+class __$$_RefreshRejectedRecipeListCopyWithImpl<$Res>
+    extends _$MyProfilePageEventCopyWithImpl<$Res, _$_RefreshRejectedRecipeList>
+    implements _$$_RefreshRejectedRecipeListCopyWith<$Res> {
+  __$$_RefreshRejectedRecipeListCopyWithImpl(
+      _$_RefreshRejectedRecipeList _value,
+      $Res Function(_$_RefreshRejectedRecipeList) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? authState = null,
+  }) {
+    return _then(_$_RefreshRejectedRecipeList(
+      authState: null == authState
+          ? _value.authState
+          : authState // ignore: cast_nullable_to_non_nullable
+              as UserAuthenticationState,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_RefreshRejectedRecipeList implements _RefreshRejectedRecipeList {
+  const _$_RefreshRejectedRecipeList({required this.authState});
+
+  @override
+  final UserAuthenticationState authState;
+
+  @override
+  String toString() {
+    return 'MyProfilePageEvent.refreshRejectedRecipeList(authState: $authState)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_RefreshRejectedRecipeList &&
+            (identical(other.authState, authState) ||
+                other.authState == authState));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, authState);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_RefreshRejectedRecipeListCopyWith<_$_RefreshRejectedRecipeList>
+      get copyWith => __$$_RefreshRejectedRecipeListCopyWithImpl<
+          _$_RefreshRejectedRecipeList>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(UserAuthenticationState authState) started,
+    required TResult Function(UserAuthenticationState authState)
+        refreshSavedRecipeList,
+    required TResult Function(UserAuthenticationState authState)
+        refreshCreatedRecipeList,
+    required TResult Function(UserAuthenticationState authState)
+        refreshDraftRecipeList,
+    required TResult Function(UserAuthenticationState authState)
+        refreshRejectedRecipeList,
+    required TResult Function(UserAuthenticationState authState)
+        refreshPendingRecipeList,
+  }) {
+    return refreshRejectedRecipeList(authState);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(UserAuthenticationState authState)? started,
+    TResult? Function(UserAuthenticationState authState)?
+        refreshSavedRecipeList,
+    TResult? Function(UserAuthenticationState authState)?
+        refreshCreatedRecipeList,
+    TResult? Function(UserAuthenticationState authState)?
+        refreshDraftRecipeList,
+    TResult? Function(UserAuthenticationState authState)?
+        refreshRejectedRecipeList,
+    TResult? Function(UserAuthenticationState authState)?
+        refreshPendingRecipeList,
+  }) {
+    return refreshRejectedRecipeList?.call(authState);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(UserAuthenticationState authState)? started,
+    TResult Function(UserAuthenticationState authState)? refreshSavedRecipeList,
+    TResult Function(UserAuthenticationState authState)?
+        refreshCreatedRecipeList,
+    TResult Function(UserAuthenticationState authState)? refreshDraftRecipeList,
+    TResult Function(UserAuthenticationState authState)?
+        refreshRejectedRecipeList,
+    TResult Function(UserAuthenticationState authState)?
+        refreshPendingRecipeList,
+    required TResult orElse(),
+  }) {
+    if (refreshRejectedRecipeList != null) {
+      return refreshRejectedRecipeList(authState);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_RefreshSavedRecipeList value)
+        refreshSavedRecipeList,
+    required TResult Function(_RefreshCreatedRecipeList value)
+        refreshCreatedRecipeList,
+    required TResult Function(_RefreshDraftRecipeList value)
+        refreshDraftRecipeList,
+    required TResult Function(_RefreshRejectedRecipeList value)
+        refreshRejectedRecipeList,
+    required TResult Function(_RefreshPendingRecipeList value)
+        refreshPendingRecipeList,
+  }) {
+    return refreshRejectedRecipeList(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_RefreshSavedRecipeList value)? refreshSavedRecipeList,
+    TResult? Function(_RefreshCreatedRecipeList value)?
+        refreshCreatedRecipeList,
+    TResult? Function(_RefreshDraftRecipeList value)? refreshDraftRecipeList,
+    TResult? Function(_RefreshRejectedRecipeList value)?
+        refreshRejectedRecipeList,
+    TResult? Function(_RefreshPendingRecipeList value)?
+        refreshPendingRecipeList,
+  }) {
+    return refreshRejectedRecipeList?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_RefreshSavedRecipeList value)? refreshSavedRecipeList,
+    TResult Function(_RefreshCreatedRecipeList value)? refreshCreatedRecipeList,
+    TResult Function(_RefreshDraftRecipeList value)? refreshDraftRecipeList,
+    TResult Function(_RefreshRejectedRecipeList value)?
+        refreshRejectedRecipeList,
+    TResult Function(_RefreshPendingRecipeList value)? refreshPendingRecipeList,
+    required TResult orElse(),
+  }) {
+    if (refreshRejectedRecipeList != null) {
+      return refreshRejectedRecipeList(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _RefreshRejectedRecipeList implements MyProfilePageEvent {
+  const factory _RefreshRejectedRecipeList(
+          {required final UserAuthenticationState authState}) =
+      _$_RefreshRejectedRecipeList;
+
+  @override
+  UserAuthenticationState get authState;
+  @override
+  @JsonKey(ignore: true)
+  _$$_RefreshRejectedRecipeListCopyWith<_$_RefreshRejectedRecipeList>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_RefreshPendingRecipeListCopyWith<$Res>
+    implements $MyProfilePageEventCopyWith<$Res> {
+  factory _$$_RefreshPendingRecipeListCopyWith(
+          _$_RefreshPendingRecipeList value,
+          $Res Function(_$_RefreshPendingRecipeList) then) =
+      __$$_RefreshPendingRecipeListCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({UserAuthenticationState authState});
+
+  @override
+  $UserAuthenticationStateCopyWith<$Res> get authState;
+}
+
+/// @nodoc
+class __$$_RefreshPendingRecipeListCopyWithImpl<$Res>
+    extends _$MyProfilePageEventCopyWithImpl<$Res, _$_RefreshPendingRecipeList>
+    implements _$$_RefreshPendingRecipeListCopyWith<$Res> {
+  __$$_RefreshPendingRecipeListCopyWithImpl(_$_RefreshPendingRecipeList _value,
+      $Res Function(_$_RefreshPendingRecipeList) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? authState = null,
+  }) {
+    return _then(_$_RefreshPendingRecipeList(
+      authState: null == authState
+          ? _value.authState
+          : authState // ignore: cast_nullable_to_non_nullable
+              as UserAuthenticationState,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_RefreshPendingRecipeList implements _RefreshPendingRecipeList {
+  const _$_RefreshPendingRecipeList({required this.authState});
+
+  @override
+  final UserAuthenticationState authState;
+
+  @override
+  String toString() {
+    return 'MyProfilePageEvent.refreshPendingRecipeList(authState: $authState)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_RefreshPendingRecipeList &&
+            (identical(other.authState, authState) ||
+                other.authState == authState));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, authState);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_RefreshPendingRecipeListCopyWith<_$_RefreshPendingRecipeList>
+      get copyWith => __$$_RefreshPendingRecipeListCopyWithImpl<
+          _$_RefreshPendingRecipeList>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(UserAuthenticationState authState) started,
+    required TResult Function(UserAuthenticationState authState)
+        refreshSavedRecipeList,
+    required TResult Function(UserAuthenticationState authState)
+        refreshCreatedRecipeList,
+    required TResult Function(UserAuthenticationState authState)
+        refreshDraftRecipeList,
+    required TResult Function(UserAuthenticationState authState)
+        refreshRejectedRecipeList,
+    required TResult Function(UserAuthenticationState authState)
+        refreshPendingRecipeList,
+  }) {
+    return refreshPendingRecipeList(authState);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(UserAuthenticationState authState)? started,
+    TResult? Function(UserAuthenticationState authState)?
+        refreshSavedRecipeList,
+    TResult? Function(UserAuthenticationState authState)?
+        refreshCreatedRecipeList,
+    TResult? Function(UserAuthenticationState authState)?
+        refreshDraftRecipeList,
+    TResult? Function(UserAuthenticationState authState)?
+        refreshRejectedRecipeList,
+    TResult? Function(UserAuthenticationState authState)?
+        refreshPendingRecipeList,
+  }) {
+    return refreshPendingRecipeList?.call(authState);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(UserAuthenticationState authState)? started,
+    TResult Function(UserAuthenticationState authState)? refreshSavedRecipeList,
+    TResult Function(UserAuthenticationState authState)?
+        refreshCreatedRecipeList,
+    TResult Function(UserAuthenticationState authState)? refreshDraftRecipeList,
+    TResult Function(UserAuthenticationState authState)?
+        refreshRejectedRecipeList,
+    TResult Function(UserAuthenticationState authState)?
+        refreshPendingRecipeList,
+    required TResult orElse(),
+  }) {
+    if (refreshPendingRecipeList != null) {
+      return refreshPendingRecipeList(authState);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_RefreshSavedRecipeList value)
+        refreshSavedRecipeList,
+    required TResult Function(_RefreshCreatedRecipeList value)
+        refreshCreatedRecipeList,
+    required TResult Function(_RefreshDraftRecipeList value)
+        refreshDraftRecipeList,
+    required TResult Function(_RefreshRejectedRecipeList value)
+        refreshRejectedRecipeList,
+    required TResult Function(_RefreshPendingRecipeList value)
+        refreshPendingRecipeList,
+  }) {
+    return refreshPendingRecipeList(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_RefreshSavedRecipeList value)? refreshSavedRecipeList,
+    TResult? Function(_RefreshCreatedRecipeList value)?
+        refreshCreatedRecipeList,
+    TResult? Function(_RefreshDraftRecipeList value)? refreshDraftRecipeList,
+    TResult? Function(_RefreshRejectedRecipeList value)?
+        refreshRejectedRecipeList,
+    TResult? Function(_RefreshPendingRecipeList value)?
+        refreshPendingRecipeList,
+  }) {
+    return refreshPendingRecipeList?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_RefreshSavedRecipeList value)? refreshSavedRecipeList,
+    TResult Function(_RefreshCreatedRecipeList value)? refreshCreatedRecipeList,
+    TResult Function(_RefreshDraftRecipeList value)? refreshDraftRecipeList,
+    TResult Function(_RefreshRejectedRecipeList value)?
+        refreshRejectedRecipeList,
+    TResult Function(_RefreshPendingRecipeList value)? refreshPendingRecipeList,
+    required TResult orElse(),
+  }) {
+    if (refreshPendingRecipeList != null) {
+      return refreshPendingRecipeList(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _RefreshPendingRecipeList implements MyProfilePageEvent {
+  const factory _RefreshPendingRecipeList(
+          {required final UserAuthenticationState authState}) =
+      _$_RefreshPendingRecipeList;
+
+  @override
+  UserAuthenticationState get authState;
+  @override
+  @JsonKey(ignore: true)
+  _$$_RefreshPendingRecipeListCopyWith<_$_RefreshPendingRecipeList>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$MyProfilePageState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
     required TResult Function(
-            SignedIn authState,
+            UserDetail user,
             ApiResult<List<Recipe?>> savedListResult,
             ApiResult<List<Recipe?>> createdListResult,
             ApiResult<List<Recipe?>> draftListResult,
@@ -253,7 +1311,7 @@ mixin _$MyProfilePageState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
     TResult? Function(
-            SignedIn authState,
+            UserDetail user,
             ApiResult<List<Recipe?>> savedListResult,
             ApiResult<List<Recipe?>> createdListResult,
             ApiResult<List<Recipe?>> draftListResult,
@@ -267,7 +1325,7 @@ mixin _$MyProfilePageState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
     TResult Function(
-            SignedIn authState,
+            UserDetail user,
             ApiResult<List<Recipe?>> savedListResult,
             ApiResult<List<Recipe?>> createdListResult,
             ApiResult<List<Recipe?>> draftListResult,
@@ -359,7 +1417,7 @@ class _$_Loading implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
     required TResult Function(
-            SignedIn authState,
+            UserDetail user,
             ApiResult<List<Recipe?>> savedListResult,
             ApiResult<List<Recipe?>> createdListResult,
             ApiResult<List<Recipe?>> draftListResult,
@@ -376,7 +1434,7 @@ class _$_Loading implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
     TResult? Function(
-            SignedIn authState,
+            UserDetail user,
             ApiResult<List<Recipe?>> savedListResult,
             ApiResult<List<Recipe?>> createdListResult,
             ApiResult<List<Recipe?>> draftListResult,
@@ -393,7 +1451,7 @@ class _$_Loading implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
     TResult Function(
-            SignedIn authState,
+            UserDetail user,
             ApiResult<List<Recipe?>> savedListResult,
             ApiResult<List<Recipe?>> createdListResult,
             ApiResult<List<Recipe?>> draftListResult,
@@ -454,7 +1512,7 @@ abstract class _$$_LoadedCopyWith<$Res> {
       __$$_LoadedCopyWithImpl<$Res>;
   @useResult
   $Res call(
-      {SignedIn authState,
+      {UserDetail user,
       ApiResult<List<Recipe?>> savedListResult,
       ApiResult<List<Recipe?>> createdListResult,
       ApiResult<List<Recipe?>> draftListResult,
@@ -478,7 +1536,7 @@ class __$$_LoadedCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? authState = null,
+    Object? user = null,
     Object? savedListResult = null,
     Object? createdListResult = null,
     Object? draftListResult = null,
@@ -486,10 +1544,10 @@ class __$$_LoadedCopyWithImpl<$Res>
     Object? pendingListResult = null,
   }) {
     return _then(_$_Loaded(
-      authState: null == authState
-          ? _value.authState
-          : authState // ignore: cast_nullable_to_non_nullable
-              as SignedIn,
+      user: null == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as UserDetail,
       savedListResult: null == savedListResult
           ? _value.savedListResult
           : savedListResult // ignore: cast_nullable_to_non_nullable
@@ -563,7 +1621,7 @@ class __$$_LoadedCopyWithImpl<$Res>
 
 class _$_Loaded implements _Loaded {
   const _$_Loaded(
-      {required this.authState,
+      {required this.user,
       required this.savedListResult,
       required this.createdListResult,
       required this.draftListResult,
@@ -571,7 +1629,7 @@ class _$_Loaded implements _Loaded {
       required this.pendingListResult});
 
   @override
-  final SignedIn authState;
+  final UserDetail user;
   @override
   final ApiResult<List<Recipe?>> savedListResult;
   @override
@@ -585,7 +1643,7 @@ class _$_Loaded implements _Loaded {
 
   @override
   String toString() {
-    return 'MyProfilePageState.loaded(authState: $authState, savedListResult: $savedListResult, createdListResult: $createdListResult, draftListResult: $draftListResult, rejectedListResult: $rejectedListResult, pendingListResult: $pendingListResult)';
+    return 'MyProfilePageState.loaded(user: $user, savedListResult: $savedListResult, createdListResult: $createdListResult, draftListResult: $draftListResult, rejectedListResult: $rejectedListResult, pendingListResult: $pendingListResult)';
   }
 
   @override
@@ -593,8 +1651,7 @@ class _$_Loaded implements _Loaded {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Loaded &&
-            (identical(other.authState, authState) ||
-                other.authState == authState) &&
+            (identical(other.user, user) || other.user == user) &&
             (identical(other.savedListResult, savedListResult) ||
                 other.savedListResult == savedListResult) &&
             (identical(other.createdListResult, createdListResult) ||
@@ -610,7 +1667,7 @@ class _$_Loaded implements _Loaded {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      authState,
+      user,
       savedListResult,
       createdListResult,
       draftListResult,
@@ -628,7 +1685,7 @@ class _$_Loaded implements _Loaded {
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
     required TResult Function(
-            SignedIn authState,
+            UserDetail user,
             ApiResult<List<Recipe?>> savedListResult,
             ApiResult<List<Recipe?>> createdListResult,
             ApiResult<List<Recipe?>> draftListResult,
@@ -637,8 +1694,8 @@ class _$_Loaded implements _Loaded {
         loaded,
     required TResult Function(String message) failed,
   }) {
-    return loaded(authState, savedListResult, createdListResult,
-        draftListResult, rejectedListResult, pendingListResult);
+    return loaded(user, savedListResult, createdListResult, draftListResult,
+        rejectedListResult, pendingListResult);
   }
 
   @override
@@ -646,7 +1703,7 @@ class _$_Loaded implements _Loaded {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
     TResult? Function(
-            SignedIn authState,
+            UserDetail user,
             ApiResult<List<Recipe?>> savedListResult,
             ApiResult<List<Recipe?>> createdListResult,
             ApiResult<List<Recipe?>> draftListResult,
@@ -655,7 +1712,7 @@ class _$_Loaded implements _Loaded {
         loaded,
     TResult? Function(String message)? failed,
   }) {
-    return loaded?.call(authState, savedListResult, createdListResult,
+    return loaded?.call(user, savedListResult, createdListResult,
         draftListResult, rejectedListResult, pendingListResult);
   }
 
@@ -664,7 +1721,7 @@ class _$_Loaded implements _Loaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
     TResult Function(
-            SignedIn authState,
+            UserDetail user,
             ApiResult<List<Recipe?>> savedListResult,
             ApiResult<List<Recipe?>> createdListResult,
             ApiResult<List<Recipe?>> draftListResult,
@@ -675,8 +1732,8 @@ class _$_Loaded implements _Loaded {
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(authState, savedListResult, createdListResult,
-          draftListResult, rejectedListResult, pendingListResult);
+      return loaded(user, savedListResult, createdListResult, draftListResult,
+          rejectedListResult, pendingListResult);
     }
     return orElse();
   }
@@ -718,14 +1775,14 @@ class _$_Loaded implements _Loaded {
 
 abstract class _Loaded implements MyProfilePageState {
   const factory _Loaded(
-      {required final SignedIn authState,
+      {required final UserDetail user,
       required final ApiResult<List<Recipe?>> savedListResult,
       required final ApiResult<List<Recipe?>> createdListResult,
       required final ApiResult<List<Recipe?>> draftListResult,
       required final ApiResult<List<Recipe?>> rejectedListResult,
       required final ApiResult<List<Recipe?>> pendingListResult}) = _$_Loaded;
 
-  SignedIn get authState;
+  UserDetail get user;
   ApiResult<List<Recipe?>> get savedListResult;
   ApiResult<List<Recipe?>> get createdListResult;
   ApiResult<List<Recipe?>> get draftListResult;
@@ -800,7 +1857,7 @@ class _$_Failed implements _Failed {
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
     required TResult Function(
-            SignedIn authState,
+            UserDetail user,
             ApiResult<List<Recipe?>> savedListResult,
             ApiResult<List<Recipe?>> createdListResult,
             ApiResult<List<Recipe?>> draftListResult,
@@ -817,7 +1874,7 @@ class _$_Failed implements _Failed {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
     TResult? Function(
-            SignedIn authState,
+            UserDetail user,
             ApiResult<List<Recipe?>> savedListResult,
             ApiResult<List<Recipe?>> createdListResult,
             ApiResult<List<Recipe?>> draftListResult,
@@ -834,7 +1891,7 @@ class _$_Failed implements _Failed {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
     TResult Function(
-            SignedIn authState,
+            UserDetail user,
             ApiResult<List<Recipe?>> savedListResult,
             ApiResult<List<Recipe?>> createdListResult,
             ApiResult<List<Recipe?>> draftListResult,

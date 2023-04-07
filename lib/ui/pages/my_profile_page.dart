@@ -93,11 +93,12 @@ class MyProfilePage extends StatelessWidget {
             length: tabBar.tabs.length,
             child: Scaffold(
               body: NestedScrollView(
+                physics: const NeverScrollableScrollPhysics(),
                 headerSliverBuilder:
                     (BuildContext context, bool innerBoxIsScrolled) {
                   return [
                     SliverToBoxAdapter(
-                      child: _UserInfo(user: user.user),
+                      child: _UserInfo(user: user),
                     ),
                     SliverAppBar(
                       toolbarHeight: tabBar.preferredSize.height,
@@ -109,6 +110,7 @@ class MyProfilePage extends StatelessWidget {
                   ];
                 },
                 body: TabBarView(
+                  physics: NeverScrollableScrollPhysics(),
                   children: [
                     createdList.map(
                         success: (value) => ProfileRecipeList(

@@ -420,7 +420,7 @@ class RecipeDetailAppBar extends StatelessWidget {
           child: BlocBuilder<SaveRecipeCubit, SaveRecipeState>(
             builder: (context, state) {
               return state.when(
-                  initial: (id, isSaved, _) {
+                  loaded: (id, isSaved) {
                     if (recipe.id == id) {
                       return SaveRecipeButton(
                           recipe: recipe.copyWith(isSaved: isSaved));

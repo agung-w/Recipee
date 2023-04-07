@@ -4,7 +4,7 @@ part of 'my_profile_page_bloc.dart';
 class MyProfilePageState with _$MyProfilePageState {
   const factory MyProfilePageState.loading() = _Loading;
   const factory MyProfilePageState.loaded({
-    required SignedIn authState,
+    required UserDetail user,
     required ApiResult<List<Recipe?>> savedListResult,
     required ApiResult<List<Recipe?>> createdListResult,
     required ApiResult<List<Recipe?>> draftListResult,
