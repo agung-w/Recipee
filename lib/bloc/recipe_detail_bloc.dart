@@ -40,14 +40,12 @@ class RecipeDetailBloc extends Bloc<RecipeDetailEvent, RecipeDetailState> {
       if ((state as _Loaded).comment is Success) {
         if (((state as _Loaded).comment as Success).value == null) {
           ApiResult<RecipeComment?> comment = await RecipeServices()
-              .getFirstRecipeComment(
-                  id: event.recipeId, token: (event.token as SignedIn).token);
+              .getFirstRecipeComment(id: event.recipeId, token: event.token);
           emit((state as _Loaded).copyWith(comment: comment));
         }
       } else {
         ApiResult<RecipeComment?> comment = await RecipeServices()
-            .getFirstRecipeComment(
-                id: event.recipeId, token: (event.token as SignedIn).token);
+            .getFirstRecipeComment(id: event.recipeId, token: event.token);
         emit((state as _Loaded).copyWith(comment: comment));
       }
     });

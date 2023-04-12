@@ -21,6 +21,5 @@ class RecipeComment {
   factory RecipeComment.fromJson(Map<String, dynamic> json) =>
       _$RecipeCommentFromJson(json);
 
-  @override
   Map<String, dynamic> toJson() => _$RecipeCommentToJson(this);
 }
