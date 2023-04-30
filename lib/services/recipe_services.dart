@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:ta_recipe_app/entities/recipe.dart';
+import 'package:ta_recipe_app/entities/recipe_bundle.dart';
 import 'package:ta_recipe_app/entities/recipe_comment.dart';
 import 'package:ta_recipe_app/entities/recipe_detail.dart';
 import 'package:ta_recipe_app/helpers/api_result.dart';
@@ -292,6 +293,34 @@ class RecipeServices {
         } else {
           errorMessage = e.response!.data['message'];
         }
+      }
+      return ApiResult.failed(errorMessage);
+    }
+  }
+
+  Future<ApiResult<List<RecipeBundle>?>> getBundles(
+      {required int recipeId, required String token}) async {
+    try {
+      Response result = await _dio.get(
+        "${dotenv.env['API_URL']}/recipe-bundles/$recipeId",
+        options: options ??
+            Options(headers: {
+              "Content-Type": "application/json",
+            }),
+      );
+      if (result.statusCode != 200) {
+        throw (DioError(
+            response: result, requestOptions: result.requestOptions));
+      }
+      List<RecipeBundle>? resultListObj =
+          (result.data['data']['recipe_bundles'] as List)
+              .map((e) => RecipeBundle.fromJson(e))
+              .toList();
+      return ApiResult.success(resultListObj);
+    } on DioError catch (e) {
+      String errorMessage = "Connection timeout";
+      if (e.response != null) {
+        errorMessage = e.response!.data['message'];
       }
       return ApiResult.failed(errorMessage);
     }

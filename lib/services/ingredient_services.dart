@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:ta_recipe_app/entities/ingredient.dart';
-import 'package:ta_recipe_app/entities/recipe_detail.dart';
 import 'package:ta_recipe_app/helpers/api_result.dart';
 
 class IngredientServices {

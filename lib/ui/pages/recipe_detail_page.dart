@@ -1,18 +1,19 @@
-import 'dart:developer';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ta_recipe_app/bloc/order_page_bloc.dart';
 import 'package:ta_recipe_app/bloc/recipe_detail_bloc.dart';
 import 'package:ta_recipe_app/bloc/user_authentication_bloc.dart';
 import 'dart:ui' as ui;
 import 'package:ta_recipe_app/cubit/comment_cubit.dart';
 import 'package:ta_recipe_app/cubit/save_recipe_cubit.dart';
+import 'package:ta_recipe_app/cubit/shipping_cubit.dart';
 import 'package:ta_recipe_app/entities/cooking_step.dart';
 import 'package:ta_recipe_app/entities/recipe_comment.dart';
 import 'package:ta_recipe_app/entities/recipe_detail.dart';
 import 'package:ta_recipe_app/entities/recipe_ingredient.dart';
 import 'package:ta_recipe_app/entities/user_detail.dart';
+import 'package:ta_recipe_app/ui/pages/order_page.dart';
 import 'package:ta_recipe_app/ui/widgets/loading_indicator.dart';
 import 'package:ta_recipe_app/ui/widgets/save_recipe_button.dart';
 import 'package:ta_recipe_app/ui/widgets/small_user_profile_pic.dart';
@@ -55,7 +56,9 @@ class RecipeDetailPage extends StatelessWidget {
                                           constraints.scrollOffset + 50 <
                                               posterSize;
                                       return RecipeDetailAppBar(
-                                          scrolled: scrolled, recipe: recipe);
+                                          scrolled: scrolled,
+                                          recipe: recipe,
+                                          authState: value.authState);
                                     },
                                   ),
                                 );
@@ -400,14 +403,15 @@ class RecipeDetailPage extends StatelessWidget {
 }
 
 class RecipeDetailAppBar extends StatelessWidget {
-  const RecipeDetailAppBar({
-    super.key,
-    required this.scrolled,
-    required this.recipe,
-  });
+  const RecipeDetailAppBar(
+      {super.key,
+      required this.scrolled,
+      required this.recipe,
+      required this.authState});
 
   final bool scrolled;
   final RecipeDetail recipe;
+  final SignedIn authState;
 
   @override
   Widget build(BuildContext context) {
@@ -415,6 +419,24 @@ class RecipeDetailAppBar extends StatelessWidget {
       backgroundColor: scrolled ? Colors.transparent : null,
       pinned: true,
       actions: [
+        Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: IconButton(
+              icon: const Icon(Icons.shopping_cart_outlined),
+              onPressed: () {
+                context.read<OrderPageBloc>().add(OrderPageEvent.started(
+                    id: recipe.id!, authState: authState));
+                context
+                    .read<ShippingCubit>()
+                    .getCurrentLocation(authUser: authState, context: context);
+                Navigator.of(context, rootNavigator: true)
+                    .push(MaterialPageRoute(
+                        builder: (_) => OrderPage(
+                              authState: authState,
+                              recipeId: recipe.id!,
+                            )));
+              },
+            )),
         Padding(
           padding: const EdgeInsets.only(right: 8.0),
           child: BlocBuilder<SaveRecipeCubit, SaveRecipeState>(
@@ -431,7 +453,7 @@ class RecipeDetailAppBar extends StatelessWidget {
                   loading: () => SaveRecipeButton(recipe: recipe));
             },
           ),
-        )
+        ),
       ],
     );
   }

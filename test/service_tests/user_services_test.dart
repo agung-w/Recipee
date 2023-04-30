@@ -117,7 +117,7 @@ void main() {
           .thenAnswer((_) {
         return Future.value(Response(
             data: {"status": 404, "message": "User not found"},
-            statusCode: 401,
+            statusCode: 404,
             requestOptions: RequestOptions(
               path: "${dotenv.env['API_URL']}/profile/user_notfound",
             )));
