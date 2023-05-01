@@ -25,7 +25,7 @@ abstract class _$OrderCWProxy {
 
   Order orderItems(List<OrderItem> orderItems);
 
-  Order paymentLink(String paymentLink);
+  Order paymentLink(String? paymentLink);
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `Order(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -84,7 +84,7 @@ class _$OrderCWProxyImpl implements _$OrderCWProxy {
   Order orderItems(List<OrderItem> orderItems) => this(orderItems: orderItems);
 
   @override
-  Order paymentLink(String paymentLink) => this(paymentLink: paymentLink);
+  Order paymentLink(String? paymentLink) => this(paymentLink: paymentLink);
 
   @override
 
@@ -147,11 +147,10 @@ class _$OrderCWProxyImpl implements _$OrderCWProxy {
               ? _value.orderItems
               // ignore: cast_nullable_to_non_nullable
               : orderItems as List<OrderItem>,
-      paymentLink:
-          paymentLink == const $CopyWithPlaceholder() || paymentLink == null
-              ? _value.paymentLink
-              // ignore: cast_nullable_to_non_nullable
-              : paymentLink as String,
+      paymentLink: paymentLink == const $CopyWithPlaceholder()
+          ? _value.paymentLink
+          // ignore: cast_nullable_to_non_nullable
+          : paymentLink as String?,
     );
   }
 }
@@ -178,7 +177,7 @@ Order _$OrderFromJson(Map<String, dynamic> json) => Order(
       orderItems: (json['order_details'] as List<dynamic>)
           .map((e) => OrderItem.fromJson(e as Map<String, dynamic>))
           .toList(),
-      paymentLink: json['order_payment_link'] as String,
+      paymentLink: json['order_payment_link'] as String?,
     );
 
 Map<String, dynamic> _$OrderToJson(Order instance) => <String, dynamic>{

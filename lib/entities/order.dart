@@ -23,7 +23,7 @@ class Order {
   @JsonKey(name: "order_details")
   final List<OrderItem> orderItems;
   @JsonKey(name: "order_payment_link")
-  final String paymentLink;
+  final String? paymentLink;
   const Order({
     required this.id,
     required this.status,
@@ -34,7 +34,7 @@ class Order {
     required this.addressNotes,
     required this.recipientName,
     required this.orderItems,
-    required this.paymentLink,
+    this.paymentLink,
   });
   factory Order.fromJson(Map<String, dynamic> json) => _$OrderFromJson(json);
   Map<String, dynamic> toJson() => _$OrderToJson(this);

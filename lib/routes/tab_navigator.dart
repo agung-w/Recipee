@@ -3,9 +3,9 @@ import 'package:ta_recipe_app/ui/pages/create_page.dart';
 import 'package:ta_recipe_app/ui/pages/explore_page.dart';
 import 'package:ta_recipe_app/ui/pages/home_page.dart';
 import 'package:ta_recipe_app/ui/pages/my_profile_page.dart';
-import 'package:ta_recipe_app/ui/pages/shopping_list_page.dart';
 import 'package:ta_recipe_app/routes/tab_item.dart';
 import 'package:ta_recipe_app/routes/tab_navigator_routes.dart';
+import 'package:ta_recipe_app/ui/pages/order_history_page.dart';
 
 class TabNavigator extends StatelessWidget {
   const TabNavigator(
@@ -25,7 +25,7 @@ class TabNavigator extends StatelessWidget {
         } else if (tabItem.index == 2) {
           return const CreatePage();
         } else if (tabItem.index == 3) {
-          return const ShoppingListPage();
+          return const OrderHistoryPage();
         } else if (tabItem.index == 4) {
           return const MyProfilePage();
         } else {

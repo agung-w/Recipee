@@ -53,6 +53,7 @@ dependencies:
   positioned_tap_detector_2: ^1.0.4
   shared_preferences: ^2.0.18
   shimmer: ^2.0.0
+  timeline_tile: ^2.0.0
   webview_flutter: ^4.2.0
 
 dev_dependencies:

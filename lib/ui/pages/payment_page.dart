@@ -23,7 +23,7 @@ class PaymentPage extends StatelessWidget {
           }
         },
       ))
-      ..loadRequest(Uri.parse(order.paymentLink));
+      ..loadRequest(Uri.parse(order.paymentLink!));
     return WillPopScope(
       onWillPop: () async {
         context.read<PaymentCubit>().checkPaymentStatus(

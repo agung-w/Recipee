@@ -50,5 +50,8 @@
   "delete_text":"Hapus",
   "follower_text":"Follower",
   "following_text":"Following",
-  "cooking_step_title_text":"Langkah memasak"
+  "cooking_step_title_text":"Langkah memasak",
+  "pay_now_text":"Bayar",
+  "cancel_order_text":"Batalkan",
+  "total_text":"Total"
 }
