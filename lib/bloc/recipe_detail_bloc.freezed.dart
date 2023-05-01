@@ -642,7 +642,7 @@ class __$$_LoadedCopyWithImpl<$Res>
   $Res call({
     Object? recipeDetail = null,
     Object? comment = null,
-    Object? authState = freezed,
+    Object? authState = null,
   }) {
     return _then(_$_Loaded(
       recipeDetail: null == recipeDetail
@@ -653,7 +653,7 @@ class __$$_LoadedCopyWithImpl<$Res>
           ? _value.comment
           : comment // ignore: cast_nullable_to_non_nullable
               as ApiResult<RecipeComment?>,
-      authState: freezed == authState
+      authState: null == authState
           ? _value.authState
           : authState // ignore: cast_nullable_to_non_nullable
               as SignedIn,
@@ -697,12 +697,13 @@ class _$_Loaded implements _Loaded {
             (identical(other.recipeDetail, recipeDetail) ||
                 other.recipeDetail == recipeDetail) &&
             (identical(other.comment, comment) || other.comment == comment) &&
-            const DeepCollectionEquality().equals(other.authState, authState));
+            (identical(other.authState, authState) ||
+                other.authState == authState));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, recipeDetail, comment,
-      const DeepCollectionEquality().hash(authState));
+  int get hashCode =>
+      Object.hash(runtimeType, recipeDetail, comment, authState);
 
   @JsonKey(ignore: true)
   @override

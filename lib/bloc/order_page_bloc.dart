@@ -3,13 +3,14 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:ta_recipe_app/bloc/user_authentication_bloc.dart';
+import 'package:ta_recipe_app/entities/order.dart';
 import 'package:ta_recipe_app/entities/order_recipe_bundle.dart';
 import 'package:ta_recipe_app/entities/recipe_bundle.dart';
 import 'package:ta_recipe_app/entities/shipping_address.dart';
 import 'package:ta_recipe_app/helpers/api_result.dart';
 import 'package:ta_recipe_app/services/order_services.dart';
 import 'package:ta_recipe_app/services/recipe_services.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:ta_recipe_app/ui/pages/payment_page.dart';
 
 part 'order_page_event.dart';
 part 'order_page_state.dart';
@@ -46,13 +47,13 @@ class OrderPageBloc extends Bloc<OrderPageEvent, OrderPageState> {
         var orderState = (state as _Loaded);
         int newQty = event.quantity < 0
             ? 0
-            : event.quantity <= event.bundle.stock
+            : event.quantity <= event.bundle.stock!
                 ? event.quantity
-                : event.bundle.stock;
+                : event.bundle.stock!;
         List<OrderRecipeBundle> bundles = List.from(orderState.bundles);
         int i = bundles.indexWhere((element) => element == event.bundle);
         bundles[i] = bundles[i].copyWith(
-            quantity: newQty, totalPrice: newQty * event.bundle.price);
+            quantity: newQty, totalPrice: newQty * event.bundle.price!);
         emit(orderState.copyWith(bundles: bundles));
       }
     }));
@@ -63,7 +64,7 @@ class OrderPageBloc extends Bloc<OrderPageEvent, OrderPageState> {
         List<OrderRecipeBundle> bundles = List.from(orderState.bundles);
         int i = bundles.indexWhere((element) => element == event.bundle);
         bundles[i] = bundles[i].copyWith(
-            quantity: newQty, totalPrice: newQty * event.bundle.price);
+            quantity: newQty, totalPrice: newQty * event.bundle.price!);
         emit(orderState.copyWith(bundles: bundles));
       }
     }));
@@ -74,7 +75,7 @@ class OrderPageBloc extends Bloc<OrderPageEvent, OrderPageState> {
         List<OrderRecipeBundle> bundles = List.from(orderState.bundles);
         int i = bundles.indexWhere((element) => element == event.bundle);
         bundles[i] = bundles[i].copyWith(
-            quantity: newQty, totalPrice: newQty * event.bundle.price);
+            quantity: newQty, totalPrice: newQty * event.bundle.price!);
         emit(orderState.copyWith(bundles: bundles));
       }
     }));
@@ -117,16 +118,15 @@ class OrderPageBloc extends Bloc<OrderPageEvent, OrderPageState> {
     on<_CreateOrder>(((event, emit) async {
       if (state is _Loaded) {
         var orderState = (state as _Loaded);
-        ApiResult<String> createOrder = await OrderServices().createOrder(
+        ApiResult<Order> createOrder = await OrderServices().createOrder(
             shippingAddress: orderState.shippingAddress!,
             shippingfee: orderState.shippingFee!,
             bundles: orderState.bundles,
             token: event.authState.token);
         createOrder.map(success: (value) {
-          _launchUrl(value.value)
-              .then((value) => Navigator.of(event.context).popUntil(
-                    (route) => route.isFirst,
-                  ));
+          Navigator.of(event.context).push(MaterialPageRoute(
+              builder: (_) =>
+                  PaymentPage(order: value.value, authState: event.authState)));
           emit(const _Initial());
         }, failed: (value) {
           ScaffoldMessenger.of(event.context)
@@ -135,20 +135,5 @@ class OrderPageBloc extends Bloc<OrderPageEvent, OrderPageState> {
         });
       }
     }));
-  }
-  Future<void> _launchUrl(url) async {
-    var uri = Uri.parse(url);
-    if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
-      throw Exception('Could not launch $uri');
-    }
-  }
-
-  Future<void> _launchInWebViewOrVC(Uri url) async {
-    if (!await launchUrl(
-      url,
-      mode: LaunchMode.inAppWebView,
-    )) {
-      throw Exception('Could not launch $url');
-    }
   }
 }

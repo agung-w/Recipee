@@ -10,6 +10,7 @@ import 'package:ta_recipe_app/bloc/recipe_detail_bloc.dart';
 import 'package:ta_recipe_app/bloc/user_authentication_bloc.dart';
 import 'package:ta_recipe_app/cubit/comment_cubit.dart';
 import 'package:ta_recipe_app/cubit/metric_cubit.dart';
+import 'package:ta_recipe_app/cubit/payment_cubit.dart';
 import 'package:ta_recipe_app/cubit/save_recipe_cubit.dart';
 import 'package:ta_recipe_app/cubit/shipping_cubit.dart';
 import 'package:ta_recipe_app/ui/pages/main_page.dart';
@@ -48,6 +49,7 @@ class RecipeApp extends StatelessWidget {
         BlocProvider(create: (context) => OrderPageBloc()),
         BlocProvider(create: (context) => ShippingCubit()),
         BlocProvider(create: (context) => RecipeDetailBloc()),
+        BlocProvider(create: (context) => PaymentCubit()),
         BlocProvider(
             create: (context) => UserAuthenticationBloc()
               ..add(const UserAuthenticationEvent.checkSignInStatus())),

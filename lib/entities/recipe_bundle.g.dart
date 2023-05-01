@@ -7,11 +7,11 @@ part of 'recipe_bundle.dart';
 // **************************************************************************
 
 RecipeBundle _$RecipeBundleFromJson(Map<String, dynamic> json) => RecipeBundle(
-      id: json['id'] as int,
+      id: json['id'] as int?,
       title: json['title'] as String,
       description: json['description'] as String,
-      price: (json['price'] as num).toDouble(),
-      stock: json['stock'] as int,
+      price: (json['price'] as num?)?.toDouble(),
+      stock: json['stock'] as int?,
       picUrl: json['pic_url'] as String?,
     );
 

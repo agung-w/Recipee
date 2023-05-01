@@ -360,7 +360,7 @@ class _BundleTile extends StatelessWidget {
                   color: Theme.of(context).colorScheme.primary,
                   iconSize: 20,
                   icon: const Icon(Icons.add),
-                  onPressed: bundle.stock > bundle.quantity
+                  onPressed: bundle.stock! > bundle.quantity
                       ? () {
                           context
                               .read<OrderPageBloc>()
@@ -374,7 +374,7 @@ class _BundleTile extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: Text(
-                  Currency().toIDR(bundle.price),
+                  Currency().toIDR(bundle.price!),
                   style: Theme.of(context).textTheme.labelSmall,
                 ),
               )

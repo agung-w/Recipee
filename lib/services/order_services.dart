@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:ta_recipe_app/entities/order.dart';
 import 'package:ta_recipe_app/entities/order_recipe_bundle.dart';
 import 'package:ta_recipe_app/entities/shipping_address.dart';
 import 'package:ta_recipe_app/entities/shipping_fee.dart';
@@ -42,7 +43,32 @@ class OrderServices {
     }
   }
 
-  Future<ApiResult<String>> createOrder(
+  Future<ApiResult<Order>> checkPaymentStatus(
+      {required String id, required String token}) async {
+    try {
+      Response result = await _dio.put(
+        "${dotenv.env['API_URL']}/order/check-payment-status?id=$id",
+        options: options ??
+            Options(headers: {
+              "Content-Type": "application/json",
+              "Authorization": "Bearer $token",
+            }),
+      );
+      if (result.statusCode != 200) {
+        throw (DioError(
+            response: result, requestOptions: result.requestOptions));
+      }
+      return ApiResult.success(Order.fromJson(result.data['data']['order']));
+    } on DioError catch (e) {
+      String errorMessage = "Connection timeout";
+      if (e.response != null) {
+        errorMessage = e.response!.data['message'];
+      }
+      return ApiResult.failed(errorMessage);
+    }
+  }
+
+  Future<ApiResult<Order>> createOrder(
       {required ShippingAddress shippingAddress,
       required double shippingfee,
       required List<OrderRecipeBundle> bundles,
@@ -75,7 +101,8 @@ class OrderServices {
         throw (DioError(
             response: result, requestOptions: result.requestOptions));
       }
-      return ApiResult.success(result.data['data']['payment_link']);
+
+      return ApiResult.success(Order.fromJson(result.data['data']['order']));
     } on DioError catch (e) {
       String errorMessage = "Connection timeout";
       if (e.response != null) {

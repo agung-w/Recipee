@@ -11,15 +11,15 @@ abstract class _$OrderRecipeBundleCWProxy {
 
   OrderRecipeBundle quantity(int quantity);
 
-  OrderRecipeBundle id(int id);
+  OrderRecipeBundle id(int? id);
 
   OrderRecipeBundle title(String title);
 
   OrderRecipeBundle description(String description);
 
-  OrderRecipeBundle price(double price);
+  OrderRecipeBundle price(double? price);
 
-  OrderRecipeBundle stock(int stock);
+  OrderRecipeBundle stock(int? stock);
 
   OrderRecipeBundle picUrl(String? picUrl);
 
@@ -55,7 +55,7 @@ class _$OrderRecipeBundleCWProxyImpl implements _$OrderRecipeBundleCWProxy {
   OrderRecipeBundle quantity(int quantity) => this(quantity: quantity);
 
   @override
-  OrderRecipeBundle id(int id) => this(id: id);
+  OrderRecipeBundle id(int? id) => this(id: id);
 
   @override
   OrderRecipeBundle title(String title) => this(title: title);
@@ -65,10 +65,10 @@ class _$OrderRecipeBundleCWProxyImpl implements _$OrderRecipeBundleCWProxy {
       this(description: description);
 
   @override
-  OrderRecipeBundle price(double price) => this(price: price);
+  OrderRecipeBundle price(double? price) => this(price: price);
 
   @override
-  OrderRecipeBundle stock(int stock) => this(stock: stock);
+  OrderRecipeBundle stock(int? stock) => this(stock: stock);
 
   @override
   OrderRecipeBundle picUrl(String? picUrl) => this(picUrl: picUrl);
@@ -101,10 +101,10 @@ class _$OrderRecipeBundleCWProxyImpl implements _$OrderRecipeBundleCWProxy {
           ? _value.quantity
           // ignore: cast_nullable_to_non_nullable
           : quantity as int,
-      id: id == const $CopyWithPlaceholder() || id == null
+      id: id == const $CopyWithPlaceholder()
           ? _value.id
           // ignore: cast_nullable_to_non_nullable
-          : id as int,
+          : id as int?,
       title: title == const $CopyWithPlaceholder() || title == null
           ? _value.title
           // ignore: cast_nullable_to_non_nullable
@@ -114,14 +114,14 @@ class _$OrderRecipeBundleCWProxyImpl implements _$OrderRecipeBundleCWProxy {
               ? _value.description
               // ignore: cast_nullable_to_non_nullable
               : description as String,
-      price: price == const $CopyWithPlaceholder() || price == null
+      price: price == const $CopyWithPlaceholder()
           ? _value.price
           // ignore: cast_nullable_to_non_nullable
-          : price as double,
-      stock: stock == const $CopyWithPlaceholder() || stock == null
+          : price as double?,
+      stock: stock == const $CopyWithPlaceholder()
           ? _value.stock
           // ignore: cast_nullable_to_non_nullable
-          : stock as int,
+          : stock as int?,
       picUrl: picUrl == const $CopyWithPlaceholder()
           ? _value.picUrl
           // ignore: cast_nullable_to_non_nullable
@@ -145,11 +145,11 @@ OrderRecipeBundle _$OrderRecipeBundleFromJson(Map<String, dynamic> json) =>
     OrderRecipeBundle(
       totalPrice: (json['totalPrice'] as num?)?.toDouble() ?? 0,
       quantity: json['quantity'] as int? ?? 0,
-      id: json['id'] as int,
+      id: json['id'] as int?,
       title: json['title'] as String,
       description: json['description'] as String,
-      price: (json['price'] as num).toDouble(),
-      stock: json['stock'] as int,
+      price: (json['price'] as num?)?.toDouble(),
+      stock: json['stock'] as int?,
       picUrl: json['pic_url'] as String?,
     );
 
