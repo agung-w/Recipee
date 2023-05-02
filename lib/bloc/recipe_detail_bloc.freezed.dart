@@ -16,10 +16,10 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$RecipeDetailEvent {
-  int get recipeId => throw _privateConstructorUsedError;
+  int? get recipeId => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(UserAuthenticationState authState, int recipeId,
+    required TResult Function(UserAuthenticationState authState, int? recipeId,
             BuildContext context)
         started,
     required TResult Function(int recipeId, String token) refreshComment,
@@ -27,7 +27,7 @@ mixin _$RecipeDetailEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(UserAuthenticationState authState, int recipeId,
+    TResult? Function(UserAuthenticationState authState, int? recipeId,
             BuildContext context)?
         started,
     TResult? Function(int recipeId, String token)? refreshComment,
@@ -35,7 +35,7 @@ mixin _$RecipeDetailEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(UserAuthenticationState authState, int recipeId,
+    TResult Function(UserAuthenticationState authState, int? recipeId,
             BuildContext context)?
         started,
     TResult Function(int recipeId, String token)? refreshComment,
@@ -93,7 +93,7 @@ class _$RecipeDetailEventCopyWithImpl<$Res, $Val extends RecipeDetailEvent>
   }) {
     return _then(_value.copyWith(
       recipeId: null == recipeId
-          ? _value.recipeId
+          ? _value.recipeId!
           : recipeId // ignore: cast_nullable_to_non_nullable
               as int,
     ) as $Val);
@@ -109,7 +109,7 @@ abstract class _$$_StartedCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {UserAuthenticationState authState, int recipeId, BuildContext context});
+      {UserAuthenticationState authState, int? recipeId, BuildContext context});
 
   $UserAuthenticationStateCopyWith<$Res> get authState;
 }
@@ -125,7 +125,7 @@ class __$$_StartedCopyWithImpl<$Res>
   @override
   $Res call({
     Object? authState = null,
-    Object? recipeId = null,
+    Object? recipeId = freezed,
     Object? context = null,
   }) {
     return _then(_$_Started(
@@ -133,10 +133,10 @@ class __$$_StartedCopyWithImpl<$Res>
           ? _value.authState
           : authState // ignore: cast_nullable_to_non_nullable
               as UserAuthenticationState,
-      recipeId: null == recipeId
+      recipeId: freezed == recipeId
           ? _value.recipeId
           : recipeId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       context: null == context
           ? _value.context
           : context // ignore: cast_nullable_to_non_nullable
@@ -162,7 +162,7 @@ class _$_Started implements _Started {
   @override
   final UserAuthenticationState authState;
   @override
-  final int recipeId;
+  final int? recipeId;
   @override
   final BuildContext context;
 
@@ -195,7 +195,7 @@ class _$_Started implements _Started {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(UserAuthenticationState authState, int recipeId,
+    required TResult Function(UserAuthenticationState authState, int? recipeId,
             BuildContext context)
         started,
     required TResult Function(int recipeId, String token) refreshComment,
@@ -206,7 +206,7 @@ class _$_Started implements _Started {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(UserAuthenticationState authState, int recipeId,
+    TResult? Function(UserAuthenticationState authState, int? recipeId,
             BuildContext context)?
         started,
     TResult? Function(int recipeId, String token)? refreshComment,
@@ -217,7 +217,7 @@ class _$_Started implements _Started {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(UserAuthenticationState authState, int recipeId,
+    TResult Function(UserAuthenticationState authState, int? recipeId,
             BuildContext context)?
         started,
     TResult Function(int recipeId, String token)? refreshComment,
@@ -264,12 +264,12 @@ class _$_Started implements _Started {
 abstract class _Started implements RecipeDetailEvent {
   const factory _Started(
       {required final UserAuthenticationState authState,
-      required final int recipeId,
+      required final int? recipeId,
       required final BuildContext context}) = _$_Started;
 
   UserAuthenticationState get authState;
   @override
-  int get recipeId;
+  int? get recipeId;
   BuildContext get context;
   @override
   @JsonKey(ignore: true)
@@ -352,7 +352,7 @@ class _$_RefreshComment implements _RefreshComment {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(UserAuthenticationState authState, int recipeId,
+    required TResult Function(UserAuthenticationState authState, int? recipeId,
             BuildContext context)
         started,
     required TResult Function(int recipeId, String token) refreshComment,
@@ -363,7 +363,7 @@ class _$_RefreshComment implements _RefreshComment {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(UserAuthenticationState authState, int recipeId,
+    TResult? Function(UserAuthenticationState authState, int? recipeId,
             BuildContext context)?
         started,
     TResult? Function(int recipeId, String token)? refreshComment,
@@ -374,7 +374,7 @@ class _$_RefreshComment implements _RefreshComment {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(UserAuthenticationState authState, int recipeId,
+    TResult Function(UserAuthenticationState authState, int? recipeId,
             BuildContext context)?
         started,
     TResult Function(int recipeId, String token)? refreshComment,

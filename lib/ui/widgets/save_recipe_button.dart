@@ -45,7 +45,7 @@ class SaveRecipeButton extends StatelessWidget {
                   context
                       .read<SaveRecipeCubit>()
                       .saveRecipe(
-                        id: recipe.id!,
+                        id: recipe.id,
                         context: context,
                         state: state,
                       )

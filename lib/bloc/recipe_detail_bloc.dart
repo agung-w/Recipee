@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:ta_recipe_app/bloc/user_authentication_bloc.dart';
@@ -52,21 +53,25 @@ class RecipeDetailBloc extends Bloc<RecipeDetailEvent, RecipeDetailState> {
   }
 
   Future<void> _getData(Emitter<RecipeDetailState> emit, _Started event) async {
-    emit(const _Loading());
-    Navigator.of(event.context)
-        .push(MaterialPageRoute(builder: (_) => const RecipeDetailPage()));
-    String token = (event.authState as SignedIn).token;
-    ApiResult<RecipeDetail> recipe = await RecipeServices()
-        .getRecipeDetail(id: event.recipeId, token: token);
-    ApiResult<RecipeComment?> comment = await RecipeServices()
-        .getFirstRecipeComment(id: event.recipeId, token: token);
-    recipe.map(success: (value) {
-      emit(_Loaded(
-          recipeDetail: value.value,
-          comment: comment,
-          authState: (event.authState as SignedIn)));
-    }, failed: (value) {
-      emit(_Failed(message: value.message));
-    });
+    if (event.recipeId != null) {
+      emit(const _Loading());
+      Navigator.of(event.context)
+          .push(MaterialPageRoute(builder: (_) => const RecipeDetailPage()));
+      String token = (event.authState as SignedIn).token;
+      ApiResult<RecipeDetail> recipe = await RecipeServices()
+          .getRecipeDetail(id: event.recipeId!, token: token);
+      ApiResult<RecipeComment?> comment = await RecipeServices()
+          .getFirstRecipeComment(id: event.recipeId!, token: token);
+      recipe.map(success: (value) {
+        emit(_Loaded(
+            recipeDetail: value.value,
+            comment: comment,
+            authState: (event.authState as SignedIn)));
+      }, failed: (value) {
+        emit(_Failed(message: value.message));
+      });
+    } else {
+      emit(_Failed(message: "cant_get_this_recipe_detail_now_text".tr()));
+    }
   }
 }

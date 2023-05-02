@@ -29,7 +29,7 @@ class RecipeCardWithCreator extends StatelessWidget {
                   context.read<RecipeDetailBloc>().add(
                         RecipeDetailEvent.started(
                             authState: authState,
-                            recipeId: recipe.id!,
+                            recipeId: recipe.id,
                             context: context),
                       );
                 },
