@@ -19,19 +19,17 @@ class ExplorePage extends StatelessWidget {
           body: NestedScrollView(
               floatHeaderSlivers: true,
               headerSliverBuilder: (__, _) => [
-                    SliverPadding(
-                      padding: const EdgeInsets.only(top: 8.0),
-                      sliver: SliverAppBar(
-                        floating: true,
-                        snap: true,
-                        title: TextFormField(
+                    SliverAppBar(
+                      floating: true,
+                      snap: true,
+                      title: Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: TextFormField(
                           controller: searchController,
                           onFieldSubmitted: (value) {
-                            if (value.isNotEmpty) {
-                              context
-                                  .read<ExplorePageBloc>()
-                                  .add(ExplorePageEvent.search(query: value));
-                            }
+                            context
+                                .read<ExplorePageBloc>()
+                                .add(ExplorePageEvent.search(query: value));
                           },
                           decoration: InputDecoration(
                               isDense: true,
@@ -54,34 +52,50 @@ class ExplorePage extends StatelessWidget {
                     ),
                   ],
               body: state.map(
-                  initial: (value) => const Center(
+                  initial: (_) => const Center(
                           child: Padding(
                         padding: EdgeInsets.all(16),
                         child: LoadingIndicator(size: 16),
                       )),
                   loaded: (value) {
                     return RefreshIndicator(
-                      onRefresh: () async {},
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: GridView(
-                            gridDelegate: SliverQuiltedGridDelegate(
-                              crossAxisCount: 10,
-                              mainAxisSpacing: 8,
-                              crossAxisSpacing: 8,
-                              repeatPattern: QuiltedGridRepeatPattern.same,
-                              pattern: const [
-                                QuiltedGridTile(4, 5),
-                                QuiltedGridTile(4, 5),
-                                QuiltedGridTile(4, 10),
-                              ],
+                      onRefresh: () async {
+                        context.read<ExplorePageBloc>().add(
+                            ExplorePageEvent.refreshResult(
+                                query: searchController.text));
+                      },
+                      child: value.recipeList.isNotEmpty
+                          ? Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16),
+                              child: GridView(
+                                  gridDelegate: SliverQuiltedGridDelegate(
+                                    crossAxisCount: 10,
+                                    mainAxisSpacing: 8,
+                                    crossAxisSpacing: 8,
+                                    repeatPattern:
+                                        QuiltedGridRepeatPattern.same,
+                                    pattern: const [
+                                      QuiltedGridTile(4, 5),
+                                      QuiltedGridTile(4, 5),
+                                      QuiltedGridTile(4, 10),
+                                    ],
+                                  ),
+                                  children: value.recipeList
+                                      .map((e) => RecipeCard(recipe: e))
+                                      .toList()),
+                            )
+                          : SingleChildScrollView(
+                              child: Center(
+                                child: Text("no_explore_result_text".tr()),
+                              ),
                             ),
-                            children: value.recipeList
-                                .map((e) => RecipeCard(recipe: e))
-                                .toList()),
-                      ),
                     );
-                  })),
+                  },
+                  failed: (value) => Center(
+                        child: Text(value.message ??
+                            "cant_load_explore_result_now_text".tr()),
+                      ))),
         );
       },
     );

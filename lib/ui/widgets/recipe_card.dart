@@ -34,6 +34,7 @@ class RecipeCard extends StatelessWidget {
                   child: Image.network(
                     recipe.posterPicUrl ?? "",
                     height: double.infinity,
+                    width: double.infinity,
                     fit: BoxFit.cover,
                     errorBuilder: (context, error, stackTrace) => Align(
                       alignment: FractionalOffset.centerLeft,

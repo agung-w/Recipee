@@ -20,18 +20,21 @@ mixin _$ExplorePageEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function(String query) search,
+    required TResult Function(String query) refreshResult,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function(String query)? search,
+    TResult? Function(String query)? refreshResult,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function(String query)? search,
+    TResult Function(String query)? refreshResult,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -39,18 +42,21 @@ mixin _$ExplorePageEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
     required TResult Function(_Search value) search,
+    required TResult Function(_RefreshResult value) refreshResult,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_Search value)? search,
+    TResult? Function(_RefreshResult value)? refreshResult,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_Search value)? search,
+    TResult Function(_RefreshResult value)? refreshResult,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -113,6 +119,7 @@ class _$_Started implements _Started {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function(String query) search,
+    required TResult Function(String query) refreshResult,
   }) {
     return started();
   }
@@ -122,6 +129,7 @@ class _$_Started implements _Started {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function(String query)? search,
+    TResult? Function(String query)? refreshResult,
   }) {
     return started?.call();
   }
@@ -131,6 +139,7 @@ class _$_Started implements _Started {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function(String query)? search,
+    TResult Function(String query)? refreshResult,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -144,6 +153,7 @@ class _$_Started implements _Started {
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
     required TResult Function(_Search value) search,
+    required TResult Function(_RefreshResult value) refreshResult,
   }) {
     return started(this);
   }
@@ -153,6 +163,7 @@ class _$_Started implements _Started {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_Search value)? search,
+    TResult? Function(_RefreshResult value)? refreshResult,
   }) {
     return started?.call(this);
   }
@@ -162,6 +173,7 @@ class _$_Started implements _Started {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_Search value)? search,
+    TResult Function(_RefreshResult value)? refreshResult,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -239,6 +251,7 @@ class _$_Search implements _Search {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function(String query) search,
+    required TResult Function(String query) refreshResult,
   }) {
     return search(query);
   }
@@ -248,6 +261,7 @@ class _$_Search implements _Search {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function(String query)? search,
+    TResult? Function(String query)? refreshResult,
   }) {
     return search?.call(query);
   }
@@ -257,6 +271,7 @@ class _$_Search implements _Search {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function(String query)? search,
+    TResult Function(String query)? refreshResult,
     required TResult orElse(),
   }) {
     if (search != null) {
@@ -270,6 +285,7 @@ class _$_Search implements _Search {
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
     required TResult Function(_Search value) search,
+    required TResult Function(_RefreshResult value) refreshResult,
   }) {
     return search(this);
   }
@@ -279,6 +295,7 @@ class _$_Search implements _Search {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_Search value)? search,
+    TResult? Function(_RefreshResult value)? refreshResult,
   }) {
     return search?.call(this);
   }
@@ -288,6 +305,7 @@ class _$_Search implements _Search {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_Search value)? search,
+    TResult Function(_RefreshResult value)? refreshResult,
     required TResult orElse(),
   }) {
     if (search != null) {
@@ -307,23 +325,166 @@ abstract class _Search implements ExplorePageEvent {
 }
 
 /// @nodoc
+abstract class _$$_RefreshResultCopyWith<$Res> {
+  factory _$$_RefreshResultCopyWith(
+          _$_RefreshResult value, $Res Function(_$_RefreshResult) then) =
+      __$$_RefreshResultCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String query});
+}
+
+/// @nodoc
+class __$$_RefreshResultCopyWithImpl<$Res>
+    extends _$ExplorePageEventCopyWithImpl<$Res, _$_RefreshResult>
+    implements _$$_RefreshResultCopyWith<$Res> {
+  __$$_RefreshResultCopyWithImpl(
+      _$_RefreshResult _value, $Res Function(_$_RefreshResult) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? query = null,
+  }) {
+    return _then(_$_RefreshResult(
+      query: null == query
+          ? _value.query
+          : query // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_RefreshResult implements _RefreshResult {
+  const _$_RefreshResult({required this.query});
+
+  @override
+  final String query;
+
+  @override
+  String toString() {
+    return 'ExplorePageEvent.refreshResult(query: $query)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_RefreshResult &&
+            (identical(other.query, query) || other.query == query));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, query);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_RefreshResultCopyWith<_$_RefreshResult> get copyWith =>
+      __$$_RefreshResultCopyWithImpl<_$_RefreshResult>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function(String query) search,
+    required TResult Function(String query) refreshResult,
+  }) {
+    return refreshResult(query);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function(String query)? search,
+    TResult? Function(String query)? refreshResult,
+  }) {
+    return refreshResult?.call(query);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function(String query)? search,
+    TResult Function(String query)? refreshResult,
+    required TResult orElse(),
+  }) {
+    if (refreshResult != null) {
+      return refreshResult(query);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_Search value) search,
+    required TResult Function(_RefreshResult value) refreshResult,
+  }) {
+    return refreshResult(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_Search value)? search,
+    TResult? Function(_RefreshResult value)? refreshResult,
+  }) {
+    return refreshResult?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_Search value)? search,
+    TResult Function(_RefreshResult value)? refreshResult,
+    required TResult orElse(),
+  }) {
+    if (refreshResult != null) {
+      return refreshResult(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _RefreshResult implements ExplorePageEvent {
+  const factory _RefreshResult({required final String query}) =
+      _$_RefreshResult;
+
+  String get query;
+  @JsonKey(ignore: true)
+  _$$_RefreshResultCopyWith<_$_RefreshResult> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$ExplorePageState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(List<Recipe> recipeList) loaded,
+    required TResult Function(String? message) failed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(List<Recipe> recipeList)? loaded,
+    TResult? Function(String? message)? failed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(List<Recipe> recipeList)? loaded,
+    TResult Function(String? message)? failed,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -331,18 +492,21 @@ mixin _$ExplorePageState {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loaded value) loaded,
+    required TResult Function(_Failed value) failed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loaded value)? loaded,
+    TResult? Function(_Failed value)? failed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Loaded value)? loaded,
+    TResult Function(_Failed value)? failed,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -405,6 +569,7 @@ class _$_Initial implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(List<Recipe> recipeList) loaded,
+    required TResult Function(String? message) failed,
   }) {
     return initial();
   }
@@ -414,6 +579,7 @@ class _$_Initial implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(List<Recipe> recipeList)? loaded,
+    TResult? Function(String? message)? failed,
   }) {
     return initial?.call();
   }
@@ -423,6 +589,7 @@ class _$_Initial implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(List<Recipe> recipeList)? loaded,
+    TResult Function(String? message)? failed,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -436,6 +603,7 @@ class _$_Initial implements _Initial {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loaded value) loaded,
+    required TResult Function(_Failed value) failed,
   }) {
     return initial(this);
   }
@@ -445,6 +613,7 @@ class _$_Initial implements _Initial {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loaded value)? loaded,
+    TResult? Function(_Failed value)? failed,
   }) {
     return initial?.call(this);
   }
@@ -454,6 +623,7 @@ class _$_Initial implements _Initial {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Loaded value)? loaded,
+    TResult Function(_Failed value)? failed,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -539,6 +709,7 @@ class _$_Loaded implements _Loaded {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(List<Recipe> recipeList) loaded,
+    required TResult Function(String? message) failed,
   }) {
     return loaded(recipeList);
   }
@@ -548,6 +719,7 @@ class _$_Loaded implements _Loaded {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(List<Recipe> recipeList)? loaded,
+    TResult? Function(String? message)? failed,
   }) {
     return loaded?.call(recipeList);
   }
@@ -557,6 +729,7 @@ class _$_Loaded implements _Loaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(List<Recipe> recipeList)? loaded,
+    TResult Function(String? message)? failed,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -570,6 +743,7 @@ class _$_Loaded implements _Loaded {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loaded value) loaded,
+    required TResult Function(_Failed value) failed,
   }) {
     return loaded(this);
   }
@@ -579,6 +753,7 @@ class _$_Loaded implements _Loaded {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loaded value)? loaded,
+    TResult? Function(_Failed value)? failed,
   }) {
     return loaded?.call(this);
   }
@@ -588,6 +763,7 @@ class _$_Loaded implements _Loaded {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Loaded value)? loaded,
+    TResult Function(_Failed value)? failed,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -603,5 +779,142 @@ abstract class _Loaded implements ExplorePageState {
   List<Recipe> get recipeList;
   @JsonKey(ignore: true)
   _$$_LoadedCopyWith<_$_Loaded> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_FailedCopyWith<$Res> {
+  factory _$$_FailedCopyWith(_$_Failed value, $Res Function(_$_Failed) then) =
+      __$$_FailedCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String? message});
+}
+
+/// @nodoc
+class __$$_FailedCopyWithImpl<$Res>
+    extends _$ExplorePageStateCopyWithImpl<$Res, _$_Failed>
+    implements _$$_FailedCopyWith<$Res> {
+  __$$_FailedCopyWithImpl(_$_Failed _value, $Res Function(_$_Failed) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? message = freezed,
+  }) {
+    return _then(_$_Failed(
+      message: freezed == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_Failed implements _Failed {
+  const _$_Failed({this.message});
+
+  @override
+  final String? message;
+
+  @override
+  String toString() {
+    return 'ExplorePageState.failed(message: $message)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_Failed &&
+            (identical(other.message, message) || other.message == message));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, message);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_FailedCopyWith<_$_Failed> get copyWith =>
+      __$$_FailedCopyWithImpl<_$_Failed>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function(List<Recipe> recipeList) loaded,
+    required TResult Function(String? message) failed,
+  }) {
+    return failed(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function(List<Recipe> recipeList)? loaded,
+    TResult? Function(String? message)? failed,
+  }) {
+    return failed?.call(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(List<Recipe> recipeList)? loaded,
+    TResult Function(String? message)? failed,
+    required TResult orElse(),
+  }) {
+    if (failed != null) {
+      return failed(message);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Loaded value) loaded,
+    required TResult Function(_Failed value) failed,
+  }) {
+    return failed(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_Loaded value)? loaded,
+    TResult? Function(_Failed value)? failed,
+  }) {
+    return failed?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loaded value)? loaded,
+    TResult Function(_Failed value)? failed,
+    required TResult orElse(),
+  }) {
+    if (failed != null) {
+      return failed(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Failed implements ExplorePageState {
+  const factory _Failed({final String? message}) = _$_Failed;
+
+  String? get message;
+  @JsonKey(ignore: true)
+  _$$_FailedCopyWith<_$_Failed> get copyWith =>
       throw _privateConstructorUsedError;
 }
