@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:ta_recipe_app/bloc/explore_page_bloc.dart';
+import 'package:ta_recipe_app/cubit/save_recipe_cubit.dart';
+import 'package:ta_recipe_app/entities/recipe.dart';
 import 'package:ta_recipe_app/ui/widgets/loading_indicator.dart';
 import 'package:ta_recipe_app/ui/widgets/recipe_card.dart';
 
@@ -51,51 +53,67 @@ class ExplorePage extends StatelessWidget {
                       ),
                     ),
                   ],
-              body: state.map(
+              body: RefreshIndicator(
+                onRefresh: () async {
+                  context.read<ExplorePageBloc>().add(
+                      ExplorePageEvent.refreshResult(
+                          query: searchController.text));
+                },
+                child: state.map(
                   initial: (_) => const Center(
-                          child: Padding(
-                        padding: EdgeInsets.all(16),
-                        child: LoadingIndicator(size: 16),
-                      )),
+                      child: Padding(
+                    padding: EdgeInsets.all(16),
+                    child: LoadingIndicator(size: 16),
+                  )),
                   loaded: (value) {
-                    return RefreshIndicator(
-                      onRefresh: () async {
-                        context.read<ExplorePageBloc>().add(
-                            ExplorePageEvent.refreshResult(
-                                query: searchController.text));
-                      },
-                      child: value.recipeList.isNotEmpty
-                          ? Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 16),
-                              child: GridView(
-                                  gridDelegate: SliverQuiltedGridDelegate(
-                                    crossAxisCount: 10,
-                                    mainAxisSpacing: 8,
-                                    crossAxisSpacing: 8,
-                                    repeatPattern:
-                                        QuiltedGridRepeatPattern.same,
-                                    pattern: const [
-                                      QuiltedGridTile(4, 5),
-                                      QuiltedGridTile(4, 5),
-                                      QuiltedGridTile(4, 10),
-                                    ],
-                                  ),
-                                  children: value.recipeList
-                                      .map((e) => RecipeCard(recipe: e))
-                                      .toList()),
-                            )
-                          : SingleChildScrollView(
-                              child: Center(
-                                child: Text("no_explore_result_text".tr()),
-                              ),
-                            ),
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: GridView(
+                          gridDelegate: SliverQuiltedGridDelegate(
+                            crossAxisCount: 10,
+                            mainAxisSpacing: 8,
+                            crossAxisSpacing: 8,
+                            repeatPattern: QuiltedGridRepeatPattern.same,
+                            pattern: const [
+                              QuiltedGridTile(4, 5),
+                              QuiltedGridTile(4, 5),
+                              QuiltedGridTile(4, 10),
+                            ],
+                          ),
+                          children: value.recipeList
+                              .map((e) =>
+                                  BlocBuilder<SaveRecipeCubit, SaveRecipeState>(
+                                    builder: (context, state) {
+                                      return state.when(
+                                        loaded: (id, isSaved) {
+                                          if (e.id == id) {
+                                            return RecipeCard(
+                                              recipe:
+                                                  e.copyWith(isSaved: isSaved),
+                                            );
+                                          } else {
+                                            return RecipeCard(
+                                              recipe: e,
+                                            );
+                                          }
+                                        },
+                                        loading: () => RecipeCard(
+                                          recipe: e,
+                                        ),
+                                      );
+                                    },
+                                  ))
+                              .toList()),
                     );
                   },
-                  failed: (value) => Center(
-                        child: Text(value.message ??
-                            "cant_load_explore_result_now_text".tr()),
-                      ))),
+                  failed: (value) => SingleChildScrollView(
+                    child: Center(
+                      child: Text(value.message ??
+                          "cant_load_explore_result_now_text".tr()),
+                    ),
+                  ),
+                ),
+              )),
         );
       },
     );

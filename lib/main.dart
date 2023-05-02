@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:ta_recipe_app/bloc/create_recipe_bloc.dart';
 import 'package:ta_recipe_app/bloc/explore_page_bloc.dart';
+import 'package:ta_recipe_app/bloc/home_page_bloc.dart';
 import 'package:ta_recipe_app/bloc/my_profile_page_bloc.dart';
 import 'package:ta_recipe_app/bloc/order_history_page_bloc.dart';
 import 'package:ta_recipe_app/bloc/order_page_bloc.dart';
@@ -53,6 +54,10 @@ class RecipeApp extends StatelessWidget {
         BlocProvider(create: (context) => RecipeDetailBloc()),
         BlocProvider(create: (context) => PaymentCubit()),
         BlocProvider(create: (context) => OrderHistoryPageBloc()),
+        BlocProvider(
+            create: (context) => HomePageBloc()
+              ..add(const HomePageEvent.getRecipeByIngredients(
+                  ingredients: ["ayam"]))),
         BlocProvider(
             create: (context) =>
                 ExplorePageBloc()..add(const ExplorePageEvent.started())),
