@@ -17,19 +17,23 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$HomePageEvent {
   List<String> get ingredients => throw _privateConstructorUsedError;
+  String? get token => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<String> ingredients) getRecipeByIngredients,
+    required TResult Function(List<String> ingredients, String? token)
+        getRecipeByIngredients,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<String> ingredients)? getRecipeByIngredients,
+    TResult? Function(List<String> ingredients, String? token)?
+        getRecipeByIngredients,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<String> ingredients)? getRecipeByIngredients,
+    TResult Function(List<String> ingredients, String? token)?
+        getRecipeByIngredients,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -62,7 +66,7 @@ abstract class $HomePageEventCopyWith<$Res> {
           HomePageEvent value, $Res Function(HomePageEvent) then) =
       _$HomePageEventCopyWithImpl<$Res, HomePageEvent>;
   @useResult
-  $Res call({List<String> ingredients});
+  $Res call({List<String> ingredients, String? token});
 }
 
 /// @nodoc
@@ -79,12 +83,17 @@ class _$HomePageEventCopyWithImpl<$Res, $Val extends HomePageEvent>
   @override
   $Res call({
     Object? ingredients = null,
+    Object? token = freezed,
   }) {
     return _then(_value.copyWith(
       ingredients: null == ingredients
           ? _value.ingredients
           : ingredients // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      token: freezed == token
+          ? _value.token
+          : token // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -97,7 +106,7 @@ abstract class _$$_GetRecipeByIngredientsCopyWith<$Res>
       __$$_GetRecipeByIngredientsCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<String> ingredients});
+  $Res call({List<String> ingredients, String? token});
 }
 
 /// @nodoc
@@ -112,12 +121,17 @@ class __$$_GetRecipeByIngredientsCopyWithImpl<$Res>
   @override
   $Res call({
     Object? ingredients = null,
+    Object? token = freezed,
   }) {
     return _then(_$_GetRecipeByIngredients(
       ingredients: null == ingredients
           ? _value._ingredients
           : ingredients // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      token: freezed == token
+          ? _value.token
+          : token // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -125,7 +139,8 @@ class __$$_GetRecipeByIngredientsCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_GetRecipeByIngredients implements _GetRecipeByIngredients {
-  const _$_GetRecipeByIngredients({required final List<String> ingredients})
+  const _$_GetRecipeByIngredients(
+      {required final List<String> ingredients, this.token})
       : _ingredients = ingredients;
 
   final List<String> _ingredients;
@@ -137,8 +152,11 @@ class _$_GetRecipeByIngredients implements _GetRecipeByIngredients {
   }
 
   @override
+  final String? token;
+
+  @override
   String toString() {
-    return 'HomePageEvent.getRecipeByIngredients(ingredients: $ingredients)';
+    return 'HomePageEvent.getRecipeByIngredients(ingredients: $ingredients, token: $token)';
   }
 
   @override
@@ -147,12 +165,13 @@ class _$_GetRecipeByIngredients implements _GetRecipeByIngredients {
         (other.runtimeType == runtimeType &&
             other is _$_GetRecipeByIngredients &&
             const DeepCollectionEquality()
-                .equals(other._ingredients, _ingredients));
+                .equals(other._ingredients, _ingredients) &&
+            (identical(other.token, token) || other.token == token));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_ingredients));
+      runtimeType, const DeepCollectionEquality().hash(_ingredients), token);
 
   @JsonKey(ignore: true)
   @override
@@ -164,27 +183,30 @@ class _$_GetRecipeByIngredients implements _GetRecipeByIngredients {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<String> ingredients) getRecipeByIngredients,
+    required TResult Function(List<String> ingredients, String? token)
+        getRecipeByIngredients,
   }) {
-    return getRecipeByIngredients(ingredients);
+    return getRecipeByIngredients(ingredients, token);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<String> ingredients)? getRecipeByIngredients,
+    TResult? Function(List<String> ingredients, String? token)?
+        getRecipeByIngredients,
   }) {
-    return getRecipeByIngredients?.call(ingredients);
+    return getRecipeByIngredients?.call(ingredients, token);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<String> ingredients)? getRecipeByIngredients,
+    TResult Function(List<String> ingredients, String? token)?
+        getRecipeByIngredients,
     required TResult orElse(),
   }) {
     if (getRecipeByIngredients != null) {
-      return getRecipeByIngredients(ingredients);
+      return getRecipeByIngredients(ingredients, token);
     }
     return orElse();
   }
@@ -221,10 +243,13 @@ class _$_GetRecipeByIngredients implements _GetRecipeByIngredients {
 
 abstract class _GetRecipeByIngredients implements HomePageEvent {
   const factory _GetRecipeByIngredients(
-      {required final List<String> ingredients}) = _$_GetRecipeByIngredients;
+      {required final List<String> ingredients,
+      final String? token}) = _$_GetRecipeByIngredients;
 
   @override
   List<String> get ingredients;
+  @override
+  String? get token;
   @override
   @JsonKey(ignore: true)
   _$$_GetRecipeByIngredientsCopyWith<_$_GetRecipeByIngredients> get copyWith =>

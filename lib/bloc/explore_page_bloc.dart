@@ -13,7 +13,7 @@ class ExplorePageBloc extends Bloc<ExplorePageEvent, ExplorePageState> {
   ExplorePageBloc() : super(const _Initial()) {
     on<_Started>((event, emit) async {
       ApiResult<List<Recipe>> result =
-          await RecipeServices().getRandomRecipes();
+          await RecipeServices().getRandomRecipes(token: event.token);
       result.map(
           success: (value) {
             if (value.value.isEmpty) {
@@ -26,8 +26,8 @@ class ExplorePageBloc extends Bloc<ExplorePageEvent, ExplorePageState> {
     });
     on<_Search>((event, emit) async {
       if (event.query.isNotEmpty) {
-        ApiResult<List<Recipe>> result =
-            await RecipeServices().searchByTitle(query: event.query);
+        ApiResult<List<Recipe>> result = await RecipeServices()
+            .searchByTitle(query: event.query, token: event.token);
         result.map(
             success: (value) {
               if (value.value.isEmpty) {
@@ -43,7 +43,7 @@ class ExplorePageBloc extends Bloc<ExplorePageEvent, ExplorePageState> {
       if (event.query.isEmpty) {
         add(const _Started());
       } else {
-        add(_Search(query: event.query));
+        add(_Search(query: event.query, token: event.token));
       }
     });
   }

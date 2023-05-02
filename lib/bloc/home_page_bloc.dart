@@ -12,8 +12,8 @@ part 'home_page_bloc.freezed.dart';
 class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
   HomePageBloc() : super(const _Initial()) {
     on<_GetRecipeByIngredients>((event, emit) async {
-      ApiResult<List<Recipe>> result =
-          await RecipeServices().searchByIngredients(query: event.ingredients);
+      ApiResult<List<Recipe>> result = await RecipeServices()
+          .searchByIngredients(query: event.ingredients, token: event.token);
       result.map(
           success: (value) {
             if (value.value.isEmpty) {

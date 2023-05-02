@@ -54,13 +54,8 @@ class RecipeApp extends StatelessWidget {
         BlocProvider(create: (context) => RecipeDetailBloc()),
         BlocProvider(create: (context) => PaymentCubit()),
         BlocProvider(create: (context) => OrderHistoryPageBloc()),
-        BlocProvider(
-            create: (context) => HomePageBloc()
-              ..add(const HomePageEvent.getRecipeByIngredients(
-                  ingredients: ["ayam"]))),
-        BlocProvider(
-            create: (context) =>
-                ExplorePageBloc()..add(const ExplorePageEvent.started())),
+        BlocProvider(create: (context) => HomePageBloc()),
+        BlocProvider(create: (context) => ExplorePageBloc()),
         BlocProvider(
             create: (context) => UserAuthenticationBloc()
               ..add(const UserAuthenticationEvent.checkSignInStatus())),
@@ -79,6 +74,17 @@ class RecipeApp extends StatelessWidget {
             context
                 .read<MyProfilePageBloc>()
                 .add(MyProfilePageEvent.started(authState: state));
+            context
+                .read<HomePageBloc>()
+                .add(HomePageEvent.getRecipeByIngredients(
+                    ingredients: ["ayam"],
+                    token: state.mapOrNull(
+                      signedIn: (value) => value.token,
+                    )));
+            context.read<ExplorePageBloc>().add(ExplorePageEvent.started(
+                    token: state.mapOrNull(
+                  signedIn: (value) => value.token,
+                )));
             state.mapOrNull(
               signedIn: (value) => context.read<OrderHistoryPageBloc>().add(
                   OrderHistoryPageEvent.getOrderHistory(token: value.token)),

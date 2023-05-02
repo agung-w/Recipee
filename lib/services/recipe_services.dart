@@ -78,13 +78,15 @@ class RecipeServices {
     }
   }
 
-  Future<ApiResult<List<Recipe>>> searchByTitle({required String query}) async {
+  Future<ApiResult<List<Recipe>>> searchByTitle(
+      {required String query, String? token}) async {
     try {
       Response result = await _dio.get(
         "${dotenv.env['API_URL']}/search/recipe/by-title?query=$query",
         options: options ??
             Options(headers: {
               "Content-Type": "application/json",
+              "Authorization": "Bearer $token",
             }),
       );
       if (result.statusCode != 200) {
@@ -105,13 +107,14 @@ class RecipeServices {
     }
   }
 
-  Future<ApiResult<List<Recipe>>> getRandomRecipes() async {
+  Future<ApiResult<List<Recipe>>> getRandomRecipes({String? token}) async {
     try {
       Response result = await _dio.get(
         "${dotenv.env['API_URL']}/random-recipe-list",
         options: options ??
             Options(headers: {
               "Content-Type": "application/json",
+              "Authorization": "Bearer $token",
             }),
       );
       if (result.statusCode != 200) {
@@ -133,13 +136,14 @@ class RecipeServices {
   }
 
   Future<ApiResult<List<Recipe>>> searchByIngredients(
-      {required List<String> query}) async {
+      {required List<String> query, String? token}) async {
     try {
       Response result = await _dio.get(
         "${dotenv.env['API_URL']}/search/recipe/by-ingredient?query=${query.join(",")}",
         options: options ??
             Options(headers: {
               "Content-Type": "application/json",
+              "Authorization": "Bearer $token",
             }),
       );
       if (result.statusCode != 200) {

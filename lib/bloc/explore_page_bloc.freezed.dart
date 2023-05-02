@@ -16,25 +16,26 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$ExplorePageEvent {
+  String? get token => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() started,
-    required TResult Function(String query) search,
-    required TResult Function(String query) refreshResult,
+    required TResult Function(String? token) started,
+    required TResult Function(String query, String? token) search,
+    required TResult Function(String query, String? token) refreshResult,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? started,
-    TResult? Function(String query)? search,
-    TResult? Function(String query)? refreshResult,
+    TResult? Function(String? token)? started,
+    TResult? Function(String query, String? token)? search,
+    TResult? Function(String query, String? token)? refreshResult,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? started,
-    TResult Function(String query)? search,
-    TResult Function(String query)? refreshResult,
+    TResult Function(String? token)? started,
+    TResult Function(String query, String? token)? search,
+    TResult Function(String query, String? token)? refreshResult,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -60,6 +61,10 @@ mixin _$ExplorePageEvent {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $ExplorePageEventCopyWith<ExplorePageEvent> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -67,6 +72,8 @@ abstract class $ExplorePageEventCopyWith<$Res> {
   factory $ExplorePageEventCopyWith(
           ExplorePageEvent value, $Res Function(ExplorePageEvent) then) =
       _$ExplorePageEventCopyWithImpl<$Res, ExplorePageEvent>;
+  @useResult
+  $Res call({String? token});
 }
 
 /// @nodoc
@@ -78,13 +85,30 @@ class _$ExplorePageEventCopyWithImpl<$Res, $Val extends ExplorePageEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? token = freezed,
+  }) {
+    return _then(_value.copyWith(
+      token: freezed == token
+          ? _value.token
+          : token // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
 }
 
 /// @nodoc
-abstract class _$$_StartedCopyWith<$Res> {
+abstract class _$$_StartedCopyWith<$Res>
+    implements $ExplorePageEventCopyWith<$Res> {
   factory _$$_StartedCopyWith(
           _$_Started value, $Res Function(_$_Started) then) =
       __$$_StartedCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String? token});
 }
 
 /// @nodoc
@@ -93,57 +117,81 @@ class __$$_StartedCopyWithImpl<$Res>
     implements _$$_StartedCopyWith<$Res> {
   __$$_StartedCopyWithImpl(_$_Started _value, $Res Function(_$_Started) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? token = freezed,
+  }) {
+    return _then(_$_Started(
+      token: freezed == token
+          ? _value.token
+          : token // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$_Started implements _Started {
-  const _$_Started();
+  const _$_Started({this.token});
+
+  @override
+  final String? token;
 
   @override
   String toString() {
-    return 'ExplorePageEvent.started()';
+    return 'ExplorePageEvent.started(token: $token)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_Started);
+        (other.runtimeType == runtimeType &&
+            other is _$_Started &&
+            (identical(other.token, token) || other.token == token));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, token);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_StartedCopyWith<_$_Started> get copyWith =>
+      __$$_StartedCopyWithImpl<_$_Started>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() started,
-    required TResult Function(String query) search,
-    required TResult Function(String query) refreshResult,
+    required TResult Function(String? token) started,
+    required TResult Function(String query, String? token) search,
+    required TResult Function(String query, String? token) refreshResult,
   }) {
-    return started();
+    return started(token);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? started,
-    TResult? Function(String query)? search,
-    TResult? Function(String query)? refreshResult,
+    TResult? Function(String? token)? started,
+    TResult? Function(String query, String? token)? search,
+    TResult? Function(String query, String? token)? refreshResult,
   }) {
-    return started?.call();
+    return started?.call(token);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? started,
-    TResult Function(String query)? search,
-    TResult Function(String query)? refreshResult,
+    TResult Function(String? token)? started,
+    TResult Function(String query, String? token)? search,
+    TResult Function(String query, String? token)? refreshResult,
     required TResult orElse(),
   }) {
     if (started != null) {
-      return started();
+      return started(token);
     }
     return orElse();
   }
@@ -184,15 +232,24 @@ class _$_Started implements _Started {
 }
 
 abstract class _Started implements ExplorePageEvent {
-  const factory _Started() = _$_Started;
+  const factory _Started({final String? token}) = _$_Started;
+
+  @override
+  String? get token;
+  @override
+  @JsonKey(ignore: true)
+  _$$_StartedCopyWith<_$_Started> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_SearchCopyWith<$Res> {
+abstract class _$$_SearchCopyWith<$Res>
+    implements $ExplorePageEventCopyWith<$Res> {
   factory _$$_SearchCopyWith(_$_Search value, $Res Function(_$_Search) then) =
       __$$_SearchCopyWithImpl<$Res>;
+  @override
   @useResult
-  $Res call({String query});
+  $Res call({String query, String? token});
 }
 
 /// @nodoc
@@ -206,12 +263,17 @@ class __$$_SearchCopyWithImpl<$Res>
   @override
   $Res call({
     Object? query = null,
+    Object? token = freezed,
   }) {
     return _then(_$_Search(
       query: null == query
           ? _value.query
           : query // ignore: cast_nullable_to_non_nullable
               as String,
+      token: freezed == token
+          ? _value.token
+          : token // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -219,14 +281,16 @@ class __$$_SearchCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Search implements _Search {
-  const _$_Search({required this.query});
+  const _$_Search({required this.query, this.token});
 
   @override
   final String query;
+  @override
+  final String? token;
 
   @override
   String toString() {
-    return 'ExplorePageEvent.search(query: $query)';
+    return 'ExplorePageEvent.search(query: $query, token: $token)';
   }
 
   @override
@@ -234,11 +298,12 @@ class _$_Search implements _Search {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Search &&
-            (identical(other.query, query) || other.query == query));
+            (identical(other.query, query) || other.query == query) &&
+            (identical(other.token, token) || other.token == token));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, query);
+  int get hashCode => Object.hash(runtimeType, query, token);
 
   @JsonKey(ignore: true)
   @override
@@ -249,33 +314,33 @@ class _$_Search implements _Search {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() started,
-    required TResult Function(String query) search,
-    required TResult Function(String query) refreshResult,
+    required TResult Function(String? token) started,
+    required TResult Function(String query, String? token) search,
+    required TResult Function(String query, String? token) refreshResult,
   }) {
-    return search(query);
+    return search(query, token);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? started,
-    TResult? Function(String query)? search,
-    TResult? Function(String query)? refreshResult,
+    TResult? Function(String? token)? started,
+    TResult? Function(String query, String? token)? search,
+    TResult? Function(String query, String? token)? refreshResult,
   }) {
-    return search?.call(query);
+    return search?.call(query, token);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? started,
-    TResult Function(String query)? search,
-    TResult Function(String query)? refreshResult,
+    TResult Function(String? token)? started,
+    TResult Function(String query, String? token)? search,
+    TResult Function(String query, String? token)? refreshResult,
     required TResult orElse(),
   }) {
     if (search != null) {
-      return search(query);
+      return search(query, token);
     }
     return orElse();
   }
@@ -316,21 +381,27 @@ class _$_Search implements _Search {
 }
 
 abstract class _Search implements ExplorePageEvent {
-  const factory _Search({required final String query}) = _$_Search;
+  const factory _Search({required final String query, final String? token}) =
+      _$_Search;
 
   String get query;
+  @override
+  String? get token;
+  @override
   @JsonKey(ignore: true)
   _$$_SearchCopyWith<_$_Search> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_RefreshResultCopyWith<$Res> {
+abstract class _$$_RefreshResultCopyWith<$Res>
+    implements $ExplorePageEventCopyWith<$Res> {
   factory _$$_RefreshResultCopyWith(
           _$_RefreshResult value, $Res Function(_$_RefreshResult) then) =
       __$$_RefreshResultCopyWithImpl<$Res>;
+  @override
   @useResult
-  $Res call({String query});
+  $Res call({String query, String? token});
 }
 
 /// @nodoc
@@ -345,12 +416,17 @@ class __$$_RefreshResultCopyWithImpl<$Res>
   @override
   $Res call({
     Object? query = null,
+    Object? token = freezed,
   }) {
     return _then(_$_RefreshResult(
       query: null == query
           ? _value.query
           : query // ignore: cast_nullable_to_non_nullable
               as String,
+      token: freezed == token
+          ? _value.token
+          : token // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -358,14 +434,16 @@ class __$$_RefreshResultCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_RefreshResult implements _RefreshResult {
-  const _$_RefreshResult({required this.query});
+  const _$_RefreshResult({required this.query, this.token});
 
   @override
   final String query;
+  @override
+  final String? token;
 
   @override
   String toString() {
-    return 'ExplorePageEvent.refreshResult(query: $query)';
+    return 'ExplorePageEvent.refreshResult(query: $query, token: $token)';
   }
 
   @override
@@ -373,11 +451,12 @@ class _$_RefreshResult implements _RefreshResult {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_RefreshResult &&
-            (identical(other.query, query) || other.query == query));
+            (identical(other.query, query) || other.query == query) &&
+            (identical(other.token, token) || other.token == token));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, query);
+  int get hashCode => Object.hash(runtimeType, query, token);
 
   @JsonKey(ignore: true)
   @override
@@ -388,33 +467,33 @@ class _$_RefreshResult implements _RefreshResult {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() started,
-    required TResult Function(String query) search,
-    required TResult Function(String query) refreshResult,
+    required TResult Function(String? token) started,
+    required TResult Function(String query, String? token) search,
+    required TResult Function(String query, String? token) refreshResult,
   }) {
-    return refreshResult(query);
+    return refreshResult(query, token);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? started,
-    TResult? Function(String query)? search,
-    TResult? Function(String query)? refreshResult,
+    TResult? Function(String? token)? started,
+    TResult? Function(String query, String? token)? search,
+    TResult? Function(String query, String? token)? refreshResult,
   }) {
-    return refreshResult?.call(query);
+    return refreshResult?.call(query, token);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? started,
-    TResult Function(String query)? search,
-    TResult Function(String query)? refreshResult,
+    TResult Function(String? token)? started,
+    TResult Function(String query, String? token)? search,
+    TResult Function(String query, String? token)? refreshResult,
     required TResult orElse(),
   }) {
     if (refreshResult != null) {
-      return refreshResult(query);
+      return refreshResult(query, token);
     }
     return orElse();
   }
@@ -455,10 +534,13 @@ class _$_RefreshResult implements _RefreshResult {
 }
 
 abstract class _RefreshResult implements ExplorePageEvent {
-  const factory _RefreshResult({required final String query}) =
-      _$_RefreshResult;
+  const factory _RefreshResult(
+      {required final String query, final String? token}) = _$_RefreshResult;
 
   String get query;
+  @override
+  String? get token;
+  @override
   @JsonKey(ignore: true)
   _$$_RefreshResultCopyWith<_$_RefreshResult> get copyWith =>
       throw _privateConstructorUsedError;
