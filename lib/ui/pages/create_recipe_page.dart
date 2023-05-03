@@ -1,15 +1,19 @@
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:ta_recipe_app/bloc/create_recipe_bloc.dart';
 import 'package:ta_recipe_app/bloc/user_authentication_bloc.dart';
 import 'package:ta_recipe_app/entities/cooking_step.dart';
 import 'package:ta_recipe_app/entities/recipe_detail.dart';
 import 'package:ta_recipe_app/ui/widgets/confirmation_dialog.dart';
 import 'package:ta_recipe_app/ui/widgets/cooking_step_form_tile.dart';
-import 'package:ta_recipe_app/ui/widgets/half_length_number_input.dart';
+import 'package:ta_recipe_app/ui/widgets/image_picker_dialog.dart';
+import 'package:ta_recipe_app/ui/widgets/number_input.dart';
 import 'package:ta_recipe_app/ui/widgets/ingredient_form_tile.dart';
-import 'package:ta_recipe_app/ui/widgets/large_text_input.dart';
 import 'package:ta_recipe_app/ui/widgets/loading_indicator.dart';
 import 'package:ta_recipe_app/ui/widgets/long_text_input.dart';
 
@@ -19,206 +23,116 @@ class CreateRecipePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-    TextEditingController titleController = TextEditingController();
-    TextEditingController descriptionController = TextEditingController();
-    TextEditingController servingController = TextEditingController();
-    TextEditingController prepTimeController = TextEditingController();
-
-    return GestureDetector(
-      onTap: () {
-        FocusScope.of(context).requestFocus(FocusNode());
+    return WillPopScope(
+      onWillPop: () async {
+        showExitPageDialog(context);
+        return false;
       },
-      child: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            icon: const Icon(Icons.close),
-            onPressed: () {
-              showDialog(
-                  barrierDismissible: false,
-                  context: context,
-                  builder: (builder) => ConfirmationDialog(
-                        actions: [
-                          Expanded(
-                            child: TextButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                                child: Text(
-                                  "cancel_text".tr(),
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onSecondary),
-                                )),
-                          ),
-                          Expanded(
-                            child: TextButton(
-                                onPressed: () {
-                                  context.read<CreateRecipeBloc>().add(
-                                        CreateRecipeEvent.cancel(
-                                            context: context),
-                                      );
-                                },
-                                child: Text(
-                                  "delete_text".tr(),
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      color:
-                                          Theme.of(context).colorScheme.error),
-                                ).tr()),
-                          )
-                        ],
-                        title: 'cancel_create_recipe_dialog_title'.tr(),
-                        content: 'cancel_create_recipe_dialog_content'.tr(),
-                      ));
-            },
-          ),
-          actions: [
-            BlocBuilder<UserAuthenticationBloc, UserAuthenticationState>(
-              builder: (context, authState) {
-                return BlocBuilder<CreateRecipeBloc, CreateRecipeState>(
-                  builder: (context, state) {
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: SizedBox(
-                        width: 70,
-                        child: ElevatedButton(
-                          onPressed: state.map(
-                              creating: (value) => () {
-                                    if (formKey.currentState!.validate()) {
-                                      context.read<CreateRecipeBloc>().add(
-                                            CreateRecipeEvent.submit(
-                                                recipe: value.recipe.copyWith(
-                                                    description: descriptionController
-                                                        .text,
-                                                    title: titleController.text
-                                                        .trim(),
-                                                    prepTime: int.tryParse(
-                                                        prepTimeController.text
-                                                            .trim()),
-                                                    serving: int.tryParse(
-                                                        servingController.text
-                                                            .trim()),
-                                                    cookingStepsAttributes: value
-                                                        .recipe
-                                                        .cookingStepsAttributes
-                                                        .asMap()
-                                                        .map((i, e) =>
-                                                            MapEntry(i, e.copyWith(step: i + 1)))
-                                                        .values
-                                                        .toList()),
-                                                context: context,
-                                                authState: authState),
-                                          );
-                                    }
-                                  },
-                              initial: (_) => () {}),
-                          child: state.map(
-                            creating: (value) =>
-                                const Text("create_button").tr(),
-                            initial: (value) => LoadingIndicator(
-                              size: 16,
-                              color: Theme.of(context).colorScheme.onPrimary,
+      child: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).requestFocus(FocusNode());
+        },
+        child: Scaffold(
+          appBar: AppBar(
+            leading: IconButton(
+              icon: const Icon(Icons.close),
+              onPressed: () {
+                showExitPageDialog(context);
+              },
+            ),
+            actions: [
+              BlocBuilder<UserAuthenticationBloc, UserAuthenticationState>(
+                builder: (context, authState) {
+                  return BlocBuilder<CreateRecipeBloc, CreateRecipeState>(
+                    builder: (context, state) {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: SizedBox(
+                          width: 70,
+                          child: ElevatedButton(
+                            onPressed: state.map(
+                                creating: (value) => () {
+                                      if (formKey.currentState!.validate()) {
+                                        context.read<CreateRecipeBloc>().add(
+                                              CreateRecipeEvent.submit(
+                                                  context: context,
+                                                  authState: authState),
+                                            );
+                                      }
+                                    },
+                                initial: (_) => () {}),
+                            child: state.map(
+                              creating: (value) =>
+                                  const Text("create_button").tr(),
+                              initial: (value) => LoadingIndicator(
+                                size: 16,
+                                color: Theme.of(context).colorScheme.onPrimary,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    );
-                  },
-                );
-              },
-            )
-          ],
-        ),
-        body: SingleChildScrollView(
-          child: Form(
-            key: formKey,
-            child: Column(
-              children: [
-                const _PosterInput(),
-                _RecipeInformationContainer(
-                    titleController: titleController,
-                    servingController: servingController,
-                    prepTimeController: prepTimeController,
-                    descriptionController: descriptionController),
-                const _IngredientContainer(),
-                const _CookingStepContainer(),
-                const _TagContainer()
-              ],
+                      );
+                    },
+                  );
+                },
+              )
+            ],
+          ),
+          body: SingleChildScrollView(
+            child: Form(
+              key: formKey,
+              child: const Column(
+                children: [
+                  _PosterInput(),
+                  _RecipeInformationContainer(),
+                  _IngredientContainer(),
+                  _CookingStepContainer(),
+                  _TagContainer()
+                ],
+              ),
             ),
           ),
         ),
       ),
     );
   }
-}
 
-class _RecipeInformationContainer extends StatelessWidget {
-  const _RecipeInformationContainer({
-    required this.titleController,
-    required this.servingController,
-    required this.prepTimeController,
-    required this.descriptionController,
-  });
-
-  final TextEditingController titleController;
-  final TextEditingController servingController;
-  final TextEditingController prepTimeController;
-  final TextEditingController descriptionController;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      margin: const EdgeInsets.only(bottom: 8),
-      padding: const EdgeInsets.only(left: 16, right: 16, bottom: 8),
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 8),
-            child: LargeTextInput(
-              hint: "title_placeholder_create_recipe".tr(),
-              controller: titleController,
-              nullable: false,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 6, 0, 0),
-            child: Row(
-              children: [
+  Future<dynamic> showExitPageDialog(BuildContext context) {
+    return showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (builder) => ConfirmationDialog(
+              actions: [
                 Expanded(
-                  child: SizedBox(
-                    child: HalfLengthNumberInput(
-                      hint: "serving_label_create_recipe".tr(),
-                      controller: servingController,
-                      endText: "serving_end_text_create_recipe".tr(),
-                    ),
-                  ),
+                  child: TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text(
+                        "cancel_text".tr(),
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Theme.of(context).colorScheme.onSecondary),
+                      )),
                 ),
-                const Expanded(child: SizedBox()),
                 Expanded(
-                  child: HalfLengthNumberInput(
-                    hint: "prep_time_label_create_recipe".tr(),
-                    controller: prepTimeController,
-                    endText: "prep_time_end_text_create_recipe".tr(),
-                  ),
-                ),
+                  child: TextButton(
+                      onPressed: () {
+                        context.read<CreateRecipeBloc>().add(
+                              CreateRecipeEvent.cancel(context: context),
+                            );
+                      },
+                      child: Text(
+                        "delete_text".tr(),
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Theme.of(context).colorScheme.error),
+                      ).tr()),
+                )
               ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 10),
-            child: LongTextInput(
-              hint: "description_placeholder_create_recipe".tr(),
-              controller: descriptionController,
-              nullable: false,
-              maxLength: 1000,
-            ),
-          ),
-        ],
-      ),
-    );
+              title: 'cancel_create_recipe_dialog_title'.tr(),
+              content: 'cancel_create_recipe_dialog_content'.tr(),
+            ));
   }
 }
 
@@ -249,9 +163,16 @@ class _PosterInput extends StatelessWidget {
                       ),
               ),
               onTap: () async {
-                context
-                    .read<CreateRecipeBloc>()
-                    .add(const CreateRecipeEvent.addRecipePoster());
+                showDialog(
+                    context: context,
+                    builder: (_) =>
+                        const ImagePickerDialog()).then((value) => value != null
+                    ? ImagePicker().pickImage(source: value).then((value) =>
+                        value != null
+                            ? context.read<CreateRecipeBloc>().add(
+                                CreateRecipeEvent.addRecipePoster(file: value))
+                            : null)
+                    : null);
               },
             ),
             if (state.recipe?.posterPicUrl != null) ...{
@@ -281,6 +202,150 @@ class _PosterInput extends StatelessWidget {
   }
 }
 
+class _RecipeInformationContainer extends StatelessWidget {
+  const _RecipeInformationContainer();
+
+  @override
+  Widget build(BuildContext context) {
+    // TextEditingController titleController = TextEditingController();
+
+    return Container(
+      color: Colors.white,
+      margin: const EdgeInsets.only(bottom: 8),
+      padding: const EdgeInsets.only(left: 16, right: 16, bottom: 8),
+      child: Column(
+        children: [
+          Padding(
+              padding: const EdgeInsets.only(top: 8),
+              child: BlocBuilder<CreateRecipeBloc, CreateRecipeState>(
+                buildWhen: (previous, current) =>
+                    previous.recipe?.title != current.recipe?.title,
+                builder: (context, state) {
+                  return TextFormField(
+                    style: Theme.of(context).textTheme.headlineMedium,
+                    validator: (value) => value!.trim().isEmpty
+                        ? "this_section_cant_be_blank".tr()
+                        : null,
+                    initialValue: state.recipe?.title,
+                    onChanged: (value) => context
+                        .read<CreateRecipeBloc>()
+                        .add(CreateRecipeEvent.editTitle(title: value)),
+                    buildCounter: null,
+                    decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.only(left: 8, right: 8),
+                      counterStyle: const TextStyle(
+                        height: double.minPositive,
+                      ),
+                      counterText: "",
+                      hintText: "title_placeholder_create_recipe".tr(),
+                    ),
+                  );
+                },
+              )),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 6, 0, 0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: SizedBox(
+                    child: BlocBuilder<CreateRecipeBloc, CreateRecipeState>(
+                      buildWhen: (previous, current) =>
+                          previous.recipe?.serving != current.recipe?.serving,
+                      builder: (context, state) {
+                        return TextFormField(
+                          style: Theme.of(context).textTheme.bodyMedium,
+                          initialValue: state.recipe?.serving?.toString(),
+                          onChanged: (value) => context
+                              .read<CreateRecipeBloc>()
+                              .add(CreateRecipeEvent.editServing(
+                                  serving: value)),
+                          decoration: InputDecoration(
+                            labelText: "serving_label_create_recipe".tr(),
+                            suffix: Text(
+                              "serving_end_text_create_recipe".tr(),
+                              style: Theme.of(context).textTheme.bodySmall,
+                            ),
+                          ),
+                          keyboardType: TextInputType.number,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
+                        );
+                      },
+                    ),
+                  ),
+                ),
+                const Expanded(child: SizedBox()),
+                Expanded(
+                  child: BlocBuilder<CreateRecipeBloc, CreateRecipeState>(
+                    buildWhen: (previous, current) =>
+                        previous.recipe?.prepTime != current.recipe?.prepTime,
+                    builder: (context, state) {
+                      return TextFormField(
+                        style: Theme.of(context).textTheme.bodyMedium,
+                        initialValue: state.recipe?.prepTime?.toString(),
+                        onChanged: (value) => context
+                            .read<CreateRecipeBloc>()
+                            .add(CreateRecipeEvent.editPrepTime(
+                                prepTime: value)),
+                        decoration: InputDecoration(
+                          labelText: "prep_time_label_create_recipe".tr(),
+                          suffix: Text(
+                            "prep_time_end_text_create_recipe".tr(),
+                            style: Theme.of(context).textTheme.bodySmall,
+                          ),
+                        ),
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 10),
+            child: BlocBuilder<CreateRecipeBloc, CreateRecipeState>(
+              buildWhen: (previous, current) =>
+                  previous.recipe?.description != current.recipe?.description,
+              builder: (context, state) {
+                return TextFormField(
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyMedium!
+                      .merge(const TextStyle(height: 1.3)),
+                  maxLength: 1000,
+                  validator: (value) => value!.trim().isEmpty
+                      ? "this_section_cant_be_blank".tr()
+                      : null,
+                  onChanged: (value) => context.read<CreateRecipeBloc>().add(
+                      CreateRecipeEvent.editDescription(description: value)),
+                  maxLines: null,
+                  minLines: 3,
+                  initialValue: state.recipe?.description,
+                  decoration: InputDecoration(
+                    hintMaxLines: 3,
+                    contentPadding:
+                        const EdgeInsets.only(left: 8, right: 8, bottom: 6),
+                    counterStyle: const TextStyle(
+                      height: double.minPositive,
+                    ),
+                    hintText: "description_placeholder_create_recipe".tr(),
+                  ),
+                  keyboardType: TextInputType.multiline,
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class _IngredientContainer extends StatelessWidget {
   const _IngredientContainer();
 
@@ -288,6 +353,9 @@ class _IngredientContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     TextEditingController ingredientInputController = TextEditingController();
     return BlocBuilder<CreateRecipeBloc, CreateRecipeState>(
+      buildWhen: (previous, current) =>
+          previous.recipe?.recipeIngredientsAttributes !=
+          current.recipe?.recipeIngredientsAttributes,
       builder: (context, state) {
         return Container(
           color: Colors.white,
@@ -303,16 +371,15 @@ class _IngredientContainer extends StatelessWidget {
                   style: Theme.of(context).textTheme.headlineMedium,
                 ).tr(),
               ),
-              ListView.builder(
-                  shrinkWrap: true,
-                  key: UniqueKey(),
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: state.recipe?.recipeIngredientsAttributes.length,
-                  itemBuilder: (_, index) => state.recipe != null
-                      ? IngredientFormTile(
-                          ingredient: state.recipe!.recipeIngredientsAttributes
-                              .elementAt(index))
-                      : const SizedBox()),
+              ListView(
+                shrinkWrap: true,
+                key: UniqueKey(),
+                physics: const NeverScrollableScrollPhysics(),
+                children: state.recipe?.recipeIngredientsAttributes
+                        .map((e) => IngredientFormTile(ingredient: e))
+                        .toList() ??
+                    const [],
+              ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
                 child: TextFormField(
@@ -352,6 +419,9 @@ class _CookingStepContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CreateRecipeBloc, CreateRecipeState>(
+      buildWhen: (previous, current) =>
+          previous.recipe?.cookingStepsAttributes !=
+          current.recipe?.cookingStepsAttributes,
       builder: (context, state) {
         return Container(
           color: Colors.white,
@@ -367,20 +437,20 @@ class _CookingStepContainer extends StatelessWidget {
                   style: Theme.of(context).textTheme.headlineMedium,
                 ).tr(),
               ),
-              ListView.builder(
-                  shrinkWrap: true,
-                  key: UniqueKey(),
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: state.recipe?.cookingStepsAttributes.length,
-                  itemBuilder: (_, index) => state.recipe != null
-                      ? CookingStepFormTile(
-                          cookingStep: state.recipe!.cookingStepsAttributes
-                              .elementAt(index))
-                      : const SizedBox()),
+              ListView(
+                shrinkWrap: true,
+                key: UniqueKey(),
+                physics: const NeverScrollableScrollPhysics(),
+                children: state.recipe?.cookingStepsAttributes
+                        .map((e) => CookingStepFormTile(cookingStep: e))
+                        .toList() ??
+                    const [],
+              ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
                 child: ElevatedButton(
                   onPressed: () {
+                    FocusScope.of(context).requestFocus(FocusNode());
                     context
                         .read<CreateRecipeBloc>()
                         .add(const CreateRecipeEvent.addCookingStep());

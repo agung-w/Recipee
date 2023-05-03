@@ -109,7 +109,7 @@ class CreateRecipeBloc extends Bloc<CreateRecipeEvent, CreateRecipeState> {
         _Creating creating = state as _Creating;
         emit(_Initial(recipe: creating.recipe));
         List<RecipeIngredient> ingredients =
-            creating.recipe.recipeIngredientsAttributes;
+            List.from(creating.recipe.recipeIngredientsAttributes);
         int i =
             ingredients.indexWhere((element) => element == event.ingredient);
         ingredients[i] = ingredients[i].copyWith(quantity: event.quantity);
@@ -132,26 +132,6 @@ class CreateRecipeBloc extends Bloc<CreateRecipeEvent, CreateRecipeState> {
         emit(creating.copyWith(
             recipe: creating.recipe
                 .copyWith(recipeIngredientsAttributes: ingredients)));
-      }
-    });
-
-    on<_EditCookingStepPic>((event, emit) async {
-      if (state is _Creating) {
-        _Creating creating = state as _Creating;
-        emit(_Initial(recipe: creating.recipe));
-        String? picUrl = await PictureServices().uploadPicture(
-            picture: await ImagePicker().pickImage(source: ImageSource.gallery),
-            type: 'step-pic');
-        if (picUrl != null) {
-          List<CookingStep> cookingSteps =
-              List.from(creating.recipe.cookingStepsAttributes);
-          int i = cookingSteps
-              .indexWhere((element) => element == event.cookingStep);
-          cookingSteps[i] = cookingSteps[i].copyWith(picUrl: picUrl);
-          emit(creating.copyWith(
-              recipe: creating.recipe
-                  .copyWith(cookingStepsAttributes: cookingSteps)));
-        }
       }
     });
 
@@ -215,8 +195,10 @@ class CreateRecipeBloc extends Bloc<CreateRecipeEvent, CreateRecipeState> {
             tags.add(value.value.copyWith(tagId: value.value.id));
             emit(creating.copyWith(
                 recipe: creating.recipe.copyWith(recipeTagsAttributes: tags)));
+          } else {
+            emit(creating);
           }
-          event.controller.clear();
+          // event.controller.clear();
         }, failed: (value) {
           ScaffoldMessenger.of(event.context)
               .showSnackBar(SnackBar(content: Text("Tag ${value.message}")));
@@ -241,10 +223,8 @@ class CreateRecipeBloc extends Bloc<CreateRecipeEvent, CreateRecipeState> {
     on<_AddRecipePoster>((event, emit) async {
       if (state is _Creating) {
         _Creating creating = state as _Creating;
-        emit(_Initial(recipe: creating.recipe));
-        String? picUrl = await PictureServices().uploadPicture(
-            picture: await ImagePicker().pickImage(source: ImageSource.gallery),
-            type: 'poster');
+        String? picUrl = await PictureServices()
+            .uploadPicture(picture: event.file, type: 'poster');
         if (picUrl != null) {
           emit(creating.copyWith(
               recipe: creating.recipe.copyWith(posterPicUrl: picUrl)));
@@ -257,7 +237,6 @@ class CreateRecipeBloc extends Bloc<CreateRecipeEvent, CreateRecipeState> {
     on<_DeletePoster>((event, emit) async {
       if (state is _Creating) {
         _Creating creating = state as _Creating;
-        emit(_Initial(recipe: creating.recipe));
         ApiResult result = await PictureServices().deletePicture(
           picUrl: event.picUrl,
         );
@@ -273,7 +252,6 @@ class CreateRecipeBloc extends Bloc<CreateRecipeEvent, CreateRecipeState> {
     on<_DeleteCookingStepPic>((event, emit) async {
       if (state is _Creating) {
         _Creating creating = state as _Creating;
-        emit(_Initial(recipe: creating.recipe));
         ApiResult result = await PictureServices().deletePicture(
           picUrl: event.picUrl,
         );
@@ -293,13 +271,38 @@ class CreateRecipeBloc extends Bloc<CreateRecipeEvent, CreateRecipeState> {
       }
     });
 
+    on<_EditCookingStepPic>((event, emit) async {
+      if (state is _Creating) {
+        _Creating creating = state as _Creating;
+        emit(_Initial(recipe: creating.recipe));
+        String? picUrl = await PictureServices()
+            .uploadPicture(picture: event.file, type: 'step-pic');
+        if (picUrl != null) {
+          List<CookingStep> cookingSteps =
+              List.from(creating.recipe.cookingStepsAttributes);
+          int i = cookingSteps
+              .indexWhere((element) => element == event.cookingStep);
+          cookingSteps[i] = cookingSteps[i].copyWith(picUrl: picUrl);
+          emit(creating.copyWith(
+              recipe: creating.recipe
+                  .copyWith(cookingStepsAttributes: cookingSteps)));
+        }
+      }
+    });
+
     on<_Submit>((event, emit) async {
       if (state is _Creating) {
         _Creating creating = state as _Creating;
         emit(_Initial(recipe: creating.recipe));
         if (event.authState is SignedIn) {
           ApiResult<RecipeDetail> result = await RecipeServices().create(
-              token: (event.authState as SignedIn).token, recipe: event.recipe);
+              token: (event.authState as SignedIn).token,
+              recipe: creating.recipe.copyWith(
+                  cookingStepsAttributes: creating.recipe.cookingStepsAttributes
+                      .asMap()
+                      .map((i, e) => MapEntry(i, e.copyWith(step: i + 1)))
+                      .values
+                      .toList()));
           result.map(success: (_) {
             Navigator.pop(event.context);
             ScaffoldMessenger.of(event.context).showSnackBar(
@@ -331,6 +334,39 @@ class CreateRecipeBloc extends Bloc<CreateRecipeEvent, CreateRecipeState> {
         });
         emit(const _Initial(recipe: null));
         Navigator.of(event.context).popUntil((route) => route.isFirst);
+      }
+    });
+    on<_EditTitle>((event, emit) async {
+      if (state is _Creating) {
+        _Creating creating = state as _Creating;
+        emit(creating.copyWith(
+            recipe: creating.recipe.copyWith(title: event.title)));
+      }
+    });
+
+    on<_EditDescription>((event, emit) async {
+      if (state is _Creating) {
+        _Creating creating = state as _Creating;
+        emit(creating.copyWith(
+            recipe: creating.recipe.copyWith(description: event.description)));
+      }
+    });
+
+    on<_EditServing>((event, emit) async {
+      if (state is _Creating) {
+        _Creating creating = state as _Creating;
+        emit(creating.copyWith(
+            recipe: creating.recipe
+                .copyWith(serving: int.tryParse(event.serving))));
+      }
+    });
+
+    on<_EditPrepTime>((event, emit) async {
+      if (state is _Creating) {
+        _Creating creating = state as _Creating;
+        emit(creating.copyWith(
+            recipe: creating.recipe
+                .copyWith(prepTime: int.tryParse(event.prepTime))));
       }
     });
   }

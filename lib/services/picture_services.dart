@@ -6,7 +6,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:ta_recipe_app/helpers/api_result.dart';
 
 class PictureServices {
-  Future<String?> uploadPicture({XFile? picture, required String type}) async {
+  Future<String?> uploadPicture(
+      {required XFile? picture, required String type}) async {
     if (picture != null) {
       String fileName = basename(picture.path);
       Reference ref = FirebaseStorage.instance

@@ -2,8 +2,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:ta_recipe_app/bloc/create_recipe_bloc.dart';
 import 'package:ta_recipe_app/entities/cooking_step.dart';
+import 'package:ta_recipe_app/ui/widgets/image_picker_dialog.dart';
 
 class CookingStepFormTile extends StatelessWidget {
   final CookingStep cookingStep;
@@ -31,9 +33,18 @@ class CookingStepFormTile extends StatelessWidget {
             children: [
               InkWell(
                 onTap: () async {
-                  context.read<CreateRecipeBloc>().add(
-                      CreateRecipeEvent.editCookingStepPic(
-                          cookingStep: cookingStep));
+                  showDialog(
+                          context: context,
+                          builder: (_) => const ImagePickerDialog())
+                      .then((value) => value != null
+                          ? ImagePicker().pickImage(source: value).then(
+                              (value) => value != null
+                                  ? context.read<CreateRecipeBloc>().add(
+                                      CreateRecipeEvent.editCookingStepPic(
+                                          file: value,
+                                          cookingStep: cookingStep))
+                                  : null)
+                          : null);
                 },
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(6),

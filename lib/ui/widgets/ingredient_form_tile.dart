@@ -20,7 +20,6 @@ class IngredientFormTile extends StatelessWidget {
         TextEditingController(text: ingredient.ingredient.name);
     TextEditingController qty =
         TextEditingController(text: ingredient.quantity?.toString());
-
     Metric? selectedMetric = ingredient.metric;
     return Slidable(
       endActionPane: ActionPane(motion: const ScrollMotion(), children: [
@@ -104,7 +103,6 @@ class IngredientFormTile extends StatelessWidget {
                   error: (_) => const Text("failed to load data"),
                   loaded: ((metrics) {
                     return DropdownButton<Metric?>(
-                      autofocus: false,
                       style: Theme.of(context).textTheme.bodyMedium,
                       value: selectedMetric,
                       icon: const Icon(
