@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ta_recipe_app/bloc/user_authentication_bloc.dart';
 import 'package:ta_recipe_app/entities/cooking_step.dart';
 import 'package:ta_recipe_app/entities/ingredient.dart';
@@ -26,7 +25,7 @@ part 'create_recipe_state.dart';
 part 'create_recipe_bloc.freezed.dart';
 
 class CreateRecipeBloc extends Bloc<CreateRecipeEvent, CreateRecipeState> {
-  CreateRecipeBloc() : super(const _Initial()) {
+  CreateRecipeBloc() : super(const _Initial(recipe: null)) {
     on<_Create>((event, emit) async {
       event.state.map(signedIn: (value) {
         emit(_Creating(
@@ -35,22 +34,23 @@ class CreateRecipeBloc extends Bloc<CreateRecipeEvent, CreateRecipeState> {
         Navigator.of(event.context, rootNavigator: true)
             .push(MaterialPageRoute(builder: (_) => const CreateRecipePage()));
       }, signedOut: (_) {
-        emit(const _Initial());
+        emit(const _Initial(recipe: null));
         Navigator.of(event.context, rootNavigator: true)
             .push(MaterialPageRoute(builder: (_) => const LoginPage()));
       }, loading: (_) {
-        emit(const _Initial());
+        emit(const _Initial(recipe: null));
       });
     });
 
     on<_AddIngredient>((event, emit) async {
       if (state is _Creating) {
-        _Creating? creating = state.mapOrNull(creating: ((value) => value));
+        _Creating creating = state as _Creating;
+        emit(_Initial(recipe: creating.recipe));
         ApiResult<Ingredient> ingredient =
             await IngredientServices().findIngredient(name: event.ingredient);
         ingredient.map(success: (value) {
           List<RecipeIngredient> ingredients =
-              List.from(creating!.recipe.recipeIngredientsAttributes);
+              List.from(creating.recipe.recipeIngredientsAttributes);
           ingredients.add(RecipeIngredient(
               ingredient: value.value, ingredientId: value.value.id));
           event.controller.clear();
@@ -60,16 +60,17 @@ class CreateRecipeBloc extends Bloc<CreateRecipeEvent, CreateRecipeState> {
         }, failed: (value) {
           ScaffoldMessenger.of(event.context)
               .showSnackBar(SnackBar(content: Text(value.message)));
-          emit(creating!);
+          emit(creating);
         });
       }
     });
 
     on<_DeleteIngredient>((event, emit) async {
       if (state is _Creating) {
-        _Creating? creating = state.mapOrNull(creating: ((value) => value));
+        _Creating creating = state as _Creating;
+        emit(_Initial(recipe: creating.recipe));
         List<RecipeIngredient> ingredients =
-            List.from(creating!.recipe.recipeIngredientsAttributes);
+            List.from(creating.recipe.recipeIngredientsAttributes);
         ingredients.removeWhere((element) => element == event.ingredient);
         emit(creating.copyWith(
             recipe: creating.recipe
@@ -80,9 +81,10 @@ class CreateRecipeBloc extends Bloc<CreateRecipeEvent, CreateRecipeState> {
     on<_EditIngredientName>((event, emit) async {
       if (state is _Creating &&
           event.name != event.ingredient.ingredient.name) {
-        _Creating? creating = state.mapOrNull(creating: ((value) => value));
+        _Creating creating = state as _Creating;
+        emit(_Initial(recipe: creating.recipe));
         List<RecipeIngredient> ingredients =
-            List.from(creating!.recipe.recipeIngredientsAttributes);
+            List.from(creating.recipe.recipeIngredientsAttributes);
         ApiResult<Ingredient> ingredient =
             await IngredientServices().findIngredient(name: event.name);
         ingredient.map(success: (value) {
@@ -104,9 +106,10 @@ class CreateRecipeBloc extends Bloc<CreateRecipeEvent, CreateRecipeState> {
 
     on<_EditIngredientQuantity>((event, emit) async {
       if (state is _Creating && event.quantity != event.ingredient.quantity) {
-        _Creating? creating = state.mapOrNull(creating: ((value) => value));
+        _Creating creating = state as _Creating;
+        emit(_Initial(recipe: creating.recipe));
         List<RecipeIngredient> ingredients =
-            creating!.recipe.recipeIngredientsAttributes;
+            creating.recipe.recipeIngredientsAttributes;
         int i =
             ingredients.indexWhere((element) => element == event.ingredient);
         ingredients[i] = ingredients[i].copyWith(quantity: event.quantity);
@@ -118,9 +121,10 @@ class CreateRecipeBloc extends Bloc<CreateRecipeEvent, CreateRecipeState> {
 
     on<_EditIngredientMetric>((event, emit) async {
       if (state is _Creating && event.metric != event.ingredient.metric) {
-        _Creating? creating = state.mapOrNull(creating: ((value) => value));
+        _Creating creating = state as _Creating;
+        emit(_Initial(recipe: creating.recipe));
         List<RecipeIngredient> ingredients =
-            List.from(creating!.recipe.recipeIngredientsAttributes);
+            List.from(creating.recipe.recipeIngredientsAttributes);
         int i =
             ingredients.indexWhere((element) => element == event.ingredient);
         ingredients[i] = ingredients[i]
@@ -133,13 +137,14 @@ class CreateRecipeBloc extends Bloc<CreateRecipeEvent, CreateRecipeState> {
 
     on<_EditCookingStepPic>((event, emit) async {
       if (state is _Creating) {
-        _Creating? creating = state.mapOrNull(creating: ((value) => value));
+        _Creating creating = state as _Creating;
+        emit(_Initial(recipe: creating.recipe));
         String? picUrl = await PictureServices().uploadPicture(
             picture: await ImagePicker().pickImage(source: ImageSource.gallery),
             type: 'step-pic');
         if (picUrl != null) {
           List<CookingStep> cookingSteps =
-              List.from(creating!.recipe.cookingStepsAttributes);
+              List.from(creating.recipe.cookingStepsAttributes);
           int i = cookingSteps
               .indexWhere((element) => element == event.cookingStep);
           cookingSteps[i] = cookingSteps[i].copyWith(picUrl: picUrl);
@@ -152,9 +157,10 @@ class CreateRecipeBloc extends Bloc<CreateRecipeEvent, CreateRecipeState> {
 
     on<_AddCookingStep>((event, emit) async {
       if (state is _Creating) {
-        _Creating? creating = state.mapOrNull(creating: ((value) => value));
+        _Creating creating = state as _Creating;
+        emit(_Initial(recipe: creating.recipe));
         List<CookingStep> cookingSteps =
-            List.from(creating!.recipe.cookingStepsAttributes);
+            List.from(creating.recipe.cookingStepsAttributes);
         cookingSteps.add(CookingStep(
           description: "",
         ));
@@ -166,9 +172,10 @@ class CreateRecipeBloc extends Bloc<CreateRecipeEvent, CreateRecipeState> {
 
     on<_EditCookingStepDescription>((event, emit) async {
       if (state is _Creating) {
-        _Creating? creating = state.mapOrNull(creating: ((value) => value));
+        _Creating creating = state as _Creating;
+        emit(_Initial(recipe: creating.recipe));
         List<CookingStep> cookingSteps =
-            List.from(creating!.recipe.cookingStepsAttributes);
+            List.from(creating.recipe.cookingStepsAttributes);
         int i =
             cookingSteps.indexWhere((element) => element == event.cookingStep);
         cookingSteps[i] = cookingSteps[i]
@@ -181,9 +188,10 @@ class CreateRecipeBloc extends Bloc<CreateRecipeEvent, CreateRecipeState> {
 
     on<_DeleteCookingStep>((event, emit) async {
       if (state is _Creating) {
-        _Creating? creating = state.mapOrNull(creating: ((value) => value));
+        _Creating creating = state as _Creating;
+        emit(_Initial(recipe: creating.recipe));
         List<CookingStep> cookingSteps =
-            List.from(creating!.recipe.cookingStepsAttributes);
+            List.from(creating.recipe.cookingStepsAttributes);
         cookingSteps.removeWhere(
           (element) => element == event.cookingStep,
         );
@@ -195,11 +203,12 @@ class CreateRecipeBloc extends Bloc<CreateRecipeEvent, CreateRecipeState> {
 
     on<_AddTag>((event, emit) async {
       if (state is _Creating) {
-        _Creating? creating = state.mapOrNull(creating: ((value) => value));
+        _Creating creating = state as _Creating;
+        emit(_Initial(recipe: creating.recipe));
         ApiResult<Tag> tag = await TagServices().findTag(name: event.tag);
         tag.map(success: (value) {
           List<Tag> tags =
-              List.from(creating!.recipe.recipeTagsAttributes ?? []);
+              List.from(creating.recipe.recipeTagsAttributes ?? []);
           int i =
               tags.indexWhere((element) => element.name == value.value.name);
           if (i == -1) {
@@ -211,15 +220,16 @@ class CreateRecipeBloc extends Bloc<CreateRecipeEvent, CreateRecipeState> {
         }, failed: (value) {
           ScaffoldMessenger.of(event.context)
               .showSnackBar(SnackBar(content: Text("Tag ${value.message}")));
-          emit(creating!);
+          emit(creating);
         });
       }
     });
 
     on<_DeleteTag>((event, emit) async {
       if (state is _Creating) {
-        _Creating? creating = state.mapOrNull(creating: ((value) => value));
-        List<Tag> tags = List.from(creating!.recipe.recipeTagsAttributes ?? []);
+        _Creating creating = state as _Creating;
+        emit(_Initial(recipe: creating.recipe));
+        List<Tag> tags = List.from(creating.recipe.recipeTagsAttributes ?? []);
         tags.removeWhere(
           (element) => element == event.tag,
         );
@@ -230,28 +240,30 @@ class CreateRecipeBloc extends Bloc<CreateRecipeEvent, CreateRecipeState> {
 
     on<_AddRecipePoster>((event, emit) async {
       if (state is _Creating) {
-        _Creating? creating = state.mapOrNull(creating: ((value) => value));
+        _Creating creating = state as _Creating;
+        emit(_Initial(recipe: creating.recipe));
         String? picUrl = await PictureServices().uploadPicture(
             picture: await ImagePicker().pickImage(source: ImageSource.gallery),
             type: 'poster');
         if (picUrl != null) {
-          emit(creating!.copyWith(
+          emit(creating.copyWith(
               recipe: creating.recipe.copyWith(posterPicUrl: picUrl)));
         } else {
-          emit(creating!);
+          emit(creating);
         }
       }
     });
 
     on<_DeletePoster>((event, emit) async {
       if (state is _Creating) {
-        _Creating? creating = state.mapOrNull(creating: ((value) => value));
+        _Creating creating = state as _Creating;
+        emit(_Initial(recipe: creating.recipe));
         ApiResult result = await PictureServices().deletePicture(
           picUrl: event.picUrl,
         );
         result.map(success: (value) {
-          emit(creating!
-              .copyWith(recipe: creating.recipe.copyWith(posterPicUrl: null)));
+          emit(creating.copyWith(
+              recipe: creating.recipe.copyWith(posterPicUrl: null)));
         }, failed: (value) {
           ScaffoldMessenger.of(event.context)
               .showSnackBar(SnackBar(content: Text(value.message)));
@@ -260,13 +272,14 @@ class CreateRecipeBloc extends Bloc<CreateRecipeEvent, CreateRecipeState> {
     });
     on<_DeleteCookingStepPic>((event, emit) async {
       if (state is _Creating) {
-        _Creating? creating = state.mapOrNull(creating: ((value) => value));
+        _Creating creating = state as _Creating;
+        emit(_Initial(recipe: creating.recipe));
         ApiResult result = await PictureServices().deletePicture(
           picUrl: event.picUrl,
         );
         result.map(success: (value) {
           List<CookingStep> cookingSteps =
-              List.from(creating!.recipe.cookingStepsAttributes);
+              List.from(creating.recipe.cookingStepsAttributes);
           int i = cookingSteps
               .indexWhere((element) => element == event.cookingStep);
           cookingSteps[i] = cookingSteps[i].copyWith(picUrl: null);
@@ -282,21 +295,20 @@ class CreateRecipeBloc extends Bloc<CreateRecipeEvent, CreateRecipeState> {
 
     on<_Submit>((event, emit) async {
       if (state is _Creating) {
-        SharedPreferences pref = await SharedPreferences.getInstance();
-        String? token = pref.getString('token');
-        _Creating? creating = state.mapOrNull(creating: ((value) => value));
-        if (token != null) {
-          ApiResult<RecipeDetail> result =
-              await RecipeServices().create(token: token, recipe: event.recipe);
+        _Creating creating = state as _Creating;
+        emit(_Initial(recipe: creating.recipe));
+        if (event.authState is SignedIn) {
+          ApiResult<RecipeDetail> result = await RecipeServices().create(
+              token: (event.authState as SignedIn).token, recipe: event.recipe);
           result.map(success: (_) {
             Navigator.pop(event.context);
             ScaffoldMessenger.of(event.context).showSnackBar(
                 SnackBar(content: Text("create_recipe_success_message".tr())));
-            emit(const _Initial());
+            emit(const _Initial(recipe: null));
           }, failed: (message) {
             ScaffoldMessenger.of(event.context)
                 .showSnackBar(SnackBar(content: Text(message.message)));
-            emit(creating!);
+            emit(creating);
           });
         }
       }
@@ -317,7 +329,7 @@ class CreateRecipeBloc extends Bloc<CreateRecipeEvent, CreateRecipeState> {
             );
           }
         });
-        emit(const _Initial());
+        emit(const _Initial(recipe: null));
         Navigator.of(event.context).popUntil((route) => route.isFirst);
       }
     });

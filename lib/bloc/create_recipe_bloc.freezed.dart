@@ -41,7 +41,9 @@ mixin _$CreateRecipeEvent {
             String tag, BuildContext context, TextEditingController controller)
         addTag,
     required TResult Function(Tag tag) deleteTag,
-    required TResult Function(RecipeDetail recipe, BuildContext context) submit,
+    required TResult Function(RecipeDetail recipe, BuildContext context,
+            UserAuthenticationState authState)
+        submit,
     required TResult Function(String picUrl, BuildContext context) deletePoster,
     required TResult Function(
             String picUrl, BuildContext context, CookingStep cookingStep)
@@ -73,7 +75,9 @@ mixin _$CreateRecipeEvent {
             String tag, BuildContext context, TextEditingController controller)?
         addTag,
     TResult? Function(Tag tag)? deleteTag,
-    TResult? Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult? Function(RecipeDetail recipe, BuildContext context,
+            UserAuthenticationState authState)?
+        submit,
     TResult? Function(String picUrl, BuildContext context)? deletePoster,
     TResult? Function(
             String picUrl, BuildContext context, CookingStep cookingStep)?
@@ -105,7 +109,9 @@ mixin _$CreateRecipeEvent {
             String tag, BuildContext context, TextEditingController controller)?
         addTag,
     TResult Function(Tag tag)? deleteTag,
-    TResult Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult Function(RecipeDetail recipe, BuildContext context,
+            UserAuthenticationState authState)?
+        submit,
     TResult Function(String picUrl, BuildContext context)? deletePoster,
     TResult Function(
             String picUrl, BuildContext context, CookingStep cookingStep)?
@@ -305,7 +311,9 @@ class _$_Create implements _Create {
             String tag, BuildContext context, TextEditingController controller)
         addTag,
     required TResult Function(Tag tag) deleteTag,
-    required TResult Function(RecipeDetail recipe, BuildContext context) submit,
+    required TResult Function(RecipeDetail recipe, BuildContext context,
+            UserAuthenticationState authState)
+        submit,
     required TResult Function(String picUrl, BuildContext context) deletePoster,
     required TResult Function(
             String picUrl, BuildContext context, CookingStep cookingStep)
@@ -340,7 +348,9 @@ class _$_Create implements _Create {
             String tag, BuildContext context, TextEditingController controller)?
         addTag,
     TResult? Function(Tag tag)? deleteTag,
-    TResult? Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult? Function(RecipeDetail recipe, BuildContext context,
+            UserAuthenticationState authState)?
+        submit,
     TResult? Function(String picUrl, BuildContext context)? deletePoster,
     TResult? Function(
             String picUrl, BuildContext context, CookingStep cookingStep)?
@@ -375,7 +385,9 @@ class _$_Create implements _Create {
             String tag, BuildContext context, TextEditingController controller)?
         addTag,
     TResult Function(Tag tag)? deleteTag,
-    TResult Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult Function(RecipeDetail recipe, BuildContext context,
+            UserAuthenticationState authState)?
+        submit,
     TResult Function(String picUrl, BuildContext context)? deletePoster,
     TResult Function(
             String picUrl, BuildContext context, CookingStep cookingStep)?
@@ -543,7 +555,9 @@ class _$_AddRecipePoster implements _AddRecipePoster {
             String tag, BuildContext context, TextEditingController controller)
         addTag,
     required TResult Function(Tag tag) deleteTag,
-    required TResult Function(RecipeDetail recipe, BuildContext context) submit,
+    required TResult Function(RecipeDetail recipe, BuildContext context,
+            UserAuthenticationState authState)
+        submit,
     required TResult Function(String picUrl, BuildContext context) deletePoster,
     required TResult Function(
             String picUrl, BuildContext context, CookingStep cookingStep)
@@ -578,7 +592,9 @@ class _$_AddRecipePoster implements _AddRecipePoster {
             String tag, BuildContext context, TextEditingController controller)?
         addTag,
     TResult? Function(Tag tag)? deleteTag,
-    TResult? Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult? Function(RecipeDetail recipe, BuildContext context,
+            UserAuthenticationState authState)?
+        submit,
     TResult? Function(String picUrl, BuildContext context)? deletePoster,
     TResult? Function(
             String picUrl, BuildContext context, CookingStep cookingStep)?
@@ -613,7 +629,9 @@ class _$_AddRecipePoster implements _AddRecipePoster {
             String tag, BuildContext context, TextEditingController controller)?
         addTag,
     TResult Function(Tag tag)? deleteTag,
-    TResult Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult Function(RecipeDetail recipe, BuildContext context,
+            UserAuthenticationState authState)?
+        submit,
     TResult Function(String picUrl, BuildContext context)? deletePoster,
     TResult Function(
             String picUrl, BuildContext context, CookingStep cookingStep)?
@@ -823,7 +841,9 @@ class _$_AddIngredient implements _AddIngredient {
             String tag, BuildContext context, TextEditingController controller)
         addTag,
     required TResult Function(Tag tag) deleteTag,
-    required TResult Function(RecipeDetail recipe, BuildContext context) submit,
+    required TResult Function(RecipeDetail recipe, BuildContext context,
+            UserAuthenticationState authState)
+        submit,
     required TResult Function(String picUrl, BuildContext context) deletePoster,
     required TResult Function(
             String picUrl, BuildContext context, CookingStep cookingStep)
@@ -858,7 +878,9 @@ class _$_AddIngredient implements _AddIngredient {
             String tag, BuildContext context, TextEditingController controller)?
         addTag,
     TResult? Function(Tag tag)? deleteTag,
-    TResult? Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult? Function(RecipeDetail recipe, BuildContext context,
+            UserAuthenticationState authState)?
+        submit,
     TResult? Function(String picUrl, BuildContext context)? deletePoster,
     TResult? Function(
             String picUrl, BuildContext context, CookingStep cookingStep)?
@@ -893,7 +915,9 @@ class _$_AddIngredient implements _AddIngredient {
             String tag, BuildContext context, TextEditingController controller)?
         addTag,
     TResult Function(Tag tag)? deleteTag,
-    TResult Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult Function(RecipeDetail recipe, BuildContext context,
+            UserAuthenticationState authState)?
+        submit,
     TResult Function(String picUrl, BuildContext context)? deletePoster,
     TResult Function(
             String picUrl, BuildContext context, CookingStep cookingStep)?
@@ -1099,7 +1123,9 @@ class _$_EditIngredientName implements _EditIngredientName {
             String tag, BuildContext context, TextEditingController controller)
         addTag,
     required TResult Function(Tag tag) deleteTag,
-    required TResult Function(RecipeDetail recipe, BuildContext context) submit,
+    required TResult Function(RecipeDetail recipe, BuildContext context,
+            UserAuthenticationState authState)
+        submit,
     required TResult Function(String picUrl, BuildContext context) deletePoster,
     required TResult Function(
             String picUrl, BuildContext context, CookingStep cookingStep)
@@ -1134,7 +1160,9 @@ class _$_EditIngredientName implements _EditIngredientName {
             String tag, BuildContext context, TextEditingController controller)?
         addTag,
     TResult? Function(Tag tag)? deleteTag,
-    TResult? Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult? Function(RecipeDetail recipe, BuildContext context,
+            UserAuthenticationState authState)?
+        submit,
     TResult? Function(String picUrl, BuildContext context)? deletePoster,
     TResult? Function(
             String picUrl, BuildContext context, CookingStep cookingStep)?
@@ -1169,7 +1197,9 @@ class _$_EditIngredientName implements _EditIngredientName {
             String tag, BuildContext context, TextEditingController controller)?
         addTag,
     TResult Function(Tag tag)? deleteTag,
-    TResult Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult Function(RecipeDetail recipe, BuildContext context,
+            UserAuthenticationState authState)?
+        submit,
     TResult Function(String picUrl, BuildContext context)? deletePoster,
     TResult Function(
             String picUrl, BuildContext context, CookingStep cookingStep)?
@@ -1375,7 +1405,9 @@ class _$_EditIngredientQuantity implements _EditIngredientQuantity {
             String tag, BuildContext context, TextEditingController controller)
         addTag,
     required TResult Function(Tag tag) deleteTag,
-    required TResult Function(RecipeDetail recipe, BuildContext context) submit,
+    required TResult Function(RecipeDetail recipe, BuildContext context,
+            UserAuthenticationState authState)
+        submit,
     required TResult Function(String picUrl, BuildContext context) deletePoster,
     required TResult Function(
             String picUrl, BuildContext context, CookingStep cookingStep)
@@ -1410,7 +1442,9 @@ class _$_EditIngredientQuantity implements _EditIngredientQuantity {
             String tag, BuildContext context, TextEditingController controller)?
         addTag,
     TResult? Function(Tag tag)? deleteTag,
-    TResult? Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult? Function(RecipeDetail recipe, BuildContext context,
+            UserAuthenticationState authState)?
+        submit,
     TResult? Function(String picUrl, BuildContext context)? deletePoster,
     TResult? Function(
             String picUrl, BuildContext context, CookingStep cookingStep)?
@@ -1445,7 +1479,9 @@ class _$_EditIngredientQuantity implements _EditIngredientQuantity {
             String tag, BuildContext context, TextEditingController controller)?
         addTag,
     TResult Function(Tag tag)? deleteTag,
-    TResult Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult Function(RecipeDetail recipe, BuildContext context,
+            UserAuthenticationState authState)?
+        submit,
     TResult Function(String picUrl, BuildContext context)? deletePoster,
     TResult Function(
             String picUrl, BuildContext context, CookingStep cookingStep)?
@@ -1650,7 +1686,9 @@ class _$_EditIngredientMetric implements _EditIngredientMetric {
             String tag, BuildContext context, TextEditingController controller)
         addTag,
     required TResult Function(Tag tag) deleteTag,
-    required TResult Function(RecipeDetail recipe, BuildContext context) submit,
+    required TResult Function(RecipeDetail recipe, BuildContext context,
+            UserAuthenticationState authState)
+        submit,
     required TResult Function(String picUrl, BuildContext context) deletePoster,
     required TResult Function(
             String picUrl, BuildContext context, CookingStep cookingStep)
@@ -1685,7 +1723,9 @@ class _$_EditIngredientMetric implements _EditIngredientMetric {
             String tag, BuildContext context, TextEditingController controller)?
         addTag,
     TResult? Function(Tag tag)? deleteTag,
-    TResult? Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult? Function(RecipeDetail recipe, BuildContext context,
+            UserAuthenticationState authState)?
+        submit,
     TResult? Function(String picUrl, BuildContext context)? deletePoster,
     TResult? Function(
             String picUrl, BuildContext context, CookingStep cookingStep)?
@@ -1720,7 +1760,9 @@ class _$_EditIngredientMetric implements _EditIngredientMetric {
             String tag, BuildContext context, TextEditingController controller)?
         addTag,
     TResult Function(Tag tag)? deleteTag,
-    TResult Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult Function(RecipeDetail recipe, BuildContext context,
+            UserAuthenticationState authState)?
+        submit,
     TResult Function(String picUrl, BuildContext context)? deletePoster,
     TResult Function(
             String picUrl, BuildContext context, CookingStep cookingStep)?
@@ -1915,7 +1957,9 @@ class _$_DeleteIngredient implements _DeleteIngredient {
             String tag, BuildContext context, TextEditingController controller)
         addTag,
     required TResult Function(Tag tag) deleteTag,
-    required TResult Function(RecipeDetail recipe, BuildContext context) submit,
+    required TResult Function(RecipeDetail recipe, BuildContext context,
+            UserAuthenticationState authState)
+        submit,
     required TResult Function(String picUrl, BuildContext context) deletePoster,
     required TResult Function(
             String picUrl, BuildContext context, CookingStep cookingStep)
@@ -1950,7 +1994,9 @@ class _$_DeleteIngredient implements _DeleteIngredient {
             String tag, BuildContext context, TextEditingController controller)?
         addTag,
     TResult? Function(Tag tag)? deleteTag,
-    TResult? Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult? Function(RecipeDetail recipe, BuildContext context,
+            UserAuthenticationState authState)?
+        submit,
     TResult? Function(String picUrl, BuildContext context)? deletePoster,
     TResult? Function(
             String picUrl, BuildContext context, CookingStep cookingStep)?
@@ -1985,7 +2031,9 @@ class _$_DeleteIngredient implements _DeleteIngredient {
             String tag, BuildContext context, TextEditingController controller)?
         addTag,
     TResult Function(Tag tag)? deleteTag,
-    TResult Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult Function(RecipeDetail recipe, BuildContext context,
+            UserAuthenticationState authState)?
+        submit,
     TResult Function(String picUrl, BuildContext context)? deletePoster,
     TResult Function(
             String picUrl, BuildContext context, CookingStep cookingStep)?
@@ -2151,7 +2199,9 @@ class _$_AddCookingStep implements _AddCookingStep {
             String tag, BuildContext context, TextEditingController controller)
         addTag,
     required TResult Function(Tag tag) deleteTag,
-    required TResult Function(RecipeDetail recipe, BuildContext context) submit,
+    required TResult Function(RecipeDetail recipe, BuildContext context,
+            UserAuthenticationState authState)
+        submit,
     required TResult Function(String picUrl, BuildContext context) deletePoster,
     required TResult Function(
             String picUrl, BuildContext context, CookingStep cookingStep)
@@ -2186,7 +2236,9 @@ class _$_AddCookingStep implements _AddCookingStep {
             String tag, BuildContext context, TextEditingController controller)?
         addTag,
     TResult? Function(Tag tag)? deleteTag,
-    TResult? Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult? Function(RecipeDetail recipe, BuildContext context,
+            UserAuthenticationState authState)?
+        submit,
     TResult? Function(String picUrl, BuildContext context)? deletePoster,
     TResult? Function(
             String picUrl, BuildContext context, CookingStep cookingStep)?
@@ -2221,7 +2273,9 @@ class _$_AddCookingStep implements _AddCookingStep {
             String tag, BuildContext context, TextEditingController controller)?
         addTag,
     TResult Function(Tag tag)? deleteTag,
-    TResult Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult Function(RecipeDetail recipe, BuildContext context,
+            UserAuthenticationState authState)?
+        submit,
     TResult Function(String picUrl, BuildContext context)? deletePoster,
     TResult Function(
             String picUrl, BuildContext context, CookingStep cookingStep)?
@@ -2421,7 +2475,9 @@ class _$_EditCookingStepDescription implements _EditCookingStepDescription {
             String tag, BuildContext context, TextEditingController controller)
         addTag,
     required TResult Function(Tag tag) deleteTag,
-    required TResult Function(RecipeDetail recipe, BuildContext context) submit,
+    required TResult Function(RecipeDetail recipe, BuildContext context,
+            UserAuthenticationState authState)
+        submit,
     required TResult Function(String picUrl, BuildContext context) deletePoster,
     required TResult Function(
             String picUrl, BuildContext context, CookingStep cookingStep)
@@ -2456,7 +2512,9 @@ class _$_EditCookingStepDescription implements _EditCookingStepDescription {
             String tag, BuildContext context, TextEditingController controller)?
         addTag,
     TResult? Function(Tag tag)? deleteTag,
-    TResult? Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult? Function(RecipeDetail recipe, BuildContext context,
+            UserAuthenticationState authState)?
+        submit,
     TResult? Function(String picUrl, BuildContext context)? deletePoster,
     TResult? Function(
             String picUrl, BuildContext context, CookingStep cookingStep)?
@@ -2491,7 +2549,9 @@ class _$_EditCookingStepDescription implements _EditCookingStepDescription {
             String tag, BuildContext context, TextEditingController controller)?
         addTag,
     TResult Function(Tag tag)? deleteTag,
-    TResult Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult Function(RecipeDetail recipe, BuildContext context,
+            UserAuthenticationState authState)?
+        submit,
     TResult Function(String picUrl, BuildContext context)? deletePoster,
     TResult Function(
             String picUrl, BuildContext context, CookingStep cookingStep)?
@@ -2687,7 +2747,9 @@ class _$_EditCookingStepPic implements _EditCookingStepPic {
             String tag, BuildContext context, TextEditingController controller)
         addTag,
     required TResult Function(Tag tag) deleteTag,
-    required TResult Function(RecipeDetail recipe, BuildContext context) submit,
+    required TResult Function(RecipeDetail recipe, BuildContext context,
+            UserAuthenticationState authState)
+        submit,
     required TResult Function(String picUrl, BuildContext context) deletePoster,
     required TResult Function(
             String picUrl, BuildContext context, CookingStep cookingStep)
@@ -2722,7 +2784,9 @@ class _$_EditCookingStepPic implements _EditCookingStepPic {
             String tag, BuildContext context, TextEditingController controller)?
         addTag,
     TResult? Function(Tag tag)? deleteTag,
-    TResult? Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult? Function(RecipeDetail recipe, BuildContext context,
+            UserAuthenticationState authState)?
+        submit,
     TResult? Function(String picUrl, BuildContext context)? deletePoster,
     TResult? Function(
             String picUrl, BuildContext context, CookingStep cookingStep)?
@@ -2757,7 +2821,9 @@ class _$_EditCookingStepPic implements _EditCookingStepPic {
             String tag, BuildContext context, TextEditingController controller)?
         addTag,
     TResult Function(Tag tag)? deleteTag,
-    TResult Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult Function(RecipeDetail recipe, BuildContext context,
+            UserAuthenticationState authState)?
+        submit,
     TResult Function(String picUrl, BuildContext context)? deletePoster,
     TResult Function(
             String picUrl, BuildContext context, CookingStep cookingStep)?
@@ -2951,7 +3017,9 @@ class _$_DeleteCookingStep implements _DeleteCookingStep {
             String tag, BuildContext context, TextEditingController controller)
         addTag,
     required TResult Function(Tag tag) deleteTag,
-    required TResult Function(RecipeDetail recipe, BuildContext context) submit,
+    required TResult Function(RecipeDetail recipe, BuildContext context,
+            UserAuthenticationState authState)
+        submit,
     required TResult Function(String picUrl, BuildContext context) deletePoster,
     required TResult Function(
             String picUrl, BuildContext context, CookingStep cookingStep)
@@ -2986,7 +3054,9 @@ class _$_DeleteCookingStep implements _DeleteCookingStep {
             String tag, BuildContext context, TextEditingController controller)?
         addTag,
     TResult? Function(Tag tag)? deleteTag,
-    TResult? Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult? Function(RecipeDetail recipe, BuildContext context,
+            UserAuthenticationState authState)?
+        submit,
     TResult? Function(String picUrl, BuildContext context)? deletePoster,
     TResult? Function(
             String picUrl, BuildContext context, CookingStep cookingStep)?
@@ -3021,7 +3091,9 @@ class _$_DeleteCookingStep implements _DeleteCookingStep {
             String tag, BuildContext context, TextEditingController controller)?
         addTag,
     TResult Function(Tag tag)? deleteTag,
-    TResult Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult Function(RecipeDetail recipe, BuildContext context,
+            UserAuthenticationState authState)?
+        submit,
     TResult Function(String picUrl, BuildContext context)? deletePoster,
     TResult Function(
             String picUrl, BuildContext context, CookingStep cookingStep)?
@@ -3230,7 +3302,9 @@ class _$_AddTag implements _AddTag {
             String tag, BuildContext context, TextEditingController controller)
         addTag,
     required TResult Function(Tag tag) deleteTag,
-    required TResult Function(RecipeDetail recipe, BuildContext context) submit,
+    required TResult Function(RecipeDetail recipe, BuildContext context,
+            UserAuthenticationState authState)
+        submit,
     required TResult Function(String picUrl, BuildContext context) deletePoster,
     required TResult Function(
             String picUrl, BuildContext context, CookingStep cookingStep)
@@ -3265,7 +3339,9 @@ class _$_AddTag implements _AddTag {
             String tag, BuildContext context, TextEditingController controller)?
         addTag,
     TResult? Function(Tag tag)? deleteTag,
-    TResult? Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult? Function(RecipeDetail recipe, BuildContext context,
+            UserAuthenticationState authState)?
+        submit,
     TResult? Function(String picUrl, BuildContext context)? deletePoster,
     TResult? Function(
             String picUrl, BuildContext context, CookingStep cookingStep)?
@@ -3300,7 +3376,9 @@ class _$_AddTag implements _AddTag {
             String tag, BuildContext context, TextEditingController controller)?
         addTag,
     TResult Function(Tag tag)? deleteTag,
-    TResult Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult Function(RecipeDetail recipe, BuildContext context,
+            UserAuthenticationState authState)?
+        submit,
     TResult Function(String picUrl, BuildContext context)? deletePoster,
     TResult Function(
             String picUrl, BuildContext context, CookingStep cookingStep)?
@@ -3496,7 +3574,9 @@ class _$_DeleteTag implements _DeleteTag {
             String tag, BuildContext context, TextEditingController controller)
         addTag,
     required TResult Function(Tag tag) deleteTag,
-    required TResult Function(RecipeDetail recipe, BuildContext context) submit,
+    required TResult Function(RecipeDetail recipe, BuildContext context,
+            UserAuthenticationState authState)
+        submit,
     required TResult Function(String picUrl, BuildContext context) deletePoster,
     required TResult Function(
             String picUrl, BuildContext context, CookingStep cookingStep)
@@ -3531,7 +3611,9 @@ class _$_DeleteTag implements _DeleteTag {
             String tag, BuildContext context, TextEditingController controller)?
         addTag,
     TResult? Function(Tag tag)? deleteTag,
-    TResult? Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult? Function(RecipeDetail recipe, BuildContext context,
+            UserAuthenticationState authState)?
+        submit,
     TResult? Function(String picUrl, BuildContext context)? deletePoster,
     TResult? Function(
             String picUrl, BuildContext context, CookingStep cookingStep)?
@@ -3566,7 +3648,9 @@ class _$_DeleteTag implements _DeleteTag {
             String tag, BuildContext context, TextEditingController controller)?
         addTag,
     TResult Function(Tag tag)? deleteTag,
-    TResult Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult Function(RecipeDetail recipe, BuildContext context,
+            UserAuthenticationState authState)?
+        submit,
     TResult Function(String picUrl, BuildContext context)? deletePoster,
     TResult Function(
             String picUrl, BuildContext context, CookingStep cookingStep)?
@@ -3675,7 +3759,12 @@ abstract class _$$_SubmitCopyWith<$Res> {
   factory _$$_SubmitCopyWith(_$_Submit value, $Res Function(_$_Submit) then) =
       __$$_SubmitCopyWithImpl<$Res>;
   @useResult
-  $Res call({RecipeDetail recipe, BuildContext context});
+  $Res call(
+      {RecipeDetail recipe,
+      BuildContext context,
+      UserAuthenticationState authState});
+
+  $UserAuthenticationStateCopyWith<$Res> get authState;
 }
 
 /// @nodoc
@@ -3690,6 +3779,7 @@ class __$$_SubmitCopyWithImpl<$Res>
   $Res call({
     Object? recipe = null,
     Object? context = null,
+    Object? authState = null,
   }) {
     return _then(_$_Submit(
       recipe: null == recipe
@@ -3700,23 +3790,38 @@ class __$$_SubmitCopyWithImpl<$Res>
           ? _value.context
           : context // ignore: cast_nullable_to_non_nullable
               as BuildContext,
+      authState: null == authState
+          ? _value.authState
+          : authState // ignore: cast_nullable_to_non_nullable
+              as UserAuthenticationState,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $UserAuthenticationStateCopyWith<$Res> get authState {
+    return $UserAuthenticationStateCopyWith<$Res>(_value.authState, (value) {
+      return _then(_value.copyWith(authState: value));
+    });
   }
 }
 
 /// @nodoc
 
 class _$_Submit implements _Submit {
-  const _$_Submit({required this.recipe, required this.context});
+  const _$_Submit(
+      {required this.recipe, required this.context, required this.authState});
 
   @override
   final RecipeDetail recipe;
   @override
   final BuildContext context;
+  @override
+  final UserAuthenticationState authState;
 
   @override
   String toString() {
-    return 'CreateRecipeEvent.submit(recipe: $recipe, context: $context)';
+    return 'CreateRecipeEvent.submit(recipe: $recipe, context: $context, authState: $authState)';
   }
 
   @override
@@ -3725,11 +3830,13 @@ class _$_Submit implements _Submit {
         (other.runtimeType == runtimeType &&
             other is _$_Submit &&
             (identical(other.recipe, recipe) || other.recipe == recipe) &&
-            (identical(other.context, context) || other.context == context));
+            (identical(other.context, context) || other.context == context) &&
+            (identical(other.authState, authState) ||
+                other.authState == authState));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, recipe, context);
+  int get hashCode => Object.hash(runtimeType, recipe, context, authState);
 
   @JsonKey(ignore: true)
   @override
@@ -3763,14 +3870,16 @@ class _$_Submit implements _Submit {
             String tag, BuildContext context, TextEditingController controller)
         addTag,
     required TResult Function(Tag tag) deleteTag,
-    required TResult Function(RecipeDetail recipe, BuildContext context) submit,
+    required TResult Function(RecipeDetail recipe, BuildContext context,
+            UserAuthenticationState authState)
+        submit,
     required TResult Function(String picUrl, BuildContext context) deletePoster,
     required TResult Function(
             String picUrl, BuildContext context, CookingStep cookingStep)
         deleteCookingStepPic,
     required TResult Function(BuildContext context) cancel,
   }) {
-    return submit(recipe, context);
+    return submit(recipe, context, authState);
   }
 
   @override
@@ -3798,14 +3907,16 @@ class _$_Submit implements _Submit {
             String tag, BuildContext context, TextEditingController controller)?
         addTag,
     TResult? Function(Tag tag)? deleteTag,
-    TResult? Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult? Function(RecipeDetail recipe, BuildContext context,
+            UserAuthenticationState authState)?
+        submit,
     TResult? Function(String picUrl, BuildContext context)? deletePoster,
     TResult? Function(
             String picUrl, BuildContext context, CookingStep cookingStep)?
         deleteCookingStepPic,
     TResult? Function(BuildContext context)? cancel,
   }) {
-    return submit?.call(recipe, context);
+    return submit?.call(recipe, context, authState);
   }
 
   @override
@@ -3833,7 +3944,9 @@ class _$_Submit implements _Submit {
             String tag, BuildContext context, TextEditingController controller)?
         addTag,
     TResult Function(Tag tag)? deleteTag,
-    TResult Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult Function(RecipeDetail recipe, BuildContext context,
+            UserAuthenticationState authState)?
+        submit,
     TResult Function(String picUrl, BuildContext context)? deletePoster,
     TResult Function(
             String picUrl, BuildContext context, CookingStep cookingStep)?
@@ -3842,7 +3955,7 @@ class _$_Submit implements _Submit {
     required TResult orElse(),
   }) {
     if (submit != null) {
-      return submit(recipe, context);
+      return submit(recipe, context, authState);
     }
     return orElse();
   }
@@ -3931,10 +4044,12 @@ class _$_Submit implements _Submit {
 abstract class _Submit implements CreateRecipeEvent {
   const factory _Submit(
       {required final RecipeDetail recipe,
-      required final BuildContext context}) = _$_Submit;
+      required final BuildContext context,
+      required final UserAuthenticationState authState}) = _$_Submit;
 
   RecipeDetail get recipe;
   BuildContext get context;
+  UserAuthenticationState get authState;
   @JsonKey(ignore: true)
   _$$_SubmitCopyWith<_$_Submit> get copyWith =>
       throw _privateConstructorUsedError;
@@ -4035,7 +4150,9 @@ class _$_DeletePoster implements _DeletePoster {
             String tag, BuildContext context, TextEditingController controller)
         addTag,
     required TResult Function(Tag tag) deleteTag,
-    required TResult Function(RecipeDetail recipe, BuildContext context) submit,
+    required TResult Function(RecipeDetail recipe, BuildContext context,
+            UserAuthenticationState authState)
+        submit,
     required TResult Function(String picUrl, BuildContext context) deletePoster,
     required TResult Function(
             String picUrl, BuildContext context, CookingStep cookingStep)
@@ -4070,7 +4187,9 @@ class _$_DeletePoster implements _DeletePoster {
             String tag, BuildContext context, TextEditingController controller)?
         addTag,
     TResult? Function(Tag tag)? deleteTag,
-    TResult? Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult? Function(RecipeDetail recipe, BuildContext context,
+            UserAuthenticationState authState)?
+        submit,
     TResult? Function(String picUrl, BuildContext context)? deletePoster,
     TResult? Function(
             String picUrl, BuildContext context, CookingStep cookingStep)?
@@ -4105,7 +4224,9 @@ class _$_DeletePoster implements _DeletePoster {
             String tag, BuildContext context, TextEditingController controller)?
         addTag,
     TResult Function(Tag tag)? deleteTag,
-    TResult Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult Function(RecipeDetail recipe, BuildContext context,
+            UserAuthenticationState authState)?
+        submit,
     TResult Function(String picUrl, BuildContext context)? deletePoster,
     TResult Function(
             String picUrl, BuildContext context, CookingStep cookingStep)?
@@ -4318,7 +4439,9 @@ class _$_DeleteCookingStepPic implements _DeleteCookingStepPic {
             String tag, BuildContext context, TextEditingController controller)
         addTag,
     required TResult Function(Tag tag) deleteTag,
-    required TResult Function(RecipeDetail recipe, BuildContext context) submit,
+    required TResult Function(RecipeDetail recipe, BuildContext context,
+            UserAuthenticationState authState)
+        submit,
     required TResult Function(String picUrl, BuildContext context) deletePoster,
     required TResult Function(
             String picUrl, BuildContext context, CookingStep cookingStep)
@@ -4353,7 +4476,9 @@ class _$_DeleteCookingStepPic implements _DeleteCookingStepPic {
             String tag, BuildContext context, TextEditingController controller)?
         addTag,
     TResult? Function(Tag tag)? deleteTag,
-    TResult? Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult? Function(RecipeDetail recipe, BuildContext context,
+            UserAuthenticationState authState)?
+        submit,
     TResult? Function(String picUrl, BuildContext context)? deletePoster,
     TResult? Function(
             String picUrl, BuildContext context, CookingStep cookingStep)?
@@ -4388,7 +4513,9 @@ class _$_DeleteCookingStepPic implements _DeleteCookingStepPic {
             String tag, BuildContext context, TextEditingController controller)?
         addTag,
     TResult Function(Tag tag)? deleteTag,
-    TResult Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult Function(RecipeDetail recipe, BuildContext context,
+            UserAuthenticationState authState)?
+        submit,
     TResult Function(String picUrl, BuildContext context)? deletePoster,
     TResult Function(
             String picUrl, BuildContext context, CookingStep cookingStep)?
@@ -4582,7 +4709,9 @@ class _$_Cancel implements _Cancel {
             String tag, BuildContext context, TextEditingController controller)
         addTag,
     required TResult Function(Tag tag) deleteTag,
-    required TResult Function(RecipeDetail recipe, BuildContext context) submit,
+    required TResult Function(RecipeDetail recipe, BuildContext context,
+            UserAuthenticationState authState)
+        submit,
     required TResult Function(String picUrl, BuildContext context) deletePoster,
     required TResult Function(
             String picUrl, BuildContext context, CookingStep cookingStep)
@@ -4617,7 +4746,9 @@ class _$_Cancel implements _Cancel {
             String tag, BuildContext context, TextEditingController controller)?
         addTag,
     TResult? Function(Tag tag)? deleteTag,
-    TResult? Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult? Function(RecipeDetail recipe, BuildContext context,
+            UserAuthenticationState authState)?
+        submit,
     TResult? Function(String picUrl, BuildContext context)? deletePoster,
     TResult? Function(
             String picUrl, BuildContext context, CookingStep cookingStep)?
@@ -4652,7 +4783,9 @@ class _$_Cancel implements _Cancel {
             String tag, BuildContext context, TextEditingController controller)?
         addTag,
     TResult Function(Tag tag)? deleteTag,
-    TResult Function(RecipeDetail recipe, BuildContext context)? submit,
+    TResult Function(RecipeDetail recipe, BuildContext context,
+            UserAuthenticationState authState)?
+        submit,
     TResult Function(String picUrl, BuildContext context)? deletePoster,
     TResult Function(
             String picUrl, BuildContext context, CookingStep cookingStep)?
@@ -4758,21 +4891,22 @@ abstract class _Cancel implements CreateRecipeEvent {
 
 /// @nodoc
 mixin _$CreateRecipeState {
+  RecipeDetail? get recipe => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() initial,
+    required TResult Function(RecipeDetail? recipe) initial,
     required TResult Function(RecipeDetail recipe) creating,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
+    TResult? Function(RecipeDetail? recipe)? initial,
     TResult? Function(RecipeDetail recipe)? creating,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
+    TResult Function(RecipeDetail? recipe)? initial,
     TResult Function(RecipeDetail recipe)? creating,
     required TResult orElse(),
   }) =>
@@ -4796,6 +4930,10 @@ mixin _$CreateRecipeState {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $CreateRecipeStateCopyWith<CreateRecipeState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -4803,6 +4941,8 @@ abstract class $CreateRecipeStateCopyWith<$Res> {
   factory $CreateRecipeStateCopyWith(
           CreateRecipeState value, $Res Function(CreateRecipeState) then) =
       _$CreateRecipeStateCopyWithImpl<$Res, CreateRecipeState>;
+  @useResult
+  $Res call({RecipeDetail recipe});
 }
 
 /// @nodoc
@@ -4814,13 +4954,30 @@ class _$CreateRecipeStateCopyWithImpl<$Res, $Val extends CreateRecipeState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? recipe = null,
+  }) {
+    return _then(_value.copyWith(
+      recipe: null == recipe
+          ? _value.recipe!
+          : recipe // ignore: cast_nullable_to_non_nullable
+              as RecipeDetail,
+    ) as $Val);
+  }
 }
 
 /// @nodoc
-abstract class _$$_InitialCopyWith<$Res> {
+abstract class _$$_InitialCopyWith<$Res>
+    implements $CreateRecipeStateCopyWith<$Res> {
   factory _$$_InitialCopyWith(
           _$_Initial value, $Res Function(_$_Initial) then) =
       __$$_InitialCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({RecipeDetail? recipe});
 }
 
 /// @nodoc
@@ -4829,54 +4986,78 @@ class __$$_InitialCopyWithImpl<$Res>
     implements _$$_InitialCopyWith<$Res> {
   __$$_InitialCopyWithImpl(_$_Initial _value, $Res Function(_$_Initial) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? recipe = freezed,
+  }) {
+    return _then(_$_Initial(
+      recipe: freezed == recipe
+          ? _value.recipe
+          : recipe // ignore: cast_nullable_to_non_nullable
+              as RecipeDetail?,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$_Initial implements _Initial {
-  const _$_Initial();
+  const _$_Initial({required this.recipe});
+
+  @override
+  final RecipeDetail? recipe;
 
   @override
   String toString() {
-    return 'CreateRecipeState.initial()';
+    return 'CreateRecipeState.initial(recipe: $recipe)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_Initial);
+        (other.runtimeType == runtimeType &&
+            other is _$_Initial &&
+            (identical(other.recipe, recipe) || other.recipe == recipe));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, recipe);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_InitialCopyWith<_$_Initial> get copyWith =>
+      __$$_InitialCopyWithImpl<_$_Initial>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() initial,
+    required TResult Function(RecipeDetail? recipe) initial,
     required TResult Function(RecipeDetail recipe) creating,
   }) {
-    return initial();
+    return initial(recipe);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
+    TResult? Function(RecipeDetail? recipe)? initial,
     TResult? Function(RecipeDetail recipe)? creating,
   }) {
-    return initial?.call();
+    return initial?.call(recipe);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
+    TResult Function(RecipeDetail? recipe)? initial,
     TResult Function(RecipeDetail recipe)? creating,
     required TResult orElse(),
   }) {
     if (initial != null) {
-      return initial();
+      return initial(recipe);
     }
     return orElse();
   }
@@ -4914,14 +5095,23 @@ class _$_Initial implements _Initial {
 }
 
 abstract class _Initial implements CreateRecipeState {
-  const factory _Initial() = _$_Initial;
+  const factory _Initial({required final RecipeDetail? recipe}) = _$_Initial;
+
+  @override
+  RecipeDetail? get recipe;
+  @override
+  @JsonKey(ignore: true)
+  _$$_InitialCopyWith<_$_Initial> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_CreatingCopyWith<$Res> {
+abstract class _$$_CreatingCopyWith<$Res>
+    implements $CreateRecipeStateCopyWith<$Res> {
   factory _$$_CreatingCopyWith(
           _$_Creating value, $Res Function(_$_Creating) then) =
       __$$_CreatingCopyWithImpl<$Res>;
+  @override
   @useResult
   $Res call({RecipeDetail recipe});
 }
@@ -4981,7 +5171,7 @@ class _$_Creating implements _Creating {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() initial,
+    required TResult Function(RecipeDetail? recipe) initial,
     required TResult Function(RecipeDetail recipe) creating,
   }) {
     return creating(recipe);
@@ -4990,7 +5180,7 @@ class _$_Creating implements _Creating {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
+    TResult? Function(RecipeDetail? recipe)? initial,
     TResult? Function(RecipeDetail recipe)? creating,
   }) {
     return creating?.call(recipe);
@@ -4999,7 +5189,7 @@ class _$_Creating implements _Creating {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
+    TResult Function(RecipeDetail? recipe)? initial,
     TResult Function(RecipeDetail recipe)? creating,
     required TResult orElse(),
   }) {
@@ -5044,7 +5234,9 @@ class _$_Creating implements _Creating {
 abstract class _Creating implements CreateRecipeState {
   const factory _Creating({required final RecipeDetail recipe}) = _$_Creating;
 
+  @override
   RecipeDetail get recipe;
+  @override
   @JsonKey(ignore: true)
   _$$_CreatingCopyWith<_$_Creating> get copyWith =>
       throw _privateConstructorUsedError;

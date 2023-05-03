@@ -49,7 +49,9 @@ class CreateRecipeEvent with _$CreateRecipeEvent {
   const factory CreateRecipeEvent.deleteTag({required Tag tag}) = _DeleteTag;
 
   const factory CreateRecipeEvent.submit(
-      {required RecipeDetail recipe, required BuildContext context}) = _Submit;
+      {required RecipeDetail recipe,
+      required BuildContext context,
+      required UserAuthenticationState authState}) = _Submit;
 
   const factory CreateRecipeEvent.deletePoster(
       {required String picUrl, required BuildContext context}) = _DeletePoster;
