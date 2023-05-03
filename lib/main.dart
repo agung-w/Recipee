@@ -74,13 +74,10 @@ class RecipeApp extends StatelessWidget {
             context
                 .read<MyProfilePageBloc>()
                 .add(MyProfilePageEvent.started(authState: state));
-            context
-                .read<HomePageBloc>()
-                .add(HomePageEvent.getRecipeByIngredients(
-                    ingredients: ["ayam"],
+            context.read<HomePageBloc>().add(HomePageEvent.started(
                     token: state.mapOrNull(
-                      signedIn: (value) => value.token,
-                    )));
+                  signedIn: (value) => value.token,
+                )));
             context.read<ExplorePageBloc>().add(ExplorePageEvent.started(
                     token: state.mapOrNull(
                   signedIn: (value) => value.token,

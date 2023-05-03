@@ -16,41 +16,42 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$HomePageEvent {
-  List<String> get ingredients => throw _privateConstructorUsedError;
   String? get token => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<String> ingredients, String? token)
-        getRecipeByIngredients,
+    required TResult Function(String? token) started,
+    required TResult Function(String ingredient, String? token) addIngredient,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<String> ingredients, String? token)?
-        getRecipeByIngredients,
+    TResult? Function(String? token)? started,
+    TResult? Function(String ingredient, String? token)? addIngredient,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<String> ingredients, String? token)?
-        getRecipeByIngredients,
+    TResult Function(String? token)? started,
+    TResult Function(String ingredient, String? token)? addIngredient,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_GetRecipeByIngredients value)
-        getRecipeByIngredients,
+    required TResult Function(_Started value) started,
+    required TResult Function(_AddIngredient value) addIngredient,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_GetRecipeByIngredients value)? getRecipeByIngredients,
+    TResult? Function(_Started value)? started,
+    TResult? Function(_AddIngredient value)? addIngredient,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_GetRecipeByIngredients value)? getRecipeByIngredients,
+    TResult Function(_Started value)? started,
+    TResult Function(_AddIngredient value)? addIngredient,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -66,7 +67,7 @@ abstract class $HomePageEventCopyWith<$Res> {
           HomePageEvent value, $Res Function(HomePageEvent) then) =
       _$HomePageEventCopyWithImpl<$Res, HomePageEvent>;
   @useResult
-  $Res call({List<String> ingredients, String? token});
+  $Res call({String? token});
 }
 
 /// @nodoc
@@ -82,14 +83,9 @@ class _$HomePageEventCopyWithImpl<$Res, $Val extends HomePageEvent>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? ingredients = null,
     Object? token = freezed,
   }) {
     return _then(_value.copyWith(
-      ingredients: null == ingredients
-          ? _value.ingredients
-          : ingredients // ignore: cast_nullable_to_non_nullable
-              as List<String>,
       token: freezed == token
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
@@ -99,35 +95,29 @@ class _$HomePageEventCopyWithImpl<$Res, $Val extends HomePageEvent>
 }
 
 /// @nodoc
-abstract class _$$_GetRecipeByIngredientsCopyWith<$Res>
+abstract class _$$_StartedCopyWith<$Res>
     implements $HomePageEventCopyWith<$Res> {
-  factory _$$_GetRecipeByIngredientsCopyWith(_$_GetRecipeByIngredients value,
-          $Res Function(_$_GetRecipeByIngredients) then) =
-      __$$_GetRecipeByIngredientsCopyWithImpl<$Res>;
+  factory _$$_StartedCopyWith(
+          _$_Started value, $Res Function(_$_Started) then) =
+      __$$_StartedCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<String> ingredients, String? token});
+  $Res call({String? token});
 }
 
 /// @nodoc
-class __$$_GetRecipeByIngredientsCopyWithImpl<$Res>
-    extends _$HomePageEventCopyWithImpl<$Res, _$_GetRecipeByIngredients>
-    implements _$$_GetRecipeByIngredientsCopyWith<$Res> {
-  __$$_GetRecipeByIngredientsCopyWithImpl(_$_GetRecipeByIngredients _value,
-      $Res Function(_$_GetRecipeByIngredients) _then)
+class __$$_StartedCopyWithImpl<$Res>
+    extends _$HomePageEventCopyWithImpl<$Res, _$_Started>
+    implements _$$_StartedCopyWith<$Res> {
+  __$$_StartedCopyWithImpl(_$_Started _value, $Res Function(_$_Started) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? ingredients = null,
     Object? token = freezed,
   }) {
-    return _then(_$_GetRecipeByIngredients(
-      ingredients: null == ingredients
-          ? _value._ingredients
-          : ingredients // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+    return _then(_$_Started(
       token: freezed == token
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
@@ -138,75 +128,61 @@ class __$$_GetRecipeByIngredientsCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_GetRecipeByIngredients implements _GetRecipeByIngredients {
-  const _$_GetRecipeByIngredients(
-      {required final List<String> ingredients, this.token})
-      : _ingredients = ingredients;
-
-  final List<String> _ingredients;
-  @override
-  List<String> get ingredients {
-    if (_ingredients is EqualUnmodifiableListView) return _ingredients;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_ingredients);
-  }
+class _$_Started implements _Started {
+  const _$_Started({this.token});
 
   @override
   final String? token;
 
   @override
   String toString() {
-    return 'HomePageEvent.getRecipeByIngredients(ingredients: $ingredients, token: $token)';
+    return 'HomePageEvent.started(token: $token)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_GetRecipeByIngredients &&
-            const DeepCollectionEquality()
-                .equals(other._ingredients, _ingredients) &&
+            other is _$_Started &&
             (identical(other.token, token) || other.token == token));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_ingredients), token);
+  int get hashCode => Object.hash(runtimeType, token);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_GetRecipeByIngredientsCopyWith<_$_GetRecipeByIngredients> get copyWith =>
-      __$$_GetRecipeByIngredientsCopyWithImpl<_$_GetRecipeByIngredients>(
-          this, _$identity);
+  _$$_StartedCopyWith<_$_Started> get copyWith =>
+      __$$_StartedCopyWithImpl<_$_Started>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<String> ingredients, String? token)
-        getRecipeByIngredients,
+    required TResult Function(String? token) started,
+    required TResult Function(String ingredient, String? token) addIngredient,
   }) {
-    return getRecipeByIngredients(ingredients, token);
+    return started(token);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<String> ingredients, String? token)?
-        getRecipeByIngredients,
+    TResult? Function(String? token)? started,
+    TResult? Function(String ingredient, String? token)? addIngredient,
   }) {
-    return getRecipeByIngredients?.call(ingredients, token);
+    return started?.call(token);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<String> ingredients, String? token)?
-        getRecipeByIngredients,
+    TResult Function(String? token)? started,
+    TResult Function(String ingredient, String? token)? addIngredient,
     required TResult orElse(),
   }) {
-    if (getRecipeByIngredients != null) {
-      return getRecipeByIngredients(ingredients, token);
+    if (started != null) {
+      return started(token);
     }
     return orElse();
   }
@@ -214,45 +190,192 @@ class _$_GetRecipeByIngredients implements _GetRecipeByIngredients {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_GetRecipeByIngredients value)
-        getRecipeByIngredients,
+    required TResult Function(_Started value) started,
+    required TResult Function(_AddIngredient value) addIngredient,
   }) {
-    return getRecipeByIngredients(this);
+    return started(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_GetRecipeByIngredients value)? getRecipeByIngredients,
+    TResult? Function(_Started value)? started,
+    TResult? Function(_AddIngredient value)? addIngredient,
   }) {
-    return getRecipeByIngredients?.call(this);
+    return started?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_GetRecipeByIngredients value)? getRecipeByIngredients,
+    TResult Function(_Started value)? started,
+    TResult Function(_AddIngredient value)? addIngredient,
     required TResult orElse(),
   }) {
-    if (getRecipeByIngredients != null) {
-      return getRecipeByIngredients(this);
+    if (started != null) {
+      return started(this);
     }
     return orElse();
   }
 }
 
-abstract class _GetRecipeByIngredients implements HomePageEvent {
-  const factory _GetRecipeByIngredients(
-      {required final List<String> ingredients,
-      final String? token}) = _$_GetRecipeByIngredients;
+abstract class _Started implements HomePageEvent {
+  const factory _Started({final String? token}) = _$_Started;
 
-  @override
-  List<String> get ingredients;
   @override
   String? get token;
   @override
   @JsonKey(ignore: true)
-  _$$_GetRecipeByIngredientsCopyWith<_$_GetRecipeByIngredients> get copyWith =>
+  _$$_StartedCopyWith<_$_Started> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_AddIngredientCopyWith<$Res>
+    implements $HomePageEventCopyWith<$Res> {
+  factory _$$_AddIngredientCopyWith(
+          _$_AddIngredient value, $Res Function(_$_AddIngredient) then) =
+      __$$_AddIngredientCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String ingredient, String? token});
+}
+
+/// @nodoc
+class __$$_AddIngredientCopyWithImpl<$Res>
+    extends _$HomePageEventCopyWithImpl<$Res, _$_AddIngredient>
+    implements _$$_AddIngredientCopyWith<$Res> {
+  __$$_AddIngredientCopyWithImpl(
+      _$_AddIngredient _value, $Res Function(_$_AddIngredient) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? ingredient = null,
+    Object? token = freezed,
+  }) {
+    return _then(_$_AddIngredient(
+      ingredient: null == ingredient
+          ? _value.ingredient
+          : ingredient // ignore: cast_nullable_to_non_nullable
+              as String,
+      token: freezed == token
+          ? _value.token
+          : token // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_AddIngredient implements _AddIngredient {
+  const _$_AddIngredient({required this.ingredient, this.token});
+
+  @override
+  final String ingredient;
+  @override
+  final String? token;
+
+  @override
+  String toString() {
+    return 'HomePageEvent.addIngredient(ingredient: $ingredient, token: $token)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_AddIngredient &&
+            (identical(other.ingredient, ingredient) ||
+                other.ingredient == ingredient) &&
+            (identical(other.token, token) || other.token == token));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, ingredient, token);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_AddIngredientCopyWith<_$_AddIngredient> get copyWith =>
+      __$$_AddIngredientCopyWithImpl<_$_AddIngredient>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String? token) started,
+    required TResult Function(String ingredient, String? token) addIngredient,
+  }) {
+    return addIngredient(ingredient, token);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String? token)? started,
+    TResult? Function(String ingredient, String? token)? addIngredient,
+  }) {
+    return addIngredient?.call(ingredient, token);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String? token)? started,
+    TResult Function(String ingredient, String? token)? addIngredient,
+    required TResult orElse(),
+  }) {
+    if (addIngredient != null) {
+      return addIngredient(ingredient, token);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_AddIngredient value) addIngredient,
+  }) {
+    return addIngredient(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_AddIngredient value)? addIngredient,
+  }) {
+    return addIngredient?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_AddIngredient value)? addIngredient,
+    required TResult orElse(),
+  }) {
+    if (addIngredient != null) {
+      return addIngredient(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _AddIngredient implements HomePageEvent {
+  const factory _AddIngredient(
+      {required final String ingredient,
+      final String? token}) = _$_AddIngredient;
+
+  String get ingredient;
+  @override
+  String? get token;
+  @override
+  @JsonKey(ignore: true)
+  _$$_AddIngredientCopyWith<_$_AddIngredient> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -261,22 +384,24 @@ mixin _$HomePageState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<Recipe> resultList) loaded,
-    required TResult Function(String? message) failed,
+    required TResult Function(List<Recipe> resultList, List<String> ingredients)
+        loaded,
+    required TResult Function(String? message, List<String> ingredients) failed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(List<Recipe> resultList)? loaded,
-    TResult? Function(String? message)? failed,
+    TResult? Function(List<Recipe> resultList, List<String> ingredients)?
+        loaded,
+    TResult? Function(String? message, List<String> ingredients)? failed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<Recipe> resultList)? loaded,
-    TResult Function(String? message)? failed,
+    TResult Function(List<Recipe> resultList, List<String> ingredients)? loaded,
+    TResult Function(String? message, List<String> ingredients)? failed,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -360,8 +485,9 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<Recipe> resultList) loaded,
-    required TResult Function(String? message) failed,
+    required TResult Function(List<Recipe> resultList, List<String> ingredients)
+        loaded,
+    required TResult Function(String? message, List<String> ingredients) failed,
   }) {
     return initial();
   }
@@ -370,8 +496,9 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(List<Recipe> resultList)? loaded,
-    TResult? Function(String? message)? failed,
+    TResult? Function(List<Recipe> resultList, List<String> ingredients)?
+        loaded,
+    TResult? Function(String? message, List<String> ingredients)? failed,
   }) {
     return initial?.call();
   }
@@ -380,8 +507,8 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<Recipe> resultList)? loaded,
-    TResult Function(String? message)? failed,
+    TResult Function(List<Recipe> resultList, List<String> ingredients)? loaded,
+    TResult Function(String? message, List<String> ingredients)? failed,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -434,7 +561,7 @@ abstract class _$$_LoadedCopyWith<$Res> {
   factory _$$_LoadedCopyWith(_$_Loaded value, $Res Function(_$_Loaded) then) =
       __$$_LoadedCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<Recipe> resultList});
+  $Res call({List<Recipe> resultList, List<String> ingredients});
 }
 
 /// @nodoc
@@ -448,12 +575,17 @@ class __$$_LoadedCopyWithImpl<$Res>
   @override
   $Res call({
     Object? resultList = null,
+    Object? ingredients = null,
   }) {
     return _then(_$_Loaded(
       resultList: null == resultList
           ? _value._resultList
           : resultList // ignore: cast_nullable_to_non_nullable
               as List<Recipe>,
+      ingredients: null == ingredients
+          ? _value._ingredients
+          : ingredients // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
@@ -461,8 +593,11 @@ class __$$_LoadedCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Loaded implements _Loaded {
-  const _$_Loaded({required final List<Recipe> resultList})
-      : _resultList = resultList;
+  const _$_Loaded(
+      {required final List<Recipe> resultList,
+      required final List<String> ingredients})
+      : _resultList = resultList,
+        _ingredients = ingredients;
 
   final List<Recipe> _resultList;
   @override
@@ -472,9 +607,17 @@ class _$_Loaded implements _Loaded {
     return EqualUnmodifiableListView(_resultList);
   }
 
+  final List<String> _ingredients;
+  @override
+  List<String> get ingredients {
+    if (_ingredients is EqualUnmodifiableListView) return _ingredients;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_ingredients);
+  }
+
   @override
   String toString() {
-    return 'HomePageState.loaded(resultList: $resultList)';
+    return 'HomePageState.loaded(resultList: $resultList, ingredients: $ingredients)';
   }
 
   @override
@@ -483,12 +626,16 @@ class _$_Loaded implements _Loaded {
         (other.runtimeType == runtimeType &&
             other is _$_Loaded &&
             const DeepCollectionEquality()
-                .equals(other._resultList, _resultList));
+                .equals(other._resultList, _resultList) &&
+            const DeepCollectionEquality()
+                .equals(other._ingredients, _ingredients));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_resultList));
+      runtimeType,
+      const DeepCollectionEquality().hash(_resultList),
+      const DeepCollectionEquality().hash(_ingredients));
 
   @JsonKey(ignore: true)
   @override
@@ -500,32 +647,34 @@ class _$_Loaded implements _Loaded {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<Recipe> resultList) loaded,
-    required TResult Function(String? message) failed,
+    required TResult Function(List<Recipe> resultList, List<String> ingredients)
+        loaded,
+    required TResult Function(String? message, List<String> ingredients) failed,
   }) {
-    return loaded(resultList);
+    return loaded(resultList, ingredients);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(List<Recipe> resultList)? loaded,
-    TResult? Function(String? message)? failed,
+    TResult? Function(List<Recipe> resultList, List<String> ingredients)?
+        loaded,
+    TResult? Function(String? message, List<String> ingredients)? failed,
   }) {
-    return loaded?.call(resultList);
+    return loaded?.call(resultList, ingredients);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<Recipe> resultList)? loaded,
-    TResult Function(String? message)? failed,
+    TResult Function(List<Recipe> resultList, List<String> ingredients)? loaded,
+    TResult Function(String? message, List<String> ingredients)? failed,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(resultList);
+      return loaded(resultList, ingredients);
     }
     return orElse();
   }
@@ -566,9 +715,12 @@ class _$_Loaded implements _Loaded {
 }
 
 abstract class _Loaded implements HomePageState {
-  const factory _Loaded({required final List<Recipe> resultList}) = _$_Loaded;
+  const factory _Loaded(
+      {required final List<Recipe> resultList,
+      required final List<String> ingredients}) = _$_Loaded;
 
   List<Recipe> get resultList;
+  List<String> get ingredients;
   @JsonKey(ignore: true)
   _$$_LoadedCopyWith<_$_Loaded> get copyWith =>
       throw _privateConstructorUsedError;
@@ -579,7 +731,7 @@ abstract class _$$_FailedCopyWith<$Res> {
   factory _$$_FailedCopyWith(_$_Failed value, $Res Function(_$_Failed) then) =
       __$$_FailedCopyWithImpl<$Res>;
   @useResult
-  $Res call({String? message});
+  $Res call({String? message, List<String> ingredients});
 }
 
 /// @nodoc
@@ -593,12 +745,17 @@ class __$$_FailedCopyWithImpl<$Res>
   @override
   $Res call({
     Object? message = freezed,
+    Object? ingredients = null,
   }) {
     return _then(_$_Failed(
       message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String?,
+      ingredients: null == ingredients
+          ? _value._ingredients
+          : ingredients // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
@@ -606,14 +763,22 @@ class __$$_FailedCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Failed implements _Failed {
-  const _$_Failed({this.message});
+  const _$_Failed({this.message, required final List<String> ingredients})
+      : _ingredients = ingredients;
 
   @override
   final String? message;
+  final List<String> _ingredients;
+  @override
+  List<String> get ingredients {
+    if (_ingredients is EqualUnmodifiableListView) return _ingredients;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_ingredients);
+  }
 
   @override
   String toString() {
-    return 'HomePageState.failed(message: $message)';
+    return 'HomePageState.failed(message: $message, ingredients: $ingredients)';
   }
 
   @override
@@ -621,11 +786,14 @@ class _$_Failed implements _Failed {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Failed &&
-            (identical(other.message, message) || other.message == message));
+            (identical(other.message, message) || other.message == message) &&
+            const DeepCollectionEquality()
+                .equals(other._ingredients, _ingredients));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, message);
+  int get hashCode => Object.hash(
+      runtimeType, message, const DeepCollectionEquality().hash(_ingredients));
 
   @JsonKey(ignore: true)
   @override
@@ -637,32 +805,34 @@ class _$_Failed implements _Failed {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<Recipe> resultList) loaded,
-    required TResult Function(String? message) failed,
+    required TResult Function(List<Recipe> resultList, List<String> ingredients)
+        loaded,
+    required TResult Function(String? message, List<String> ingredients) failed,
   }) {
-    return failed(message);
+    return failed(message, ingredients);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(List<Recipe> resultList)? loaded,
-    TResult? Function(String? message)? failed,
+    TResult? Function(List<Recipe> resultList, List<String> ingredients)?
+        loaded,
+    TResult? Function(String? message, List<String> ingredients)? failed,
   }) {
-    return failed?.call(message);
+    return failed?.call(message, ingredients);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<Recipe> resultList)? loaded,
-    TResult Function(String? message)? failed,
+    TResult Function(List<Recipe> resultList, List<String> ingredients)? loaded,
+    TResult Function(String? message, List<String> ingredients)? failed,
     required TResult orElse(),
   }) {
     if (failed != null) {
-      return failed(message);
+      return failed(message, ingredients);
     }
     return orElse();
   }
@@ -703,9 +873,12 @@ class _$_Failed implements _Failed {
 }
 
 abstract class _Failed implements HomePageState {
-  const factory _Failed({final String? message}) = _$_Failed;
+  const factory _Failed(
+      {final String? message,
+      required final List<String> ingredients}) = _$_Failed;
 
   String? get message;
+  List<String> get ingredients;
   @JsonKey(ignore: true)
   _$$_FailedCopyWith<_$_Failed> get copyWith =>
       throw _privateConstructorUsedError;
