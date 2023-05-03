@@ -2,7 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:ta_recipe_app/entities/user.dart';
 import 'package:ta_recipe_app/entities/user_detail.dart';
 import 'package:ta_recipe_app/helpers/api_result.dart';
 import 'package:ta_recipe_app/services/auth_services.dart';

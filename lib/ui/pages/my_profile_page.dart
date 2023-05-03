@@ -6,7 +6,6 @@ import 'package:ta_recipe_app/bloc/user_authentication_bloc.dart';
 import 'package:ta_recipe_app/entities/user_detail.dart';
 import 'package:ta_recipe_app/ui/pages/login_page.dart';
 import 'package:ta_recipe_app/ui/pages/register_page.dart';
-import 'package:ta_recipe_app/ui/widgets/draggable_sheet.dart';
 import 'package:ta_recipe_app/ui/widgets/follower_count_text.dart';
 import 'package:ta_recipe_app/ui/widgets/loading_indicator.dart';
 import 'package:ta_recipe_app/ui/widgets/profile_recipe_list.dart';

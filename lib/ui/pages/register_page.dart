@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,7 +20,7 @@ class RegisterPage extends StatelessWidget {
     TextEditingController passwordConfirmationController =
         TextEditingController();
     final formKey = GlobalKey<FormState>();
-    _onSubmit() {
+    onSubmit() {
       if (formKey.currentState!.validate()) {
         context.read<UserAuthenticationBloc>().add(
             UserAuthenticationEvent.register(
@@ -45,7 +43,7 @@ class RegisterPage extends StatelessWidget {
           body: RawKeyboardListener(
             focusNode: FocusNode(),
             onKey: (value) =>
-                value.logicalKey.keyLabel == "Enter" ? _onSubmit() : null,
+                value.logicalKey.keyLabel == "Enter" ? onSubmit() : null,
             child: CustomScrollView(
               slivers: [
                 SliverFillRemaining(
@@ -114,7 +112,7 @@ class RegisterPage extends StatelessWidget {
                                 width: MediaQuery.of(context).size.width * 0.8,
                                 child: ElevatedButton(
                                   onPressed: () {
-                                    _onSubmit();
+                                    onSubmit();
                                   },
                                   child: state.whenOrNull(
                                     signedOut: () =>

@@ -1,19 +1,16 @@
-import 'dart:developer';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ta_recipe_app/bloc/create_recipe_bloc.dart';
 import 'package:ta_recipe_app/entities/cooking_step.dart';
 import 'package:ta_recipe_app/entities/recipe_detail.dart';
+import 'package:ta_recipe_app/ui/widgets/confirmation_dialog.dart';
 import 'package:ta_recipe_app/ui/widgets/cooking_step_form_tile.dart';
 
 import 'package:ta_recipe_app/ui/widgets/half_length_number_input.dart';
 import 'package:ta_recipe_app/ui/widgets/ingredient_form_tile.dart';
 import 'package:ta_recipe_app/ui/widgets/large_text_input.dart';
 import 'package:ta_recipe_app/ui/widgets/long_text_input.dart';
-
-import '../widgets/confirmation_dialog.dart';
 
 class CreateRecipePage extends StatelessWidget {
   const CreateRecipePage({super.key});

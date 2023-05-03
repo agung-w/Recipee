@@ -1,5 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:ta_recipe_app/helpers/currency.dart';
 
 part 'shipping_fee.g.dart';
 

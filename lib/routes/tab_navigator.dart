@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ta_recipe_app/ui/pages/create_page.dart';
 import 'package:ta_recipe_app/ui/pages/explore_page.dart';
 import 'package:ta_recipe_app/ui/pages/home_page.dart';
 import 'package:ta_recipe_app/ui/pages/my_profile_page.dart';
@@ -22,8 +21,6 @@ class TabNavigator extends StatelessWidget {
           return const HomePage();
         } else if (tabItem.index == 1) {
           return const ExplorePage();
-        } else if (tabItem.index == 2) {
-          return const CreatePage();
         } else if (tabItem.index == 3) {
           return const OrderHistoryPage();
         } else if (tabItem.index == 4) {

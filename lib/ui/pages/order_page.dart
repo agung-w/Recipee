@@ -216,9 +216,7 @@ class _PricingDetailBox extends StatelessWidget {
 }
 
 class _BundlingBox extends StatelessWidget {
-  const _BundlingBox({
-    super.key,
-  });
+  const _BundlingBox();
 
   @override
   Widget build(BuildContext context) {
