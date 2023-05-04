@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,27 +33,22 @@ class HomePage extends StatelessWidget {
                 ).tr(),
               ),
               SliverPadding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.fromLTRB(16, 0, 16, 10),
                 sliver: SliverToBoxAdapter(
                   child: BlocBuilder<HomePageBloc, HomePageState>(
                     builder: (context, state) {
                       return state.maybeMap(
                           initial: (value) =>
                               const Center(child: LoadingIndicator(size: 16)),
-                          orElse: () => Wrap(
-                              spacing: 8,
-                              children: state.mapOrNull(
-                                      loaded: (value) => value.ingredients
-                                          .map((e) => _IngredientBox(
-                                                ingredient: Ingredient(name: e),
-                                              ))
-                                          .toList(),
-                                      failed: (value) => value.ingredients
-                                          .map((e) => _IngredientBox(
-                                                ingredient: Ingredient(name: e),
-                                              ))
-                                          .toList()) ??
-                                  [const SizedBox()]));
+                          orElse: () => Wrap(spacing: 8, children: [
+                                for (var item in state.mapOrNull(
+                                        loaded: (value) => value.ingredients,
+                                        failed: (value) => value.ingredients) ??
+                                    []) ...{
+                                  _IngredientFilterItem(ingredient: item)
+                                },
+                                const _AddIngredientButton()
+                              ]));
                     },
                   ),
                 ),
@@ -124,19 +121,18 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class _IngredientBox extends StatelessWidget {
+class _IngredientFilterItem extends StatelessWidget {
   final Ingredient ingredient;
-  const _IngredientBox({required this.ingredient});
+  const _IngredientFilterItem({required this.ingredient});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       margin: const EdgeInsets.only(top: 8),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.secondary,
-        borderRadius: BorderRadius.circular(100),
-      ),
+          borderRadius: BorderRadius.circular(100),
+          border: Border.all(color: Theme.of(context).colorScheme.primary)),
+      height: 30,
       child: ConstrainedBox(
         constraints:
             BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.65),
@@ -146,27 +142,185 @@ class _IngredientBox extends StatelessWidget {
             Flexible(
               child: Padding(
                 padding: const EdgeInsets.only(right: 8),
-                child: Text(
-                  ingredient.name.toString(),
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.onPrimary,
-                  ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      height: 24,
+                      width: 24,
+                      margin: const EdgeInsets.only(left: 2, right: 6),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                          color: Theme.of(context).colorScheme.onPrimary),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(100),
+                        child: Image.network(
+                          ingredient.picUrl ?? "",
+                          width: 24,
+                          height: 24,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) => Icon(
+                            Icons.image,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Text(
+                      ingredient.name.toString(),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
             InkWell(
               child: Icon(
                 Icons.close,
-                size: 18,
-                color: Theme.of(context).colorScheme.onPrimary,
+                size: 24,
+                color: Theme.of(context).colorScheme.primary,
               ),
-              onTap: () {},
+              onTap: () {
+                context.read<HomePageBloc>().add(
+                    HomePageEvent.deleteIngredient(ingredient: ingredient));
+              },
             )
           ],
         ),
       ),
     );
+  }
+}
+
+class _AddIngredientButton extends StatefulWidget {
+  const _AddIngredientButton();
+
+  @override
+  State<_AddIngredientButton> createState() => _AddIngredientButtonState();
+}
+
+class _AddIngredientButtonState extends State<_AddIngredientButton> {
+  bool isFocus = false;
+  TextEditingController controller = TextEditingController();
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.only(right: 6),
+      margin: const EdgeInsets.only(top: 8),
+      height: 30,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(100),
+          border: Border.all(color: Theme.of(context).colorScheme.primary)),
+      child: ConstrainedBox(
+        constraints:
+            BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.65),
+        child: InkWell(
+          onTap: () {
+            setState(() {
+              isFocus = true;
+            });
+          },
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Offstage(
+                offstage: isFocus,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      height: 24,
+                      width: 24,
+                      margin: const EdgeInsets.only(left: 2, right: 2),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100)),
+                      child: Icon(
+                        Icons.add,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
+                    Text(
+                      "add_text".tr(),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Offstage(
+                offstage: !isFocus,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Flexible(
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 6),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: ConstrainedBox(
+                                  constraints: BoxConstraints(
+                                      maxWidth:
+                                          MediaQuery.of(context).size.width *
+                                              0.2),
+                                  child: TextField(
+                                    controller: controller,
+                                    style: TextStyle(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary),
+                                    onSubmitted: (value) {
+                                      context
+                                          .read<HomePageBloc>()
+                                          .add(HomePageEvent.addIngredient(
+                                            ingredient: value,
+                                            afterFinished: closeInput,
+                                          ));
+                                    },
+                                    decoration: const InputDecoration(
+                                        constraints: BoxConstraints(),
+                                        focusColor: null,
+                                        isDense: true,
+                                        border: InputBorder.none),
+                                  )),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      child: Icon(
+                        Icons.close,
+                        size: 24,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                      onTap: () {
+                        closeInput();
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  void closeInput() {
+    return setState(() {
+      isFocus = false;
+      controller.clear();
+    });
   }
 }

@@ -4,5 +4,9 @@ part of 'home_page_bloc.dart';
 class HomePageEvent with _$HomePageEvent {
   const factory HomePageEvent.started({String? token}) = _Started;
   const factory HomePageEvent.addIngredient(
-      {required String ingredient, String? token}) = _AddIngredient;
+      {required String ingredient,
+      String? token,
+      required Function() afterFinished}) = _AddIngredient;
+  const factory HomePageEvent.deleteIngredient(
+      {required Ingredient ingredient, String? token}) = _DeleteIngredient;
 }
