@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ta_recipe_app/bloc/create_recipe_bloc.dart';
 import 'package:ta_recipe_app/bloc/user_authentication_bloc.dart';
-import 'package:ta_recipe_app/entities/user_detail.dart';
 import 'package:ta_recipe_app/routes/tab_item.dart';
 import 'package:ta_recipe_app/routes/tab_navigator.dart';
 
@@ -78,16 +77,8 @@ class _BottomNavigation extends StatelessWidget {
           currentIndex: selectedIndex,
           onTap: (index) {
             if (index == 2) {
-              context.read<CreateRecipeBloc>().add(CreateRecipeEvent.create(
-                  state: SignedIn(
-                      UserDetail(
-                          followerCount: 0,
-                          followingCount: 0,
-                          name: "name",
-                          username: "username",
-                          photoUrl: "photoUrl"),
-                      "token"),
-                  context: context));
+              context.read<CreateRecipeBloc>().add(
+                  CreateRecipeEvent.create(state: state, context: context));
             } else {
               onSelectTab(TabItem.values[index]);
             }
