@@ -244,56 +244,78 @@ class RecipeDetailPage extends StatelessWidget {
                                               .toList(),
                                         ),
                                       ),
-                                      Text(
-                                        "cooking_step_title_text",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headlineMedium,
-                                        textAlign: TextAlign.start,
-                                        overflow: TextOverflow.ellipsis,
-                                        maxLines: 1,
-                                      ).tr(),
-                                      const SizedBox(
-                                        height: 16,
-                                      )
                                     ],
                                   ),
                                 ),
                               ),
-                              SliverToBoxAdapter(
-                                child: SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.23,
-                                  child: ListView(
-                                    scrollDirection: Axis.horizontal,
+                              if (recipe.cookingSteps.isNotEmpty) ...{
+                                SliverToBoxAdapter(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      for (int i = 0;
-                                          i < recipe.cookingSteps.length;
-                                          i++) ...{
-                                        if (i == 0) ...{
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 16, right: 16),
-                                            child: CookingStepTile(
-                                              cookingStep:
-                                                  recipe.cookingSteps[i],
-                                            ),
-                                          )
-                                        } else ...{
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                right: 16),
-                                            child: CookingStepTile(
-                                              cookingStep:
-                                                  recipe.cookingSteps[i],
-                                            ),
-                                          )
-                                        }
-                                      }
+                                      Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            16, 0, 16, 16),
+                                        child: Text(
+                                          "cooking_step_title_text",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headlineMedium,
+                                          textAlign: TextAlign.start,
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 1,
+                                        ).tr(),
+                                      ),
+                                      ConstrainedBox(
+                                        constraints: BoxConstraints(
+                                            minHeight: 0,
+                                            maxHeight: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.23),
+                                        child: SingleChildScrollView(
+                                          scrollDirection: Axis.horizontal,
+                                          child: Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              for (int i = 0;
+                                                  i <
+                                                      recipe
+                                                          .cookingSteps.length;
+                                                  i++) ...{
+                                                if (i == 0) ...{
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 16,
+                                                            right: 16),
+                                                    child: CookingStepTile(
+                                                      cookingStep: recipe
+                                                          .cookingSteps[i],
+                                                    ),
+                                                  )
+                                                } else ...{
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            right: 16),
+                                                    child: CookingStepTile(
+                                                      cookingStep: recipe
+                                                          .cookingSteps[i],
+                                                    ),
+                                                  )
+                                                }
+                                              }
+                                            ],
+                                          ),
+                                        ),
+                                      ),
                                     ],
                                   ),
-                                ),
-                              ),
+                                )
+                              },
                               SliverToBoxAdapter(
                                 child: Padding(
                                   padding:
@@ -734,12 +756,18 @@ class IngredientTile extends StatelessWidget {
     return ListTile(
       contentPadding: EdgeInsets.zero,
       dense: true,
-      leading: Image.network(
-        ingredient.ingredient.picUrl ?? "",
-        errorBuilder: (context, error, stackTrace) => Icon(
-          Icons.image,
-          size: 30,
-          color: Theme.of(context).colorScheme.secondary,
+      leading: ClipRRect(
+        borderRadius: BorderRadius.circular(5),
+        child: Image.network(
+          ingredient.ingredient.picUrl ?? "",
+          width: 30,
+          fit: BoxFit.cover,
+          height: 30,
+          errorBuilder: (context, error, stackTrace) => Icon(
+            Icons.image,
+            size: 30,
+            color: Theme.of(context).colorScheme.secondary,
+          ),
         ),
       ),
       title: Row(
@@ -775,6 +803,7 @@ class CookingStepTile extends StatelessWidget {
     return InkWell(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
@@ -796,10 +825,14 @@ class CookingStepTile extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.only(top: 8),
-            child: Text(
-              cookingStep.description,
-              maxLines: 3,
-              style: Theme.of(context).textTheme.bodyMedium,
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width * 0.33,
+              child: Text(
+                cookingStep.description,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 3,
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
             ),
           )
         ],
