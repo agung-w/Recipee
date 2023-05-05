@@ -57,21 +57,22 @@ class UserServices {
     }
   }
 
-  Future<ApiResult<List<Recipe?>>> getCreatedRecipeList(
-      {required String username}) async {
+  Future<ApiResult<List<Recipe>>> getCreatedRecipeList(
+      {required String username, required String? token}) async {
     try {
       Response result = await _dio.get(
         "${dotenv.env['API_URL']}/created-recipe-by?username=$username",
         options: options ??
             Options(headers: {
               "Content-Type": "application/json",
+              "Authorization": "Bearer $token",
             }),
       );
       if (result.statusCode != 200) {
         throw (DioError(
             response: result, requestOptions: result.requestOptions));
       }
-      List<Recipe?> resultListObj = (result.data['data']['recipes'] as List)
+      List<Recipe> resultListObj = (result.data['data']['recipes'] as List)
           .map((e) => Recipe.fromJson(e))
           .toList();
       return ApiResult.success(resultListObj);
@@ -82,21 +83,22 @@ class UserServices {
     }
   }
 
-  Future<ApiResult<List<Recipe?>>> getSavedRecipeList(
-      {required String username}) async {
+  Future<ApiResult<List<Recipe>>> getSavedRecipeList(
+      {required String username, required String? token}) async {
     try {
       Response result = await _dio.get(
         "${dotenv.env['API_URL']}/saved-recipe-by?username=$username",
         options: options ??
             Options(headers: {
               "Content-Type": "application/json",
+              "Authorization": "Bearer $token",
             }),
       );
       if (result.statusCode != 200) {
         throw (DioError(
             response: result, requestOptions: result.requestOptions));
       }
-      List<Recipe?> resultListObj = (result.data['data']['recipes'] as List)
+      List<Recipe> resultListObj = (result.data['data']['recipes'] as List)
           .map((e) => Recipe.fromJson(e))
           .toList();
       return ApiResult.success(resultListObj);
@@ -107,7 +109,7 @@ class UserServices {
     }
   }
 
-  Future<ApiResult<List<Recipe?>>> getDraftRecipeList(
+  Future<ApiResult<List<Recipe>>> getDraftRecipeList(
       {required String? token}) async {
     try {
       Response result = await _dio.get(
@@ -122,7 +124,7 @@ class UserServices {
         throw (DioError(
             response: result, requestOptions: result.requestOptions));
       }
-      List<Recipe?> resultListObj = (result.data['data']['recipes'] as List)
+      List<Recipe> resultListObj = (result.data['data']['recipes'] as List)
           .map((e) => Recipe.fromJson(e))
           .toList();
       return ApiResult.success(resultListObj);
@@ -133,7 +135,7 @@ class UserServices {
     }
   }
 
-  Future<ApiResult<List<Recipe?>>> getRejectedRecipeList(
+  Future<ApiResult<List<Recipe>>> getRejectedRecipeList(
       {required String? token}) async {
     try {
       Response result = await _dio.get(
@@ -148,7 +150,7 @@ class UserServices {
         throw (DioError(
             response: result, requestOptions: result.requestOptions));
       }
-      List<Recipe?> resultListObj = (result.data['data']['recipes'] as List)
+      List<Recipe> resultListObj = (result.data['data']['recipes'] as List)
           .map((e) => Recipe.fromJson(e))
           .toList();
       return ApiResult.success(resultListObj);
@@ -159,7 +161,7 @@ class UserServices {
     }
   }
 
-  Future<ApiResult<List<Recipe?>>> getPendingRecipeList(
+  Future<ApiResult<List<Recipe>>> getPendingRecipeList(
       {required String? token}) async {
     try {
       Response result = await _dio.get(
@@ -174,7 +176,7 @@ class UserServices {
         throw (DioError(
             response: result, requestOptions: result.requestOptions));
       }
-      List<Recipe?> resultListObj = (result.data['data']['recipes'] as List)
+      List<Recipe> resultListObj = (result.data['data']['recipes'] as List)
           .map((e) => Recipe.fromJson(e))
           .toList();
       return ApiResult.success(resultListObj);

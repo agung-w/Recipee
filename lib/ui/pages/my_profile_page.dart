@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,16 +10,16 @@ import 'package:ta_recipe_app/ui/pages/login_page.dart';
 import 'package:ta_recipe_app/ui/pages/register_page.dart';
 import 'package:ta_recipe_app/ui/widgets/follower_count_text.dart';
 import 'package:ta_recipe_app/ui/widgets/loading_indicator.dart';
-import 'package:ta_recipe_app/ui/widgets/profile_recipe_list.dart';
+import 'package:ta_recipe_app/ui/widgets/my_profile_recipe_list.dart';
 
 class MyProfilePage extends StatelessWidget {
   const MyProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MyProfilePageBloc, MyProfilePageState>(
+    return BlocBuilder<UserAuthenticationBloc, UserAuthenticationState>(
       builder: (context, state) {
-        return state.when(failed: (message) {
+        return state.map(signedOut: (_) {
           return Scaffold(
               body: Center(
             child: Padding(
@@ -68,8 +70,7 @@ class MyProfilePage extends StatelessWidget {
                   ]),
             ),
           ));
-        }, loaded: (user, savedList, createdList, draftList, rejectedList,
-            pendingList) {
+        }, signedIn: (value) {
           TabBar tabBar = TabBar(
             isScrollable: true,
             padding: const EdgeInsets.only(left: 16),
@@ -95,8 +96,29 @@ class MyProfilePage extends StatelessWidget {
                 headerSliverBuilder:
                     (BuildContext context, bool innerBoxIsScrolled) {
                   return [
-                    SliverToBoxAdapter(
-                      child: _UserInfo(user: user),
+                    BlocBuilder<MyProfilePageBloc, MyProfilePageState>(
+                      buildWhen: (previous, current) =>
+                          previous.mapOrNull(
+                            loaded: (value) => value.user,
+                          ) !=
+                          current.mapOrNull(
+                            loaded: (value) => value.user,
+                          ),
+                      builder: (context, state) {
+                        return state.map(
+                          initial: (_) => SliverToBoxAdapter(
+                            child: Center(
+                              child: LoadingIndicator(
+                                size: 22,
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
+                            ),
+                          ),
+                          loaded: (value) => SliverToBoxAdapter(
+                            child: _UserInfo(user: value.user),
+                          ),
+                        );
+                      },
                     ),
                     SliverAppBar(
                       toolbarHeight: tabBar.preferredSize.height,
@@ -109,46 +131,272 @@ class MyProfilePage extends StatelessWidget {
                 },
                 body: TabBarView(
                   children: [
-                    createdList.map(
-                        success: (value) => ProfileRecipeList(
-                              list: value.value,
-                            ),
-                        failed: (_) =>
-                            const Text("cannot_load_recipe_list_text")
-                                .tr(namedArgs: {'type': 'created'})),
-                    savedList.map(
-                        success: (value) => ProfileRecipeList(
-                              list: value.value,
-                            ),
-                        failed: (_) =>
-                            const Text("cannot_load_recipe_list_text")
-                                .tr(namedArgs: {'type': 'saved'})),
-                    draftList.map(
-                        success: (value) => ProfileRecipeList(
-                              list: value.value,
-                            ),
-                        failed: (_) =>
-                            const Text("cannot_load_recipe_list_text")
-                                .tr(namedArgs: {'type': 'draft'})),
-                    rejectedList.map(
-                        success: (value) => ProfileRecipeList(
-                              list: value.value,
-                            ),
-                        failed: (_) =>
-                            const Text("cannot_load_recipe_list_text")
-                                .tr(namedArgs: {'type': 'rejected'})),
-                    pendingList.map(
-                        success: (value) => ProfileRecipeList(
-                              list: value.value,
-                            ),
-                        failed: (_) => const Text("cannot_load_recipe_list")
-                            .tr(namedArgs: {'type': 'pending'})),
+                    RefreshIndicator(
+                      onRefresh: () async {
+                        context.read<MyProfilePageBloc>().add(
+                            MyProfilePageEvent.refreshCreatedRecipeList(
+                                authState: state));
+                      },
+                      child: BlocBuilder<MyProfilePageBloc, MyProfilePageState>(
+                        builder: (context, state) {
+                          return state.mapOrNull(
+                                loaded: (value) {
+                                  if (value.isCreatedListLoading == true) {
+                                    return Center(
+                                      child: LoadingIndicator(
+                                        size: 22,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
+                                      ),
+                                    );
+                                  } else if (value.createdListError != null) {
+                                    return SingleChildScrollView(
+                                      child: Center(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(16),
+                                          child: Text(value.createdListError!),
+                                        ),
+                                      ),
+                                    );
+                                  } else {
+                                    if (value.createdList.isNotEmpty) {
+                                      return MyProfileRecipeList(
+                                        list: value.createdList,
+                                      );
+                                    } else {
+                                      return SingleChildScrollView(
+                                        child: Center(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(16),
+                                            child: Text(
+                                                "create_list_is_empty_text"
+                                                    .tr()),
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                  }
+                                },
+                              ) ??
+                              const SizedBox();
+                        },
+                      ),
+                    ),
+                    RefreshIndicator(
+                      onRefresh: () async {
+                        context.read<MyProfilePageBloc>().add(
+                            MyProfilePageEvent.refreshSavedRecipeList(
+                                authState: state));
+                      },
+                      child: BlocBuilder<MyProfilePageBloc, MyProfilePageState>(
+                        builder: (context, state) {
+                          return state.mapOrNull(
+                                loaded: (value) {
+                                  if (value.isSavedListLoading == true) {
+                                    return Center(
+                                      child: LoadingIndicator(
+                                        size: 22,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
+                                      ),
+                                    );
+                                  } else if (value.savedListError != null) {
+                                    return SingleChildScrollView(
+                                      child: Center(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(16),
+                                          child: Text(value.savedListError!),
+                                        ),
+                                      ),
+                                    );
+                                  } else {
+                                    if (value.savedList.isNotEmpty) {
+                                      return MyProfileRecipeList(
+                                        list: value.savedList,
+                                      );
+                                    } else {
+                                      return SingleChildScrollView(
+                                        child: Center(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(16),
+                                            child: Text(
+                                                "saved_list_is_empty_text"
+                                                    .tr()),
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                  }
+                                },
+                              ) ??
+                              const SizedBox();
+                        },
+                      ),
+                    ),
+                    RefreshIndicator(
+                      onRefresh: () async {
+                        context.read<MyProfilePageBloc>().add(
+                            MyProfilePageEvent.refreshDraftRecipeList(
+                                authState: state));
+                      },
+                      child: BlocBuilder<MyProfilePageBloc, MyProfilePageState>(
+                        builder: (context, state) {
+                          return state.mapOrNull(
+                                loaded: (value) {
+                                  if (value.isDraftListLoading == true) {
+                                    return Center(
+                                      child: LoadingIndicator(
+                                        size: 22,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
+                                      ),
+                                    );
+                                  } else if (value.draftListError != null) {
+                                    return SingleChildScrollView(
+                                      child: Center(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(16),
+                                          child: Text(value.draftListError!),
+                                        ),
+                                      ),
+                                    );
+                                  } else {
+                                    if (value.draftList.isNotEmpty) {
+                                      return MyProfileRecipeList(
+                                        list: value.draftList,
+                                      );
+                                    } else {
+                                      return SingleChildScrollView(
+                                        child: Center(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(16),
+                                            child: Text(
+                                                "draft_list_is_empty_text"
+                                                    .tr()),
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                  }
+                                },
+                              ) ??
+                              const SizedBox();
+                        },
+                      ),
+                    ),
+                    RefreshIndicator(
+                      onRefresh: () async {
+                        context.read<MyProfilePageBloc>().add(
+                            MyProfilePageEvent.refreshRejectedRecipeList(
+                                authState: state));
+                      },
+                      child: BlocBuilder<MyProfilePageBloc, MyProfilePageState>(
+                        builder: (context, state) {
+                          return state.mapOrNull(
+                                loaded: (value) {
+                                  if (value.isRejectedListLoading == true) {
+                                    return Center(
+                                      child: LoadingIndicator(
+                                        size: 22,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
+                                      ),
+                                    );
+                                  } else if (value.rejectedListError != null) {
+                                    return SingleChildScrollView(
+                                      child: Center(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(16),
+                                          child: Text(value.rejectedListError!),
+                                        ),
+                                      ),
+                                    );
+                                  } else {
+                                    if (value.rejectedList.isNotEmpty) {
+                                      return MyProfileRecipeList(
+                                        list: value.rejectedList,
+                                      );
+                                    } else {
+                                      return SingleChildScrollView(
+                                        child: Center(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(16),
+                                            child: Text(
+                                                "rejected_list_is_empty_text"
+                                                    .tr()),
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                  }
+                                },
+                              ) ??
+                              const SizedBox();
+                        },
+                      ),
+                    ),
+                    RefreshIndicator(
+                      onRefresh: () async {
+                        context.read<MyProfilePageBloc>().add(
+                            MyProfilePageEvent.refreshPendingRecipeList(
+                                authState: state));
+                      },
+                      child: BlocBuilder<MyProfilePageBloc, MyProfilePageState>(
+                        builder: (context, state) {
+                          return state.mapOrNull(
+                                loaded: (value) {
+                                  if (value.isPendingListLoading == true) {
+                                    return Center(
+                                      child: LoadingIndicator(
+                                        size: 22,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
+                                      ),
+                                    );
+                                  } else if (value.pendingListError != null) {
+                                    return SingleChildScrollView(
+                                      child: Center(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(16),
+                                          child: Text(value.pendingListError!),
+                                        ),
+                                      ),
+                                    );
+                                  } else {
+                                    if (value.pendingList.isNotEmpty) {
+                                      return MyProfileRecipeList(
+                                        list: value.pendingList,
+                                      );
+                                    } else {
+                                      return SingleChildScrollView(
+                                        child: Center(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(16),
+                                            child: Text(
+                                                "pending_list_is_empty_text"
+                                                    .tr()),
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                  }
+                                },
+                              ) ??
+                              const SizedBox();
+                        },
+                      ),
+                    ),
                   ],
                 ),
               ),
             ),
           );
-        }, loading: () {
+        }, loading: (_) {
           return Scaffold(
               body: Align(
             alignment: Alignment.topCenter,

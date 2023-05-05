@@ -77,44 +77,37 @@ class ExplorePage extends StatelessWidget {
                         child: LoadingIndicator(size: 16),
                       )),
                       loaded: (value) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: GridView(
-                              gridDelegate: SliverQuiltedGridDelegate(
-                                crossAxisCount: 10,
-                                mainAxisSpacing: 8,
-                                crossAxisSpacing: 8,
-                                repeatPattern: QuiltedGridRepeatPattern.same,
-                                pattern: const [
-                                  QuiltedGridTile(4, 5),
-                                  QuiltedGridTile(4, 5),
-                                  QuiltedGridTile(4, 10),
-                                ],
-                              ),
-                              children: value.recipeList
-                                  .map((e) => BlocBuilder<SaveRecipeCubit,
-                                          SaveRecipeState>(
-                                        builder: (context, state) {
-                                          return state.when(
-                                            loaded: (id, isSaved) {
-                                              if (e.id == id) {
-                                                return RecipeCard(
-                                                  recipe: e.copyWith(
-                                                      isSaved: isSaved),
-                                                );
-                                              } else {
-                                                return RecipeCard(
-                                                  recipe: e,
-                                                );
-                                              }
-                                            },
-                                            loading: () => RecipeCard(
-                                              recipe: e,
-                                            ),
-                                          );
-                                        },
-                                      ))
-                                  .toList()),
+                        return BlocListener<SaveRecipeCubit, SaveRecipeState>(
+                          listener: (context, state) {
+                            state.mapOrNull(
+                              finished: (value) => value.id != null
+                                  ? context.read<ExplorePageBloc>().add(
+                                      ExplorePageEvent.changeSaveStatus(
+                                          recipeId: value.id!,
+                                          isSaved: value.isSaved))
+                                  : null,
+                            );
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            child: GridView(
+                                gridDelegate: SliverQuiltedGridDelegate(
+                                  crossAxisCount: 10,
+                                  mainAxisSpacing: 8,
+                                  crossAxisSpacing: 8,
+                                  repeatPattern: QuiltedGridRepeatPattern.same,
+                                  pattern: const [
+                                    QuiltedGridTile(4, 5),
+                                    QuiltedGridTile(4, 5),
+                                    QuiltedGridTile(4, 10),
+                                  ],
+                                ),
+                                children: value.recipeList
+                                    .map((e) => RecipeCard(
+                                          recipe: e,
+                                        ))
+                                    .toList()),
+                          ),
                         );
                       },
                       failed: (value) => SingleChildScrollView(

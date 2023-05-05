@@ -83,8 +83,10 @@ class RecipeApp extends StatelessWidget {
                   signedIn: (value) => value.token,
                 )));
             state.mapOrNull(
-              signedIn: (value) => context.read<OrderHistoryPageBloc>().add(
-                  OrderHistoryPageEvent.getOrderHistory(token: value.token)),
+              signedIn: (value) {
+                context.read<OrderHistoryPageBloc>().add(
+                    OrderHistoryPageEvent.getOrderHistory(token: value.token));
+              },
             );
           },
           builder: (context, state) {

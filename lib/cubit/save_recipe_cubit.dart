@@ -22,11 +22,11 @@ class SaveRecipeCubit extends Cubit<SaveRecipeState> {
         ApiResult<String> result =
             await RecipeServices().saveRecipe(recipeId: id, token: state.token);
         result.map(
-          failed: (value) => emit(_Loaded(id: id, isSaved: null)),
-          success: (value) => emit(_Loaded(id: id, isSaved: true)),
+          failed: (value) => emit(_Finished(id: id, isSaved: null)),
+          success: (value) => emit(_Finished(id: id, isSaved: true)),
         );
       } else {
-        emit(_Loaded(id: id, isSaved: null));
+        emit(_Finished(id: id, isSaved: null));
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: const Text("cant_save_this_recipe_now_text").tr()));
       }
@@ -47,8 +47,8 @@ class SaveRecipeCubit extends Cubit<SaveRecipeState> {
       ApiResult<String> result = await RecipeServices()
           .removeSavedRecipe(recipeId: id, token: state.token);
       result.map(
-        failed: (value) => emit(_Loaded(id: id, isSaved: true)),
-        success: (value) => emit(_Loaded(id: id, isSaved: null)),
+        failed: (value) => emit(_Finished(id: id, isSaved: true)),
+        success: (value) => emit(_Finished(id: id, isSaved: null)),
       );
     }
   }

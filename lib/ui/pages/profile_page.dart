@@ -19,14 +19,14 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return BlocBuilder<ProfilePageBloc, ProfilePageState>(
       builder: (context, state) {
-        return state.when(failed: (message) {
+        return state.map(failed: (value) {
           return Scaffold(
               body: Center(
                   child: Text(
-            message,
+            value.message,
             textAlign: TextAlign.center,
           )));
-        }, loaded: (user, savedRecipeList, createdRecipeList) {
+        }, loaded: (value) {
           TabBar tabBar = TabBar(
             isScrollable: true,
             padding: const EdgeInsets.only(left: 16),
@@ -54,7 +54,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         final scrolled = constraints.scrollOffset > 32;
                         return SliverAppBar(
                           pinned: true,
-                          title: scrolled ? Text(user.name) : null,
+                          title: scrolled ? Text(value.user.name) : null,
                           toolbarHeight: tabBar.preferredSize.height,
                           backgroundColor:
                               Theme.of(context).scaffoldBackgroundColor,
@@ -62,7 +62,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       },
                     ),
                     SliverToBoxAdapter(
-                      child: _UserInfo(user: user),
+                      child: _UserInfo(user: value.user),
                     ),
                     SliverAppBar(
                       automaticallyImplyLeading: false,
@@ -76,24 +76,98 @@ class _ProfilePageState extends State<ProfilePage> {
                 },
                 body: TabBarView(
                   children: [
-                    createdRecipeList.map(
-                        success: (value) => ProfileRecipeList(
-                              list: value.value,
-                            ),
-                        failed: (_) =>
-                            const Text("cannot_load_created_recipe_list").tr()),
-                    savedRecipeList.map(
-                        success: (value) => ProfileRecipeList(
-                              list: value.value,
-                            ),
-                        failed: (_) =>
-                            const Text("cannot_load_saved_recipe_list").tr()),
+                    BlocBuilder<ProfilePageBloc, ProfilePageState>(
+                      builder: (context, state) {
+                        return state.mapOrNull(
+                              loaded: (value) {
+                                if (value.isCreatedListLoading == true) {
+                                  return Center(
+                                    child: LoadingIndicator(
+                                      size: 22,
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
+                                    ),
+                                  );
+                                } else if (value.createdListError != null) {
+                                  return SingleChildScrollView(
+                                    child: Center(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(16),
+                                        child: Text(value.createdListError!),
+                                      ),
+                                    ),
+                                  );
+                                } else {
+                                  if (value.createdList.isNotEmpty) {
+                                    return ProfileRecipeList(
+                                      list: value.createdList,
+                                    );
+                                  } else {
+                                    return SingleChildScrollView(
+                                      child: Center(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(16),
+                                          child: Text(
+                                              "create_list_is_empty_text".tr()),
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                }
+                              },
+                            ) ??
+                            const SizedBox();
+                      },
+                    ),
+                    BlocBuilder<ProfilePageBloc, ProfilePageState>(
+                      builder: (context, state) {
+                        return state.mapOrNull(
+                              loaded: (value) {
+                                if (value.isSavedListLoading == true) {
+                                  return Center(
+                                    child: LoadingIndicator(
+                                      size: 22,
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
+                                    ),
+                                  );
+                                } else if (value.savedListError != null) {
+                                  return SingleChildScrollView(
+                                    child: Center(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(16),
+                                        child: Text(value.savedListError!),
+                                      ),
+                                    ),
+                                  );
+                                } else {
+                                  if (value.savedList.isNotEmpty) {
+                                    return ProfileRecipeList(
+                                      list: value.savedList,
+                                    );
+                                  } else {
+                                    return SingleChildScrollView(
+                                      child: Center(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(16),
+                                          child: Text(
+                                              "saved_list_is_empty_text".tr()),
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                }
+                              },
+                            ) ??
+                            const SizedBox();
+                      },
+                    ),
                   ],
                 ),
               ),
             ),
           );
-        }, loading: () {
+        }, loading: (_) {
           return Scaffold(
               body: Align(
             alignment: Alignment.topCenter,

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,7 +6,6 @@ import 'package:ta_recipe_app/bloc/home_page_bloc.dart';
 import 'package:ta_recipe_app/bloc/user_authentication_bloc.dart';
 import 'package:ta_recipe_app/cubit/save_recipe_cubit.dart';
 import 'package:ta_recipe_app/entities/ingredient.dart';
-import 'package:ta_recipe_app/entities/recipe.dart';
 import 'package:ta_recipe_app/ui/widgets/loading_indicator.dart';
 import 'package:ta_recipe_app/ui/widgets/recipe_card.dart';
 
@@ -45,9 +42,12 @@ class HomePage extends StatelessWidget {
                                         loaded: (value) => value.ingredients,
                                         failed: (value) => value.ingredients) ??
                                     []) ...{
-                                  _IngredientFilterItem(ingredient: item)
+                                  _IngredientFilterItem(
+                                    ingredient: item,
+                                    authState: authState,
+                                  )
                                 },
-                                const _AddIngredientButton()
+                                _AddIngredientButton(authState: authState)
                               ]));
                     },
                   ),
@@ -56,6 +56,9 @@ class HomePage extends StatelessWidget {
             ];
           },
           body: BlocBuilder<HomePageBloc, HomePageState>(
+            buildWhen: (previous, current) =>
+                previous.mapOrNull(loaded: (value) => value.resultList) !=
+                current.mapOrNull(loaded: (value) => value.resultList),
             builder: (context, state) {
               return RefreshIndicator(
                 onRefresh: () async {},
@@ -74,42 +77,35 @@ class HomePage extends StatelessWidget {
                   ),
                   loaded: (value) => Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: GridView(
-                        gridDelegate: SliverQuiltedGridDelegate(
-                          crossAxisCount: 10,
-                          mainAxisSpacing: 8,
-                          crossAxisSpacing: 8,
-                          repeatPattern: QuiltedGridRepeatPattern.same,
-                          pattern: const [
-                            QuiltedGridTile(4, 5),
-                            QuiltedGridTile(4, 5),
-                            QuiltedGridTile(4, 10),
-                          ],
-                        ),
-                        children: value.resultList
-                            .map((e) =>
-                                BlocBuilder<SaveRecipeCubit, SaveRecipeState>(
-                                  builder: (context, state) {
-                                    return state.when(
-                                      loaded: (id, isSaved) {
-                                        if (e.id == id) {
-                                          return RecipeCard(
-                                            recipe:
-                                                e.copyWith(isSaved: isSaved),
-                                          );
-                                        } else {
-                                          return RecipeCard(
-                                            recipe: e,
-                                          );
-                                        }
-                                      },
-                                      loading: () => RecipeCard(
-                                        recipe: e,
-                                      ),
-                                    );
-                                  },
-                                ))
-                            .toList()),
+                    child: BlocListener<SaveRecipeCubit, SaveRecipeState>(
+                      listener: (context, state) {
+                        state.mapOrNull(
+                          finished: (value) => value.id != null
+                              ? context.read<HomePageBloc>().add(
+                                  HomePageEvent.changeSaveStatus(
+                                      recipeId: value.id!,
+                                      isSaved: value.isSaved))
+                              : null,
+                        );
+                      },
+                      child: GridView(
+                          gridDelegate: SliverQuiltedGridDelegate(
+                            crossAxisCount: 10,
+                            mainAxisSpacing: 8,
+                            crossAxisSpacing: 8,
+                            repeatPattern: QuiltedGridRepeatPattern.same,
+                            pattern: const [
+                              QuiltedGridTile(4, 5),
+                              QuiltedGridTile(4, 5),
+                              QuiltedGridTile(4, 10),
+                            ],
+                          ),
+                          children: value.resultList
+                              .map((e) => RecipeCard(
+                                    recipe: e,
+                                  ))
+                              .toList()),
+                    ),
                   ),
                 ),
               );
@@ -123,7 +119,9 @@ class HomePage extends StatelessWidget {
 
 class _IngredientFilterItem extends StatelessWidget {
   final Ingredient ingredient;
-  const _IngredientFilterItem({required this.ingredient});
+  final UserAuthenticationState authState;
+  const _IngredientFilterItem(
+      {required this.ingredient, required this.authState});
 
   @override
   Widget build(BuildContext context) {
@@ -185,8 +183,11 @@ class _IngredientFilterItem extends StatelessWidget {
                 color: Theme.of(context).colorScheme.primary,
               ),
               onTap: () {
-                context.read<HomePageBloc>().add(
-                    HomePageEvent.deleteIngredient(ingredient: ingredient));
+                context.read<HomePageBloc>().add(HomePageEvent.deleteIngredient(
+                    ingredient: ingredient,
+                    token: authState.mapOrNull(
+                      signedIn: (value) => value.token,
+                    )));
               },
             )
           ],
@@ -197,7 +198,8 @@ class _IngredientFilterItem extends StatelessWidget {
 }
 
 class _AddIngredientButton extends StatefulWidget {
-  const _AddIngredientButton();
+  final UserAuthenticationState authState;
+  const _AddIngredientButton({required this.authState});
 
   @override
   State<_AddIngredientButton> createState() => _AddIngredientButtonState();
@@ -282,9 +284,12 @@ class _AddIngredientButtonState extends State<_AddIngredientButton> {
                                       context
                                           .read<HomePageBloc>()
                                           .add(HomePageEvent.addIngredient(
-                                            ingredient: value,
-                                            afterFinished: closeInput,
-                                          ));
+                                              ingredient: value,
+                                              afterFinished: closeInput,
+                                              token: widget.authState.mapOrNull(
+                                                signedIn: (value) =>
+                                                    value.token,
+                                              )));
                                     },
                                     decoration: const InputDecoration(
                                         constraints: BoxConstraints(),

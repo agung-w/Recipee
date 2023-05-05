@@ -41,9 +41,20 @@ class ExplorePageBloc extends Bloc<ExplorePageEvent, ExplorePageState> {
     });
     on<_RefreshResult>((event, emit) async {
       if (event.query.isEmpty) {
-        add(const _Started());
+        add(_Started(token: event.token));
       } else {
         add(_Search(query: event.query, token: event.token));
+      }
+    });
+    on<_ChangeSaveStatus>((event, emit) async {
+      if (state is _Loaded) {
+        List<Recipe> recipeList = List.from((state as _Loaded).recipeList);
+        int i =
+            recipeList.indexWhere((element) => element.id == event.recipeId);
+        recipeList[i] = recipeList[i].copyWith(isSaved: event.isSaved);
+        emit(_Loaded(
+          recipeList: recipeList,
+        ));
       }
     });
   }

@@ -7,4 +7,6 @@ class ExplorePageEvent with _$ExplorePageEvent {
       {required String query, String? token}) = _Search;
   const factory ExplorePageEvent.refreshResult(
       {required String query, String? token}) = _RefreshResult;
+  const factory ExplorePageEvent.changeSaveStatus(
+      {required int recipeId, required bool? isSaved}) = _ChangeSaveStatus;
 }

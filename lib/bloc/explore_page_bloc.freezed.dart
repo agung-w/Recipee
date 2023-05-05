@@ -16,12 +16,12 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$ExplorePageEvent {
-  String? get token => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String? token) started,
     required TResult Function(String query, String? token) search,
     required TResult Function(String query, String? token) refreshResult,
+    required TResult Function(int recipeId, bool? isSaved) changeSaveStatus,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -29,6 +29,7 @@ mixin _$ExplorePageEvent {
     TResult? Function(String? token)? started,
     TResult? Function(String query, String? token)? search,
     TResult? Function(String query, String? token)? refreshResult,
+    TResult? Function(int recipeId, bool? isSaved)? changeSaveStatus,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -36,6 +37,7 @@ mixin _$ExplorePageEvent {
     TResult Function(String? token)? started,
     TResult Function(String query, String? token)? search,
     TResult Function(String query, String? token)? refreshResult,
+    TResult Function(int recipeId, bool? isSaved)? changeSaveStatus,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -44,6 +46,7 @@ mixin _$ExplorePageEvent {
     required TResult Function(_Started value) started,
     required TResult Function(_Search value) search,
     required TResult Function(_RefreshResult value) refreshResult,
+    required TResult Function(_ChangeSaveStatus value) changeSaveStatus,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -51,6 +54,7 @@ mixin _$ExplorePageEvent {
     TResult? Function(_Started value)? started,
     TResult? Function(_Search value)? search,
     TResult? Function(_RefreshResult value)? refreshResult,
+    TResult? Function(_ChangeSaveStatus value)? changeSaveStatus,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -58,12 +62,9 @@ mixin _$ExplorePageEvent {
     TResult Function(_Started value)? started,
     TResult Function(_Search value)? search,
     TResult Function(_RefreshResult value)? refreshResult,
+    TResult Function(_ChangeSaveStatus value)? changeSaveStatus,
     required TResult orElse(),
   }) =>
-      throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $ExplorePageEventCopyWith<ExplorePageEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -72,8 +73,6 @@ abstract class $ExplorePageEventCopyWith<$Res> {
   factory $ExplorePageEventCopyWith(
           ExplorePageEvent value, $Res Function(ExplorePageEvent) then) =
       _$ExplorePageEventCopyWithImpl<$Res, ExplorePageEvent>;
-  @useResult
-  $Res call({String? token});
 }
 
 /// @nodoc
@@ -85,28 +84,13 @@ class _$ExplorePageEventCopyWithImpl<$Res, $Val extends ExplorePageEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? token = freezed,
-  }) {
-    return _then(_value.copyWith(
-      token: freezed == token
-          ? _value.token
-          : token // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$_StartedCopyWith<$Res>
-    implements $ExplorePageEventCopyWith<$Res> {
+abstract class _$$_StartedCopyWith<$Res> {
   factory _$$_StartedCopyWith(
           _$_Started value, $Res Function(_$_Started) then) =
       __$$_StartedCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({String? token});
 }
@@ -168,6 +152,7 @@ class _$_Started implements _Started {
     required TResult Function(String? token) started,
     required TResult Function(String query, String? token) search,
     required TResult Function(String query, String? token) refreshResult,
+    required TResult Function(int recipeId, bool? isSaved) changeSaveStatus,
   }) {
     return started(token);
   }
@@ -178,6 +163,7 @@ class _$_Started implements _Started {
     TResult? Function(String? token)? started,
     TResult? Function(String query, String? token)? search,
     TResult? Function(String query, String? token)? refreshResult,
+    TResult? Function(int recipeId, bool? isSaved)? changeSaveStatus,
   }) {
     return started?.call(token);
   }
@@ -188,6 +174,7 @@ class _$_Started implements _Started {
     TResult Function(String? token)? started,
     TResult Function(String query, String? token)? search,
     TResult Function(String query, String? token)? refreshResult,
+    TResult Function(int recipeId, bool? isSaved)? changeSaveStatus,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -202,6 +189,7 @@ class _$_Started implements _Started {
     required TResult Function(_Started value) started,
     required TResult Function(_Search value) search,
     required TResult Function(_RefreshResult value) refreshResult,
+    required TResult Function(_ChangeSaveStatus value) changeSaveStatus,
   }) {
     return started(this);
   }
@@ -212,6 +200,7 @@ class _$_Started implements _Started {
     TResult? Function(_Started value)? started,
     TResult? Function(_Search value)? search,
     TResult? Function(_RefreshResult value)? refreshResult,
+    TResult? Function(_ChangeSaveStatus value)? changeSaveStatus,
   }) {
     return started?.call(this);
   }
@@ -222,6 +211,7 @@ class _$_Started implements _Started {
     TResult Function(_Started value)? started,
     TResult Function(_Search value)? search,
     TResult Function(_RefreshResult value)? refreshResult,
+    TResult Function(_ChangeSaveStatus value)? changeSaveStatus,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -234,20 +224,16 @@ class _$_Started implements _Started {
 abstract class _Started implements ExplorePageEvent {
   const factory _Started({final String? token}) = _$_Started;
 
-  @override
   String? get token;
-  @override
   @JsonKey(ignore: true)
   _$$_StartedCopyWith<_$_Started> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_SearchCopyWith<$Res>
-    implements $ExplorePageEventCopyWith<$Res> {
+abstract class _$$_SearchCopyWith<$Res> {
   factory _$$_SearchCopyWith(_$_Search value, $Res Function(_$_Search) then) =
       __$$_SearchCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({String query, String? token});
 }
@@ -317,6 +303,7 @@ class _$_Search implements _Search {
     required TResult Function(String? token) started,
     required TResult Function(String query, String? token) search,
     required TResult Function(String query, String? token) refreshResult,
+    required TResult Function(int recipeId, bool? isSaved) changeSaveStatus,
   }) {
     return search(query, token);
   }
@@ -327,6 +314,7 @@ class _$_Search implements _Search {
     TResult? Function(String? token)? started,
     TResult? Function(String query, String? token)? search,
     TResult? Function(String query, String? token)? refreshResult,
+    TResult? Function(int recipeId, bool? isSaved)? changeSaveStatus,
   }) {
     return search?.call(query, token);
   }
@@ -337,6 +325,7 @@ class _$_Search implements _Search {
     TResult Function(String? token)? started,
     TResult Function(String query, String? token)? search,
     TResult Function(String query, String? token)? refreshResult,
+    TResult Function(int recipeId, bool? isSaved)? changeSaveStatus,
     required TResult orElse(),
   }) {
     if (search != null) {
@@ -351,6 +340,7 @@ class _$_Search implements _Search {
     required TResult Function(_Started value) started,
     required TResult Function(_Search value) search,
     required TResult Function(_RefreshResult value) refreshResult,
+    required TResult Function(_ChangeSaveStatus value) changeSaveStatus,
   }) {
     return search(this);
   }
@@ -361,6 +351,7 @@ class _$_Search implements _Search {
     TResult? Function(_Started value)? started,
     TResult? Function(_Search value)? search,
     TResult? Function(_RefreshResult value)? refreshResult,
+    TResult? Function(_ChangeSaveStatus value)? changeSaveStatus,
   }) {
     return search?.call(this);
   }
@@ -371,6 +362,7 @@ class _$_Search implements _Search {
     TResult Function(_Started value)? started,
     TResult Function(_Search value)? search,
     TResult Function(_RefreshResult value)? refreshResult,
+    TResult Function(_ChangeSaveStatus value)? changeSaveStatus,
     required TResult orElse(),
   }) {
     if (search != null) {
@@ -385,21 +377,17 @@ abstract class _Search implements ExplorePageEvent {
       _$_Search;
 
   String get query;
-  @override
   String? get token;
-  @override
   @JsonKey(ignore: true)
   _$$_SearchCopyWith<_$_Search> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_RefreshResultCopyWith<$Res>
-    implements $ExplorePageEventCopyWith<$Res> {
+abstract class _$$_RefreshResultCopyWith<$Res> {
   factory _$$_RefreshResultCopyWith(
           _$_RefreshResult value, $Res Function(_$_RefreshResult) then) =
       __$$_RefreshResultCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({String query, String? token});
 }
@@ -470,6 +458,7 @@ class _$_RefreshResult implements _RefreshResult {
     required TResult Function(String? token) started,
     required TResult Function(String query, String? token) search,
     required TResult Function(String query, String? token) refreshResult,
+    required TResult Function(int recipeId, bool? isSaved) changeSaveStatus,
   }) {
     return refreshResult(query, token);
   }
@@ -480,6 +469,7 @@ class _$_RefreshResult implements _RefreshResult {
     TResult? Function(String? token)? started,
     TResult? Function(String query, String? token)? search,
     TResult? Function(String query, String? token)? refreshResult,
+    TResult? Function(int recipeId, bool? isSaved)? changeSaveStatus,
   }) {
     return refreshResult?.call(query, token);
   }
@@ -490,6 +480,7 @@ class _$_RefreshResult implements _RefreshResult {
     TResult Function(String? token)? started,
     TResult Function(String query, String? token)? search,
     TResult Function(String query, String? token)? refreshResult,
+    TResult Function(int recipeId, bool? isSaved)? changeSaveStatus,
     required TResult orElse(),
   }) {
     if (refreshResult != null) {
@@ -504,6 +495,7 @@ class _$_RefreshResult implements _RefreshResult {
     required TResult Function(_Started value) started,
     required TResult Function(_Search value) search,
     required TResult Function(_RefreshResult value) refreshResult,
+    required TResult Function(_ChangeSaveStatus value) changeSaveStatus,
   }) {
     return refreshResult(this);
   }
@@ -514,6 +506,7 @@ class _$_RefreshResult implements _RefreshResult {
     TResult? Function(_Started value)? started,
     TResult? Function(_Search value)? search,
     TResult? Function(_RefreshResult value)? refreshResult,
+    TResult? Function(_ChangeSaveStatus value)? changeSaveStatus,
   }) {
     return refreshResult?.call(this);
   }
@@ -524,6 +517,7 @@ class _$_RefreshResult implements _RefreshResult {
     TResult Function(_Started value)? started,
     TResult Function(_Search value)? search,
     TResult Function(_RefreshResult value)? refreshResult,
+    TResult Function(_ChangeSaveStatus value)? changeSaveStatus,
     required TResult orElse(),
   }) {
     if (refreshResult != null) {
@@ -538,11 +532,166 @@ abstract class _RefreshResult implements ExplorePageEvent {
       {required final String query, final String? token}) = _$_RefreshResult;
 
   String get query;
-  @override
   String? get token;
-  @override
   @JsonKey(ignore: true)
   _$$_RefreshResultCopyWith<_$_RefreshResult> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_ChangeSaveStatusCopyWith<$Res> {
+  factory _$$_ChangeSaveStatusCopyWith(
+          _$_ChangeSaveStatus value, $Res Function(_$_ChangeSaveStatus) then) =
+      __$$_ChangeSaveStatusCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int recipeId, bool? isSaved});
+}
+
+/// @nodoc
+class __$$_ChangeSaveStatusCopyWithImpl<$Res>
+    extends _$ExplorePageEventCopyWithImpl<$Res, _$_ChangeSaveStatus>
+    implements _$$_ChangeSaveStatusCopyWith<$Res> {
+  __$$_ChangeSaveStatusCopyWithImpl(
+      _$_ChangeSaveStatus _value, $Res Function(_$_ChangeSaveStatus) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? recipeId = null,
+    Object? isSaved = freezed,
+  }) {
+    return _then(_$_ChangeSaveStatus(
+      recipeId: null == recipeId
+          ? _value.recipeId
+          : recipeId // ignore: cast_nullable_to_non_nullable
+              as int,
+      isSaved: freezed == isSaved
+          ? _value.isSaved
+          : isSaved // ignore: cast_nullable_to_non_nullable
+              as bool?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_ChangeSaveStatus implements _ChangeSaveStatus {
+  const _$_ChangeSaveStatus({required this.recipeId, required this.isSaved});
+
+  @override
+  final int recipeId;
+  @override
+  final bool? isSaved;
+
+  @override
+  String toString() {
+    return 'ExplorePageEvent.changeSaveStatus(recipeId: $recipeId, isSaved: $isSaved)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_ChangeSaveStatus &&
+            (identical(other.recipeId, recipeId) ||
+                other.recipeId == recipeId) &&
+            (identical(other.isSaved, isSaved) || other.isSaved == isSaved));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, recipeId, isSaved);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_ChangeSaveStatusCopyWith<_$_ChangeSaveStatus> get copyWith =>
+      __$$_ChangeSaveStatusCopyWithImpl<_$_ChangeSaveStatus>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String? token) started,
+    required TResult Function(String query, String? token) search,
+    required TResult Function(String query, String? token) refreshResult,
+    required TResult Function(int recipeId, bool? isSaved) changeSaveStatus,
+  }) {
+    return changeSaveStatus(recipeId, isSaved);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String? token)? started,
+    TResult? Function(String query, String? token)? search,
+    TResult? Function(String query, String? token)? refreshResult,
+    TResult? Function(int recipeId, bool? isSaved)? changeSaveStatus,
+  }) {
+    return changeSaveStatus?.call(recipeId, isSaved);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String? token)? started,
+    TResult Function(String query, String? token)? search,
+    TResult Function(String query, String? token)? refreshResult,
+    TResult Function(int recipeId, bool? isSaved)? changeSaveStatus,
+    required TResult orElse(),
+  }) {
+    if (changeSaveStatus != null) {
+      return changeSaveStatus(recipeId, isSaved);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_Search value) search,
+    required TResult Function(_RefreshResult value) refreshResult,
+    required TResult Function(_ChangeSaveStatus value) changeSaveStatus,
+  }) {
+    return changeSaveStatus(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_Search value)? search,
+    TResult? Function(_RefreshResult value)? refreshResult,
+    TResult? Function(_ChangeSaveStatus value)? changeSaveStatus,
+  }) {
+    return changeSaveStatus?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_Search value)? search,
+    TResult Function(_RefreshResult value)? refreshResult,
+    TResult Function(_ChangeSaveStatus value)? changeSaveStatus,
+    required TResult orElse(),
+  }) {
+    if (changeSaveStatus != null) {
+      return changeSaveStatus(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ChangeSaveStatus implements ExplorePageEvent {
+  const factory _ChangeSaveStatus(
+      {required final int recipeId,
+      required final bool? isSaved}) = _$_ChangeSaveStatus;
+
+  int get recipeId;
+  bool? get isSaved;
+  @JsonKey(ignore: true)
+  _$$_ChangeSaveStatusCopyWith<_$_ChangeSaveStatus> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

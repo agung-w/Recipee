@@ -17,12 +17,12 @@ class RecipeCardWithCreator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-          child: BlocBuilder<UserAuthenticationBloc, UserAuthenticationState>(
-            builder: (_, authState) {
-              return InkWell(
+    return BlocBuilder<UserAuthenticationBloc, UserAuthenticationState>(
+      builder: (_, authState) {
+        return Column(
+          children: [
+            Expanded(
+              child: InkWell(
                 onTap: () {
                   context.read<RecipeDetailBloc>().add(
                         RecipeDetailEvent.started(
@@ -43,6 +43,7 @@ class RecipeCardWithCreator extends StatelessWidget {
                         child: Image.network(
                           recipe.posterPicUrl ?? "",
                           height: double.infinity,
+                          width: double.infinity,
                           fit: BoxFit.cover,
                           errorBuilder: (context, error, stackTrace) => Align(
                             alignment: FractionalOffset.centerLeft,
@@ -70,36 +71,39 @@ class RecipeCardWithCreator extends StatelessWidget {
                     ],
                   ),
                 ),
-              );
-            },
-          ),
-        ),
-        InkWell(
-          onTap: () {
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (_) => const ProfilePage()));
-            context.read<ProfilePageBloc>().add(ProfilePageEvent.getProfileData(
-                username: recipe.user.username));
-          },
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(2, 4, 8, 0),
-            child: Row(
-              children: [
-                SmallUserProfilePic(photoUrl: recipe.user.photoUrl),
-                Padding(
-                  padding: const EdgeInsets.only(left: 4),
-                  child: Align(
-                      alignment: Alignment.bottomLeft,
-                      child: Text(
-                        recipe.user.name,
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      )),
-                ),
-              ],
+              ),
             ),
-          ),
-        )
-      ],
+            InkWell(
+              onTap: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => const ProfilePage()));
+                context.read<ProfilePageBloc>().add(
+                    ProfilePageEvent.getProfileData(
+                        username: recipe.user.username,
+                        token: authState.mapOrNull(
+                            signedIn: (value) => value.token)));
+              },
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(2, 4, 8, 0),
+                child: Row(
+                  children: [
+                    SmallUserProfilePic(photoUrl: recipe.user.photoUrl),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 4),
+                      child: Align(
+                          alignment: Alignment.bottomLeft,
+                          child: Text(
+                            recipe.user.name,
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          )),
+                    ),
+                  ],
+                ),
+              ),
+            )
+          ],
+        );
+      },
     );
   }
 }

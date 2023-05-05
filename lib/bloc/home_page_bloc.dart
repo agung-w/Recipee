@@ -116,5 +116,18 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
         }
       }
     });
+    on<_ChangeSaveStatus>((event, emit) async {
+      if (state is _Loaded) {
+        List<Recipe> recipeList = List.from((state as _Loaded).resultList);
+        int i =
+            recipeList.indexWhere((element) => element.id == event.recipeId);
+        if (i != -1) {
+          recipeList[i] = recipeList[i].copyWith(isSaved: event.isSaved);
+          emit(_Loaded(
+              resultList: recipeList,
+              ingredients: (state as _Loaded).ingredients));
+        }
+      }
+    });
   }
 }

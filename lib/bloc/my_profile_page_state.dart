@@ -2,14 +2,23 @@ part of 'my_profile_page_bloc.dart';
 
 @freezed
 class MyProfilePageState with _$MyProfilePageState {
-  const factory MyProfilePageState.loading() = _Loading;
+  const factory MyProfilePageState.initial() = _Initial;
   const factory MyProfilePageState.loaded({
     required UserDetail user,
-    required ApiResult<List<Recipe?>> savedListResult,
-    required ApiResult<List<Recipe?>> createdListResult,
-    required ApiResult<List<Recipe?>> draftListResult,
-    required ApiResult<List<Recipe?>> rejectedListResult,
-    required ApiResult<List<Recipe?>> pendingListResult,
+    required List<Recipe> savedList,
+    required List<Recipe> createdList,
+    required List<Recipe> draftList,
+    required List<Recipe> rejectedList,
+    required List<Recipe> pendingList,
+    String? savedListError,
+    String? createdListError,
+    String? draftListError,
+    String? rejectedListError,
+    String? pendingListError,
+    bool? isSavedListLoading,
+    bool? isCreatedListLoading,
+    bool? isDraftListLoading,
+    bool? isRejectedListLoading,
+    bool? isPendingListLoading,
   }) = _Loaded;
-  const factory MyProfilePageState.failed({required String message}) = _Failed;
 }

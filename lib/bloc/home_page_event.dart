@@ -9,4 +9,6 @@ class HomePageEvent with _$HomePageEvent {
       required Function() afterFinished}) = _AddIngredient;
   const factory HomePageEvent.deleteIngredient(
       {required Ingredient ingredient, String? token}) = _DeleteIngredient;
+  const factory HomePageEvent.changeSaveStatus(
+      {required int recipeId, required bool? isSaved}) = _ChangeSaveStatus;
 }

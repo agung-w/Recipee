@@ -19,38 +19,38 @@ mixin _$SaveRecipeState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(int? id, bool? isSaved) loaded,
+    required TResult Function(int? id, bool? isSaved) finished,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(int? id, bool? isSaved)? loaded,
+    TResult? Function(int? id, bool? isSaved)? finished,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(int? id, bool? isSaved)? loaded,
+    TResult Function(int? id, bool? isSaved)? finished,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Loading value) loading,
-    required TResult Function(_Loaded value) loaded,
+    required TResult Function(_Finished value) finished,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Loading value)? loading,
-    TResult? Function(_Loaded value)? loaded,
+    TResult? Function(_Finished value)? finished,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Loading value)? loading,
-    TResult Function(_Loaded value)? loaded,
+    TResult Function(_Finished value)? finished,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -112,7 +112,7 @@ class _$_Loading implements _Loading {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(int? id, bool? isSaved) loaded,
+    required TResult Function(int? id, bool? isSaved) finished,
   }) {
     return loading();
   }
@@ -121,7 +121,7 @@ class _$_Loading implements _Loading {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(int? id, bool? isSaved)? loaded,
+    TResult? Function(int? id, bool? isSaved)? finished,
   }) {
     return loading?.call();
   }
@@ -130,7 +130,7 @@ class _$_Loading implements _Loading {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(int? id, bool? isSaved)? loaded,
+    TResult Function(int? id, bool? isSaved)? finished,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -143,7 +143,7 @@ class _$_Loading implements _Loading {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Loading value) loading,
-    required TResult Function(_Loaded value) loaded,
+    required TResult Function(_Finished value) finished,
   }) {
     return loading(this);
   }
@@ -152,7 +152,7 @@ class _$_Loading implements _Loading {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Loading value)? loading,
-    TResult? Function(_Loaded value)? loaded,
+    TResult? Function(_Finished value)? finished,
   }) {
     return loading?.call(this);
   }
@@ -161,7 +161,7 @@ class _$_Loading implements _Loading {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Loading value)? loading,
-    TResult Function(_Loaded value)? loaded,
+    TResult Function(_Finished value)? finished,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -176,18 +176,20 @@ abstract class _Loading implements SaveRecipeState {
 }
 
 /// @nodoc
-abstract class _$$_LoadedCopyWith<$Res> {
-  factory _$$_LoadedCopyWith(_$_Loaded value, $Res Function(_$_Loaded) then) =
-      __$$_LoadedCopyWithImpl<$Res>;
+abstract class _$$_FinishedCopyWith<$Res> {
+  factory _$$_FinishedCopyWith(
+          _$_Finished value, $Res Function(_$_Finished) then) =
+      __$$_FinishedCopyWithImpl<$Res>;
   @useResult
   $Res call({int? id, bool? isSaved});
 }
 
 /// @nodoc
-class __$$_LoadedCopyWithImpl<$Res>
-    extends _$SaveRecipeStateCopyWithImpl<$Res, _$_Loaded>
-    implements _$$_LoadedCopyWith<$Res> {
-  __$$_LoadedCopyWithImpl(_$_Loaded _value, $Res Function(_$_Loaded) _then)
+class __$$_FinishedCopyWithImpl<$Res>
+    extends _$SaveRecipeStateCopyWithImpl<$Res, _$_Finished>
+    implements _$$_FinishedCopyWith<$Res> {
+  __$$_FinishedCopyWithImpl(
+      _$_Finished _value, $Res Function(_$_Finished) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -196,7 +198,7 @@ class __$$_LoadedCopyWithImpl<$Res>
     Object? id = freezed,
     Object? isSaved = freezed,
   }) {
-    return _then(_$_Loaded(
+    return _then(_$_Finished(
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -211,8 +213,8 @@ class __$$_LoadedCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Loaded implements _Loaded {
-  const _$_Loaded({this.id, this.isSaved});
+class _$_Finished implements _Finished {
+  const _$_Finished({required this.id, required this.isSaved});
 
   @override
   final int? id;
@@ -221,14 +223,14 @@ class _$_Loaded implements _Loaded {
 
   @override
   String toString() {
-    return 'SaveRecipeState.loaded(id: $id, isSaved: $isSaved)';
+    return 'SaveRecipeState.finished(id: $id, isSaved: $isSaved)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Loaded &&
+            other is _$_Finished &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.isSaved, isSaved) || other.isSaved == isSaved));
   }
@@ -239,36 +241,36 @@ class _$_Loaded implements _Loaded {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_LoadedCopyWith<_$_Loaded> get copyWith =>
-      __$$_LoadedCopyWithImpl<_$_Loaded>(this, _$identity);
+  _$$_FinishedCopyWith<_$_Finished> get copyWith =>
+      __$$_FinishedCopyWithImpl<_$_Finished>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(int? id, bool? isSaved) loaded,
+    required TResult Function(int? id, bool? isSaved) finished,
   }) {
-    return loaded(id, isSaved);
+    return finished(id, isSaved);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(int? id, bool? isSaved)? loaded,
+    TResult? Function(int? id, bool? isSaved)? finished,
   }) {
-    return loaded?.call(id, isSaved);
+    return finished?.call(id, isSaved);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(int? id, bool? isSaved)? loaded,
+    TResult Function(int? id, bool? isSaved)? finished,
     required TResult orElse(),
   }) {
-    if (loaded != null) {
-      return loaded(id, isSaved);
+    if (finished != null) {
+      return finished(id, isSaved);
     }
     return orElse();
   }
@@ -277,40 +279,41 @@ class _$_Loaded implements _Loaded {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Loading value) loading,
-    required TResult Function(_Loaded value) loaded,
+    required TResult Function(_Finished value) finished,
   }) {
-    return loaded(this);
+    return finished(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Loading value)? loading,
-    TResult? Function(_Loaded value)? loaded,
+    TResult? Function(_Finished value)? finished,
   }) {
-    return loaded?.call(this);
+    return finished?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Loading value)? loading,
-    TResult Function(_Loaded value)? loaded,
+    TResult Function(_Finished value)? finished,
     required TResult orElse(),
   }) {
-    if (loaded != null) {
-      return loaded(this);
+    if (finished != null) {
+      return finished(this);
     }
     return orElse();
   }
 }
 
-abstract class _Loaded implements SaveRecipeState {
-  const factory _Loaded({final int? id, final bool? isSaved}) = _$_Loaded;
+abstract class _Finished implements SaveRecipeState {
+  const factory _Finished(
+      {required final int? id, required final bool? isSaved}) = _$_Finished;
 
   int? get id;
   bool? get isSaved;
   @JsonKey(ignore: true)
-  _$$_LoadedCopyWith<_$_Loaded> get copyWith =>
+  _$$_FinishedCopyWith<_$_Finished> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -16,7 +16,6 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$HomePageEvent {
-  String? get token => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String? token) started,
@@ -25,6 +24,7 @@ mixin _$HomePageEvent {
         addIngredient,
     required TResult Function(Ingredient ingredient, String? token)
         deleteIngredient,
+    required TResult Function(int recipeId, bool? isSaved) changeSaveStatus,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -34,6 +34,7 @@ mixin _$HomePageEvent {
             String ingredient, String? token, dynamic Function() afterFinished)?
         addIngredient,
     TResult? Function(Ingredient ingredient, String? token)? deleteIngredient,
+    TResult? Function(int recipeId, bool? isSaved)? changeSaveStatus,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -43,6 +44,7 @@ mixin _$HomePageEvent {
             String ingredient, String? token, dynamic Function() afterFinished)?
         addIngredient,
     TResult Function(Ingredient ingredient, String? token)? deleteIngredient,
+    TResult Function(int recipeId, bool? isSaved)? changeSaveStatus,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -51,6 +53,7 @@ mixin _$HomePageEvent {
     required TResult Function(_Started value) started,
     required TResult Function(_AddIngredient value) addIngredient,
     required TResult Function(_DeleteIngredient value) deleteIngredient,
+    required TResult Function(_ChangeSaveStatus value) changeSaveStatus,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -58,6 +61,7 @@ mixin _$HomePageEvent {
     TResult? Function(_Started value)? started,
     TResult? Function(_AddIngredient value)? addIngredient,
     TResult? Function(_DeleteIngredient value)? deleteIngredient,
+    TResult? Function(_ChangeSaveStatus value)? changeSaveStatus,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -65,12 +69,9 @@ mixin _$HomePageEvent {
     TResult Function(_Started value)? started,
     TResult Function(_AddIngredient value)? addIngredient,
     TResult Function(_DeleteIngredient value)? deleteIngredient,
+    TResult Function(_ChangeSaveStatus value)? changeSaveStatus,
     required TResult orElse(),
   }) =>
-      throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $HomePageEventCopyWith<HomePageEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -79,8 +80,6 @@ abstract class $HomePageEventCopyWith<$Res> {
   factory $HomePageEventCopyWith(
           HomePageEvent value, $Res Function(HomePageEvent) then) =
       _$HomePageEventCopyWithImpl<$Res, HomePageEvent>;
-  @useResult
-  $Res call({String? token});
 }
 
 /// @nodoc
@@ -92,28 +91,13 @@ class _$HomePageEventCopyWithImpl<$Res, $Val extends HomePageEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? token = freezed,
-  }) {
-    return _then(_value.copyWith(
-      token: freezed == token
-          ? _value.token
-          : token // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$_StartedCopyWith<$Res>
-    implements $HomePageEventCopyWith<$Res> {
+abstract class _$$_StartedCopyWith<$Res> {
   factory _$$_StartedCopyWith(
           _$_Started value, $Res Function(_$_Started) then) =
       __$$_StartedCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({String? token});
 }
@@ -178,6 +162,7 @@ class _$_Started implements _Started {
         addIngredient,
     required TResult Function(Ingredient ingredient, String? token)
         deleteIngredient,
+    required TResult Function(int recipeId, bool? isSaved) changeSaveStatus,
   }) {
     return started(token);
   }
@@ -190,6 +175,7 @@ class _$_Started implements _Started {
             String ingredient, String? token, dynamic Function() afterFinished)?
         addIngredient,
     TResult? Function(Ingredient ingredient, String? token)? deleteIngredient,
+    TResult? Function(int recipeId, bool? isSaved)? changeSaveStatus,
   }) {
     return started?.call(token);
   }
@@ -202,6 +188,7 @@ class _$_Started implements _Started {
             String ingredient, String? token, dynamic Function() afterFinished)?
         addIngredient,
     TResult Function(Ingredient ingredient, String? token)? deleteIngredient,
+    TResult Function(int recipeId, bool? isSaved)? changeSaveStatus,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -216,6 +203,7 @@ class _$_Started implements _Started {
     required TResult Function(_Started value) started,
     required TResult Function(_AddIngredient value) addIngredient,
     required TResult Function(_DeleteIngredient value) deleteIngredient,
+    required TResult Function(_ChangeSaveStatus value) changeSaveStatus,
   }) {
     return started(this);
   }
@@ -226,6 +214,7 @@ class _$_Started implements _Started {
     TResult? Function(_Started value)? started,
     TResult? Function(_AddIngredient value)? addIngredient,
     TResult? Function(_DeleteIngredient value)? deleteIngredient,
+    TResult? Function(_ChangeSaveStatus value)? changeSaveStatus,
   }) {
     return started?.call(this);
   }
@@ -236,6 +225,7 @@ class _$_Started implements _Started {
     TResult Function(_Started value)? started,
     TResult Function(_AddIngredient value)? addIngredient,
     TResult Function(_DeleteIngredient value)? deleteIngredient,
+    TResult Function(_ChangeSaveStatus value)? changeSaveStatus,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -248,21 +238,17 @@ class _$_Started implements _Started {
 abstract class _Started implements HomePageEvent {
   const factory _Started({final String? token}) = _$_Started;
 
-  @override
   String? get token;
-  @override
   @JsonKey(ignore: true)
   _$$_StartedCopyWith<_$_Started> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_AddIngredientCopyWith<$Res>
-    implements $HomePageEventCopyWith<$Res> {
+abstract class _$$_AddIngredientCopyWith<$Res> {
   factory _$$_AddIngredientCopyWith(
           _$_AddIngredient value, $Res Function(_$_AddIngredient) then) =
       __$$_AddIngredientCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call(
       {String ingredient, String? token, dynamic Function() afterFinished});
@@ -349,6 +335,7 @@ class _$_AddIngredient implements _AddIngredient {
         addIngredient,
     required TResult Function(Ingredient ingredient, String? token)
         deleteIngredient,
+    required TResult Function(int recipeId, bool? isSaved) changeSaveStatus,
   }) {
     return addIngredient(ingredient, token, afterFinished);
   }
@@ -361,6 +348,7 @@ class _$_AddIngredient implements _AddIngredient {
             String ingredient, String? token, dynamic Function() afterFinished)?
         addIngredient,
     TResult? Function(Ingredient ingredient, String? token)? deleteIngredient,
+    TResult? Function(int recipeId, bool? isSaved)? changeSaveStatus,
   }) {
     return addIngredient?.call(ingredient, token, afterFinished);
   }
@@ -373,6 +361,7 @@ class _$_AddIngredient implements _AddIngredient {
             String ingredient, String? token, dynamic Function() afterFinished)?
         addIngredient,
     TResult Function(Ingredient ingredient, String? token)? deleteIngredient,
+    TResult Function(int recipeId, bool? isSaved)? changeSaveStatus,
     required TResult orElse(),
   }) {
     if (addIngredient != null) {
@@ -387,6 +376,7 @@ class _$_AddIngredient implements _AddIngredient {
     required TResult Function(_Started value) started,
     required TResult Function(_AddIngredient value) addIngredient,
     required TResult Function(_DeleteIngredient value) deleteIngredient,
+    required TResult Function(_ChangeSaveStatus value) changeSaveStatus,
   }) {
     return addIngredient(this);
   }
@@ -397,6 +387,7 @@ class _$_AddIngredient implements _AddIngredient {
     TResult? Function(_Started value)? started,
     TResult? Function(_AddIngredient value)? addIngredient,
     TResult? Function(_DeleteIngredient value)? deleteIngredient,
+    TResult? Function(_ChangeSaveStatus value)? changeSaveStatus,
   }) {
     return addIngredient?.call(this);
   }
@@ -407,6 +398,7 @@ class _$_AddIngredient implements _AddIngredient {
     TResult Function(_Started value)? started,
     TResult Function(_AddIngredient value)? addIngredient,
     TResult Function(_DeleteIngredient value)? deleteIngredient,
+    TResult Function(_ChangeSaveStatus value)? changeSaveStatus,
     required TResult orElse(),
   }) {
     if (addIngredient != null) {
@@ -423,22 +415,18 @@ abstract class _AddIngredient implements HomePageEvent {
       required final dynamic Function() afterFinished}) = _$_AddIngredient;
 
   String get ingredient;
-  @override
   String? get token;
   dynamic Function() get afterFinished;
-  @override
   @JsonKey(ignore: true)
   _$$_AddIngredientCopyWith<_$_AddIngredient> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_DeleteIngredientCopyWith<$Res>
-    implements $HomePageEventCopyWith<$Res> {
+abstract class _$$_DeleteIngredientCopyWith<$Res> {
   factory _$$_DeleteIngredientCopyWith(
           _$_DeleteIngredient value, $Res Function(_$_DeleteIngredient) then) =
       __$$_DeleteIngredientCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({Ingredient ingredient, String? token});
 }
@@ -513,6 +501,7 @@ class _$_DeleteIngredient implements _DeleteIngredient {
         addIngredient,
     required TResult Function(Ingredient ingredient, String? token)
         deleteIngredient,
+    required TResult Function(int recipeId, bool? isSaved) changeSaveStatus,
   }) {
     return deleteIngredient(ingredient, token);
   }
@@ -525,6 +514,7 @@ class _$_DeleteIngredient implements _DeleteIngredient {
             String ingredient, String? token, dynamic Function() afterFinished)?
         addIngredient,
     TResult? Function(Ingredient ingredient, String? token)? deleteIngredient,
+    TResult? Function(int recipeId, bool? isSaved)? changeSaveStatus,
   }) {
     return deleteIngredient?.call(ingredient, token);
   }
@@ -537,6 +527,7 @@ class _$_DeleteIngredient implements _DeleteIngredient {
             String ingredient, String? token, dynamic Function() afterFinished)?
         addIngredient,
     TResult Function(Ingredient ingredient, String? token)? deleteIngredient,
+    TResult Function(int recipeId, bool? isSaved)? changeSaveStatus,
     required TResult orElse(),
   }) {
     if (deleteIngredient != null) {
@@ -551,6 +542,7 @@ class _$_DeleteIngredient implements _DeleteIngredient {
     required TResult Function(_Started value) started,
     required TResult Function(_AddIngredient value) addIngredient,
     required TResult Function(_DeleteIngredient value) deleteIngredient,
+    required TResult Function(_ChangeSaveStatus value) changeSaveStatus,
   }) {
     return deleteIngredient(this);
   }
@@ -561,6 +553,7 @@ class _$_DeleteIngredient implements _DeleteIngredient {
     TResult? Function(_Started value)? started,
     TResult? Function(_AddIngredient value)? addIngredient,
     TResult? Function(_DeleteIngredient value)? deleteIngredient,
+    TResult? Function(_ChangeSaveStatus value)? changeSaveStatus,
   }) {
     return deleteIngredient?.call(this);
   }
@@ -571,6 +564,7 @@ class _$_DeleteIngredient implements _DeleteIngredient {
     TResult Function(_Started value)? started,
     TResult Function(_AddIngredient value)? addIngredient,
     TResult Function(_DeleteIngredient value)? deleteIngredient,
+    TResult Function(_ChangeSaveStatus value)? changeSaveStatus,
     required TResult orElse(),
   }) {
     if (deleteIngredient != null) {
@@ -586,11 +580,173 @@ abstract class _DeleteIngredient implements HomePageEvent {
       final String? token}) = _$_DeleteIngredient;
 
   Ingredient get ingredient;
-  @override
   String? get token;
-  @override
   @JsonKey(ignore: true)
   _$$_DeleteIngredientCopyWith<_$_DeleteIngredient> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_ChangeSaveStatusCopyWith<$Res> {
+  factory _$$_ChangeSaveStatusCopyWith(
+          _$_ChangeSaveStatus value, $Res Function(_$_ChangeSaveStatus) then) =
+      __$$_ChangeSaveStatusCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int recipeId, bool? isSaved});
+}
+
+/// @nodoc
+class __$$_ChangeSaveStatusCopyWithImpl<$Res>
+    extends _$HomePageEventCopyWithImpl<$Res, _$_ChangeSaveStatus>
+    implements _$$_ChangeSaveStatusCopyWith<$Res> {
+  __$$_ChangeSaveStatusCopyWithImpl(
+      _$_ChangeSaveStatus _value, $Res Function(_$_ChangeSaveStatus) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? recipeId = null,
+    Object? isSaved = freezed,
+  }) {
+    return _then(_$_ChangeSaveStatus(
+      recipeId: null == recipeId
+          ? _value.recipeId
+          : recipeId // ignore: cast_nullable_to_non_nullable
+              as int,
+      isSaved: freezed == isSaved
+          ? _value.isSaved
+          : isSaved // ignore: cast_nullable_to_non_nullable
+              as bool?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_ChangeSaveStatus implements _ChangeSaveStatus {
+  const _$_ChangeSaveStatus({required this.recipeId, required this.isSaved});
+
+  @override
+  final int recipeId;
+  @override
+  final bool? isSaved;
+
+  @override
+  String toString() {
+    return 'HomePageEvent.changeSaveStatus(recipeId: $recipeId, isSaved: $isSaved)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_ChangeSaveStatus &&
+            (identical(other.recipeId, recipeId) ||
+                other.recipeId == recipeId) &&
+            (identical(other.isSaved, isSaved) || other.isSaved == isSaved));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, recipeId, isSaved);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_ChangeSaveStatusCopyWith<_$_ChangeSaveStatus> get copyWith =>
+      __$$_ChangeSaveStatusCopyWithImpl<_$_ChangeSaveStatus>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String? token) started,
+    required TResult Function(
+            String ingredient, String? token, dynamic Function() afterFinished)
+        addIngredient,
+    required TResult Function(Ingredient ingredient, String? token)
+        deleteIngredient,
+    required TResult Function(int recipeId, bool? isSaved) changeSaveStatus,
+  }) {
+    return changeSaveStatus(recipeId, isSaved);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String? token)? started,
+    TResult? Function(
+            String ingredient, String? token, dynamic Function() afterFinished)?
+        addIngredient,
+    TResult? Function(Ingredient ingredient, String? token)? deleteIngredient,
+    TResult? Function(int recipeId, bool? isSaved)? changeSaveStatus,
+  }) {
+    return changeSaveStatus?.call(recipeId, isSaved);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String? token)? started,
+    TResult Function(
+            String ingredient, String? token, dynamic Function() afterFinished)?
+        addIngredient,
+    TResult Function(Ingredient ingredient, String? token)? deleteIngredient,
+    TResult Function(int recipeId, bool? isSaved)? changeSaveStatus,
+    required TResult orElse(),
+  }) {
+    if (changeSaveStatus != null) {
+      return changeSaveStatus(recipeId, isSaved);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_AddIngredient value) addIngredient,
+    required TResult Function(_DeleteIngredient value) deleteIngredient,
+    required TResult Function(_ChangeSaveStatus value) changeSaveStatus,
+  }) {
+    return changeSaveStatus(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_AddIngredient value)? addIngredient,
+    TResult? Function(_DeleteIngredient value)? deleteIngredient,
+    TResult? Function(_ChangeSaveStatus value)? changeSaveStatus,
+  }) {
+    return changeSaveStatus?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_AddIngredient value)? addIngredient,
+    TResult Function(_DeleteIngredient value)? deleteIngredient,
+    TResult Function(_ChangeSaveStatus value)? changeSaveStatus,
+    required TResult orElse(),
+  }) {
+    if (changeSaveStatus != null) {
+      return changeSaveStatus(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ChangeSaveStatus implements HomePageEvent {
+  const factory _ChangeSaveStatus(
+      {required final int recipeId,
+      required final bool? isSaved}) = _$_ChangeSaveStatus;
+
+  int get recipeId;
+  bool? get isSaved;
+  @JsonKey(ignore: true)
+  _$$_ChangeSaveStatusCopyWith<_$_ChangeSaveStatus> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

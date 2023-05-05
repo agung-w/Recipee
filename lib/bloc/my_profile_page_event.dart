@@ -15,4 +15,6 @@ class MyProfilePageEvent with _$MyProfilePageEvent {
       _RefreshRejectedRecipeList;
   const factory MyProfilePageEvent.refreshPendingRecipeList(
       {required UserAuthenticationState authState}) = _RefreshPendingRecipeList;
+  const factory MyProfilePageEvent.changeSaveStatus(
+      {required int recipeId, required bool? isSaved}) = _ChangeSaveStatus;
 }
