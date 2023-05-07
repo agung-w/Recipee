@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,15 +5,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ta_recipe_app/bloc/create_recipe_bloc.dart';
 import 'package:ta_recipe_app/bloc/user_authentication_bloc.dart';
-import 'package:ta_recipe_app/entities/cooking_step.dart';
-import 'package:ta_recipe_app/entities/recipe_detail.dart';
 import 'package:ta_recipe_app/ui/widgets/confirmation_dialog.dart';
 import 'package:ta_recipe_app/ui/widgets/cooking_step_form_tile.dart';
 import 'package:ta_recipe_app/ui/widgets/image_picker_dialog.dart';
-import 'package:ta_recipe_app/ui/widgets/number_input.dart';
 import 'package:ta_recipe_app/ui/widgets/ingredient_form_tile.dart';
 import 'package:ta_recipe_app/ui/widgets/loading_indicator.dart';
-import 'package:ta_recipe_app/ui/widgets/long_text_input.dart';
 
 class CreateRecipePage extends StatelessWidget {
   const CreateRecipePage({super.key});
@@ -30,7 +24,7 @@ class CreateRecipePage extends StatelessWidget {
       },
       child: GestureDetector(
         onTap: () {
-          FocusScope.of(context).requestFocus(FocusNode());
+          FocusManager.instance.primaryFocus?.unfocus();
         },
         child: Scaffold(
           appBar: AppBar(
@@ -450,7 +444,7 @@ class _CookingStepContainer extends StatelessWidget {
                 padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
                 child: ElevatedButton(
                   onPressed: () {
-                    FocusScope.of(context).requestFocus(FocusNode());
+                    FocusManager.instance.primaryFocus?.unfocus();
                     context
                         .read<CreateRecipeBloc>()
                         .add(const CreateRecipeEvent.addCookingStep());
