@@ -11,8 +11,8 @@ import 'package:ta_recipe_app/ui/widgets/poster_input.dart';
 import 'package:ta_recipe_app/ui/widgets/recipe_information_container.dart';
 import 'package:ta_recipe_app/ui/widgets/tag_input_container.dart';
 
-class CreateRecipePage extends StatelessWidget {
-  const CreateRecipePage({super.key});
+class EditRecipePage extends StatelessWidget {
+  const EditRecipePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -42,13 +42,13 @@ class CreateRecipePage extends StatelessWidget {
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: SizedBox(
-                          width: 70,
+                          width: 110,
                           child: ElevatedButton(
                             onPressed: state.map(
                                 creating: (value) => () {
                                       if (formKey.currentState!.validate()) {
                                         context.read<CreateRecipeBloc>().add(
-                                              CreateRecipeEvent.submit(
+                                              CreateRecipeEvent.saveEdit(
                                                   context: context,
                                                   authState: authState),
                                             );
@@ -57,7 +57,7 @@ class CreateRecipePage extends StatelessWidget {
                                 initial: (_) => () {}),
                             child: state.map(
                               creating: (value) =>
-                                  const Text("create_button").tr(),
+                                  const Text("save_recipe_text").tr(),
                               initial: (value) => LoadingIndicator(
                                 size: 16,
                                 color: Theme.of(context).colorScheme.onPrimary,
@@ -103,7 +103,7 @@ class CreateRecipePage extends StatelessWidget {
                         Navigator.of(context).pop();
                       },
                       child: Text(
-                        "cancel_text".tr(),
+                        "continue_text".tr(),
                         style: TextStyle(
                             fontSize: 18,
                             color: Theme.of(context).colorScheme.onSecondary),
@@ -117,15 +117,15 @@ class CreateRecipePage extends StatelessWidget {
                             );
                       },
                       child: Text(
-                        "delete_text".tr(),
+                        "cancel_text".tr(),
                         style: TextStyle(
                             fontSize: 18,
                             color: Theme.of(context).colorScheme.error),
                       ).tr()),
                 )
               ],
-              title: 'cancel_create_recipe_dialog_title'.tr(),
-              content: 'cancel_create_recipe_dialog_content'.tr(),
+              title: 'cancel_edit_recipe_dialog_title'.tr(),
+              content: 'cancel_edit_recipe_dialog_content'.tr(),
             ));
   }
 }

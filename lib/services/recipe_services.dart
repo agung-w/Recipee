@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:ta_recipe_app/entities/recipe.dart';
 import 'package:ta_recipe_app/entities/recipe_bundle.dart';
@@ -41,7 +42,8 @@ class RecipeServices {
           errorMessage =
               "${(pos != -1) ? error.keys.first.substring(pos + 1) : error.keys.first} ${error.values.first[0]}";
         } else {
-          errorMessage = e.response!.data['message'];
+          errorMessage =
+              e.response!.data['message'] ?? "cant_do_this_now_text".tr();
         }
       }
       return ApiResult.failed(errorMessage);
@@ -70,7 +72,8 @@ class RecipeServices {
     } on DioError catch (e) {
       String errorMessage = "Connection timeout";
       if (e.response != null) {
-        errorMessage = e.response!.data['message'];
+        errorMessage =
+            e.response!.data['message'] ?? "cant_do_this_now_text".tr();
       }
       return ApiResult.failed(errorMessage);
     }
@@ -99,7 +102,8 @@ class RecipeServices {
     } on DioError catch (e) {
       String errorMessage = "Connection timeout";
       if (e.response != null) {
-        errorMessage = e.response!.data['message'];
+        errorMessage =
+            e.response!.data['message'] ?? "cant_do_this_now_text".tr();
       }
       return ApiResult.failed(errorMessage);
     }
@@ -127,7 +131,8 @@ class RecipeServices {
     } on DioError catch (e) {
       String errorMessage = "Connection timeout";
       if (e.response != null) {
-        errorMessage = e.response!.data['message'];
+        errorMessage =
+            e.response!.data['message'] ?? "cant_do_this_now_text".tr();
       }
       return ApiResult.failed(errorMessage);
     }
@@ -156,7 +161,8 @@ class RecipeServices {
     } on DioError catch (e) {
       String errorMessage = "Connection timeout";
       if (e.response != null) {
-        errorMessage = e.response!.data['message'];
+        errorMessage =
+            e.response!.data['message'] ?? "cant_do_this_now_text".tr();
       }
       return ApiResult.failed(errorMessage);
     }
@@ -186,7 +192,8 @@ class RecipeServices {
     } on DioError catch (e) {
       String errorMessage = "Connection timeout";
       if (e.response != null) {
-        errorMessage = e.response!.data['message'];
+        errorMessage =
+            e.response!.data['message'] ?? "cant_do_this_now_text".tr();
       }
       return ApiResult.failed(errorMessage);
     }
@@ -216,7 +223,8 @@ class RecipeServices {
     } on DioError catch (e) {
       String errorMessage = "Connection timeout";
       if (e.response != null) {
-        errorMessage = e.response!.data['message'];
+        errorMessage =
+            e.response!.data['message'] ?? "cant_do_this_now_text".tr();
       }
       return ApiResult.failed(errorMessage);
     }
@@ -255,7 +263,8 @@ class RecipeServices {
           errorMessage =
               "${(pos != -1) ? error.keys.first.substring(pos + 1) : error.keys.first} ${error.values.first[0]}";
         } else {
-          errorMessage = e.response!.data['message'];
+          errorMessage =
+              e.response!.data['message'] ?? "cant_do_this_now_text".tr();
         }
       }
       return ApiResult.failed(errorMessage);
@@ -287,7 +296,8 @@ class RecipeServices {
           errorMessage =
               "${(pos != -1) ? error.keys.first.substring(pos + 1) : error.keys.first} ${error.values.first[0]}";
         } else {
-          errorMessage = e.response!.data['message'];
+          errorMessage =
+              e.response!.data['message'] ?? "cant_do_this_now_text".tr();
         }
       }
       return ApiResult.failed(errorMessage);
@@ -319,7 +329,8 @@ class RecipeServices {
           errorMessage =
               "${(pos != -1) ? error.keys.first.substring(pos + 1) : error.keys.first} ${error.values.first[0]}";
         } else {
-          errorMessage = e.response!.data['message'];
+          errorMessage =
+              e.response!.data['message'] ?? "cant_do_this_now_text".tr();
         }
       }
       return ApiResult.failed(errorMessage);
@@ -348,7 +359,70 @@ class RecipeServices {
     } on DioError catch (e) {
       String errorMessage = "Connection timeout";
       if (e.response != null) {
-        errorMessage = e.response!.data['message'];
+        errorMessage =
+            e.response!.data['message'] ?? "cant_do_this_now_text".tr();
+      }
+      return ApiResult.failed(errorMessage);
+    }
+  }
+
+  Future<ApiResult<String>> delete(
+      {required String token, required int id}) async {
+    try {
+      Response result = await _dio.delete(
+        "${dotenv.env['API_URL']}/recipe/delete?id=$id",
+        options: options ??
+            Options(headers: {
+              "Content-Type": "application/json",
+              "Authorization": "Bearer $token",
+            }),
+      );
+      if (result.statusCode != 200) {
+        throw (DioError(
+            response: result, requestOptions: result.requestOptions));
+      }
+      return ApiResult.success(result.data['message']);
+    } on DioError catch (e) {
+      String errorMessage = "connection_timeout".tr();
+      if (e.response != null) {
+        errorMessage =
+            e.response!.data['message'] ?? "cant_do_this_now_text".tr();
+      }
+      return ApiResult.failed(errorMessage);
+    }
+  }
+
+  Future<ApiResult<RecipeDetail>> update(
+      {required String token, required RecipeDetail recipe}) async {
+    try {
+      Response result = await _dio.put(
+          "${dotenv.env['API_URL']}/recipe/update?id=${recipe.id}",
+          options: options ??
+              Options(headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer $token",
+              }),
+          data: recipe.toJson());
+      if (result.statusCode != 200) {
+        throw (DioError(
+            response: result, requestOptions: result.requestOptions));
+      }
+      RecipeDetail resultObj =
+          RecipeDetail.fromJson(result.data['data']['recipe']);
+
+      return ApiResult.success(resultObj);
+    } on DioError catch (e) {
+      String errorMessage = "Connection timeout";
+      if (e.response != null) {
+        if (e.response!.data['message'] is Map) {
+          var error = e.response!.data['message'];
+          var pos = error.keys.first.lastIndexOf('.');
+          errorMessage =
+              "${(pos != -1) ? error.keys.first.substring(pos + 1) : error.keys.first} ${error.values.first[0]}";
+        } else {
+          errorMessage =
+              e.response!.data['message'] ?? "cant_do_this_now_text".tr();
+        }
       }
       return ApiResult.failed(errorMessage);
     }

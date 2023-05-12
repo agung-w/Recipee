@@ -1,9 +1,12 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:ta_recipe_app/bloc/recipe_detail_bloc.dart';
 import 'package:ta_recipe_app/bloc/user_authentication_bloc.dart';
 import 'package:ta_recipe_app/entities/cooking_step.dart';
 import 'package:ta_recipe_app/entities/ingredient.dart';
@@ -18,6 +21,7 @@ import 'package:ta_recipe_app/services/picture_services.dart';
 import 'package:ta_recipe_app/services/recipe_services.dart';
 import 'package:ta_recipe_app/services/tag_services.dart';
 import 'package:ta_recipe_app/ui/pages/create_recipe_page.dart';
+import 'package:ta_recipe_app/ui/pages/edit_recipe_page.dart';
 import 'package:ta_recipe_app/ui/pages/login_page.dart';
 
 part 'create_recipe_event.dart';
@@ -41,7 +45,24 @@ class CreateRecipeBloc extends Bloc<CreateRecipeEvent, CreateRecipeState> {
         emit(const _Initial(recipe: null));
       });
     });
-
+    on<_Edit>((event, emit) async {
+      List<RecipeIngredient> ingredients =
+          List.from(event.recipe.recipeIngredients);
+      List<Tag> tags = List.from(event.recipe.tags ?? []);
+      ingredients = ingredients
+          .map((e) =>
+              e.copyWith(metricId: e.metric?.id, ingredientId: e.ingredient.id))
+          .toList();
+      tags = tags.map((e) => e.copyWith(tagId: e.id)).toList();
+      emit(_Creating(
+          recipe: event.recipe.copyWith(
+              cookingStepsAttributes: event.recipe.cookingSteps,
+              recipeIngredientsAttributes: ingredients,
+              recipeTagsAttributes: tags),
+          prevRecipe: event.recipe));
+      Navigator.of(event.context, rootNavigator: true)
+          .push(MaterialPageRoute(builder: (_) => const EditRecipePage()));
+    });
     on<_AddIngredient>((event, emit) async {
       if (state is _Creating) {
         _Creating creating = state as _Creating;
@@ -198,7 +219,7 @@ class CreateRecipeBloc extends Bloc<CreateRecipeEvent, CreateRecipeState> {
           } else {
             emit(creating);
           }
-          // event.controller.clear();
+          event.controller.clear();
         }, failed: (value) {
           ScaffoldMessenger.of(event.context)
               .showSnackBar(SnackBar(content: Text("Tag ${value.message}")));
@@ -223,6 +244,7 @@ class CreateRecipeBloc extends Bloc<CreateRecipeEvent, CreateRecipeState> {
     on<_AddRecipePoster>((event, emit) async {
       if (state is _Creating) {
         _Creating creating = state as _Creating;
+        _deleteRecipePoster(creating: creating);
         String? picUrl = await PictureServices()
             .uploadPicture(picture: event.file, type: 'poster');
         if (picUrl != null) {
@@ -237,37 +259,24 @@ class CreateRecipeBloc extends Bloc<CreateRecipeEvent, CreateRecipeState> {
     on<_DeletePoster>((event, emit) async {
       if (state is _Creating) {
         _Creating creating = state as _Creating;
-        ApiResult result = await PictureServices().deletePicture(
-          picUrl: event.picUrl,
-        );
-        result.map(success: (value) {
-          emit(creating.copyWith(
-              recipe: creating.recipe.copyWith(posterPicUrl: null)));
-        }, failed: (value) {
-          ScaffoldMessenger.of(event.context)
-              .showSnackBar(SnackBar(content: Text(value.message)));
-        });
+        _deleteRecipePoster(creating: creating);
+        emit(creating.copyWith(
+            recipe: creating.recipe.copyWith(posterPicUrl: null)));
       }
     });
     on<_DeleteCookingStepPic>((event, emit) async {
       if (state is _Creating) {
         _Creating creating = state as _Creating;
-        ApiResult result = await PictureServices().deletePicture(
-          picUrl: event.picUrl,
-        );
-        result.map(success: (value) {
-          List<CookingStep> cookingSteps =
-              List.from(creating.recipe.cookingStepsAttributes);
-          int i = cookingSteps
-              .indexWhere((element) => element == event.cookingStep);
-          cookingSteps[i] = cookingSteps[i].copyWith(picUrl: null);
-          emit(creating.copyWith(
-              recipe: creating.recipe
-                  .copyWith(cookingStepsAttributes: cookingSteps)));
-        }, failed: (value) {
-          ScaffoldMessenger.of(event.context)
-              .showSnackBar(SnackBar(content: Text(value.message)));
-        });
+        _deleteCookingStepPic(
+            creating: creating, cookingStep: event.cookingStep);
+        List<CookingStep> cookingSteps =
+            List.from(creating.recipe.cookingStepsAttributes);
+        int i =
+            cookingSteps.indexWhere((element) => element == event.cookingStep);
+        cookingSteps[i] = cookingSteps[i].copyWith(picUrl: null);
+        emit(creating.copyWith(
+            recipe: creating.recipe
+                .copyWith(cookingStepsAttributes: cookingSteps)));
       }
     });
 
@@ -275,6 +284,8 @@ class CreateRecipeBloc extends Bloc<CreateRecipeEvent, CreateRecipeState> {
       if (state is _Creating) {
         _Creating creating = state as _Creating;
         emit(_Initial(recipe: creating.recipe));
+        _deleteCookingStepPic(
+            creating: creating, cookingStep: event.cookingStep);
         String? picUrl = await PictureServices()
             .uploadPicture(picture: event.file, type: 'step-pic');
         if (picUrl != null) {
@@ -320,22 +331,13 @@ class CreateRecipeBloc extends Bloc<CreateRecipeEvent, CreateRecipeState> {
     on<_Cancel>((event, emit) async {
       if (state is _Creating) {
         _Creating creating = state as _Creating;
-        if (creating.recipe.posterPicUrl != null) {
-          PictureServices().deletePicture(
-            picUrl: creating.recipe.posterPicUrl!,
-          );
-        }
-        creating.recipe.cookingStepsAttributes.map((e) {
-          if (e.picUrl != null) {
-            PictureServices().deletePicture(
-              picUrl: e.picUrl!,
-            );
-          }
-        });
+        _deleteRecipePoster(creating: creating);
+        _deleteCookingStepPic(creating: creating);
         emit(const _Initial(recipe: null));
         Navigator.of(event.context).popUntil((route) => route.isFirst);
       }
     });
+
     on<_EditTitle>((event, emit) async {
       if (state is _Creating) {
         _Creating creating = state as _Creating;
@@ -369,5 +371,120 @@ class CreateRecipeBloc extends Bloc<CreateRecipeEvent, CreateRecipeState> {
                 .copyWith(prepTime: int.tryParse(event.prepTime))));
       }
     });
+
+    on<_SaveEdit>((event, emit) async {
+      if (state is _Creating) {
+        _Creating creating = state as _Creating;
+        emit(_Initial(recipe: creating.recipe));
+        if (event.authState is SignedIn) {
+          ApiResult<RecipeDetail> result = await RecipeServices().update(
+              token: (event.authState as SignedIn).token,
+              recipe: creating.recipe.copyWith(
+                  cookingStepsAttributes: creating.recipe.cookingStepsAttributes
+                      .asMap()
+                      .map((i, e) => MapEntry(i, e.copyWith(step: i + 1)))
+                      .values
+                      .toList()));
+          result.map(success: (value) {
+            Navigator.pop(event.context);
+            _deletePrevRecipePoster(creating: creating);
+            _deletePrevCookingStepPic(creating: creating);
+            ScaffoldMessenger.of(event.context).showSnackBar(
+                SnackBar(content: Text("edit_recipe_success_message".tr())));
+            emit(const _Initial(recipe: null));
+            event.context
+                .read<RecipeDetailBloc>()
+                .add(RecipeDetailEvent.refreshDetail(recipe: value.value));
+          }, failed: (message) {
+            ScaffoldMessenger.of(event.context)
+                .showSnackBar(SnackBar(content: Text(message.message)));
+            emit(creating);
+          });
+        }
+      }
+    });
+  }
+
+  void _deleteRecipePoster({required _Creating creating}) {
+    if (creating.prevRecipe != null) {
+      if (creating.recipe.posterPicUrl != null &&
+          creating.prevRecipe!.posterPicUrl != creating.recipe.posterPicUrl) {
+        PictureServices().deletePicture(
+          picUrl: creating.recipe.posterPicUrl!,
+        );
+      }
+    } else {
+      if (creating.recipe.posterPicUrl != null) {
+        PictureServices().deletePicture(
+          picUrl: creating.recipe.posterPicUrl!,
+        );
+      }
+    }
+  }
+
+  void _deleteCookingStepPic(
+      {required _Creating creating, CookingStep? cookingStep}) {
+    if (creating.prevRecipe != null) {
+      for (var e in creating.recipe.cookingStepsAttributes) {
+        if (cookingStep != null) {
+          if (e == cookingStep) {
+            if (e.picUrl != null) {
+              if (creating.prevRecipe!.cookingSteps
+                      .indexWhere((element) => element.picUrl == e.picUrl) ==
+                  -1) {
+                PictureServices().deletePicture(
+                  picUrl: e.picUrl!,
+                );
+              }
+            }
+          }
+        } else {
+          if (e.picUrl != null) {
+            if (creating.prevRecipe!.cookingSteps
+                    .indexWhere((element) => element.picUrl == e.picUrl) ==
+                -1) {
+              PictureServices().deletePicture(
+                picUrl: e.picUrl!,
+              );
+            }
+          }
+        }
+      }
+    } else {
+      for (var e in creating.recipe.cookingStepsAttributes) {
+        if (e.picUrl != null) {
+          PictureServices().deletePicture(
+            picUrl: e.picUrl!,
+          );
+        }
+      }
+    }
+  }
+
+  void _deletePrevRecipePoster({required _Creating creating}) {
+    if (creating.prevRecipe != null) {
+      if (creating.prevRecipe!.posterPicUrl != null &&
+          creating.prevRecipe!.posterPicUrl != creating.recipe.posterPicUrl) {
+        PictureServices().deletePicture(
+          picUrl: creating.prevRecipe!.posterPicUrl!,
+        );
+      }
+    }
+  }
+
+  void _deletePrevCookingStepPic({required _Creating creating}) {
+    if (creating.prevRecipe != null) {
+      for (var e in creating.prevRecipe!.cookingSteps) {
+        if (e.picUrl != null) {
+          if (creating.recipe.cookingStepsAttributes
+                  .indexWhere((element) => element.picUrl == e.picUrl) ==
+              -1) {
+            PictureServices().deletePicture(
+              picUrl: e.picUrl!,
+            );
+          }
+        }
+      }
+    }
   }
 }

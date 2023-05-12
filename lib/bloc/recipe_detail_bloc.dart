@@ -37,6 +37,13 @@ class RecipeDetailBloc extends Bloc<RecipeDetailEvent, RecipeDetailState> {
         emit(_Failed(message: event.authState.toString()));
       }
     });
+
+    on<_RefreshDetail>((event, emit) async {
+      if (state is _Loaded) {
+        emit((state as _Loaded).copyWith(recipeDetail: event.recipe));
+      }
+    });
+
     on<_RefreshComment>((event, emit) async {
       if ((state as _Loaded).comment is Success) {
         if (((state as _Loaded).comment as Success).value == null) {
@@ -48,6 +55,22 @@ class RecipeDetailBloc extends Bloc<RecipeDetailEvent, RecipeDetailState> {
         ApiResult<RecipeComment?> comment = await RecipeServices()
             .getFirstRecipeComment(id: event.recipeId, token: event.token);
         emit((state as _Loaded).copyWith(comment: comment));
+      }
+    });
+
+    on<_DeleteRecipe>((event, emit) async {
+      if (state is _Loaded) {
+        ApiResult<String> result = await RecipeServices().delete(
+            id: (state as _Loaded).recipeDetail.id!,
+            token: (state as _Loaded).authState.token);
+        result.map(
+            success: (_) {
+              ScaffoldMessenger.of(event.context).showSnackBar(
+                  SnackBar(content: const Text("delete_recipe_success").tr()));
+              Navigator.of(event.context).popUntil((route) => route.isFirst);
+            },
+            failed: (value) => ScaffoldMessenger.of(event.context)
+                .showSnackBar(SnackBar(content: Text(value.message))));
       }
     });
   }

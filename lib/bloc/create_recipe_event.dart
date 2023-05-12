@@ -6,6 +6,9 @@ class CreateRecipeEvent with _$CreateRecipeEvent {
       {required UserAuthenticationState state,
       required BuildContext context}) = _Create;
 
+  const factory CreateRecipeEvent.edit(
+      {required BuildContext context, required RecipeDetail recipe}) = _Edit;
+
   const factory CreateRecipeEvent.addIngredient(
       {required String ingredient,
       required TextEditingController controller,
@@ -57,6 +60,10 @@ class CreateRecipeEvent with _$CreateRecipeEvent {
   const factory CreateRecipeEvent.submit(
       {required BuildContext context,
       required UserAuthenticationState authState}) = _Submit;
+
+  const factory CreateRecipeEvent.saveEdit(
+      {required BuildContext context,
+      required UserAuthenticationState authState}) = _SaveEdit;
 
   const factory CreateRecipeEvent.addRecipePoster({required XFile? file}) =
       _AddRecipePoster;

@@ -8,4 +8,10 @@ class RecipeDetailEvent with _$RecipeDetailEvent {
       required BuildContext context}) = _Started;
   const factory RecipeDetailEvent.refreshComment(
       {required int recipeId, required String token}) = _RefreshComment;
+  const factory RecipeDetailEvent.deleteRecipe(
+      {required BuildContext context}) = _DeleteRecipe;
+  const factory RecipeDetailEvent.editRecipe({required BuildContext context}) =
+      _EditRecipe;
+  const factory RecipeDetailEvent.refreshDetail(
+      {required RecipeDetail recipe}) = _RefreshDetail;
 }

@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ta_recipe_app/bloc/create_recipe_bloc.dart';
 import 'package:ta_recipe_app/bloc/order_page_bloc.dart';
 import 'package:ta_recipe_app/bloc/recipe_detail_bloc.dart';
 import 'package:ta_recipe_app/bloc/user_authentication_bloc.dart';
@@ -406,7 +407,9 @@ class RecipeDetailPage extends StatelessWidget {
                             ]))));
           },
           failed: (value) {
-            return Text(value.message ?? "");
+            return Scaffold(
+                appBar: AppBar(),
+                body: Center(child: Text(value.message ?? "")));
           },
           loading: (value) {
             return Scaffold(
@@ -476,6 +479,26 @@ class RecipeDetailAppBar extends StatelessWidget {
             },
           ),
         ),
+        if (recipe.isOwner == true) ...{
+          IconButton(
+            icon: const Icon(Icons.edit),
+            onPressed: () {
+              context.read<CreateRecipeBloc>().add(
+                  CreateRecipeEvent.edit(context: context, recipe: recipe));
+            },
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: IconButton(
+              icon: const Icon(Icons.delete),
+              onPressed: () {
+                context
+                    .read<RecipeDetailBloc>()
+                    .add(RecipeDetailEvent.deleteRecipe(context: context));
+              },
+            ),
+          ),
+        },
       ],
     );
   }

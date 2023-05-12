@@ -5,7 +5,6 @@ class CreateRecipeState with _$CreateRecipeState {
   const factory CreateRecipeState.initial({
     required RecipeDetail? recipe,
   }) = _Initial;
-  const factory CreateRecipeState.creating({
-    required RecipeDetail recipe,
-  }) = _Creating;
+  const factory CreateRecipeState.creating(
+      {required RecipeDetail recipe, RecipeDetail? prevRecipe}) = _Creating;
 }

@@ -21,6 +21,8 @@ class Recipe {
   final List<Tag>? tags;
   @JsonKey(name: "is_saved")
   bool? isSaved;
+  @JsonKey(name: "is_owner")
+  bool? isOwner;
   @JsonKey(
       name: "recipe_tags_attributes",
       includeFromJson: false,
@@ -36,7 +38,8 @@ class Recipe {
       required this.user,
       this.tags,
       this.recipeTagsAttributes,
-      this.isSaved});
+      this.isSaved,
+      this.isOwner});
 
   List<Tag>? get tagList => tags ?? recipeTagsAttributes;
 

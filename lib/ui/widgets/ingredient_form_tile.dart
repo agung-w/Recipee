@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -20,7 +22,6 @@ class IngredientFormTile extends StatelessWidget {
         TextEditingController(text: ingredient.ingredient.name);
     TextEditingController qty =
         TextEditingController(text: ingredient.quantity?.toString());
-    Metric? selectedMetric = ingredient.metric;
     return Slidable(
       endActionPane: ActionPane(motion: const ScrollMotion(), children: [
         SlidableAction(
@@ -104,7 +105,8 @@ class IngredientFormTile extends StatelessWidget {
                   loaded: ((metrics) {
                     return DropdownButton<Metric?>(
                       style: Theme.of(context).textTheme.bodyMedium,
-                      value: selectedMetric,
+                      value: metrics.metrics.firstWhere(
+                          (element) => element?.id == ingredient.metricId),
                       icon: const Icon(
                         Icons.expand_more_sharp,
                         color: Colors.black87,

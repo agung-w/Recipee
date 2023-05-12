@@ -16,13 +16,15 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$RecipeDetailEvent {
-  int? get recipeId => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(UserAuthenticationState authState, int? recipeId,
             BuildContext context)
         started,
     required TResult Function(int recipeId, String token) refreshComment,
+    required TResult Function(BuildContext context) deleteRecipe,
+    required TResult Function(BuildContext context) editRecipe,
+    required TResult Function(RecipeDetail recipe) refreshDetail,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -31,6 +33,9 @@ mixin _$RecipeDetailEvent {
             BuildContext context)?
         started,
     TResult? Function(int recipeId, String token)? refreshComment,
+    TResult? Function(BuildContext context)? deleteRecipe,
+    TResult? Function(BuildContext context)? editRecipe,
+    TResult? Function(RecipeDetail recipe)? refreshDetail,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -39,6 +44,9 @@ mixin _$RecipeDetailEvent {
             BuildContext context)?
         started,
     TResult Function(int recipeId, String token)? refreshComment,
+    TResult Function(BuildContext context)? deleteRecipe,
+    TResult Function(BuildContext context)? editRecipe,
+    TResult Function(RecipeDetail recipe)? refreshDetail,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -46,24 +54,29 @@ mixin _$RecipeDetailEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
     required TResult Function(_RefreshComment value) refreshComment,
+    required TResult Function(_DeleteRecipe value) deleteRecipe,
+    required TResult Function(_EditRecipe value) editRecipe,
+    required TResult Function(_RefreshDetail value) refreshDetail,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_RefreshComment value)? refreshComment,
+    TResult? Function(_DeleteRecipe value)? deleteRecipe,
+    TResult? Function(_EditRecipe value)? editRecipe,
+    TResult? Function(_RefreshDetail value)? refreshDetail,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_RefreshComment value)? refreshComment,
+    TResult Function(_DeleteRecipe value)? deleteRecipe,
+    TResult Function(_EditRecipe value)? editRecipe,
+    TResult Function(_RefreshDetail value)? refreshDetail,
     required TResult orElse(),
   }) =>
-      throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $RecipeDetailEventCopyWith<RecipeDetailEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -72,8 +85,6 @@ abstract class $RecipeDetailEventCopyWith<$Res> {
   factory $RecipeDetailEventCopyWith(
           RecipeDetailEvent value, $Res Function(RecipeDetailEvent) then) =
       _$RecipeDetailEventCopyWithImpl<$Res, RecipeDetailEvent>;
-  @useResult
-  $Res call({int recipeId});
 }
 
 /// @nodoc
@@ -85,28 +96,13 @@ class _$RecipeDetailEventCopyWithImpl<$Res, $Val extends RecipeDetailEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? recipeId = null,
-  }) {
-    return _then(_value.copyWith(
-      recipeId: null == recipeId
-          ? _value.recipeId!
-          : recipeId // ignore: cast_nullable_to_non_nullable
-              as int,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$_StartedCopyWith<$Res>
-    implements $RecipeDetailEventCopyWith<$Res> {
+abstract class _$$_StartedCopyWith<$Res> {
   factory _$$_StartedCopyWith(
           _$_Started value, $Res Function(_$_Started) then) =
       __$$_StartedCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call(
       {UserAuthenticationState authState, int? recipeId, BuildContext context});
@@ -199,6 +195,9 @@ class _$_Started implements _Started {
             BuildContext context)
         started,
     required TResult Function(int recipeId, String token) refreshComment,
+    required TResult Function(BuildContext context) deleteRecipe,
+    required TResult Function(BuildContext context) editRecipe,
+    required TResult Function(RecipeDetail recipe) refreshDetail,
   }) {
     return started(authState, recipeId, context);
   }
@@ -210,6 +209,9 @@ class _$_Started implements _Started {
             BuildContext context)?
         started,
     TResult? Function(int recipeId, String token)? refreshComment,
+    TResult? Function(BuildContext context)? deleteRecipe,
+    TResult? Function(BuildContext context)? editRecipe,
+    TResult? Function(RecipeDetail recipe)? refreshDetail,
   }) {
     return started?.call(authState, recipeId, context);
   }
@@ -221,6 +223,9 @@ class _$_Started implements _Started {
             BuildContext context)?
         started,
     TResult Function(int recipeId, String token)? refreshComment,
+    TResult Function(BuildContext context)? deleteRecipe,
+    TResult Function(BuildContext context)? editRecipe,
+    TResult Function(RecipeDetail recipe)? refreshDetail,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -234,6 +239,9 @@ class _$_Started implements _Started {
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
     required TResult Function(_RefreshComment value) refreshComment,
+    required TResult Function(_DeleteRecipe value) deleteRecipe,
+    required TResult Function(_EditRecipe value) editRecipe,
+    required TResult Function(_RefreshDetail value) refreshDetail,
   }) {
     return started(this);
   }
@@ -243,6 +251,9 @@ class _$_Started implements _Started {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_RefreshComment value)? refreshComment,
+    TResult? Function(_DeleteRecipe value)? deleteRecipe,
+    TResult? Function(_EditRecipe value)? editRecipe,
+    TResult? Function(_RefreshDetail value)? refreshDetail,
   }) {
     return started?.call(this);
   }
@@ -252,6 +263,9 @@ class _$_Started implements _Started {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_RefreshComment value)? refreshComment,
+    TResult Function(_DeleteRecipe value)? deleteRecipe,
+    TResult Function(_EditRecipe value)? editRecipe,
+    TResult Function(_RefreshDetail value)? refreshDetail,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -268,22 +282,18 @@ abstract class _Started implements RecipeDetailEvent {
       required final BuildContext context}) = _$_Started;
 
   UserAuthenticationState get authState;
-  @override
   int? get recipeId;
   BuildContext get context;
-  @override
   @JsonKey(ignore: true)
   _$$_StartedCopyWith<_$_Started> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_RefreshCommentCopyWith<$Res>
-    implements $RecipeDetailEventCopyWith<$Res> {
+abstract class _$$_RefreshCommentCopyWith<$Res> {
   factory _$$_RefreshCommentCopyWith(
           _$_RefreshComment value, $Res Function(_$_RefreshComment) then) =
       __$$_RefreshCommentCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({int recipeId, String token});
 }
@@ -356,6 +366,9 @@ class _$_RefreshComment implements _RefreshComment {
             BuildContext context)
         started,
     required TResult Function(int recipeId, String token) refreshComment,
+    required TResult Function(BuildContext context) deleteRecipe,
+    required TResult Function(BuildContext context) editRecipe,
+    required TResult Function(RecipeDetail recipe) refreshDetail,
   }) {
     return refreshComment(recipeId, token);
   }
@@ -367,6 +380,9 @@ class _$_RefreshComment implements _RefreshComment {
             BuildContext context)?
         started,
     TResult? Function(int recipeId, String token)? refreshComment,
+    TResult? Function(BuildContext context)? deleteRecipe,
+    TResult? Function(BuildContext context)? editRecipe,
+    TResult? Function(RecipeDetail recipe)? refreshDetail,
   }) {
     return refreshComment?.call(recipeId, token);
   }
@@ -378,6 +394,9 @@ class _$_RefreshComment implements _RefreshComment {
             BuildContext context)?
         started,
     TResult Function(int recipeId, String token)? refreshComment,
+    TResult Function(BuildContext context)? deleteRecipe,
+    TResult Function(BuildContext context)? editRecipe,
+    TResult Function(RecipeDetail recipe)? refreshDetail,
     required TResult orElse(),
   }) {
     if (refreshComment != null) {
@@ -391,6 +410,9 @@ class _$_RefreshComment implements _RefreshComment {
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
     required TResult Function(_RefreshComment value) refreshComment,
+    required TResult Function(_DeleteRecipe value) deleteRecipe,
+    required TResult Function(_EditRecipe value) editRecipe,
+    required TResult Function(_RefreshDetail value) refreshDetail,
   }) {
     return refreshComment(this);
   }
@@ -400,6 +422,9 @@ class _$_RefreshComment implements _RefreshComment {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_RefreshComment value)? refreshComment,
+    TResult? Function(_DeleteRecipe value)? deleteRecipe,
+    TResult? Function(_EditRecipe value)? editRecipe,
+    TResult? Function(_RefreshDetail value)? refreshDetail,
   }) {
     return refreshComment?.call(this);
   }
@@ -409,6 +434,9 @@ class _$_RefreshComment implements _RefreshComment {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_RefreshComment value)? refreshComment,
+    TResult Function(_DeleteRecipe value)? deleteRecipe,
+    TResult Function(_EditRecipe value)? editRecipe,
+    TResult Function(_RefreshDetail value)? refreshDetail,
     required TResult orElse(),
   }) {
     if (refreshComment != null) {
@@ -423,12 +451,484 @@ abstract class _RefreshComment implements RecipeDetailEvent {
       {required final int recipeId,
       required final String token}) = _$_RefreshComment;
 
-  @override
   int get recipeId;
   String get token;
-  @override
   @JsonKey(ignore: true)
   _$$_RefreshCommentCopyWith<_$_RefreshComment> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_DeleteRecipeCopyWith<$Res> {
+  factory _$$_DeleteRecipeCopyWith(
+          _$_DeleteRecipe value, $Res Function(_$_DeleteRecipe) then) =
+      __$$_DeleteRecipeCopyWithImpl<$Res>;
+  @useResult
+  $Res call({BuildContext context});
+}
+
+/// @nodoc
+class __$$_DeleteRecipeCopyWithImpl<$Res>
+    extends _$RecipeDetailEventCopyWithImpl<$Res, _$_DeleteRecipe>
+    implements _$$_DeleteRecipeCopyWith<$Res> {
+  __$$_DeleteRecipeCopyWithImpl(
+      _$_DeleteRecipe _value, $Res Function(_$_DeleteRecipe) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? context = null,
+  }) {
+    return _then(_$_DeleteRecipe(
+      context: null == context
+          ? _value.context
+          : context // ignore: cast_nullable_to_non_nullable
+              as BuildContext,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_DeleteRecipe implements _DeleteRecipe {
+  const _$_DeleteRecipe({required this.context});
+
+  @override
+  final BuildContext context;
+
+  @override
+  String toString() {
+    return 'RecipeDetailEvent.deleteRecipe(context: $context)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_DeleteRecipe &&
+            (identical(other.context, context) || other.context == context));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, context);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_DeleteRecipeCopyWith<_$_DeleteRecipe> get copyWith =>
+      __$$_DeleteRecipeCopyWithImpl<_$_DeleteRecipe>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(UserAuthenticationState authState, int? recipeId,
+            BuildContext context)
+        started,
+    required TResult Function(int recipeId, String token) refreshComment,
+    required TResult Function(BuildContext context) deleteRecipe,
+    required TResult Function(BuildContext context) editRecipe,
+    required TResult Function(RecipeDetail recipe) refreshDetail,
+  }) {
+    return deleteRecipe(context);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(UserAuthenticationState authState, int? recipeId,
+            BuildContext context)?
+        started,
+    TResult? Function(int recipeId, String token)? refreshComment,
+    TResult? Function(BuildContext context)? deleteRecipe,
+    TResult? Function(BuildContext context)? editRecipe,
+    TResult? Function(RecipeDetail recipe)? refreshDetail,
+  }) {
+    return deleteRecipe?.call(context);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(UserAuthenticationState authState, int? recipeId,
+            BuildContext context)?
+        started,
+    TResult Function(int recipeId, String token)? refreshComment,
+    TResult Function(BuildContext context)? deleteRecipe,
+    TResult Function(BuildContext context)? editRecipe,
+    TResult Function(RecipeDetail recipe)? refreshDetail,
+    required TResult orElse(),
+  }) {
+    if (deleteRecipe != null) {
+      return deleteRecipe(context);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_RefreshComment value) refreshComment,
+    required TResult Function(_DeleteRecipe value) deleteRecipe,
+    required TResult Function(_EditRecipe value) editRecipe,
+    required TResult Function(_RefreshDetail value) refreshDetail,
+  }) {
+    return deleteRecipe(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_RefreshComment value)? refreshComment,
+    TResult? Function(_DeleteRecipe value)? deleteRecipe,
+    TResult? Function(_EditRecipe value)? editRecipe,
+    TResult? Function(_RefreshDetail value)? refreshDetail,
+  }) {
+    return deleteRecipe?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_RefreshComment value)? refreshComment,
+    TResult Function(_DeleteRecipe value)? deleteRecipe,
+    TResult Function(_EditRecipe value)? editRecipe,
+    TResult Function(_RefreshDetail value)? refreshDetail,
+    required TResult orElse(),
+  }) {
+    if (deleteRecipe != null) {
+      return deleteRecipe(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _DeleteRecipe implements RecipeDetailEvent {
+  const factory _DeleteRecipe({required final BuildContext context}) =
+      _$_DeleteRecipe;
+
+  BuildContext get context;
+  @JsonKey(ignore: true)
+  _$$_DeleteRecipeCopyWith<_$_DeleteRecipe> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_EditRecipeCopyWith<$Res> {
+  factory _$$_EditRecipeCopyWith(
+          _$_EditRecipe value, $Res Function(_$_EditRecipe) then) =
+      __$$_EditRecipeCopyWithImpl<$Res>;
+  @useResult
+  $Res call({BuildContext context});
+}
+
+/// @nodoc
+class __$$_EditRecipeCopyWithImpl<$Res>
+    extends _$RecipeDetailEventCopyWithImpl<$Res, _$_EditRecipe>
+    implements _$$_EditRecipeCopyWith<$Res> {
+  __$$_EditRecipeCopyWithImpl(
+      _$_EditRecipe _value, $Res Function(_$_EditRecipe) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? context = null,
+  }) {
+    return _then(_$_EditRecipe(
+      context: null == context
+          ? _value.context
+          : context // ignore: cast_nullable_to_non_nullable
+              as BuildContext,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_EditRecipe implements _EditRecipe {
+  const _$_EditRecipe({required this.context});
+
+  @override
+  final BuildContext context;
+
+  @override
+  String toString() {
+    return 'RecipeDetailEvent.editRecipe(context: $context)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_EditRecipe &&
+            (identical(other.context, context) || other.context == context));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, context);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_EditRecipeCopyWith<_$_EditRecipe> get copyWith =>
+      __$$_EditRecipeCopyWithImpl<_$_EditRecipe>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(UserAuthenticationState authState, int? recipeId,
+            BuildContext context)
+        started,
+    required TResult Function(int recipeId, String token) refreshComment,
+    required TResult Function(BuildContext context) deleteRecipe,
+    required TResult Function(BuildContext context) editRecipe,
+    required TResult Function(RecipeDetail recipe) refreshDetail,
+  }) {
+    return editRecipe(context);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(UserAuthenticationState authState, int? recipeId,
+            BuildContext context)?
+        started,
+    TResult? Function(int recipeId, String token)? refreshComment,
+    TResult? Function(BuildContext context)? deleteRecipe,
+    TResult? Function(BuildContext context)? editRecipe,
+    TResult? Function(RecipeDetail recipe)? refreshDetail,
+  }) {
+    return editRecipe?.call(context);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(UserAuthenticationState authState, int? recipeId,
+            BuildContext context)?
+        started,
+    TResult Function(int recipeId, String token)? refreshComment,
+    TResult Function(BuildContext context)? deleteRecipe,
+    TResult Function(BuildContext context)? editRecipe,
+    TResult Function(RecipeDetail recipe)? refreshDetail,
+    required TResult orElse(),
+  }) {
+    if (editRecipe != null) {
+      return editRecipe(context);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_RefreshComment value) refreshComment,
+    required TResult Function(_DeleteRecipe value) deleteRecipe,
+    required TResult Function(_EditRecipe value) editRecipe,
+    required TResult Function(_RefreshDetail value) refreshDetail,
+  }) {
+    return editRecipe(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_RefreshComment value)? refreshComment,
+    TResult? Function(_DeleteRecipe value)? deleteRecipe,
+    TResult? Function(_EditRecipe value)? editRecipe,
+    TResult? Function(_RefreshDetail value)? refreshDetail,
+  }) {
+    return editRecipe?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_RefreshComment value)? refreshComment,
+    TResult Function(_DeleteRecipe value)? deleteRecipe,
+    TResult Function(_EditRecipe value)? editRecipe,
+    TResult Function(_RefreshDetail value)? refreshDetail,
+    required TResult orElse(),
+  }) {
+    if (editRecipe != null) {
+      return editRecipe(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _EditRecipe implements RecipeDetailEvent {
+  const factory _EditRecipe({required final BuildContext context}) =
+      _$_EditRecipe;
+
+  BuildContext get context;
+  @JsonKey(ignore: true)
+  _$$_EditRecipeCopyWith<_$_EditRecipe> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_RefreshDetailCopyWith<$Res> {
+  factory _$$_RefreshDetailCopyWith(
+          _$_RefreshDetail value, $Res Function(_$_RefreshDetail) then) =
+      __$$_RefreshDetailCopyWithImpl<$Res>;
+  @useResult
+  $Res call({RecipeDetail recipe});
+}
+
+/// @nodoc
+class __$$_RefreshDetailCopyWithImpl<$Res>
+    extends _$RecipeDetailEventCopyWithImpl<$Res, _$_RefreshDetail>
+    implements _$$_RefreshDetailCopyWith<$Res> {
+  __$$_RefreshDetailCopyWithImpl(
+      _$_RefreshDetail _value, $Res Function(_$_RefreshDetail) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? recipe = null,
+  }) {
+    return _then(_$_RefreshDetail(
+      recipe: null == recipe
+          ? _value.recipe
+          : recipe // ignore: cast_nullable_to_non_nullable
+              as RecipeDetail,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_RefreshDetail implements _RefreshDetail {
+  const _$_RefreshDetail({required this.recipe});
+
+  @override
+  final RecipeDetail recipe;
+
+  @override
+  String toString() {
+    return 'RecipeDetailEvent.refreshDetail(recipe: $recipe)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_RefreshDetail &&
+            (identical(other.recipe, recipe) || other.recipe == recipe));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, recipe);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_RefreshDetailCopyWith<_$_RefreshDetail> get copyWith =>
+      __$$_RefreshDetailCopyWithImpl<_$_RefreshDetail>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(UserAuthenticationState authState, int? recipeId,
+            BuildContext context)
+        started,
+    required TResult Function(int recipeId, String token) refreshComment,
+    required TResult Function(BuildContext context) deleteRecipe,
+    required TResult Function(BuildContext context) editRecipe,
+    required TResult Function(RecipeDetail recipe) refreshDetail,
+  }) {
+    return refreshDetail(recipe);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(UserAuthenticationState authState, int? recipeId,
+            BuildContext context)?
+        started,
+    TResult? Function(int recipeId, String token)? refreshComment,
+    TResult? Function(BuildContext context)? deleteRecipe,
+    TResult? Function(BuildContext context)? editRecipe,
+    TResult? Function(RecipeDetail recipe)? refreshDetail,
+  }) {
+    return refreshDetail?.call(recipe);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(UserAuthenticationState authState, int? recipeId,
+            BuildContext context)?
+        started,
+    TResult Function(int recipeId, String token)? refreshComment,
+    TResult Function(BuildContext context)? deleteRecipe,
+    TResult Function(BuildContext context)? editRecipe,
+    TResult Function(RecipeDetail recipe)? refreshDetail,
+    required TResult orElse(),
+  }) {
+    if (refreshDetail != null) {
+      return refreshDetail(recipe);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_RefreshComment value) refreshComment,
+    required TResult Function(_DeleteRecipe value) deleteRecipe,
+    required TResult Function(_EditRecipe value) editRecipe,
+    required TResult Function(_RefreshDetail value) refreshDetail,
+  }) {
+    return refreshDetail(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_RefreshComment value)? refreshComment,
+    TResult? Function(_DeleteRecipe value)? deleteRecipe,
+    TResult? Function(_EditRecipe value)? editRecipe,
+    TResult? Function(_RefreshDetail value)? refreshDetail,
+  }) {
+    return refreshDetail?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_RefreshComment value)? refreshComment,
+    TResult Function(_DeleteRecipe value)? deleteRecipe,
+    TResult Function(_EditRecipe value)? editRecipe,
+    TResult Function(_RefreshDetail value)? refreshDetail,
+    required TResult orElse(),
+  }) {
+    if (refreshDetail != null) {
+      return refreshDetail(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _RefreshDetail implements RecipeDetailEvent {
+  const factory _RefreshDetail({required final RecipeDetail recipe}) =
+      _$_RefreshDetail;
+
+  RecipeDetail get recipe;
+  @JsonKey(ignore: true)
+  _$$_RefreshDetailCopyWith<_$_RefreshDetail> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

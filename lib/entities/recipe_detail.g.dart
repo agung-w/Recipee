@@ -36,6 +36,8 @@ abstract class _$RecipeDetailCWProxy {
 
   RecipeDetail isSaved(bool? isSaved);
 
+  RecipeDetail isOwner(bool? isOwner);
+
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `RecipeDetail(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
   /// Usage
@@ -57,6 +59,7 @@ abstract class _$RecipeDetailCWProxy {
     List<Tag>? tags,
     List<Tag>? recipeTagsAttributes,
     bool? isSaved,
+    bool? isOwner,
   });
 }
 
@@ -118,6 +121,9 @@ class _$RecipeDetailCWProxyImpl implements _$RecipeDetailCWProxy {
   RecipeDetail isSaved(bool? isSaved) => this(isSaved: isSaved);
 
   @override
+  RecipeDetail isOwner(bool? isOwner) => this(isOwner: isOwner);
+
+  @override
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `RecipeDetail(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -140,6 +146,7 @@ class _$RecipeDetailCWProxyImpl implements _$RecipeDetailCWProxy {
     Object? tags = const $CopyWithPlaceholder(),
     Object? recipeTagsAttributes = const $CopyWithPlaceholder(),
     Object? isSaved = const $CopyWithPlaceholder(),
+    Object? isOwner = const $CopyWithPlaceholder(),
   }) {
     return RecipeDetail(
       cookingSteps:
@@ -205,6 +212,10 @@ class _$RecipeDetailCWProxyImpl implements _$RecipeDetailCWProxy {
           ? _value.isSaved
           // ignore: cast_nullable_to_non_nullable
           : isSaved as bool?,
+      isOwner: isOwner == const $CopyWithPlaceholder()
+          ? _value.isOwner
+          // ignore: cast_nullable_to_non_nullable
+          : isOwner as bool?,
     );
   }
 }
@@ -239,6 +250,7 @@ RecipeDetail _$RecipeDetailFromJson(Map<String, dynamic> json) => RecipeDetail(
           ?.map((e) => Tag.fromJson(e as Map<String, dynamic>))
           .toList(),
       isSaved: json['is_saved'] as bool?,
+      isOwner: json['is_owner'] as bool?,
     );
 
 Map<String, dynamic> _$RecipeDetailToJson(RecipeDetail instance) =>
@@ -251,6 +263,7 @@ Map<String, dynamic> _$RecipeDetailToJson(RecipeDetail instance) =>
       'serving': instance.serving,
       'user': instance.user,
       'is_saved': instance.isSaved,
+      'is_owner': instance.isOwner,
       'recipe_tags_attributes': instance.recipeTagsAttributes,
       'cooking_steps_attributes': instance.cookingStepsAttributes,
       'recipe_ingredients_attributes': instance.recipeIngredientsAttributes,
