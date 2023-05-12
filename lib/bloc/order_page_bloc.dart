@@ -119,6 +119,7 @@ class OrderPageBloc extends Bloc<OrderPageEvent, OrderPageState> {
     on<_CreateOrder>(((event, emit) async {
       if (state is _Loaded) {
         var orderState = (state as _Loaded);
+        emit(const _Initial());
         ApiResult<Order> createOrder = await OrderServices().createOrder(
             shippingAddress: orderState.shippingAddress!,
             shippingfee: orderState.shippingFee!,
@@ -136,6 +137,7 @@ class OrderPageBloc extends Bloc<OrderPageEvent, OrderPageState> {
           ScaffoldMessenger.of(event.context)
               .showSnackBar(SnackBar(content: Text(value.message)));
           add(_Started(id: event.recipeId, authState: event.authState));
+          emit(orderState);
         });
       }
     }));

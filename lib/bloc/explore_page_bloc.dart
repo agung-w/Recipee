@@ -51,10 +51,12 @@ class ExplorePageBloc extends Bloc<ExplorePageEvent, ExplorePageState> {
         List<Recipe> recipeList = List.from((state as _Loaded).recipeList);
         int i =
             recipeList.indexWhere((element) => element.id == event.recipeId);
-        recipeList[i] = recipeList[i].copyWith(isSaved: event.isSaved);
-        emit(_Loaded(
-          recipeList: recipeList,
-        ));
+        if (i != -1) {
+          recipeList[i] = recipeList[i].copyWith(isSaved: event.isSaved);
+          emit(_Loaded(
+            recipeList: recipeList,
+          ));
+        }
       }
     });
   }

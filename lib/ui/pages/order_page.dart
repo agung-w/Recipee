@@ -66,17 +66,20 @@ class OrderPage extends StatelessWidget {
                   },
                 ),
                 const _BundlingBox(),
-                BlocBuilder<OrderPageBloc, OrderPageState>(
-                  builder: (context, state) {
-                    return state.mapOrNull(loaded: (value) {
-                          if (value.orderTotal != null) {
-                            return const _PricingDetailBox();
-                          } else {
-                            return const SizedBox();
-                          }
-                        }) ??
-                        const SizedBox();
-                  },
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 180),
+                  child: BlocBuilder<OrderPageBloc, OrderPageState>(
+                    builder: (context, state) {
+                      return state.mapOrNull(loaded: (value) {
+                            if (value.orderTotal != null) {
+                              return const _PricingDetailBox();
+                            } else {
+                              return const SizedBox();
+                            }
+                          }) ??
+                          const SizedBox();
+                    },
+                  ),
                 )
               ]),
               _OrderTotalBox(
@@ -146,7 +149,11 @@ class _OrderTotalBox extends StatelessWidget {
                                         recipeId: recipeId));
                               }
                             : null,
-                        child: const Text("buy_text").tr())
+                        child: state.mapOrNull(
+                              initial: (value) =>
+                                  const LoadingIndicator(size: 16),
+                            ) ??
+                            const Text("buy_text").tr())
                   ]),
             ));
       },
