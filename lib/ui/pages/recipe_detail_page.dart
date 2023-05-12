@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ta_recipe_app/bloc/create_recipe_bloc.dart';
 import 'package:ta_recipe_app/bloc/order_page_bloc.dart';
+import 'package:ta_recipe_app/bloc/profile_page_bloc.dart';
 import 'package:ta_recipe_app/bloc/recipe_detail_bloc.dart';
 import 'package:ta_recipe_app/bloc/user_authentication_bloc.dart';
 import 'dart:ui' as ui;
@@ -13,8 +14,10 @@ import 'package:ta_recipe_app/entities/cooking_step.dart';
 import 'package:ta_recipe_app/entities/recipe_comment.dart';
 import 'package:ta_recipe_app/entities/recipe_detail.dart';
 import 'package:ta_recipe_app/entities/recipe_ingredient.dart';
+import 'package:ta_recipe_app/entities/user.dart';
 import 'package:ta_recipe_app/entities/user_detail.dart';
 import 'package:ta_recipe_app/ui/pages/order_page.dart';
+import 'package:ta_recipe_app/ui/pages/profile_page.dart';
 import 'package:ta_recipe_app/ui/widgets/loading_indicator.dart';
 import 'package:ta_recipe_app/ui/widgets/save_recipe_button.dart';
 import 'package:ta_recipe_app/ui/widgets/small_user_profile_pic.dart';
@@ -215,6 +218,15 @@ class RecipeDetailPage extends StatelessWidget {
                                     ],
                                   ),
                                 ),
+                              ),
+                              SliverToBoxAdapter(
+                                child: Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(16, 8, 16, 8),
+                                    child: CreatorContainer(
+                                      user: value.recipeDetail.user,
+                                      authState: value.authState,
+                                    )),
                               ),
                               SliverToBoxAdapter(
                                 child: Padding(
@@ -582,6 +594,56 @@ class _CommentSheet extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+class CreatorContainer extends StatelessWidget {
+  const CreatorContainer(
+      {super.key, required this.user, required this.authState});
+  final User user;
+  final SignedIn authState;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (_) => const ProfilePage()));
+        context.read<ProfilePageBloc>().add(ProfilePageEvent.getProfileData(
+            username: user.username,
+            token: authState.mapOrNull(signedIn: (value) => value.token)));
+      },
+      child: Row(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(100),
+            child: Image.network(
+              user.photoUrl ?? "",
+              width: 33,
+              height: 33,
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) => Icon(
+                Icons.person,
+                color: Theme.of(context).colorScheme.onPrimary,
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  user.name,
+                  style: Theme.of(context).textTheme.labelSmall,
+                ),
+                Text("@${user.username}"),
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 }
