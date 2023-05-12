@@ -336,11 +336,6 @@ class RecipeDetailPage extends StatelessWidget {
                                       ).tr(),
                                       InkWell(
                                         onTap: () {
-                                          context
-                                              .read<CommentCubit>()
-                                              .getComments(
-                                                  id: recipe.id ?? -1,
-                                                  token: value.authState.token);
                                           showModalBottomSheet(
                                               isScrollControlled: true,
                                               isDismissible: true,
@@ -365,31 +360,47 @@ class RecipeDetailPage extends StatelessWidget {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            value.comment.map(
-                                                success: (value) {
-                                                  if (value.value != null) {
-                                                    return Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              top: 8,
-                                                              bottom: 16),
-                                                      child: CommentTile(
-                                                        comment: value.value!,
-                                                      ),
-                                                    );
-                                                  } else {
-                                                    return Padding(
-                                                      padding: const EdgeInsets
-                                                              .symmetric(
-                                                          vertical: 16),
-                                                      child: const Text(
-                                                              "no_comment_text")
-                                                          .tr(),
-                                                    );
-                                                  }
-                                                },
-                                                failed: (_) => const Text(
-                                                    "failed_load_comment_text")),
+                                            BlocBuilder<CommentCubit,
+                                                CommentState>(
+                                              builder: (context, state) {
+                                                return state.map(
+                                                    initial: (_) =>
+                                                        const Center(
+                                                          child:
+                                                              LoadingIndicator(
+                                                                  size: 16),
+                                                        ),
+                                                    loaded: (value) {
+                                                      if (value.comments
+                                                          .isNotEmpty) {
+                                                        return Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .only(
+                                                                  top: 8,
+                                                                  bottom: 16),
+                                                          child: CommentTile(
+                                                            comment: value
+                                                                .comments
+                                                                .first!,
+                                                          ),
+                                                        );
+                                                      } else {
+                                                        return Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .symmetric(
+                                                                  vertical: 16),
+                                                          child: const Text(
+                                                                  "no_comment_text")
+                                                              .tr(),
+                                                        );
+                                                      }
+                                                    },
+                                                    failed: (_) => const Text(
+                                                        "failed_load_comment_text"));
+                                              },
+                                            ),
                                             IgnorePointer(
                                                 child: CommentInputBox(
                                               recipe: recipe,
@@ -616,20 +627,13 @@ class _CommentInputFormState extends State<CommentInputForm> {
           InkWell(
             onTap: controller.text.isNotEmpty
                 ? () {
-                    context
-                        .read<CommentCubit>()
-                        .sendComment(
-                            id: widget.recipe.id!,
-                            content: controller.text,
-                            token: widget.user.token)
-                        .whenComplete(() {
-                      context.read<RecipeDetailBloc>().add(
-                          RecipeDetailEvent.refreshComment(
-                              recipeId: widget.recipe.id!,
-                              token: widget.user.token));
-                      setState(() {
-                        controller.clear();
-                      });
+                    context.read<CommentCubit>().sendComment(
+                        id: widget.recipe.id!,
+                        content: controller.text,
+                        token: widget.user.token);
+
+                    setState(() {
+                      controller.clear();
                     });
                   }
                 : null,

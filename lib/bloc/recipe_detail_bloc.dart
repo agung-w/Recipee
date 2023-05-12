@@ -1,8 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:ta_recipe_app/bloc/user_authentication_bloc.dart';
+import 'package:ta_recipe_app/cubit/comment_cubit.dart';
 import 'package:ta_recipe_app/entities/recipe_comment.dart';
 import 'package:ta_recipe_app/entities/recipe_detail.dart';
 import 'package:ta_recipe_app/helpers/api_result.dart';
@@ -44,20 +46,6 @@ class RecipeDetailBloc extends Bloc<RecipeDetailEvent, RecipeDetailState> {
       }
     });
 
-    on<_RefreshComment>((event, emit) async {
-      if ((state as _Loaded).comment is Success) {
-        if (((state as _Loaded).comment as Success).value == null) {
-          ApiResult<RecipeComment?> comment = await RecipeServices()
-              .getFirstRecipeComment(id: event.recipeId, token: event.token);
-          emit((state as _Loaded).copyWith(comment: comment));
-        }
-      } else {
-        ApiResult<RecipeComment?> comment = await RecipeServices()
-            .getFirstRecipeComment(id: event.recipeId, token: event.token);
-        emit((state as _Loaded).copyWith(comment: comment));
-      }
-    });
-
     on<_DeleteRecipe>((event, emit) async {
       if (state is _Loaded) {
         ApiResult<String> result = await RecipeServices().delete(
@@ -83,12 +71,12 @@ class RecipeDetailBloc extends Bloc<RecipeDetailEvent, RecipeDetailState> {
       String token = (event.authState as SignedIn).token;
       ApiResult<RecipeDetail> recipe = await RecipeServices()
           .getRecipeDetail(id: event.recipeId!, token: token);
-      ApiResult<RecipeComment?> comment = await RecipeServices()
-          .getFirstRecipeComment(id: event.recipeId!, token: token);
       recipe.map(success: (value) {
+        event.context
+            .read<CommentCubit>()
+            .getComments(id: value.value.id ?? -1, token: token);
         emit(_Loaded(
             recipeDetail: value.value,
-            comment: comment,
             authState: (event.authState as SignedIn)));
       }, failed: (value) {
         emit(_Failed(message: value.message));

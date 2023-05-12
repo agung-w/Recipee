@@ -43,7 +43,7 @@ class CommentCubit extends Cubit<CommentState> {
       result.mapOrNull(
         success: (value) {
           List<RecipeComment?> comments = List.from(currentState.comments);
-          comments.add(value.value);
+          comments.insert(0, value.value);
           emit((state as _Loaded).copyWith(comments: comments));
         },
       );
