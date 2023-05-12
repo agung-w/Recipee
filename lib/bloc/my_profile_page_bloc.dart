@@ -193,22 +193,22 @@ class MyProfilePageBloc extends Bloc<MyProfilePageEvent, MyProfilePageState> {
             pendingList.indexWhere((element) => element.id == event.recipeId);
         if (i != -1) {
           createdList[i] = createdList[i].copyWith(isSaved: event.isSaved);
-          emit(currentState.copyWith(createdList: createdList));
+          emit((state as _Loaded).copyWith(createdList: createdList));
         }
         if (k != -1) {
           rejectedList[k] = rejectedList[k].copyWith(isSaved: event.isSaved);
-          emit(currentState.copyWith(rejectedList: rejectedList));
+          emit((state as _Loaded).copyWith(rejectedList: rejectedList));
           if (j != -1) {
             draftList[j] = draftList[j].copyWith(isSaved: event.isSaved);
-            emit(currentState.copyWith(draftList: draftList));
+            emit((state as _Loaded).copyWith(draftList: draftList));
           }
         }
         if (l != -1) {
           pendingList[l] = pendingList[l].copyWith(isSaved: event.isSaved);
-          emit(currentState.copyWith(pendingList: pendingList));
+          emit((state as _Loaded).copyWith(pendingList: pendingList));
           if (j != -1) {
             draftList[j] = draftList[j].copyWith(isSaved: event.isSaved);
-            emit(currentState.copyWith(draftList: draftList));
+            emit((state as _Loaded).copyWith(draftList: draftList));
           }
         }
       }
