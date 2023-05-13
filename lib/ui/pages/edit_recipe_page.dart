@@ -103,7 +103,7 @@ class EditRecipePage extends StatelessWidget {
                         Navigator.of(context).pop();
                       },
                       child: Text(
-                        "continue_text".tr(),
+                        "cancel_text".tr(),
                         style: TextStyle(
                             fontSize: 18,
                             color: Theme.of(context).colorScheme.onSecondary),
@@ -117,7 +117,7 @@ class EditRecipePage extends StatelessWidget {
                             );
                       },
                       child: Text(
-                        "cancel_text".tr(),
+                        "discard_changes_text".tr(),
                         style: TextStyle(
                             fontSize: 18,
                             color: Theme.of(context).colorScheme.error),
