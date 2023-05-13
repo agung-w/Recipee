@@ -27,6 +27,7 @@ class LoginPage extends StatelessWidget {
                 child: Center(
                   child: Form(
                     key: formKey,
+                    autovalidateMode: AutovalidateMode.always,
                     child: Column(
                       children: [
                         SizedBox(
@@ -46,13 +47,21 @@ class LoginPage extends StatelessWidget {
                           child: SizedBox(
                             width: MediaQuery.of(context).size.width * 0.8,
                             child: ElevatedButton(
-                              onPressed: () {
-                                context.read<UserAuthenticationBloc>().add(
-                                    UserAuthenticationEvent.loginByEmail(
-                                        email: emailController.text,
-                                        password: passwordController.text,
-                                        context: context));
-                              },
+                              onPressed: formKey.currentState?.validate() ==
+                                          true &&
+                                      passwordController.text.isNotEmpty
+                                  ? () {
+                                      context
+                                          .read<UserAuthenticationBloc>()
+                                          .add(UserAuthenticationEvent
+                                              .loginByEmail(
+                                                  email: emailController.text
+                                                      .trim(),
+                                                  password:
+                                                      passwordController.text,
+                                                  context: context));
+                                    }
+                                  : null,
                               child: state.whenOrNull(
                                 signedOut: () =>
                                     const Text("login_button_text").tr(),

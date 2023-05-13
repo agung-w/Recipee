@@ -9,7 +9,7 @@ class ImagePickerDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
         content: Text("select_image_source_text".tr()),
-        actionsAlignment: MainAxisAlignment.center,
+        actionsAlignment: MainAxisAlignment.spaceAround,
         actions: [
           TextButton(
             child: const Text("camera_text").tr(),

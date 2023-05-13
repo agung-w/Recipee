@@ -17,9 +17,12 @@ class SmallUserProfilePic extends StatelessWidget {
         width: 24,
         height: 24,
         fit: BoxFit.cover,
-        errorBuilder: (context, error, stackTrace) => Icon(
-          Icons.person,
-          color: Theme.of(context).colorScheme.onPrimary,
+        errorBuilder: (context, error, stackTrace) => ColoredBox(
+          color: Theme.of(context).colorScheme.primary,
+          child: Icon(
+            Icons.person,
+            color: Theme.of(context).colorScheme.onPrimary,
+          ),
         ),
       ),
     );

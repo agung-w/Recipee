@@ -86,5 +86,10 @@
   "order_history_text":"Riwayat pemesanan",
   "no_bundles_available":"Pilihan paket belum tersedia",
   "not_sign_in_yet_text":"Masuk untuk melihat riwayat pesanan",
-  "home_page_title_text":"Masak apa hari ini?"
+  "home_page_title_text":"Masak apa hari ini?",
+  "show_more_text":"Selengkapnya",
+  "show_less_text":"Tampilkan lebih sedikit",
+  "select_image_source_text":"Pilih gambar dari",
+  "camera_text":"Kamera",
+  "gallery_text":"Galeri"
 }

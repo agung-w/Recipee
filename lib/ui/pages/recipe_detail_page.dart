@@ -687,7 +687,7 @@ class _CommentInputFormState extends State<CommentInputForm> {
             ),
           ),
           InkWell(
-            onTap: controller.text.isNotEmpty
+            onTap: controller.text.trim().isNotEmpty
                 ? () {
                     context.read<CommentCubit>().sendComment(
                         id: widget.recipe.id!,
@@ -703,7 +703,7 @@ class _CommentInputFormState extends State<CommentInputForm> {
               padding: const EdgeInsets.only(left: 8),
               child: Icon(
                 Icons.send,
-                color: controller.text.isNotEmpty
+                color: controller.text.trim().isNotEmpty
                     ? Theme.of(context).colorScheme.primary
                     : null,
               ),
@@ -751,11 +751,11 @@ class _CommentTileState extends State<CommentTile> {
               children: [
                 Text(
                   widget.comment.user!.name,
-                  style: Theme.of(context).textTheme.labelSmall,
+                  style: Theme.of(context).textTheme.labelMedium,
                 ),
                 Text(
                   widget.comment.content,
-                  style: Theme.of(context).textTheme.bodySmall,
+                  style: Theme.of(context).textTheme.bodyMedium,
                   maxLines: isExpanded == true ? null : 3,
                 ),
                 if (isExpanded == false && numLines > 3) ...{

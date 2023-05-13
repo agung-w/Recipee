@@ -47,11 +47,13 @@ class IngredientContainer extends StatelessWidget {
                   autofocus: false,
                   buildCounter: null,
                   onFieldSubmitted: (value) {
-                    context.read<CreateRecipeBloc>().add(
-                        CreateRecipeEvent.addIngredient(
-                            context: context,
-                            ingredient: value,
-                            controller: ingredientInputController));
+                    if (value.trim().isNotEmpty) {
+                      context.read<CreateRecipeBloc>().add(
+                          CreateRecipeEvent.addIngredient(
+                              context: context,
+                              ingredient: value,
+                              controller: ingredientInputController));
+                    }
                   },
                   decoration: InputDecoration(
                     contentPadding: const EdgeInsets.only(left: 5, right: 5),
