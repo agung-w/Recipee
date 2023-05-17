@@ -332,7 +332,7 @@ class RecipeDetailPage extends StatelessWidget {
                               SliverToBoxAdapter(
                                 child: Padding(
                                   padding:
-                                      const EdgeInsets.fromLTRB(16, 8, 16, 0),
+                                      const EdgeInsets.fromLTRB(16, 8, 16, 16),
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -616,18 +616,9 @@ class CreatorContainer extends StatelessWidget {
       },
       child: Row(
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(100),
-            child: Image.network(
-              user.photoUrl ?? "",
-              width: 33,
-              height: 33,
-              fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) => Icon(
-                Icons.person,
-                color: Theme.of(context).colorScheme.onPrimary,
-              ),
-            ),
+          SmallUserProfilePic(
+            photoUrl: user.photoUrl,
+            size: 33,
           ),
           Padding(
             padding: const EdgeInsets.only(left: 16),

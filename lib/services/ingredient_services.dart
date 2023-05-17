@@ -43,7 +43,7 @@ class IngredientServices {
     }
   }
 
-  Future<ApiResult<Ingredient>> getRandomIngredient() async {
+  Future<ApiResult<Ingredient?>> getRandomIngredient() async {
     try {
       Response result = await _dio.get(
         "${dotenv.env['API_URL']}/ingredient/random",
@@ -56,9 +56,10 @@ class IngredientServices {
         throw (DioError(
             response: result, requestOptions: result.requestOptions));
       }
-      Ingredient resultObj =
-          Ingredient.fromJson(result.data['data']['ingredient']);
-
+      Ingredient? resultObj;
+      if (result.data['data']['ingredient'] != null) {
+        resultObj = Ingredient.fromJson(result.data['data']['ingredient']);
+      }
       return ApiResult.success(resultObj);
     } on DioError catch (e) {
       String errorMessage = "connection_timeout".tr();

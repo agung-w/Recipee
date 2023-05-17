@@ -39,23 +39,31 @@ class OrderHistoryPage extends StatelessWidget {
                           return state.map(
                               initial: (_) => const Center(
                                   child: LoadingIndicator(size: 16)),
-                              loaded: (value) => ListView(
-                                    shrinkWrap: true,
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    children: value.orderHistoryList
-                                        .map((e) => Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                horizontal: 16,
-                                              ),
-                                              child: _OrderHistoryCard(
-                                                  order: e,
-                                                  authState: authState),
-                                            ))
-                                        .toList(),
-                                  ),
-                              failed: (value) => Text(value.message ?? "tes"));
+                              loaded: (value) => value
+                                      .orderHistoryList.isNotEmpty
+                                  ? ListView(
+                                      shrinkWrap: true,
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      children: value.orderHistoryList
+                                          .map((e) => Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                  horizontal: 16,
+                                                ),
+                                                child: _OrderHistoryCard(
+                                                    order: e,
+                                                    authState: authState),
+                                              ))
+                                          .toList(),
+                                    )
+                                  : Center(
+                                      child: const Text(
+                                              "order_history_list_is_empty_text")
+                                          .tr(),
+                                    ),
+                              failed: (value) =>
+                                  Center(child: Text(value.message ?? "tes")));
                         },
                       )
                     ]),

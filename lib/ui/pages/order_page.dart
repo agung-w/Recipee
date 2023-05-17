@@ -434,7 +434,8 @@ class _AddressBox extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(bottom: 8.0),
-                  child: Text(value.shippingAddress.address?.isEmpty == true
+                  child: Text(value.shippingAddress.address?.isEmpty == true ||
+                          value.shippingAddress.address == null
                       ? "please_set_address_text".tr()
                       : value.shippingAddress.address!),
                 ),
@@ -445,7 +446,9 @@ class _AddressBox extends StatelessWidget {
                       style: Theme.of(context).textTheme.labelSmall,
                     ),
                     Text(
-                        value.shippingAddress.recipientContact?.isEmpty == true
+                        value.shippingAddress.recipientContact?.isEmpty ==
+                                    true ||
+                                value.shippingAddress.recipientContact == null
                             ? "please_set_recipient_contact_text".tr()
                             : value.shippingAddress.recipientContact!,
                         style: Theme.of(context).textTheme.labelSmall)

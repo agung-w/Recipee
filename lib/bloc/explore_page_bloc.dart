@@ -17,7 +17,7 @@ class ExplorePageBloc extends Bloc<ExplorePageEvent, ExplorePageState> {
       result.map(
           success: (value) {
             if (value.value.isEmpty) {
-              emit(_Failed(message: "cant_load_explore_result_now_text".tr()));
+              emit(_Failed(message: "cant_load_result_now_text".tr()));
             } else {
               emit(_Loaded(recipeList: value.value));
             }
@@ -31,7 +31,9 @@ class ExplorePageBloc extends Bloc<ExplorePageEvent, ExplorePageState> {
         result.map(
             success: (value) {
               if (value.value.isEmpty) {
-                emit(_Failed(message: "no_result_search_by_title_text".tr()));
+                emit(_Failed(
+                    message: "no_result_search_by_title_text"
+                        .tr(namedArgs: {"query": event.query})));
               } else {
                 emit(_Loaded(recipeList: value.value));
               }

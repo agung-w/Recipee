@@ -92,5 +92,16 @@
   "select_image_source_text":"Pilih gambar dari",
   "camera_text":"Kamera",
   "gallery_text":"Galeri",
-  "add_ingredient_to_get_recipe_list_text":"Tambahkan bahan untuk melihat hasil"
+  "add_ingredient_to_get_recipe_list_text":"Tambahkan bahan untuk melihat hasil",
+  "connection_timeout":"Gagal terhubung ke server",
+  "create_list_is_empty_text":"Belum ada resep yang dibuat",
+  "saved_list_is_empty_text":"Belum ada resep yang disimpan",
+  "draft_list_is_empty_text":"Belum ada resep yang masih dalam tahapan draft",
+  "rejected_list_is_empty_text":"Belum ada resep yang ditolak",
+  "pending_list_is_empty_text":"Belum ada resep yang belum dipublikasi",
+  "cant_load_result_now_text":"Tidak dapat memuat hasil",
+  "cant_do_this_now_text":"Tidak dapat memproses permintaan untuk saat ini",
+  "no_result_search_by_title_text":"Tidak ditemukan hasil untuk pencarian {query}",
+  "order_history_list_is_empty_text":"Belum memiliki riwayat pesanan",
+  "no_result_searh_by_ingredient_text":"Tidak dapat menemukan resep yang mengandung {query}"
 }

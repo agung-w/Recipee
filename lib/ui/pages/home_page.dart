@@ -56,9 +56,6 @@ class HomePage extends StatelessWidget {
             ];
           },
           body: BlocBuilder<HomePageBloc, HomePageState>(
-            buildWhen: (previous, current) =>
-                previous.mapOrNull(loaded: (value) => value.resultList) !=
-                current.mapOrNull(loaded: (value) => value.resultList),
             builder: (context, state) {
               return RefreshIndicator(
                 onRefresh: () async {},
@@ -68,11 +65,14 @@ class HomePage extends StatelessWidget {
                     padding: EdgeInsets.all(16),
                     child: LoadingIndicator(size: 16),
                   )),
-                  failed: (value) => SingleChildScrollView(
-                    physics: const NeverScrollableScrollPhysics(),
-                    child: Center(
-                      child: Text(value.message ??
-                          "cant_load_explore_result_now_text".tr()),
+                  failed: (value) => Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: SingleChildScrollView(
+                      physics: const NeverScrollableScrollPhysics(),
+                      child: Center(
+                        child: Text(
+                            value.message ?? "cant_load_result_now_text".tr()),
+                      ),
                     ),
                   ),
                   loaded: (value) => Padding(

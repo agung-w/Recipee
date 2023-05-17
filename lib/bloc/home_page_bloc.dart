@@ -15,7 +15,7 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
   HomePageBloc() : super(const _Initial()) {
     on<_Started>((event, emit) async {
       emit(const _Initial());
-      ApiResult<Ingredient> randomResult =
+      ApiResult<Ingredient?> randomResult =
           await IngredientServices().getRandomIngredient();
       var ingredient = randomResult.mapOrNull(success: (value) => value.value);
       if (ingredient != null) {
@@ -25,7 +25,8 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
             success: (value) {
               if (value.value.isEmpty) {
                 emit(_Failed(
-                    message: "no_result_searh_by_ingredient_text".tr(),
+                    message: "no_result_searh_by_ingredient_text"
+                        .tr(namedArgs: {"query": ingredient.name}),
                     ingredients: [ingredient]));
               } else {
                 emit(_Loaded(
@@ -35,11 +36,9 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
             failed: (value) => emit(
                 _Failed(message: value.message, ingredients: [ingredient])));
       } else {
-        _Failed(
-            message: randomResult.mapOrNull(
-              failed: (value) => value.message,
-            ),
-            ingredients: []);
+        emit(_Failed(
+            message: "add_ingredient_to_get_recipe_list_text".tr(),
+            ingredients: []));
       }
     });
     on<_AddIngredient>((event, emit) async {
@@ -65,7 +64,10 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
                 success: (value) {
                   if (value.value.isEmpty) {
                     emit(_Failed(
-                        message: "no_result_searh_by_ingredient_text".tr(),
+                        message: "no_result_searh_by_ingredient_text"
+                            .tr(namedArgs: {
+                          "query": ingredientsCopy.map((e) => e.name).join(", ")
+                        }),
                         ingredients: ingredientsCopy));
                   } else {
                     emit(_Loaded(
@@ -100,7 +102,10 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
               success: (value) {
                 if (value.value.isEmpty) {
                   emit(_Failed(
-                      message: "no_result_searh_by_ingredient_text".tr(),
+                      message: "no_result_searh_by_ingredient_text"
+                          .tr(namedArgs: {
+                        "query": ingredientsCopy.map((e) => e.name).join(", ")
+                      }),
                       ingredients: ingredientsCopy));
                 } else {
                   emit(_Loaded(

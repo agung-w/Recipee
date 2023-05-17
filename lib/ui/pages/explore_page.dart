@@ -112,7 +112,7 @@ class ExplorePage extends StatelessWidget {
                       failed: (value) => SingleChildScrollView(
                         child: Center(
                           child: Text(value.message ??
-                              "cant_load_explore_result_now_text".tr()),
+                              "cant_load_result_now_text".tr()),
                         ),
                       ),
                     ),
