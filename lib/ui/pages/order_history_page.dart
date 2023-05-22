@@ -186,12 +186,7 @@ class _OrderHistoryCard extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       Text("${e.quantity} ✕ "),
-                                      Column(
-                                        children: [
-                                          Text(e.recipeBundle.title),
-                                          Text(e.recipeBundle.description)
-                                        ],
-                                      ),
+                                      Text(e.recipeBundle.title),
                                     ],
                                   ),
                                 ))
