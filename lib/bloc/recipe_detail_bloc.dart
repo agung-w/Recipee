@@ -18,17 +18,7 @@ class RecipeDetailBloc extends Bloc<RecipeDetailEvent, RecipeDetailState> {
   RecipeDetailBloc() : super(const _Loading()) {
     on<_Started>((event, emit) async {
       if (event.authState is SignedIn) {
-        if (state is _Loaded) {
-          if ((state as _Loaded).recipeDetail.id == event.recipeId) {
-            Navigator.of(event.context).push(
-                MaterialPageRoute(builder: (_) => const RecipeDetailPage()));
-            emit(state);
-          } else {
-            await _getData(emit, event);
-          }
-        } else {
-          await _getData(emit, event);
-        }
+        await _getData(emit, event);
       } else if (event.authState is Loading) {
         emit(const _Loading());
       } else {

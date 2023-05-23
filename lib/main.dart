@@ -90,7 +90,13 @@ class RecipeApp extends StatelessWidget {
             );
           },
           builder: (context, state) {
-            return const MainPage();
+            return BlocBuilder<UserAuthenticationBloc, UserAuthenticationState>(
+              builder: (context, state) {
+                return MainPage(
+                  key: UniqueKey(),
+                );
+              },
+            );
           },
         )),
       ),

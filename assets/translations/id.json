@@ -104,5 +104,6 @@
   "no_result_search_by_title_text":"Tidak ditemukan hasil untuk pencarian {query}",
   "order_history_list_is_empty_text":"Belum memiliki riwayat pesanan",
   "no_result_searh_by_ingredient_text":"Tidak dapat menemukan resep yang mengandung {query}",
-  "edit_recipe_success_message":"Berhasil menyimpan perubahan"
+  "edit_recipe_success_message":"Berhasil menyimpan perubahan",
+  "cant_get_this_recipe_detail_now_text":"Tidak dapat membuat detail resep"
 }
