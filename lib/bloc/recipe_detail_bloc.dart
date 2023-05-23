@@ -62,9 +62,8 @@ class RecipeDetailBloc extends Bloc<RecipeDetailEvent, RecipeDetailState> {
       ApiResult<RecipeDetail> recipe = await RecipeServices()
           .getRecipeDetail(id: event.recipeId!, token: token);
       recipe.map(success: (value) {
-        event.context
-            .read<CommentCubit>()
-            .getComments(id: value.value.id ?? -1, token: token);
+        event.context.read<CommentCubit>().getComments(
+            id: value.value.id ?? -1, token: token, root: event.root);
         emit(_Loaded(
             recipeDetail: value.value,
             authState: (event.authState as SignedIn),

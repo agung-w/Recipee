@@ -6,5 +6,6 @@ class CommentState with _$CommentState {
   const factory CommentState.failed({String? message}) = _Failed;
   const factory CommentState.loaded(
       {required List<RecipeComment?> comments,
-      required int recipeId}) = _Loaded;
+      required int recipeId,
+      required String root}) = _Loaded;
 }

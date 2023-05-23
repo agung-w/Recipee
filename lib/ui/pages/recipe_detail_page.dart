@@ -334,101 +334,10 @@ class RecipeDetailPage extends StatelessWidget {
                                 )
                               },
                               SliverToBoxAdapter(
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(16, 8, 16, 16),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "comment_title_text",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headlineMedium,
-                                        textAlign: TextAlign.start,
-                                        overflow: TextOverflow.ellipsis,
-                                        maxLines: 2,
-                                      ).tr(),
-                                      InkWell(
-                                        onTap: () {
-                                          showModalBottomSheet(
-                                              isScrollControlled: true,
-                                              isDismissible: true,
-                                              useRootNavigator: true,
-                                              context: context,
-                                              shape:
-                                                  const RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.only(
-                                                              topLeft: Radius
-                                                                  .circular(20),
-                                                              topRight:
-                                                                  Radius
-                                                                      .circular(
-                                                                          20))),
-                                              builder: (_) => _CommentSheet(
-                                                    recipe: recipe,
-                                                    user: value.authState,
-                                                  ));
-                                        },
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            BlocBuilder<CommentCubit,
-                                                CommentState>(
-                                              builder: (context, state) {
-                                                return state.map(
-                                                    initial: (_) =>
-                                                        const Center(
-                                                          child:
-                                                              LoadingIndicator(
-                                                                  size: 16),
-                                                        ),
-                                                    loaded: (value) {
-                                                      if (value.comments
-                                                          .isNotEmpty) {
-                                                        return Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                      .only(
-                                                                  top: 8,
-                                                                  bottom: 16),
-                                                          child: CommentTile(
-                                                            comment: value
-                                                                .comments
-                                                                .first!,
-                                                          ),
-                                                        );
-                                                      } else {
-                                                        return Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                      .symmetric(
-                                                                  vertical: 16),
-                                                          child: const Text(
-                                                                  "no_comment_text")
-                                                              .tr(),
-                                                        );
-                                                      }
-                                                    },
-                                                    failed: (_) => const Text(
-                                                        "failed_load_comment_text"));
-                                              },
-                                            ),
-                                            IgnorePointer(
-                                                child: CommentInputBox(
-                                              recipe: recipe,
-                                              readOnly: true,
-                                              signedInUser:
-                                                  value.authState.user,
-                                            )),
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  ),
+                                child: _CommentSection(
+                                  recipe: recipe,
+                                  root: root,
+                                  authState: value.authState,
                                 ),
                               ),
                             ]))));
@@ -531,10 +440,106 @@ class RecipeDetailAppBar extends StatelessWidget {
   }
 }
 
+class _CommentSection extends StatelessWidget {
+  const _CommentSection(
+      {super.key,
+      required this.recipe,
+      required this.root,
+      required this.authState});
+
+  final RecipeDetail recipe;
+  final String root;
+  final SignedIn authState;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<CommentCubit, CommentState>(
+      buildWhen: (previous, current) =>
+          current.mapOrNull(loaded: (value) => value.root) == root,
+      builder: (context, state) {
+        return Padding(
+          padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "comment_title_text",
+                style: Theme.of(context).textTheme.headlineMedium,
+                textAlign: TextAlign.start,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+              ).tr(),
+              InkWell(
+                onTap: () {
+                  showModalBottomSheet(
+                      isScrollControlled: true,
+                      isDismissible: true,
+                      useRootNavigator: true,
+                      context: context,
+                      shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(20),
+                              topRight: Radius.circular(20))),
+                      builder: (_) => _CommentSheet(
+                            recipe: recipe,
+                            commentState: state,
+                            user: authState,
+                            root: root,
+                          ));
+                },
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    state.map(
+                        initial: (_) => const Center(
+                              child: LoadingIndicator(size: 16),
+                            ),
+                        loaded: (value) {
+                          if (value.comments.isNotEmpty) {
+                            return Padding(
+                              padding:
+                                  const EdgeInsets.only(top: 8, bottom: 16),
+                              child: CommentTile(
+                                comment: value.comments.first!,
+                              ),
+                            );
+                          } else {
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 16),
+                              child: const Text("no_comment_text").tr(),
+                            );
+                          }
+                        },
+                        failed: (_) => const Text("failed_load_comment_text")),
+                    IgnorePointer(
+                        child: CommentInputBox(
+                      recipe: recipe,
+                      readOnly: true,
+                      signedInUser: authState.user,
+                    )),
+                  ],
+                ),
+              )
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
+
 class _CommentSheet extends StatelessWidget {
   final RecipeDetail recipe;
   final SignedIn user;
-  const _CommentSheet({required this.recipe, required this.user});
+  final String root;
+
+  final CommentState commentState;
+
+  const _CommentSheet(
+      {required this.recipe,
+      required this.user,
+      required this.root,
+      required this.commentState});
 
   @override
   Widget build(BuildContext context) {
@@ -549,53 +554,51 @@ class _CommentSheet extends StatelessWidget {
           borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(20), topRight: Radius.circular(20)),
           child: Scaffold(
-            appBar: AppBar(
-              title: const Text("comment_title_text").tr(),
-              automaticallyImplyLeading: false,
-              actions: [
-                IconButton(
-                  icon: const Icon(Icons.close),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                )
-              ],
-            ),
-            body: BlocBuilder<CommentCubit, CommentState>(
-              builder: (context, state) {
-                return state.map(
-                  loaded: (value) {
-                    return Padding(
-                      padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
-                      child: Column(
-                        children: [
-                          Expanded(
-                            child: ListView(
-                              controller: scrollController,
-                              children: value.comments
-                                  .map((e) => Padding(
-                                        padding:
-                                            const EdgeInsets.only(bottom: 8),
-                                        child: CommentTile(comment: e!),
-                                      ))
-                                  .toList(),
-                            ),
+              appBar: AppBar(
+                title: const Text("comment_title_text").tr(),
+                automaticallyImplyLeading: false,
+                actions: [
+                  IconButton(
+                    icon: const Icon(Icons.close),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  )
+                ],
+              ),
+              body: commentState.map(
+                loaded: (value) {
+                  return Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: ListView(
+                            controller: scrollController,
+                            children: value.comments
+                                .map((e) => Padding(
+                                      padding: const EdgeInsets.only(bottom: 8),
+                                      child: CommentTile(comment: e!),
+                                    ))
+                                .toList(),
                           ),
-                          CommentInputForm(recipe: recipe, user: user),
-                        ],
-                      ),
-                    );
-                  },
-                  initial: (_) => LoadingIndicator(
-                    size: 16,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                  failed: (value) =>
-                      Center(child: Text(value.message.toString())),
-                );
-              },
-            ),
-          ),
+                        ),
+                        CommentInputForm(
+                          recipe: recipe,
+                          user: user,
+                          root: root,
+                        ),
+                      ],
+                    ),
+                  );
+                },
+                initial: (_) => LoadingIndicator(
+                  size: 16,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+                failed: (value) =>
+                    Center(child: Text(value.message.toString())),
+              )),
         );
       },
     );
@@ -652,14 +655,15 @@ class CreatorContainer extends StatelessWidget {
 }
 
 class CommentInputForm extends StatefulWidget {
-  const CommentInputForm({
-    super.key,
-    required this.recipe,
-    required this.user,
-  });
+  const CommentInputForm(
+      {super.key,
+      required this.recipe,
+      required this.user,
+      required this.root});
 
   final RecipeDetail recipe;
   final SignedIn user;
+  final String root;
 
   @override
   State<CommentInputForm> createState() => _CommentInputFormState();
@@ -695,7 +699,8 @@ class _CommentInputFormState extends State<CommentInputForm> {
                     context.read<CommentCubit>().sendComment(
                         id: widget.recipe.id!,
                         content: controller.text,
-                        token: widget.user.token);
+                        token: widget.user.token,
+                        root: widget.root);
 
                     setState(() {
                       controller.clear();

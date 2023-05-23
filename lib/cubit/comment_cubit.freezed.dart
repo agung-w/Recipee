@@ -20,7 +20,8 @@ mixin _$CommentState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(String? message) failed,
-    required TResult Function(List<RecipeComment?> comments, int recipeId)
+    required TResult Function(
+            List<RecipeComment?> comments, int recipeId, String root)
         loaded,
   }) =>
       throw _privateConstructorUsedError;
@@ -28,14 +29,16 @@ mixin _$CommentState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(String? message)? failed,
-    TResult? Function(List<RecipeComment?> comments, int recipeId)? loaded,
+    TResult? Function(List<RecipeComment?> comments, int recipeId, String root)?
+        loaded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(String? message)? failed,
-    TResult Function(List<RecipeComment?> comments, int recipeId)? loaded,
+    TResult Function(List<RecipeComment?> comments, int recipeId, String root)?
+        loaded,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -120,7 +123,8 @@ class _$_Initial implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(String? message) failed,
-    required TResult Function(List<RecipeComment?> comments, int recipeId)
+    required TResult Function(
+            List<RecipeComment?> comments, int recipeId, String root)
         loaded,
   }) {
     return initial();
@@ -131,7 +135,8 @@ class _$_Initial implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(String? message)? failed,
-    TResult? Function(List<RecipeComment?> comments, int recipeId)? loaded,
+    TResult? Function(List<RecipeComment?> comments, int recipeId, String root)?
+        loaded,
   }) {
     return initial?.call();
   }
@@ -141,7 +146,8 @@ class _$_Initial implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(String? message)? failed,
-    TResult Function(List<RecipeComment?> comments, int recipeId)? loaded,
+    TResult Function(List<RecipeComment?> comments, int recipeId, String root)?
+        loaded,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -253,7 +259,8 @@ class _$_Failed implements _Failed {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(String? message) failed,
-    required TResult Function(List<RecipeComment?> comments, int recipeId)
+    required TResult Function(
+            List<RecipeComment?> comments, int recipeId, String root)
         loaded,
   }) {
     return failed(message);
@@ -264,7 +271,8 @@ class _$_Failed implements _Failed {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(String? message)? failed,
-    TResult? Function(List<RecipeComment?> comments, int recipeId)? loaded,
+    TResult? Function(List<RecipeComment?> comments, int recipeId, String root)?
+        loaded,
   }) {
     return failed?.call(message);
   }
@@ -274,7 +282,8 @@ class _$_Failed implements _Failed {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(String? message)? failed,
-    TResult Function(List<RecipeComment?> comments, int recipeId)? loaded,
+    TResult Function(List<RecipeComment?> comments, int recipeId, String root)?
+        loaded,
     required TResult orElse(),
   }) {
     if (failed != null) {
@@ -332,7 +341,7 @@ abstract class _$$_LoadedCopyWith<$Res> {
   factory _$$_LoadedCopyWith(_$_Loaded value, $Res Function(_$_Loaded) then) =
       __$$_LoadedCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<RecipeComment?> comments, int recipeId});
+  $Res call({List<RecipeComment?> comments, int recipeId, String root});
 }
 
 /// @nodoc
@@ -347,6 +356,7 @@ class __$$_LoadedCopyWithImpl<$Res>
   $Res call({
     Object? comments = null,
     Object? recipeId = null,
+    Object? root = null,
   }) {
     return _then(_$_Loaded(
       comments: null == comments
@@ -357,6 +367,10 @@ class __$$_LoadedCopyWithImpl<$Res>
           ? _value.recipeId
           : recipeId // ignore: cast_nullable_to_non_nullable
               as int,
+      root: null == root
+          ? _value.root
+          : root // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -365,7 +379,9 @@ class __$$_LoadedCopyWithImpl<$Res>
 
 class _$_Loaded implements _Loaded {
   const _$_Loaded(
-      {required final List<RecipeComment?> comments, required this.recipeId})
+      {required final List<RecipeComment?> comments,
+      required this.recipeId,
+      required this.root})
       : _comments = comments;
 
   final List<RecipeComment?> _comments;
@@ -378,10 +394,12 @@ class _$_Loaded implements _Loaded {
 
   @override
   final int recipeId;
+  @override
+  final String root;
 
   @override
   String toString() {
-    return 'CommentState.loaded(comments: $comments, recipeId: $recipeId)';
+    return 'CommentState.loaded(comments: $comments, recipeId: $recipeId, root: $root)';
   }
 
   @override
@@ -391,12 +409,13 @@ class _$_Loaded implements _Loaded {
             other is _$_Loaded &&
             const DeepCollectionEquality().equals(other._comments, _comments) &&
             (identical(other.recipeId, recipeId) ||
-                other.recipeId == recipeId));
+                other.recipeId == recipeId) &&
+            (identical(other.root, root) || other.root == root));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_comments), recipeId);
+  int get hashCode => Object.hash(runtimeType,
+      const DeepCollectionEquality().hash(_comments), recipeId, root);
 
   @JsonKey(ignore: true)
   @override
@@ -409,10 +428,11 @@ class _$_Loaded implements _Loaded {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(String? message) failed,
-    required TResult Function(List<RecipeComment?> comments, int recipeId)
+    required TResult Function(
+            List<RecipeComment?> comments, int recipeId, String root)
         loaded,
   }) {
-    return loaded(comments, recipeId);
+    return loaded(comments, recipeId, root);
   }
 
   @override
@@ -420,9 +440,10 @@ class _$_Loaded implements _Loaded {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(String? message)? failed,
-    TResult? Function(List<RecipeComment?> comments, int recipeId)? loaded,
+    TResult? Function(List<RecipeComment?> comments, int recipeId, String root)?
+        loaded,
   }) {
-    return loaded?.call(comments, recipeId);
+    return loaded?.call(comments, recipeId, root);
   }
 
   @override
@@ -430,11 +451,12 @@ class _$_Loaded implements _Loaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(String? message)? failed,
-    TResult Function(List<RecipeComment?> comments, int recipeId)? loaded,
+    TResult Function(List<RecipeComment?> comments, int recipeId, String root)?
+        loaded,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(comments, recipeId);
+      return loaded(comments, recipeId, root);
     }
     return orElse();
   }
@@ -477,10 +499,12 @@ class _$_Loaded implements _Loaded {
 abstract class _Loaded implements CommentState {
   const factory _Loaded(
       {required final List<RecipeComment?> comments,
-      required final int recipeId}) = _$_Loaded;
+      required final int recipeId,
+      required final String root}) = _$_Loaded;
 
   List<RecipeComment?> get comments;
   int get recipeId;
+  String get root;
   @JsonKey(ignore: true)
   _$$_LoadedCopyWith<_$_Loaded> get copyWith =>
       throw _privateConstructorUsedError;

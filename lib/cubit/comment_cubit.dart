@@ -9,14 +9,15 @@ part 'comment_cubit.freezed.dart';
 
 class CommentCubit extends Cubit<CommentState> {
   CommentCubit() : super(const CommentState.initial());
-  void getComments({required int id, required String token}) async {
+  void getComments(
+      {required int id, required String token, required String root}) async {
     if (state is _Loaded) {
       if ((state as _Loaded).recipeId != id) {
         ApiResult<List<RecipeComment?>> result =
             await RecipeServices().getRecipeComment(id: id, token: token);
         result.map(
             success: (value) =>
-                emit(_Loaded(comments: value.value, recipeId: id)),
+                emit(_Loaded(comments: value.value, recipeId: id, root: root)),
             failed: (value) => emit(_Failed(message: value.message)));
       }
     } else {
@@ -24,29 +25,22 @@ class CommentCubit extends Cubit<CommentState> {
           await RecipeServices().getRecipeComment(id: id, token: token);
       result.map(
           success: (value) =>
-              emit(_Loaded(comments: value.value, recipeId: id)),
+              emit(_Loaded(comments: value.value, recipeId: id, root: root)),
           failed: (value) => emit(_Failed(message: value.message)));
     }
   }
 
-  Future<void> sendComment({
-    required int id,
-    required String content,
-    required String token,
-  }) async {
-    if (state is _Loaded) {
-      var currentState = (state as _Loaded);
-      ApiResult<RecipeComment?> result = await RecipeServices()
-          .addRecipeComment(
-              comment: RecipeComment(content: content, recipeId: id),
-              token: token);
-      result.mapOrNull(
-        success: (value) {
-          List<RecipeComment?> comments = List.from(currentState.comments);
-          comments.insert(0, value.value);
-          emit((state as _Loaded).copyWith(comments: comments));
-        },
-      );
-    }
+  Future<void> sendComment(
+      {required int id,
+      required String content,
+      required String token,
+      required String root}) async {
+    ApiResult<RecipeComment?> result = await RecipeServices().addRecipeComment(
+        comment: RecipeComment(content: content, recipeId: id), token: token);
+    result.mapOrNull(
+      success: (value) {
+        getComments(id: id, token: token, root: root);
+      },
+    );
   }
 }
