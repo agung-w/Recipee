@@ -65,7 +65,11 @@ class RecipeCardWithCreator extends StatelessWidget {
                                 child: SaveRecipeButton(recipe: recipe)),
                             Align(
                                 alignment: Alignment.bottomLeft,
-                                child: Text(recipe.title))
+                                child: Text(
+                                  recipe.title,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ))
                           ],
                         ),
                       ),
@@ -96,9 +100,13 @@ class RecipeCardWithCreator extends StatelessWidget {
                       padding: const EdgeInsets.only(left: 4),
                       child: Align(
                           alignment: Alignment.bottomLeft,
-                          child: Text(
-                            recipe.user.name,
-                            style: Theme.of(context).textTheme.bodyMedium,
+                          child: SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.35,
+                            child: Text(
+                              recipe.user.name,
+                              style: Theme.of(context).textTheme.bodyMedium,
+                              maxLines: 1,
+                            ),
                           )),
                     ),
                   ],

@@ -134,5 +134,33 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
         }
       }
     });
+    on<_RefreshList>((event, emit) async {
+      List<Ingredient>? ingredients = state.mapOrNull(
+          loaded: (value) => value.ingredients,
+          failed: (value) => value.ingredients);
+      if (ingredients != null && ingredients.isNotEmpty) {
+        List<Ingredient> ingredientsCopy = List.from(ingredients);
+        ApiResult<List<Recipe>> result = await RecipeServices()
+            .searchByIngredients(
+                query: ingredientsCopy.map((e) => e.name).toList(),
+                token: event.token);
+        result.map(
+            success: (value) {
+              if (value.value.isEmpty) {
+                emit(_Failed(
+                    message: "no_result_searh_by_ingredient_text".tr(
+                        namedArgs: {
+                          "query": ingredientsCopy.map((e) => e.name).join(", ")
+                        }),
+                    ingredients: ingredientsCopy));
+              } else {
+                emit(_Loaded(
+                    resultList: value.value, ingredients: ingredientsCopy));
+              }
+            },
+            failed: (value) => emit(
+                _Failed(message: value.message, ingredients: ingredientsCopy)));
+      }
+    });
   }
 }

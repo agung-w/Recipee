@@ -106,8 +106,8 @@ class RecipeDetailPage extends StatelessWidget {
                                             .textTheme
                                             .headlineMedium,
                                         textAlign: TextAlign.start,
-                                        overflow: TextOverflow.ellipsis,
-                                        maxLines: 1,
+                                        overflow: TextOverflow.clip,
+                                        maxLines: 3,
                                       ),
                                       const SizedBox(
                                         height: 6,
@@ -140,8 +140,7 @@ class RecipeDetailPage extends StatelessWidget {
                                             ))
                                           },
                                           if (recipe.prepTime != null) ...{
-                                            Expanded(
-                                                child: Row(
+                                            Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.end,
                                               children: [
@@ -162,17 +161,12 @@ class RecipeDetailPage extends StatelessWidget {
                                                             .labelMedium)
                                                     .tr(namedArgs: {'s': ''}),
                                               ],
-                                            ))
+                                            )
                                           },
                                         ],
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 8),
-                                        child: Text(
-                                          recipe.description,
-                                          maxLines: 3,
-                                        ),
-                                      ),
+                                      ExpandedDescriptionBox(
+                                          text: recipe.description),
                                       Padding(
                                         padding: const EdgeInsets.only(
                                             top: 8, bottom: 16),
@@ -359,6 +353,71 @@ class RecipeDetailPage extends StatelessWidget {
           },
         );
       },
+    );
+  }
+}
+
+class ExpandedDescriptionBox extends StatefulWidget {
+  const ExpandedDescriptionBox({
+    super.key,
+    required this.text,
+  });
+
+  final String text;
+
+  @override
+  State<ExpandedDescriptionBox> createState() => _ExpandedDescriptionBoxState();
+}
+
+class _ExpandedDescriptionBoxState extends State<ExpandedDescriptionBox> {
+  bool isExpanded = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 8),
+      child: LayoutBuilder(builder: (context, constraints) {
+        final span = TextSpan(
+            text: widget.text, style: Theme.of(context).textTheme.bodySmall);
+        final tp = TextPainter(text: span, textDirection: ui.TextDirection.ltr);
+        tp.layout(maxWidth: constraints.maxWidth);
+        final numLines = tp.computeLineMetrics().length;
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              widget.text,
+              overflow: isExpanded == true ? null : TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.bodyMedium,
+              maxLines: isExpanded == true ? null : 3,
+            ),
+            if (isExpanded == false && numLines > 3) ...{
+              InkWell(
+                  onTap: () {
+                    setState(() {
+                      isExpanded = true;
+                    });
+                  },
+                  child: Text(
+                    "show_more_text",
+                    style: Theme.of(context).textTheme.labelSmall,
+                  ).tr())
+            },
+            if (isExpanded == true && numLines > 3) ...{
+              InkWell(
+                  onTap: () {
+                    setState(() {
+                      isExpanded = false;
+                    });
+                  },
+                  child: Text(
+                    "show_less_text",
+                    style: Theme.of(context).textTheme.labelSmall,
+                  ).tr())
+            }
+          ],
+        );
+      }),
     );
   }
 }

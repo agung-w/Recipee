@@ -132,14 +132,14 @@ class __$$_StartedCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? authState = null,
+    Object? authState = freezed,
   }) {
     return _then(_$_Started(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      authState: null == authState
+      authState: freezed == authState
           ? _value.authState
           : authState // ignore: cast_nullable_to_non_nullable
               as SignedIn,
@@ -168,12 +168,12 @@ class _$_Started implements _Started {
         (other.runtimeType == runtimeType &&
             other is _$_Started &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.authState, authState) ||
-                other.authState == authState));
+            const DeepCollectionEquality().equals(other.authState, authState));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, authState);
+  int get hashCode => Object.hash(
+      runtimeType, id, const DeepCollectionEquality().hash(authState));
 
   @JsonKey(ignore: true)
   @override
@@ -1167,12 +1167,12 @@ class __$$_CreateOrderCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? authState = null,
+    Object? authState = freezed,
     Object? context = null,
     Object? recipeId = null,
   }) {
     return _then(_$_CreateOrder(
-      authState: null == authState
+      authState: freezed == authState
           ? _value.authState
           : authState // ignore: cast_nullable_to_non_nullable
               as SignedIn,
@@ -1211,15 +1211,15 @@ class _$_CreateOrder implements _CreateOrder {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_CreateOrder &&
-            (identical(other.authState, authState) ||
-                other.authState == authState) &&
+            const DeepCollectionEquality().equals(other.authState, authState) &&
             (identical(other.context, context) || other.context == context) &&
             (identical(other.recipeId, recipeId) ||
                 other.recipeId == recipeId));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, authState, context, recipeId);
+  int get hashCode => Object.hash(runtimeType,
+      const DeepCollectionEquality().hash(authState), context, recipeId);
 
   @JsonKey(ignore: true)
   @override

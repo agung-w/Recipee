@@ -58,7 +58,12 @@ class HomePage extends StatelessWidget {
           body: BlocBuilder<HomePageBloc, HomePageState>(
             builder: (context, state) {
               return RefreshIndicator(
-                onRefresh: () async {},
+                onRefresh: () async {
+                  context.read<HomePageBloc>().add(HomePageEvent.refreshList(
+                          token: authState.mapOrNull(
+                        signedIn: (value) => value.token,
+                      )));
+                },
                 child: state.map(
                   initial: (value) => const Center(
                       child: Padding(
