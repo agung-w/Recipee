@@ -54,8 +54,10 @@ class RecipeDetailBloc extends Bloc<RecipeDetailEvent, RecipeDetailState> {
   Future<void> _getData(Emitter<RecipeDetailState> emit, _Started event) async {
     if (event.recipeId != null) {
       emit(const _Loading());
-      Navigator.of(event.context)
-          .push(MaterialPageRoute(builder: (_) => const RecipeDetailPage()));
+      Navigator.of(event.context).push(MaterialPageRoute(
+          builder: (_) => RecipeDetailPage(
+                root: event.root,
+              )));
       String token = (event.authState as SignedIn).token;
       ApiResult<RecipeDetail> recipe = await RecipeServices()
           .getRecipeDetail(id: event.recipeId!, token: token);
@@ -65,7 +67,8 @@ class RecipeDetailBloc extends Bloc<RecipeDetailEvent, RecipeDetailState> {
             .getComments(id: value.value.id ?? -1, token: token);
         emit(_Loaded(
             recipeDetail: value.value,
-            authState: (event.authState as SignedIn)));
+            authState: (event.authState as SignedIn),
+            root: event.root));
       }, failed: (value) {
         emit(_Failed(message: value.message));
       });

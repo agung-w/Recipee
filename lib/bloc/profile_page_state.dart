@@ -10,6 +10,7 @@ class ProfilePageState with _$ProfilePageState {
       String? savedListError,
       String? createdListError,
       bool? isSavedListLoading,
-      bool? isCreatedListLoading}) = _Loaded;
+      bool? isCreatedListLoading,
+      required String root}) = _Loaded;
   const factory ProfilePageState.failed({required String message}) = _Failed;
 }

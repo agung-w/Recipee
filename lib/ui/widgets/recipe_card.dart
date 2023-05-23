@@ -7,7 +7,9 @@ import 'package:ta_recipe_app/ui/widgets/save_recipe_button.dart';
 
 class RecipeCard extends StatelessWidget {
   final Recipe recipe;
-  const RecipeCard({super.key, required this.recipe});
+
+  final String root;
+  const RecipeCard({super.key, required this.recipe, required this.root});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +21,8 @@ class RecipeCard extends StatelessWidget {
                   RecipeDetailEvent.started(
                       authState: authState,
                       recipeId: recipe.id,
-                      context: context),
+                      context: context,
+                      root: root),
                 );
           },
           child: Container(

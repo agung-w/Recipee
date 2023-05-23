@@ -18,19 +18,22 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$ProfilePageEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String username, String? token) getProfileData,
+    required TResult Function(String username, String? token, String root)
+        getProfileData,
     required TResult Function(int recipeId, bool? isSaved) changeSaveStatus,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String username, String? token)? getProfileData,
+    TResult? Function(String username, String? token, String root)?
+        getProfileData,
     TResult? Function(int recipeId, bool? isSaved)? changeSaveStatus,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String username, String? token)? getProfileData,
+    TResult Function(String username, String? token, String root)?
+        getProfileData,
     TResult Function(int recipeId, bool? isSaved)? changeSaveStatus,
     required TResult orElse(),
   }) =>
@@ -80,7 +83,7 @@ abstract class _$$_GetProfileDataCopyWith<$Res> {
           _$_GetProfileData value, $Res Function(_$_GetProfileData) then) =
       __$$_GetProfileDataCopyWithImpl<$Res>;
   @useResult
-  $Res call({String username, String? token});
+  $Res call({String username, String? token, String root});
 }
 
 /// @nodoc
@@ -96,6 +99,7 @@ class __$$_GetProfileDataCopyWithImpl<$Res>
   $Res call({
     Object? username = null,
     Object? token = freezed,
+    Object? root = null,
   }) {
     return _then(_$_GetProfileData(
       username: null == username
@@ -106,6 +110,10 @@ class __$$_GetProfileDataCopyWithImpl<$Res>
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
               as String?,
+      root: null == root
+          ? _value.root
+          : root // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -113,16 +121,19 @@ class __$$_GetProfileDataCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_GetProfileData implements _GetProfileData {
-  const _$_GetProfileData({required this.username, required this.token});
+  const _$_GetProfileData(
+      {required this.username, required this.token, required this.root});
 
   @override
   final String username;
   @override
   final String? token;
+  @override
+  final String root;
 
   @override
   String toString() {
-    return 'ProfilePageEvent.getProfileData(username: $username, token: $token)';
+    return 'ProfilePageEvent.getProfileData(username: $username, token: $token, root: $root)';
   }
 
   @override
@@ -132,11 +143,12 @@ class _$_GetProfileData implements _GetProfileData {
             other is _$_GetProfileData &&
             (identical(other.username, username) ||
                 other.username == username) &&
-            (identical(other.token, token) || other.token == token));
+            (identical(other.token, token) || other.token == token) &&
+            (identical(other.root, root) || other.root == root));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, username, token);
+  int get hashCode => Object.hash(runtimeType, username, token, root);
 
   @JsonKey(ignore: true)
   @override
@@ -147,30 +159,33 @@ class _$_GetProfileData implements _GetProfileData {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String username, String? token) getProfileData,
+    required TResult Function(String username, String? token, String root)
+        getProfileData,
     required TResult Function(int recipeId, bool? isSaved) changeSaveStatus,
   }) {
-    return getProfileData(username, token);
+    return getProfileData(username, token, root);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String username, String? token)? getProfileData,
+    TResult? Function(String username, String? token, String root)?
+        getProfileData,
     TResult? Function(int recipeId, bool? isSaved)? changeSaveStatus,
   }) {
-    return getProfileData?.call(username, token);
+    return getProfileData?.call(username, token, root);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String username, String? token)? getProfileData,
+    TResult Function(String username, String? token, String root)?
+        getProfileData,
     TResult Function(int recipeId, bool? isSaved)? changeSaveStatus,
     required TResult orElse(),
   }) {
     if (getProfileData != null) {
-      return getProfileData(username, token);
+      return getProfileData(username, token, root);
     }
     return orElse();
   }
@@ -210,10 +225,12 @@ class _$_GetProfileData implements _GetProfileData {
 abstract class _GetProfileData implements ProfilePageEvent {
   const factory _GetProfileData(
       {required final String username,
-      required final String? token}) = _$_GetProfileData;
+      required final String? token,
+      required final String root}) = _$_GetProfileData;
 
   String get username;
   String? get token;
+  String get root;
   @JsonKey(ignore: true)
   _$$_GetProfileDataCopyWith<_$_GetProfileData> get copyWith =>
       throw _privateConstructorUsedError;
@@ -292,7 +309,8 @@ class _$_ChangeSaveStatus implements _ChangeSaveStatus {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String username, String? token) getProfileData,
+    required TResult Function(String username, String? token, String root)
+        getProfileData,
     required TResult Function(int recipeId, bool? isSaved) changeSaveStatus,
   }) {
     return changeSaveStatus(recipeId, isSaved);
@@ -301,7 +319,8 @@ class _$_ChangeSaveStatus implements _ChangeSaveStatus {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String username, String? token)? getProfileData,
+    TResult? Function(String username, String? token, String root)?
+        getProfileData,
     TResult? Function(int recipeId, bool? isSaved)? changeSaveStatus,
   }) {
     return changeSaveStatus?.call(recipeId, isSaved);
@@ -310,7 +329,8 @@ class _$_ChangeSaveStatus implements _ChangeSaveStatus {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String username, String? token)? getProfileData,
+    TResult Function(String username, String? token, String root)?
+        getProfileData,
     TResult Function(int recipeId, bool? isSaved)? changeSaveStatus,
     required TResult orElse(),
   }) {
@@ -376,7 +396,8 @@ mixin _$ProfilePageState {
             String? savedListError,
             String? createdListError,
             bool? isSavedListLoading,
-            bool? isCreatedListLoading)
+            bool? isCreatedListLoading,
+            String root)
         loaded,
     required TResult Function(String message) failed,
   }) =>
@@ -391,7 +412,8 @@ mixin _$ProfilePageState {
             String? savedListError,
             String? createdListError,
             bool? isSavedListLoading,
-            bool? isCreatedListLoading)?
+            bool? isCreatedListLoading,
+            String root)?
         loaded,
     TResult? Function(String message)? failed,
   }) =>
@@ -406,7 +428,8 @@ mixin _$ProfilePageState {
             String? savedListError,
             String? createdListError,
             bool? isSavedListLoading,
-            bool? isCreatedListLoading)?
+            bool? isCreatedListLoading,
+            String root)?
         loaded,
     TResult Function(String message)? failed,
     required TResult orElse(),
@@ -499,7 +522,8 @@ class _$_Loading implements _Loading {
             String? savedListError,
             String? createdListError,
             bool? isSavedListLoading,
-            bool? isCreatedListLoading)
+            bool? isCreatedListLoading,
+            String root)
         loaded,
     required TResult Function(String message) failed,
   }) {
@@ -517,7 +541,8 @@ class _$_Loading implements _Loading {
             String? savedListError,
             String? createdListError,
             bool? isSavedListLoading,
-            bool? isCreatedListLoading)?
+            bool? isCreatedListLoading,
+            String root)?
         loaded,
     TResult? Function(String message)? failed,
   }) {
@@ -535,7 +560,8 @@ class _$_Loading implements _Loading {
             String? savedListError,
             String? createdListError,
             bool? isSavedListLoading,
-            bool? isCreatedListLoading)?
+            bool? isCreatedListLoading,
+            String root)?
         loaded,
     TResult Function(String message)? failed,
     required TResult orElse(),
@@ -597,7 +623,8 @@ abstract class _$$_LoadedCopyWith<$Res> {
       String? savedListError,
       String? createdListError,
       bool? isSavedListLoading,
-      bool? isCreatedListLoading});
+      bool? isCreatedListLoading,
+      String root});
 }
 
 /// @nodoc
@@ -617,6 +644,7 @@ class __$$_LoadedCopyWithImpl<$Res>
     Object? createdListError = freezed,
     Object? isSavedListLoading = freezed,
     Object? isCreatedListLoading = freezed,
+    Object? root = null,
   }) {
     return _then(_$_Loaded(
       user: null == user
@@ -647,6 +675,10 @@ class __$$_LoadedCopyWithImpl<$Res>
           ? _value.isCreatedListLoading
           : isCreatedListLoading // ignore: cast_nullable_to_non_nullable
               as bool?,
+      root: null == root
+          ? _value.root
+          : root // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -661,7 +693,8 @@ class _$_Loaded implements _Loaded {
       this.savedListError,
       this.createdListError,
       this.isSavedListLoading,
-      this.isCreatedListLoading})
+      this.isCreatedListLoading,
+      required this.root})
       : _savedList = savedList,
         _createdList = createdList;
 
@@ -691,10 +724,12 @@ class _$_Loaded implements _Loaded {
   final bool? isSavedListLoading;
   @override
   final bool? isCreatedListLoading;
+  @override
+  final String root;
 
   @override
   String toString() {
-    return 'ProfilePageState.loaded(user: $user, savedList: $savedList, createdList: $createdList, savedListError: $savedListError, createdListError: $createdListError, isSavedListLoading: $isSavedListLoading, isCreatedListLoading: $isCreatedListLoading)';
+    return 'ProfilePageState.loaded(user: $user, savedList: $savedList, createdList: $createdList, savedListError: $savedListError, createdListError: $createdListError, isSavedListLoading: $isSavedListLoading, isCreatedListLoading: $isCreatedListLoading, root: $root)';
   }
 
   @override
@@ -714,7 +749,8 @@ class _$_Loaded implements _Loaded {
             (identical(other.isSavedListLoading, isSavedListLoading) ||
                 other.isSavedListLoading == isSavedListLoading) &&
             (identical(other.isCreatedListLoading, isCreatedListLoading) ||
-                other.isCreatedListLoading == isCreatedListLoading));
+                other.isCreatedListLoading == isCreatedListLoading) &&
+            (identical(other.root, root) || other.root == root));
   }
 
   @override
@@ -726,7 +762,8 @@ class _$_Loaded implements _Loaded {
       savedListError,
       createdListError,
       isSavedListLoading,
-      isCreatedListLoading);
+      isCreatedListLoading,
+      root);
 
   @JsonKey(ignore: true)
   @override
@@ -745,12 +782,13 @@ class _$_Loaded implements _Loaded {
             String? savedListError,
             String? createdListError,
             bool? isSavedListLoading,
-            bool? isCreatedListLoading)
+            bool? isCreatedListLoading,
+            String root)
         loaded,
     required TResult Function(String message) failed,
   }) {
     return loaded(user, savedList, createdList, savedListError,
-        createdListError, isSavedListLoading, isCreatedListLoading);
+        createdListError, isSavedListLoading, isCreatedListLoading, root);
   }
 
   @override
@@ -764,12 +802,13 @@ class _$_Loaded implements _Loaded {
             String? savedListError,
             String? createdListError,
             bool? isSavedListLoading,
-            bool? isCreatedListLoading)?
+            bool? isCreatedListLoading,
+            String root)?
         loaded,
     TResult? Function(String message)? failed,
   }) {
     return loaded?.call(user, savedList, createdList, savedListError,
-        createdListError, isSavedListLoading, isCreatedListLoading);
+        createdListError, isSavedListLoading, isCreatedListLoading, root);
   }
 
   @override
@@ -783,14 +822,15 @@ class _$_Loaded implements _Loaded {
             String? savedListError,
             String? createdListError,
             bool? isSavedListLoading,
-            bool? isCreatedListLoading)?
+            bool? isCreatedListLoading,
+            String root)?
         loaded,
     TResult Function(String message)? failed,
     required TResult orElse(),
   }) {
     if (loaded != null) {
       return loaded(user, savedList, createdList, savedListError,
-          createdListError, isSavedListLoading, isCreatedListLoading);
+          createdListError, isSavedListLoading, isCreatedListLoading, root);
     }
     return orElse();
   }
@@ -838,7 +878,8 @@ abstract class _Loaded implements ProfilePageState {
       final String? savedListError,
       final String? createdListError,
       final bool? isSavedListLoading,
-      final bool? isCreatedListLoading}) = _$_Loaded;
+      final bool? isCreatedListLoading,
+      required final String root}) = _$_Loaded;
 
   UserDetail get user;
   List<Recipe> get savedList;
@@ -847,6 +888,7 @@ abstract class _Loaded implements ProfilePageState {
   String? get createdListError;
   bool? get isSavedListLoading;
   bool? get isCreatedListLoading;
+  String get root;
   @JsonKey(ignore: true)
   _$$_LoadedCopyWith<_$_Loaded> get copyWith =>
       throw _privateConstructorUsedError;
@@ -922,7 +964,8 @@ class _$_Failed implements _Failed {
             String? savedListError,
             String? createdListError,
             bool? isSavedListLoading,
-            bool? isCreatedListLoading)
+            bool? isCreatedListLoading,
+            String root)
         loaded,
     required TResult Function(String message) failed,
   }) {
@@ -940,7 +983,8 @@ class _$_Failed implements _Failed {
             String? savedListError,
             String? createdListError,
             bool? isSavedListLoading,
-            bool? isCreatedListLoading)?
+            bool? isCreatedListLoading,
+            String root)?
         loaded,
     TResult? Function(String message)? failed,
   }) {
@@ -958,7 +1002,8 @@ class _$_Failed implements _Failed {
             String? savedListError,
             String? createdListError,
             bool? isSavedListLoading,
-            bool? isCreatedListLoading)?
+            bool? isCreatedListLoading,
+            String root)?
         loaded,
     TResult Function(String message)? failed,
     required TResult orElse(),

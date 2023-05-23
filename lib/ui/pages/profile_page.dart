@@ -7,17 +7,16 @@ import 'package:ta_recipe_app/ui/widgets/follower_count_text.dart';
 import 'package:ta_recipe_app/ui/widgets/loading_indicator.dart';
 import 'package:ta_recipe_app/ui/widgets/profile_recipe_list.dart';
 
-class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+class ProfilePage extends StatelessWidget {
+  final String root;
 
-  @override
-  State<ProfilePage> createState() => _ProfilePageState();
-}
+  const ProfilePage({super.key, required this.root});
 
-class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProfilePageBloc, ProfilePageState>(
+      buildWhen: (previous, current) =>
+          current.mapOrNull(loaded: (value) => value.root) == root,
       builder: (context, state) {
         return state.map(failed: (value) {
           return Scaffold(
@@ -77,6 +76,9 @@ class _ProfilePageState extends State<ProfilePage> {
                 body: TabBarView(
                   children: [
                     BlocBuilder<ProfilePageBloc, ProfilePageState>(
+                      buildWhen: (previous, current) =>
+                          current.mapOrNull(loaded: (value) => value.root) ==
+                          root,
                       builder: (context, state) {
                         return state.mapOrNull(
                               loaded: (value) {
@@ -101,6 +103,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   if (value.createdList.isNotEmpty) {
                                     return ProfileRecipeList(
                                       list: value.createdList,
+                                      root: root,
                                     );
                                   } else {
                                     return SingleChildScrollView(
@@ -120,6 +123,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       },
                     ),
                     BlocBuilder<ProfilePageBloc, ProfilePageState>(
+                      buildWhen: (previous, current) =>
+                          current.mapOrNull(loaded: (value) => value.root) ==
+                          root,
                       builder: (context, state) {
                         return state.mapOrNull(
                               loaded: (value) {
@@ -144,6 +150,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   if (value.savedList.isNotEmpty) {
                                     return ProfileRecipeList(
                                       list: value.savedList,
+                                      root: root,
                                     );
                                   } else {
                                     return SingleChildScrollView(

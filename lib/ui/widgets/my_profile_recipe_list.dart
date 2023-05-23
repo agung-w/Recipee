@@ -33,6 +33,7 @@ class MyProfileRecipeList extends StatelessWidget {
         children: list.map((e) {
           return RecipeCardWithCreator(
             recipe: e,
+            root: "my_profile",
           );
         }).toList(),
       ),

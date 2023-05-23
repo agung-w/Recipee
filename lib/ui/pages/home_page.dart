@@ -103,6 +103,7 @@ class HomePage extends StatelessWidget {
                           children: value.resultList
                               .map((e) => RecipeCard(
                                     recipe: e,
+                                    root: 'home',
                                   ))
                               .toList()),
                     ),

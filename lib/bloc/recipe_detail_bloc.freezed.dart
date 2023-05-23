@@ -19,7 +19,7 @@ mixin _$RecipeDetailEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(UserAuthenticationState authState, int? recipeId,
-            BuildContext context)
+            BuildContext context, String root)
         started,
     required TResult Function(BuildContext context) deleteRecipe,
     required TResult Function(BuildContext context) editRecipe,
@@ -29,7 +29,7 @@ mixin _$RecipeDetailEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(UserAuthenticationState authState, int? recipeId,
-            BuildContext context)?
+            BuildContext context, String root)?
         started,
     TResult? Function(BuildContext context)? deleteRecipe,
     TResult? Function(BuildContext context)? editRecipe,
@@ -39,7 +39,7 @@ mixin _$RecipeDetailEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(UserAuthenticationState authState, int? recipeId,
-            BuildContext context)?
+            BuildContext context, String root)?
         started,
     TResult Function(BuildContext context)? deleteRecipe,
     TResult Function(BuildContext context)? editRecipe,
@@ -99,7 +99,10 @@ abstract class _$$_StartedCopyWith<$Res> {
       __$$_StartedCopyWithImpl<$Res>;
   @useResult
   $Res call(
-      {UserAuthenticationState authState, int? recipeId, BuildContext context});
+      {UserAuthenticationState authState,
+      int? recipeId,
+      BuildContext context,
+      String root});
 
   $UserAuthenticationStateCopyWith<$Res> get authState;
 }
@@ -117,6 +120,7 @@ class __$$_StartedCopyWithImpl<$Res>
     Object? authState = null,
     Object? recipeId = freezed,
     Object? context = null,
+    Object? root = null,
   }) {
     return _then(_$_Started(
       authState: null == authState
@@ -131,6 +135,10 @@ class __$$_StartedCopyWithImpl<$Res>
           ? _value.context
           : context // ignore: cast_nullable_to_non_nullable
               as BuildContext,
+      root: null == root
+          ? _value.root
+          : root // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 
@@ -147,7 +155,10 @@ class __$$_StartedCopyWithImpl<$Res>
 
 class _$_Started implements _Started {
   const _$_Started(
-      {required this.authState, required this.recipeId, required this.context});
+      {required this.authState,
+      required this.recipeId,
+      required this.context,
+      required this.root});
 
   @override
   final UserAuthenticationState authState;
@@ -155,10 +166,12 @@ class _$_Started implements _Started {
   final int? recipeId;
   @override
   final BuildContext context;
+  @override
+  final String root;
 
   @override
   String toString() {
-    return 'RecipeDetailEvent.started(authState: $authState, recipeId: $recipeId, context: $context)';
+    return 'RecipeDetailEvent.started(authState: $authState, recipeId: $recipeId, context: $context, root: $root)';
   }
 
   @override
@@ -170,11 +183,13 @@ class _$_Started implements _Started {
                 other.authState == authState) &&
             (identical(other.recipeId, recipeId) ||
                 other.recipeId == recipeId) &&
-            (identical(other.context, context) || other.context == context));
+            (identical(other.context, context) || other.context == context) &&
+            (identical(other.root, root) || other.root == root));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, authState, recipeId, context);
+  int get hashCode =>
+      Object.hash(runtimeType, authState, recipeId, context, root);
 
   @JsonKey(ignore: true)
   @override
@@ -186,33 +201,33 @@ class _$_Started implements _Started {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(UserAuthenticationState authState, int? recipeId,
-            BuildContext context)
+            BuildContext context, String root)
         started,
     required TResult Function(BuildContext context) deleteRecipe,
     required TResult Function(BuildContext context) editRecipe,
     required TResult Function(RecipeDetail recipe) refreshDetail,
   }) {
-    return started(authState, recipeId, context);
+    return started(authState, recipeId, context, root);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(UserAuthenticationState authState, int? recipeId,
-            BuildContext context)?
+            BuildContext context, String root)?
         started,
     TResult? Function(BuildContext context)? deleteRecipe,
     TResult? Function(BuildContext context)? editRecipe,
     TResult? Function(RecipeDetail recipe)? refreshDetail,
   }) {
-    return started?.call(authState, recipeId, context);
+    return started?.call(authState, recipeId, context, root);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(UserAuthenticationState authState, int? recipeId,
-            BuildContext context)?
+            BuildContext context, String root)?
         started,
     TResult Function(BuildContext context)? deleteRecipe,
     TResult Function(BuildContext context)? editRecipe,
@@ -220,7 +235,7 @@ class _$_Started implements _Started {
     required TResult orElse(),
   }) {
     if (started != null) {
-      return started(authState, recipeId, context);
+      return started(authState, recipeId, context, root);
     }
     return orElse();
   }
@@ -267,11 +282,13 @@ abstract class _Started implements RecipeDetailEvent {
   const factory _Started(
       {required final UserAuthenticationState authState,
       required final int? recipeId,
-      required final BuildContext context}) = _$_Started;
+      required final BuildContext context,
+      required final String root}) = _$_Started;
 
   UserAuthenticationState get authState;
   int? get recipeId;
   BuildContext get context;
+  String get root;
   @JsonKey(ignore: true)
   _$$_StartedCopyWith<_$_Started> get copyWith =>
       throw _privateConstructorUsedError;
@@ -342,7 +359,7 @@ class _$_DeleteRecipe implements _DeleteRecipe {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(UserAuthenticationState authState, int? recipeId,
-            BuildContext context)
+            BuildContext context, String root)
         started,
     required TResult Function(BuildContext context) deleteRecipe,
     required TResult Function(BuildContext context) editRecipe,
@@ -355,7 +372,7 @@ class _$_DeleteRecipe implements _DeleteRecipe {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(UserAuthenticationState authState, int? recipeId,
-            BuildContext context)?
+            BuildContext context, String root)?
         started,
     TResult? Function(BuildContext context)? deleteRecipe,
     TResult? Function(BuildContext context)? editRecipe,
@@ -368,7 +385,7 @@ class _$_DeleteRecipe implements _DeleteRecipe {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(UserAuthenticationState authState, int? recipeId,
-            BuildContext context)?
+            BuildContext context, String root)?
         started,
     TResult Function(BuildContext context)? deleteRecipe,
     TResult Function(BuildContext context)? editRecipe,
@@ -494,7 +511,7 @@ class _$_EditRecipe implements _EditRecipe {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(UserAuthenticationState authState, int? recipeId,
-            BuildContext context)
+            BuildContext context, String root)
         started,
     required TResult Function(BuildContext context) deleteRecipe,
     required TResult Function(BuildContext context) editRecipe,
@@ -507,7 +524,7 @@ class _$_EditRecipe implements _EditRecipe {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(UserAuthenticationState authState, int? recipeId,
-            BuildContext context)?
+            BuildContext context, String root)?
         started,
     TResult? Function(BuildContext context)? deleteRecipe,
     TResult? Function(BuildContext context)? editRecipe,
@@ -520,7 +537,7 @@ class _$_EditRecipe implements _EditRecipe {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(UserAuthenticationState authState, int? recipeId,
-            BuildContext context)?
+            BuildContext context, String root)?
         started,
     TResult Function(BuildContext context)? deleteRecipe,
     TResult Function(BuildContext context)? editRecipe,
@@ -646,7 +663,7 @@ class _$_RefreshDetail implements _RefreshDetail {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(UserAuthenticationState authState, int? recipeId,
-            BuildContext context)
+            BuildContext context, String root)
         started,
     required TResult Function(BuildContext context) deleteRecipe,
     required TResult Function(BuildContext context) editRecipe,
@@ -659,7 +676,7 @@ class _$_RefreshDetail implements _RefreshDetail {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(UserAuthenticationState authState, int? recipeId,
-            BuildContext context)?
+            BuildContext context, String root)?
         started,
     TResult? Function(BuildContext context)? deleteRecipe,
     TResult? Function(BuildContext context)? editRecipe,
@@ -672,7 +689,7 @@ class _$_RefreshDetail implements _RefreshDetail {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(UserAuthenticationState authState, int? recipeId,
-            BuildContext context)?
+            BuildContext context, String root)?
         started,
     TResult Function(BuildContext context)? deleteRecipe,
     TResult Function(BuildContext context)? editRecipe,
@@ -738,7 +755,8 @@ mixin _$RecipeDetailState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(RecipeDetail recipeDetail, SignedIn authState)
+    required TResult Function(
+            RecipeDetail recipeDetail, SignedIn authState, String root)
         loaded,
     required TResult Function(String? message) failed,
   }) =>
@@ -746,14 +764,18 @@ mixin _$RecipeDetailState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(RecipeDetail recipeDetail, SignedIn authState)? loaded,
+    TResult? Function(
+            RecipeDetail recipeDetail, SignedIn authState, String root)?
+        loaded,
     TResult? Function(String? message)? failed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(RecipeDetail recipeDetail, SignedIn authState)? loaded,
+    TResult Function(
+            RecipeDetail recipeDetail, SignedIn authState, String root)?
+        loaded,
     TResult Function(String? message)? failed,
     required TResult orElse(),
   }) =>
@@ -838,7 +860,8 @@ class _$_Loading implements _Loading {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(RecipeDetail recipeDetail, SignedIn authState)
+    required TResult Function(
+            RecipeDetail recipeDetail, SignedIn authState, String root)
         loaded,
     required TResult Function(String? message) failed,
   }) {
@@ -849,7 +872,9 @@ class _$_Loading implements _Loading {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(RecipeDetail recipeDetail, SignedIn authState)? loaded,
+    TResult? Function(
+            RecipeDetail recipeDetail, SignedIn authState, String root)?
+        loaded,
     TResult? Function(String? message)? failed,
   }) {
     return loading?.call();
@@ -859,7 +884,9 @@ class _$_Loading implements _Loading {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(RecipeDetail recipeDetail, SignedIn authState)? loaded,
+    TResult Function(
+            RecipeDetail recipeDetail, SignedIn authState, String root)?
+        loaded,
     TResult Function(String? message)? failed,
     required TResult orElse(),
   }) {
@@ -913,7 +940,7 @@ abstract class _$$_LoadedCopyWith<$Res> {
   factory _$$_LoadedCopyWith(_$_Loaded value, $Res Function(_$_Loaded) then) =
       __$$_LoadedCopyWithImpl<$Res>;
   @useResult
-  $Res call({RecipeDetail recipeDetail, SignedIn authState});
+  $Res call({RecipeDetail recipeDetail, SignedIn authState, String root});
 }
 
 /// @nodoc
@@ -928,6 +955,7 @@ class __$$_LoadedCopyWithImpl<$Res>
   $Res call({
     Object? recipeDetail = null,
     Object? authState = null,
+    Object? root = null,
   }) {
     return _then(_$_Loaded(
       recipeDetail: null == recipeDetail
@@ -938,6 +966,10 @@ class __$$_LoadedCopyWithImpl<$Res>
           ? _value.authState
           : authState // ignore: cast_nullable_to_non_nullable
               as SignedIn,
+      root: null == root
+          ? _value.root
+          : root // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -945,16 +977,21 @@ class __$$_LoadedCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Loaded implements _Loaded {
-  const _$_Loaded({required this.recipeDetail, required this.authState});
+  const _$_Loaded(
+      {required this.recipeDetail,
+      required this.authState,
+      required this.root});
 
   @override
   final RecipeDetail recipeDetail;
   @override
   final SignedIn authState;
+  @override
+  final String root;
 
   @override
   String toString() {
-    return 'RecipeDetailState.loaded(recipeDetail: $recipeDetail, authState: $authState)';
+    return 'RecipeDetailState.loaded(recipeDetail: $recipeDetail, authState: $authState, root: $root)';
   }
 
   @override
@@ -965,11 +1002,12 @@ class _$_Loaded implements _Loaded {
             (identical(other.recipeDetail, recipeDetail) ||
                 other.recipeDetail == recipeDetail) &&
             (identical(other.authState, authState) ||
-                other.authState == authState));
+                other.authState == authState) &&
+            (identical(other.root, root) || other.root == root));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, recipeDetail, authState);
+  int get hashCode => Object.hash(runtimeType, recipeDetail, authState, root);
 
   @JsonKey(ignore: true)
   @override
@@ -981,33 +1019,38 @@ class _$_Loaded implements _Loaded {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(RecipeDetail recipeDetail, SignedIn authState)
+    required TResult Function(
+            RecipeDetail recipeDetail, SignedIn authState, String root)
         loaded,
     required TResult Function(String? message) failed,
   }) {
-    return loaded(recipeDetail, authState);
+    return loaded(recipeDetail, authState, root);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(RecipeDetail recipeDetail, SignedIn authState)? loaded,
+    TResult? Function(
+            RecipeDetail recipeDetail, SignedIn authState, String root)?
+        loaded,
     TResult? Function(String? message)? failed,
   }) {
-    return loaded?.call(recipeDetail, authState);
+    return loaded?.call(recipeDetail, authState, root);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(RecipeDetail recipeDetail, SignedIn authState)? loaded,
+    TResult Function(
+            RecipeDetail recipeDetail, SignedIn authState, String root)?
+        loaded,
     TResult Function(String? message)? failed,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(recipeDetail, authState);
+      return loaded(recipeDetail, authState, root);
     }
     return orElse();
   }
@@ -1050,10 +1093,12 @@ class _$_Loaded implements _Loaded {
 abstract class _Loaded implements RecipeDetailState {
   const factory _Loaded(
       {required final RecipeDetail recipeDetail,
-      required final SignedIn authState}) = _$_Loaded;
+      required final SignedIn authState,
+      required final String root}) = _$_Loaded;
 
   RecipeDetail get recipeDetail;
   SignedIn get authState;
+  String get root;
   @JsonKey(ignore: true)
   _$$_LoadedCopyWith<_$_Loaded> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1122,7 +1167,8 @@ class _$_Failed implements _Failed {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(RecipeDetail recipeDetail, SignedIn authState)
+    required TResult Function(
+            RecipeDetail recipeDetail, SignedIn authState, String root)
         loaded,
     required TResult Function(String? message) failed,
   }) {
@@ -1133,7 +1179,9 @@ class _$_Failed implements _Failed {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(RecipeDetail recipeDetail, SignedIn authState)? loaded,
+    TResult? Function(
+            RecipeDetail recipeDetail, SignedIn authState, String root)?
+        loaded,
     TResult? Function(String? message)? failed,
   }) {
     return failed?.call(message);
@@ -1143,7 +1191,9 @@ class _$_Failed implements _Failed {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(RecipeDetail recipeDetail, SignedIn authState)? loaded,
+    TResult Function(
+            RecipeDetail recipeDetail, SignedIn authState, String root)?
+        loaded,
     TResult Function(String? message)? failed,
     required TResult orElse(),
   }) {

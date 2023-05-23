@@ -23,7 +23,8 @@ import 'package:ta_recipe_app/ui/widgets/save_recipe_button.dart';
 import 'package:ta_recipe_app/ui/widgets/small_user_profile_pic.dart';
 
 class RecipeDetailPage extends StatelessWidget {
-  const RecipeDetailPage({super.key});
+  final String root;
+  const RecipeDetailPage({super.key, required this.root});
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +32,8 @@ class RecipeDetailPage extends StatelessWidget {
     ScrollController controller = ScrollController();
 
     return BlocBuilder<RecipeDetailBloc, RecipeDetailState>(
+      buildWhen: (previous, current) =>
+          current.mapOrNull(loaded: (value) => value.root) == root,
       builder: (context, state) {
         return state.map(
           loaded: (value) {
@@ -226,6 +229,7 @@ class RecipeDetailPage extends StatelessWidget {
                                     child: CreatorContainer(
                                       user: value.recipeDetail.user,
                                       authState: value.authState,
+                                      root: root,
                                     )),
                               ),
                               SliverToBoxAdapter(
@@ -599,8 +603,13 @@ class _CommentSheet extends StatelessWidget {
 }
 
 class CreatorContainer extends StatelessWidget {
+  final String root;
+
   const CreatorContainer(
-      {super.key, required this.user, required this.authState});
+      {super.key,
+      required this.user,
+      required this.authState,
+      required this.root});
   final User user;
   final SignedIn authState;
 
@@ -608,11 +617,14 @@ class CreatorContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (_) => const ProfilePage()));
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (_) => ProfilePage(
+                  root: root,
+                )));
         context.read<ProfilePageBloc>().add(ProfilePageEvent.getProfileData(
             username: user.username,
-            token: authState.mapOrNull(signedIn: (value) => value.token)));
+            token: authState.mapOrNull(signedIn: (value) => value.token),
+            root: root));
       },
       child: Row(
         children: [

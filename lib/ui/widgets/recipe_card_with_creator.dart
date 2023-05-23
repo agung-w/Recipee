@@ -10,10 +10,10 @@ import 'package:ta_recipe_app/ui/widgets/small_user_profile_pic.dart';
 
 class RecipeCardWithCreator extends StatelessWidget {
   final Recipe recipe;
-  const RecipeCardWithCreator({
-    super.key,
-    required this.recipe,
-  });
+
+  final String root;
+  const RecipeCardWithCreator(
+      {super.key, required this.recipe, required this.root});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,8 @@ class RecipeCardWithCreator extends StatelessWidget {
                         RecipeDetailEvent.started(
                             authState: authState,
                             recipeId: recipe.id,
-                            context: context),
+                            context: context,
+                            root: root),
                       );
                 },
                 child: Container(
@@ -75,13 +76,16 @@ class RecipeCardWithCreator extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_) => const ProfilePage()));
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (_) => ProfilePage(
+                          root: root,
+                        )));
                 context.read<ProfilePageBloc>().add(
                     ProfilePageEvent.getProfileData(
                         username: recipe.user.username,
                         token: authState.mapOrNull(
-                            signedIn: (value) => value.token)));
+                            signedIn: (value) => value.token),
+                        root: root));
               },
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(2, 4, 8, 0),

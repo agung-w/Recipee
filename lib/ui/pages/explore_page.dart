@@ -104,6 +104,7 @@ class ExplorePage extends StatelessWidget {
                                 children: value.recipeList
                                     .map((e) => RecipeCard(
                                           recipe: e,
+                                          root: 'explore',
                                         ))
                                     .toList()),
                           ),

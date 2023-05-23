@@ -7,7 +7,9 @@ import 'package:ta_recipe_app/ui/widgets/recipe_card_with_creator.dart';
 
 class ProfileRecipeList extends StatelessWidget {
   final List<Recipe> list;
-  const ProfileRecipeList({super.key, required this.list});
+
+  final String root;
+  const ProfileRecipeList({super.key, required this.list, required this.root});
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +35,7 @@ class ProfileRecipeList extends StatelessWidget {
         children: list.map((e) {
           return RecipeCardWithCreator(
             recipe: e,
+            root: root,
           );
         }).toList(),
       ),

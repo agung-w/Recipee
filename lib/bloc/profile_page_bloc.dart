@@ -22,7 +22,8 @@ class ProfilePageBloc extends Bloc<ProfilePageEvent, ProfilePageState> {
                 isSavedListLoading: true,
                 isCreatedListLoading: true,
                 createdList: [],
-                savedList: []));
+                savedList: [],
+                root: event.root));
           },
           failed: (_) =>
               emit(_Failed(message: "cant_load_this_user_profile".tr())));
