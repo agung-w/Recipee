@@ -501,10 +501,7 @@ class RecipeDetailAppBar extends StatelessWidget {
 
 class _CommentSection extends StatelessWidget {
   const _CommentSection(
-      {super.key,
-      required this.recipe,
-      required this.root,
-      required this.authState});
+      {required this.recipe, required this.root, required this.authState});
 
   final RecipeDetail recipe;
   final String root;
@@ -530,6 +527,8 @@ class _CommentSection extends StatelessWidget {
               ).tr(),
               InkWell(
                 onTap: () {
+                  context.read<CommentCubit>().getComments(
+                      id: recipe.id!, token: authState.token, root: root);
                   showModalBottomSheet(
                       isScrollControlled: true,
                       isDismissible: true,
@@ -625,38 +624,49 @@ class _CommentSheet extends StatelessWidget {
                   )
                 ],
               ),
-              body: commentState.map(
-                loaded: (value) {
-                  return Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
-                    child: Column(
-                      children: [
-                        Expanded(
-                          child: ListView(
-                            controller: scrollController,
-                            children: value.comments
-                                .map((e) => Padding(
-                                      padding: const EdgeInsets.only(bottom: 8),
-                                      child: CommentTile(comment: e!),
-                                    ))
-                                .toList(),
-                          ),
+              body: BlocBuilder<CommentCubit, CommentState>(
+                buildWhen: (previous, current) =>
+                    current.mapOrNull(
+                      loaded: (value) => value.root,
+                    ) ==
+                    root,
+                builder: (context, state) {
+                  return state.map(
+                    loaded: (value) {
+                      return Padding(
+                        padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
+                        child: Column(
+                          children: [
+                            Expanded(
+                              child: ListView(
+                                controller: scrollController,
+                                children: value.comments
+                                    .map((e) => Padding(
+                                          padding:
+                                              const EdgeInsets.only(bottom: 8),
+                                          child: CommentTile(comment: e!),
+                                        ))
+                                    .toList(),
+                              ),
+                            ),
+                            CommentInputForm(
+                              recipe: recipe,
+                              user: user,
+                              root: root,
+                              comments: value.comments,
+                            ),
+                          ],
                         ),
-                        CommentInputForm(
-                          recipe: recipe,
-                          user: user,
-                          root: root,
-                        ),
-                      ],
+                      );
+                    },
+                    initial: (_) => LoadingIndicator(
+                      size: 16,
+                      color: Theme.of(context).colorScheme.primary,
                     ),
+                    failed: (value) =>
+                        Center(child: Text(value.message.toString())),
                   );
                 },
-                initial: (_) => LoadingIndicator(
-                  size: 16,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-                failed: (value) =>
-                    Center(child: Text(value.message.toString())),
               )),
         );
       },
@@ -718,11 +728,13 @@ class CommentInputForm extends StatefulWidget {
       {super.key,
       required this.recipe,
       required this.user,
-      required this.root});
+      required this.root,
+      required this.comments});
 
   final RecipeDetail recipe;
   final SignedIn user;
   final String root;
+  final List<RecipeComment?> comments;
 
   @override
   State<CommentInputForm> createState() => _CommentInputFormState();
@@ -759,8 +771,8 @@ class _CommentInputFormState extends State<CommentInputForm> {
                         id: widget.recipe.id!,
                         content: controller.text,
                         token: widget.user.token,
-                        root: widget.root);
-
+                        root: widget.root,
+                        comments: widget.comments);
                     setState(() {
                       controller.clear();
                     });

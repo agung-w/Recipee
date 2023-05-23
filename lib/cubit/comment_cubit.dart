@@ -16,16 +16,20 @@ class CommentCubit extends Cubit<CommentState> {
         ApiResult<List<RecipeComment?>> result =
             await RecipeServices().getRecipeComment(id: id, token: token);
         result.map(
-            success: (value) =>
-                emit(_Loaded(comments: value.value, recipeId: id, root: root)),
+            success: (value) => emit(_Loaded(
+                comments: value.value.reversed.toList(),
+                recipeId: id,
+                root: root)),
             failed: (value) => emit(_Failed(message: value.message)));
       }
     } else {
       ApiResult<List<RecipeComment?>> result =
           await RecipeServices().getRecipeComment(id: id, token: token);
       result.map(
-          success: (value) =>
-              emit(_Loaded(comments: value.value, recipeId: id, root: root)),
+          success: (value) => emit(_Loaded(
+              comments: value.value.reversed.toList(),
+              recipeId: id,
+              root: root)),
           failed: (value) => emit(_Failed(message: value.message)));
     }
   }
@@ -34,12 +38,15 @@ class CommentCubit extends Cubit<CommentState> {
       {required int id,
       required String content,
       required String token,
-      required String root}) async {
+      required String root,
+      required List<RecipeComment?> comments}) async {
     ApiResult<RecipeComment?> result = await RecipeServices().addRecipeComment(
         comment: RecipeComment(content: content, recipeId: id), token: token);
     result.mapOrNull(
       success: (value) {
-        getComments(id: id, token: token, root: root);
+        List<RecipeComment?> commentList = List.from(comments);
+        commentList.insert(0, value.value);
+        emit(_Loaded(comments: commentList, recipeId: id, root: root));
       },
     );
   }
