@@ -105,5 +105,8 @@
   "order_history_list_is_empty_text":"Belum memiliki riwayat pesanan",
   "no_result_searh_by_ingredient_text":"Tidak dapat menemukan resep yang mengandung {query}",
   "edit_recipe_success_message":"Berhasil menyimpan perubahan",
-  "cant_get_this_recipe_detail_now_text":"Tidak dapat membuat detail resep"
+  "cant_get_this_recipe_detail_now_text":"Tidak dapat membuat detail resep",
+  "enter_phone_number_text":"Masukkan No. telepon",
+  "please_set_recipient_contact_text":"Harap isi kontak penerima",
+  "enter_valid_phone_number_text":"Masukkan No. telepon yang valid"
 }

@@ -266,9 +266,9 @@ class _EditAddressPageState extends State<EditAddressPage> {
                               String patttern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
                               RegExp regExp = RegExp(patttern);
                               if (value == null || value.isEmpty) {
-                                return 'enter_phone_number_text';
+                                return 'enter_phone_number_text'.tr();
                               } else if (!regExp.hasMatch(value)) {
-                                return 'enter_valid_phone_number_text';
+                                return 'enter_valid_phone_number_text'.tr();
                               }
                               return null;
                             },
